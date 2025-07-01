@@ -10,11 +10,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { CheckCircle } from "lucide-react"
+import { CheckCircle, Calculator } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import QuoteCalculator from "@/components/contact/QuoteCalculator"
 
 const formSchema = z.object({
   // Contact Information
@@ -106,20 +108,34 @@ export default function QuotePage() {
     <section className="py-12">
       <div className="container">
         <div className="max-w-4xl mx-auto text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Request a Quote</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Get a Quote</h1>
           <p className="text-lg text-muted-foreground">
-            Get a custom quote for your truck repair, equipment, or hauling needs
+            Use our instant calculator for common services or request a custom quote
           </p>
         </div>
 
-        <Card className="max-w-4xl mx-auto">
-          <CardHeader>
-            <CardTitle>Quote Request Form</CardTitle>
-            <CardDescription>
-              Fill out the form below and we&apos;ll provide you with a detailed quote within 24 hours
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+        <Tabs defaultValue="calculator" className="max-w-4xl mx-auto">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="calculator">
+              <Calculator className="h-4 w-4 mr-2" />
+              Instant Calculator
+            </TabsTrigger>
+            <TabsTrigger value="custom">Custom Quote Request</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="calculator" className="mt-6">
+            <QuoteCalculator />
+          </TabsContent>
+          
+          <TabsContent value="custom" className="mt-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Custom Quote Request</CardTitle>
+                <CardDescription>
+                  Fill out the form below and we&apos;ll provide you with a detailed quote within 24 hours
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
             {submitSuccess ? (
               <Alert className="mb-6">
                 <CheckCircle className="h-4 w-4" />
@@ -461,8 +477,10 @@ export default function QuotePage() {
                 </form>
               </Form>
             )}
-          </CardContent>
-        </Card>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </section>
   )
