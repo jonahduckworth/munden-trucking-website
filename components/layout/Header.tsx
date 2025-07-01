@@ -141,10 +141,10 @@ const Header = () => {
               <Phone className="h-4 w-4" />
               <span>1-800-XXX-XXXX</span>
             </a>
+            <ThemeToggle />
             <Button asChild variant="secondary">
               <Link href="/quote">Get Quote</Link>
             </Button>
-            <ThemeToggle />
           </div>
         </nav>
 
