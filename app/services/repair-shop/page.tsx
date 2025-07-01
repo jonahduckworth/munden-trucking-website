@@ -4,15 +4,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CheckCircle, Clock, Shield, Wrench, Award, Users } from "lucide-react"
+import { CheckCircle, Clock, Shield, Wrench, Award, Users, ChevronLeft, Phone, AlertTriangle } from "lucide-react"
 import StructuredData, { serviceSchema, breadcrumbSchema } from "@/components/seo/StructuredData"
+import { ServiceCard } from "@/components/services/ServiceCard"
+import { CTASection } from "@/components/services/CTASection"
 
 export const metadata: Metadata = {
-  title: "Truck & Equipment Repair Shop",
-  description: "Professional truck and heavy equipment repair services in Kamloops. Certified technicians, modern facilities, and 24/7 emergency service.",
+  title: "Truck & Equipment Repair Shop | Full-Service Facility | Munden Truck",
+  description: "Professional truck and heavy equipment repair services in Kamloops. Certified technicians, modern facilities, and 24/7 emergency service. All makes & models.",
   openGraph: {
     title: "Truck & Equipment Repair Shop | Munden Truck & Equipment Ltd.",
-    description: "Professional truck and heavy equipment repair services in Kamloops, BC.",
+    description: "Professional truck and heavy equipment repair services in Kamloops, BC. CVIP certified, 24/7 emergency service.",
   },
 }
 
@@ -123,28 +125,57 @@ export default function RepairShopPage() {
       
       <section className="py-12">
         <div className="container">
-          {/* Hero Section */}
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <Badge className="mb-4" variant="secondary">Full-Service Repair Shop</Badge>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Truck & Equipment Repair Services
-            </h1>
-            <p className="text-lg text-muted-foreground mb-8">
-              Professional repair services for all makes and models of trucks and heavy equipment. 
-              Our certified technicians use the latest diagnostic tools to keep your fleet running efficiently.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild>
-                <Link href="/quote">Get Repair Quote</Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <a href="tel:1-800-XXX-XXXX">
-                  <Clock className="mr-2 h-4 w-4" />
-                  Book Appointment
-                </a>
-              </Button>
+          <div className="max-w-6xl mx-auto">
+            <Button variant="ghost" asChild className="mb-8">
+              <Link href="/services">
+                <ChevronLeft className="mr-2 h-4 w-4" />
+                Back to Services
+              </Link>
+            </Button>
+
+            {/* Hero Section */}
+            <div className="text-center mb-12">
+              <Badge className="mb-4" variant="secondary">Full-Service Repair Shop</Badge>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                Truck & Equipment Repair Services
+              </h1>
+              <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
+                Professional repair services for all makes and models of trucks and heavy equipment. 
+                Our certified technicians use the latest diagnostic tools to keep your fleet running efficiently.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" asChild>
+                  <Link href="/booking">
+                    <Clock className="mr-2 h-4 w-4" />
+                    Book Service
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <a href="tel:1-800-XXX-XXXX">
+                    <Phone className="mr-2 h-4 w-4" />
+                    Call: 1-800-XXX-XXXX
+                  </a>
+                </Button>
+              </div>
             </div>
-          </div>
+
+            {/* Emergency Service Alert */}
+            <Card className="mb-12 border-orange-500/50 bg-orange-50/50 dark:bg-orange-950/20">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <AlertTriangle className="h-8 w-8 text-orange-600 dark:text-orange-400 flex-shrink-0" />
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-lg mb-1">24/7 Emergency Service Available</h3>
+                    <p className="text-muted-foreground">Breakdown on the road? Our emergency response team is ready to help anytime, anywhere.</p>
+                  </div>
+                  <Button variant="outline" asChild className="hidden sm:flex">
+                    <Link href="/services/repair-shop/emergency-repairs">
+                      Emergency Service
+                    </Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
 
           {/* Features Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
@@ -209,63 +240,80 @@ export default function RepairShopPage() {
             </Tabs>
           </div>
 
-          {/* Service Links */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-            <Button variant="outline" asChild className="h-auto p-4">
-              <Link href="/services/repair-shop/commercial-vehicle-inspections" className="text-center">
-                <div>
-                  <Wrench className="h-6 w-6 mx-auto mb-2" />
-                  <div className="font-medium">CVIP Inspections</div>
-                  <div className="text-xs text-muted-foreground">Government certified facility</div>
-                </div>
-              </Link>
-            </Button>
-            <Button variant="outline" asChild className="h-auto p-4">
-              <Link href="/services/repair-shop/preventive-maintenance" className="text-center">
-                <div>
-                  <Shield className="h-6 w-6 mx-auto mb-2" />
-                  <div className="font-medium">Preventive Maintenance</div>
-                  <div className="text-xs text-muted-foreground">Keep your fleet running</div>
-                </div>
-              </Link>
-            </Button>
-            <Button variant="outline" asChild className="h-auto p-4">
-              <Link href="/services/repair-shop/emergency-repairs" className="text-center">
-                <div>
-                  <Clock className="h-6 w-6 mx-auto mb-2" />
-                  <div className="font-medium">Emergency Service</div>
-                  <div className="text-xs text-muted-foreground">24/7 breakdown assistance</div>
-                </div>
-              </Link>
-            </Button>
-            <Button variant="outline" asChild className="h-auto p-4">
-              <Link href="/services/repair-shop/fleet-services" className="text-center">
-                <div>
-                  <Users className="h-6 w-6 mx-auto mb-2" />
-                  <div className="font-medium">Fleet Programs</div>
-                  <div className="text-xs text-muted-foreground">Volume discounts available</div>
-                </div>
-              </Link>
-            </Button>
+          {/* Service Cards */}
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold text-center mb-8">Our Specialized Services</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <ServiceCard
+                title="CVIP Inspections"
+                description="Government certified facility for commercial vehicle inspections"
+                icon={CheckCircle}
+                href="/services/repair-shop/commercial-vehicle-inspections"
+                features={[
+                  "Same-day service available",
+                  "Certified inspectors",
+                  "Detailed reports"
+                ]}
+                badge="Certified"
+              />
+              <ServiceCard
+                title="Preventive Maintenance"
+                description="Scheduled maintenance programs to maximize uptime"
+                icon={Shield}
+                href="/services/repair-shop/preventive-maintenance"
+                features={[
+                  "Custom schedules",
+                  "Cost savings",
+                  "Extended warranties"
+                ]}
+              />
+              <ServiceCard
+                title="Emergency Repairs"
+                description="24/7 breakdown service when you need it most"
+                icon={AlertTriangle}
+                href="/services/repair-shop/emergency-repairs"
+                features={[
+                  "24/7 availability",
+                  "Mobile units",
+                  "Fast response"
+                ]}
+                badge="24/7"
+              />
+              <ServiceCard
+                title="Fleet Services"
+                description="Comprehensive programs for fleet operators"
+                icon={Users}
+                href="/services/repair-shop/fleet-services"
+                features={[
+                  "Priority service",
+                  "Volume discounts",
+                  "Fleet analytics"
+                ]}
+                badge="New"
+              />
+            </div>
           </div>
 
           {/* CTA Section */}
-          <Card className="bg-primary text-primary-foreground">
-            <CardContent className="p-8 text-center">
-              <h3 className="text-2xl font-bold mb-4">Ready to Schedule Your Service?</h3>
-              <p className="mb-6 opacity-90">
-                Our expert technicians are standing by to help keep your equipment running at peak performance.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="secondary" asChild>
-                  <a href="tel:1-800-XXX-XXXX">Call: 1-800-XXX-XXXX</a>
-                </Button>
-                <Button size="lg" variant="outline" asChild className="bg-transparent border-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                  <Link href="/contact">Contact Form</Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <CTASection
+            title="Ready to Schedule Your Service?"
+            description="Our expert technicians are standing by to help keep your equipment running at peak performance."
+            variant="primary"
+            actions={[
+              {
+                label: "Book Service Online",
+                href: "/booking",
+                variant: "secondary"
+              },
+              {
+                label: "Call: 1-800-XXX-XXXX",
+                href: "tel:1-800-XXX-XXXX",
+                variant: "outline",
+                icon: Phone
+              }
+            ]}
+          />
+          </div>
         </div>
       </section>
     </>

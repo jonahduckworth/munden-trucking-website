@@ -57,6 +57,9 @@ const Header = () => {
                     <ListItem href="/services/repair-shop/emergency-repairs" title="Emergency Repairs">
                       24/7 emergency breakdown service
                     </ListItem>
+                    <ListItem href="/services/repair-shop/fleet-services" title="Fleet Services">
+                      Comprehensive fleet management programs
+                    </ListItem>
                     <ListItem href="/services/log-hauling" title="Log Hauling">
                       Professional log transportation services
                     </ListItem>

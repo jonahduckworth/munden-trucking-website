@@ -2,8 +2,12 @@ import { Metadata } from "next"
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Truck, CheckCircle, AlertCircle, Settings, Trees, ShoppingCart, ArrowRight } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Truck, CheckCircle, AlertCircle, Settings, Trees, ShoppingCart, ArrowRight, Phone, Users } from "lucide-react"
 import StructuredData, { breadcrumbSchema } from "@/components/seo/StructuredData"
+import { ServiceCard } from "@/components/services/ServiceCard"
+import { CTASection } from "@/components/services/CTASection"
+import TestimonialsCarousel from "@/components/sections/TestimonialsCarousel"
 
 export const metadata: Metadata = {
   title: "Our Services | Truck Repair, CVIP Inspections & Equipment",
@@ -20,6 +24,7 @@ const services = [
     description: "Full-service repair shop for all makes and models of trucks and heavy equipment with certified technicians.",
     icon: Truck,
     href: "/services/repair-shop",
+    badge: "Most Popular",
     features: [
       "All makes and models",
       "Certified technicians",
@@ -64,6 +69,19 @@ const services = [
     ]
   },
   {
+    title: "Fleet Services",
+    description: "Comprehensive fleet management programs with priority service and volume discounts.",
+    icon: Users,
+    href: "/services/repair-shop/fleet-services",
+    badge: "New",
+    features: [
+      "Priority scheduling",
+      "Volume discounts",
+      "Fleet analytics",
+      "Dedicated support"
+    ]
+  },
+  {
     title: "Log Hauling Services",
     description: "Professional log transportation throughout the BC Interior with modern equipment.",
     icon: Trees,
@@ -99,7 +117,7 @@ export default function ServicesPage() {
     <>
       <StructuredData data={breadcrumbSchema(breadcrumbs)} />
       
-      <section className="py-12 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-12">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h1>
@@ -109,55 +127,73 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {services.map((service) => {
-              const Icon = service.icon
-              return (
-                <Card key={service.title} className="h-full hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="p-2 bg-primary/10 rounded-lg">
-                        <Icon className="h-6 w-6 text-primary" />
-                      </div>
-                      <CardTitle className="text-xl">{service.title}</CardTitle>
-                    </div>
-                    <CardDescription>{service.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 mb-4">
-                      {service.features.map((feature) => (
-                        <li key={feature} className="flex items-center text-sm">
-                          <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    <Button asChild className="w-full group">
-                      <Link href={service.href}>
-                        Learn More
-                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              )
-            })}
+          {/* Service Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 max-w-4xl mx-auto">
+            <Card className="text-center">
+              <CardContent className="p-6">
+                <div className="text-3xl font-bold text-primary mb-1">24/7</div>
+                <p className="text-sm text-muted-foreground">Emergency Service</p>
+              </CardContent>
+            </Card>
+            <Card className="text-center">
+              <CardContent className="p-6">
+                <div className="text-3xl font-bold text-primary mb-1">15+</div>
+                <p className="text-sm text-muted-foreground">Certified Technicians</p>
+              </CardContent>
+            </Card>
+            <Card className="text-center">
+              <CardContent className="p-6">
+                <div className="text-3xl font-bold text-primary mb-1">100%</div>
+                <p className="text-sm text-muted-foreground">CVIP Certified</p>
+              </CardContent>
+            </Card>
+            <Card className="text-center">
+              <CardContent className="p-6">
+                <div className="text-3xl font-bold text-primary mb-1">30+</div>
+                <p className="text-sm text-muted-foreground">Years Experience</p>
+              </CardContent>
+            </Card>
           </div>
 
-          <div className="bg-primary text-primary-foreground rounded-lg p-8 text-center">
-            <h2 className="text-2xl font-bold mb-4">Need Immediate Assistance?</h2>
-            <p className="mb-6 text-lg opacity-90">
-              Our team is ready to help with all your truck and equipment needs.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" asChild>
-                <a href="tel:1-800-XXX-XXXX">Call Now: 1-800-XXX-XXXX</a>
-              </Button>
-              <Button size="lg" variant="outline" asChild className="bg-transparent border-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                <Link href="/quote">Request Quote</Link>
-              </Button>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {services.map((service) => (
+              <ServiceCard
+                key={service.title}
+                title={service.title}
+                description={service.description}
+                icon={service.icon}
+                href={service.href}
+                features={service.features}
+                badge={service.badge}
+              />
+            ))}
           </div>
+
+          {/* Testimonials */}
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold text-center mb-8">What Our Customers Say</h2>
+            <TestimonialsCarousel />
+          </div>
+
+          {/* CTA Section */}
+          <CTASection
+            title="Need Immediate Assistance?"
+            description="Our team is ready to help with all your truck and equipment needs."
+            variant="primary"
+            actions={[
+              {
+                label: "Call Now: 1-800-XXX-XXXX",
+                href: "tel:1-800-XXX-XXXX",
+                variant: "secondary",
+                icon: Phone
+              },
+              {
+                label: "Request Quote",
+                href: "/quote",
+                variant: "outline"
+              }
+            ]}
+          />
         </div>
       </section>
     </>
