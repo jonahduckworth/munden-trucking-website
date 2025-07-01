@@ -81,10 +81,11 @@ const EquipmentShowcase = () => {
               <Link href={item.href}>
                 <Card className="h-full hover:shadow-xl transition-all duration-300 group cursor-pointer overflow-hidden">
                   <div className="relative h-64 overflow-hidden bg-gray-100">
-                    {/* We'll add actual images later */}
-                    <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                      <span className="text-gray-500">Equipment Image</span>
-                    </div>
+                    <img 
+                      src={item.image} 
+                      alt={item.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                     {item.isNew && (
                       <Badge className="absolute top-4 right-4">NEW</Badge>
                     )}

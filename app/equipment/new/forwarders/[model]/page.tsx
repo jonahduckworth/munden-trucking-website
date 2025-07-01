@@ -258,10 +258,11 @@ export default async function ForwarderDetailPage({ params }: Props) {
             {/* Image Section */}
             <div className="space-y-4">
               <div className="aspect-video relative bg-muted rounded-lg overflow-hidden">
-                {/* In production, use actual images */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Truck className="h-32 w-32 text-muted-foreground/20" />
-                </div>
+                <img 
+                  src={forwarder.image} 
+                  alt={forwarder.model}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="grid grid-cols-4 gap-2">
                 {/* Thumbnail images would go here */}
