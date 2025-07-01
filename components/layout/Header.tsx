@@ -125,13 +125,6 @@ const Header = () => {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link href="/quote" className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent text-white dark:text-foreground px-4 py-2 text-sm font-medium transition-colors hover:bg-white/10 dark:hover:bg-accent dark:hover:text-accent-foreground focus:bg-white/10 dark:focus:bg-accent dark:focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-white/10 dark:data-[active]:bg-accent/50 data-[state=open]:bg-white/10 dark:data-[state=open]:bg-accent/50">
-                    Get Quote
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
 
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
@@ -148,10 +141,10 @@ const Header = () => {
               <Phone className="h-4 w-4" />
               <span>1-800-XXX-XXXX</span>
             </a>
-            <ThemeToggle />
             <Button asChild variant="secondary">
               <Link href="/quote">Get Quote</Link>
             </Button>
+            <ThemeToggle />
           </div>
         </nav>
 
@@ -176,7 +169,6 @@ const Header = () => {
             <Link href="/careers" className="text-sm font-medium text-white dark:text-foreground">Careers</Link>
             <Link href="/quote" className="text-sm font-medium text-white dark:text-foreground">Get Quote</Link>
             <Link href="/contact" className="text-sm font-medium text-white dark:text-foreground">Contact</Link>
-            <Link href="/quote" className="text-sm font-medium text-white dark:text-foreground">Get Quote</Link>
             <a href="tel:1-800-XXX-XXXX" className="text-sm font-medium text-white dark:text-foreground">Call: 1-800-XXX-XXXX</a>
           </nav>
         </div>
