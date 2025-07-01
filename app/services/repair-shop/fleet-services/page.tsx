@@ -121,19 +121,9 @@ export default function FleetServicesPage() {
   const serviceData = serviceSchema({
     name: "Fleet Management Services",
     description: "Comprehensive fleet management and maintenance services for commercial vehicles in Kamloops and the BC Interior.",
-    provider: {
-      name: "Munden Truck & Equipment Ltd.",
-      telephone: "+1-800-XXX-XXXX",
-      address: {
-        streetAddress: "123 Main Street",
-        addressLocality: "Kamloops",
-        addressRegion: "BC",
-        postalCode: "V2C 1A1",
-        addressCountry: "CA"
-      }
-    },
-    areaServed: "Kamloops and BC Interior",
-    serviceType: ["Fleet Management", "Preventive Maintenance", "Commercial Vehicle Services"]
+    provider: "Munden Truck & Equipment Ltd.",
+    areaServed: "200km",
+    serviceType: "Fleet Management"
   })
 
   const breadcrumbs = [

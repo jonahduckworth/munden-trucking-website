@@ -92,7 +92,7 @@ const QuoteCalculator = () => {
   const [customDescription, setCustomDescription] = useState("")
 
   const calculateQuote = () => {
-    if (!selectedService) return { subtotal: 0, tax: 0, total: 0 }
+    if (!selectedService || selectedService === 'placeholder') return { subtotal: 0, tax: 0, total: 0 }
 
     const service = servicePricing[selectedService as keyof typeof servicePricing]
     if (!service) return { subtotal: 0, tax: 0, total: 0 }
@@ -121,7 +121,7 @@ const QuoteCalculator = () => {
   }
 
   const quote = calculateQuote()
-  const service = selectedService ? servicePricing[selectedService as keyof typeof servicePricing] : null
+  const service = (selectedService && selectedService !== 'placeholder') ? servicePricing[selectedService as keyof typeof servicePricing] : null
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-CA', {
@@ -161,7 +161,7 @@ const QuoteCalculator = () => {
                 <SelectValue placeholder="Choose a service" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="" disabled>Select a service</SelectItem>
+                <SelectItem value="placeholder" disabled>Select a service</SelectItem>
                 {Object.entries(servicePricing).map(([key, service]) => (
                   <SelectItem key={key} value={key}>
                     {service.name}
@@ -190,8 +190,7 @@ const QuoteCalculator = () => {
           )}
 
           {/* Labor Hours */}
-          {service && service.hourly
-Rate > 0 && (
+          {service && service.hourlyRate > 0 && (
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -251,7 +250,7 @@ Rate > 0 && (
           </div>
 
           {/* Quote Summary */}
-          {selectedService && (
+          {selectedService && selectedService !== 'placeholder' && (
             <div className="border-t pt-6 space-y-4">
               <h3 className="font-semibold flex items-center gap-2">
                 <DollarSign className="h-4 w-4" />
@@ -301,7 +300,7 @@ Rate > 0 && (
           )}
 
           {/* Actions */}
-          {selectedService && (
+          {selectedService && selectedService !== 'placeholder' && (
             <div className="flex flex-col sm:flex-row gap-3 pt-4">
               <Button className="flex-1" asChild>
                 <a href="/quote">Request Official Quote</a>

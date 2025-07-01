@@ -114,12 +114,12 @@ const EquipmentComparison = ({ preselectedIds = [] }: EquipmentComparisonProps) 
 
   const handleEquipmentSelect = (index: number, equipmentId: string) => {
     const newSelection = [...selectedEquipment]
-    newSelection[index] = equipmentId
+    newSelection[index] = equipmentId === 'none' ? '' : equipmentId
     setSelectedEquipment(newSelection)
   }
 
   const selectedEquipmentData = selectedEquipment
-    .map(id => allEquipment.find(eq => eq.id === id))
+    .map(id => id ? allEquipment.find(eq => eq.id === id) : null)
     .filter(Boolean)
 
   // Get all unique spec keys
@@ -175,7 +175,7 @@ const EquipmentComparison = ({ preselectedIds = [] }: EquipmentComparisonProps) 
                     <SelectValue placeholder="Select equipment" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">None</SelectItem>
+                    <SelectItem value="none">None</SelectItem>
                     {allEquipment.map((eq) => (
                       <SelectItem 
                         key={eq.id} 
@@ -226,9 +226,10 @@ const EquipmentComparison = ({ preselectedIds = [] }: EquipmentComparisonProps) 
                         </div>
                       </td>
                       {selectedEquipmentData.map((eq) => {
-                        const value = eq!.specs[specKey as keyof typeof eq.specs]
+                        if (!eq) return null
+                        const value = eq.specs[specKey as keyof typeof eq.specs]
                         return (
-                          <td key={eq!.id} className="p-3 border-b">
+                          <td key={eq.id} className="p-3 border-b">
                             {value || '-'}
                           </td>
                         )

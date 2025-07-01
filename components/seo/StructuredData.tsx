@@ -1,20 +1,24 @@
 import { FC } from 'react'
-import Head from 'next/head'
 
 interface StructuredDataProps {
-  data: Record<string, unknown>
+  data: Record<string, unknown> | Record<string, unknown>[]
 }
 
-const StructuredData: FC<StructuredDataProps> = ({ data }) => {
+export const StructuredData: FC<StructuredDataProps> = ({ data }) => {
+  const jsonLd = Array.isArray(data) ? data : [data]
+  
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(data),
-        }}
-      />
-    </Head>
+    <>
+      {jsonLd.map((item, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(item),
+          }}
+        />
+      ))}
+    </>
   )
 }
 
@@ -189,4 +193,4 @@ export const organizationSchema = {
   }
 }
 
-export default StructuredData
+export { StructuredData as default }

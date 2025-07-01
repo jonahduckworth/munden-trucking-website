@@ -40,7 +40,7 @@ const getArticle = (slug: string) => {
     }
   }
   
-  return articles[slug] || null
+  return articles[slug as keyof typeof articles] || null
 }
 
 type Props = {
