@@ -152,4 +152,41 @@ export const breadcrumbSchema = (items: Array<{ name: string; url: string }>) =>
   }))
 })
 
+export const faqSchema = (faqs: Array<{ question: string; answer: string }>) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+})
+
+export const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Munden Truck & Equipment Ltd.",
+  "url": "https://mundentruckequipment.com",
+  "logo": "https://mundentruckequipment.com/images/logo.png",
+  "description": "Professional truck repair, CVIP inspections, log hauling services, and authorized EcoLog dealer serving the BC Interior.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Industrial Way",
+    "addressLocality": "Kamloops",
+    "addressRegion": "BC",
+    "postalCode": "V2C 1A1",
+    "addressCountry": "CA"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+1-800-XXX-XXXX",
+    "contactType": "customer service",
+    "availableLanguage": "en",
+    "areaServed": "CA"
+  }
+}
+
 export default StructuredData

@@ -1,6 +1,7 @@
 import Hero from "@/components/sections/Hero"
 import ServicesGrid from "@/components/sections/ServicesGrid"
 import EquipmentShowcase from "@/components/sections/EquipmentShowcase"
+import TestimonialsCarousel from "@/components/sections/TestimonialsCarousel"
 import CTABanner from "@/components/sections/CTABanner"
 import PartnersLogos from "@/components/sections/PartnersLogos"
 import StructuredData, { localBusinessSchema } from "@/components/seo/StructuredData"
@@ -12,6 +13,7 @@ export default function Home() {
       <Hero />
       <ServicesGrid />
       <EquipmentShowcase />
+      <TestimonialsCarousel />
       <CTABanner />
       <PartnersLogos />
     </>

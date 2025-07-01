@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Trees, Truck, DollarSign, Shield, Phone, ArrowRight } from "lucide-react"
 import StructuredData, { breadcrumbSchema } from "@/components/seo/StructuredData"
+import EquipmentComparison from "@/components/equipment/EquipmentComparison"
 
 export const metadata: Metadata = {
   title: "Forestry Equipment - EcoLog Harvesters & Forwarders",
@@ -261,6 +262,11 @@ export default function EquipmentPage() {
               </div>
             </TabsContent>
           </Tabs>
+
+          {/* Equipment Comparison Section */}
+          <div className="mt-12">
+            <EquipmentComparison />
+          </div>
 
           {/* CTA Section */}
           <Card className="mt-12 bg-primary text-primary-foreground">

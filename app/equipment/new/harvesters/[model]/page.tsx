@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { Phone, Download, FileText, Calendar, Shield, Fuel } from "lucide-react"
 import StructuredData, { productSchema, breadcrumbSchema } from "@/components/seo/StructuredData"
+import FinanceCalculator from "@/components/equipment/FinanceCalculator"
 
 // In a real app, this would come from a database
 const harvesters = {
@@ -251,43 +252,50 @@ export default async function HarvesterDetailPage({ params }: { params: Promise<
             </TabsContent>
             
             <TabsContent value="financing" className="mt-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Financing Options</CardTitle>
-                  <CardDescription>Flexible financing to fit your budget</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
-                    <div>
-                      <h3 className="font-semibold mb-2">Available Financing Plans</h3>
-                      <ul className="space-y-2">
-                        <li className="flex items-center gap-2">
-                          <Calendar className="h-4 w-4 text-muted-foreground" />
-                          <span>12-60 month term options</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <FileText className="h-4 w-4 text-muted-foreground" />
-                          <span>Competitive interest rates</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <Shield className="h-4 w-4 text-muted-foreground" />
-                          <span>No prepayment penalties</span>
-                        </li>
-                      </ul>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Financing Options</CardTitle>
+                    <CardDescription>Flexible financing to fit your budget</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      <div>
+                        <h3 className="font-semibold mb-2">Available Financing Plans</h3>
+                        <ul className="space-y-2">
+                          <li className="flex items-center gap-2">
+                            <Calendar className="h-4 w-4 text-muted-foreground" />
+                            <span>12-84 month term options</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <FileText className="h-4 w-4 text-muted-foreground" />
+                            <span>Competitive interest rates</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <Shield className="h-4 w-4 text-muted-foreground" />
+                            <span>No prepayment penalties</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold mb-2">Leasing Options</h3>
+                        <p className="text-muted-foreground mb-4">
+                          We offer flexible leasing programs including operating leases and 
+                          lease-to-own options. Contact our finance team for details.
+                        </p>
+                        <Button asChild>
+                          <Link href="/contact">Contact Finance Team</Link>
+                        </Button>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-semibold mb-2">Leasing Options</h3>
-                      <p className="text-muted-foreground mb-4">
-                        We offer flexible leasing programs including operating leases and 
-                        lease-to-own options. Contact our finance team for details.
-                      </p>
-                      <Button asChild>
-                        <Link href="/contact">Contact Finance Team</Link>
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+                
+                <FinanceCalculator 
+                  equipmentPrice={450000}
+                  equipmentName={harvester.fullName}
+                />
+              </div>
             </TabsContent>
           </Tabs>
 
