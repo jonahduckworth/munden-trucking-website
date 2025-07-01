@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { CheckCircle, Calculator } from "lucide-react"
+import { CheckCircle, Calculator, AlertTriangle, Phone } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -113,6 +113,27 @@ export default function QuotePage() {
             Use our instant calculator for common services or request a custom quote
           </p>
         </div>
+
+        {/* Emergency Call Card */}
+        <Card className="mb-6 max-w-4xl mx-auto border-red-200 bg-red-50 dark:border-red-900 dark:bg-red-950">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <AlertTriangle className="h-6 w-6 text-red-600 flex-shrink-0" />
+              <div className="flex-1">
+                <h3 className="font-semibold text-red-900 dark:text-red-100">Emergency Service Needed?</h3>
+                <p className="text-sm text-red-700 dark:text-red-200">
+                  For immediate roadside assistance or urgent repairs, call us now
+                </p>
+              </div>
+              <Button asChild className="bg-red-600 hover:bg-red-700 text-white">
+                <a href="tel:1-800-XXX-XXXX">
+                  <Phone className="mr-2 h-4 w-4" />
+                  Call Now
+                </a>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
 
         <Tabs defaultValue="calculator" className="max-w-4xl mx-auto">
           <TabsList className="grid w-full grid-cols-2">

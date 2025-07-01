@@ -304,9 +304,9 @@ export default async function ForwarderDetailPage({ params }: Props) {
                     </a>
                   </Button>
                   <Button size="lg" variant="outline" asChild>
-                    <Link href="/booking">
+                    <Link href="/quote">
                       <Calendar className="mr-2 h-4 w-4" />
-                      Book Demo
+                      Request Demo Quote
                     </Link>
                   </Button>
                 </div>

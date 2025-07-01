@@ -140,9 +140,9 @@ export default function CVIPInspectionsPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild>
-                  <Link href="/booking">
+                  <Link href="/quote">
                     <CalendarDays className="mr-2 h-4 w-4" />
-                    Book Inspection
+                    Get Inspection Quote
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
@@ -348,8 +348,8 @@ export default function CVIPInspectionsPage() {
             variant="primary"
             actions={[
               {
-                label: "Book Online",
-                href: "/booking",
+                label: "Get Quote Online",
+                href: "/quote",
                 variant: "secondary"
               },
               {

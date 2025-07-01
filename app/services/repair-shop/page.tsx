@@ -145,9 +145,9 @@ export default function RepairShopPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild>
-                  <Link href="/booking">
+                  <Link href="/quote">
                     <Clock className="mr-2 h-4 w-4" />
-                    Book Service
+                    Get Quote
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
@@ -301,8 +301,8 @@ export default function RepairShopPage() {
             variant="primary"
             actions={[
               {
-                label: "Book Service Online",
-                href: "/booking",
+                label: "Get Service Quote",
+                href: "/quote",
                 variant: "secondary"
               },
               {

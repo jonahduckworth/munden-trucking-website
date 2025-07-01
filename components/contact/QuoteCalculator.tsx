@@ -306,7 +306,7 @@ const QuoteCalculator = () => {
                 <a href="/quote">Request Official Quote</a>
               </Button>
               <Button variant="outline" className="flex-1" asChild>
-                <a href="/booking">Book This Service</a>
+                <a href="/quote">Request Service Quote</a>
               </Button>
             </div>
           )}

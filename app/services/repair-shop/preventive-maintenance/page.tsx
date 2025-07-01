@@ -177,9 +177,9 @@ export default function PreventiveMaintenancePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild>
-                  <Link href="/booking">
+                  <Link href="/quote">
                     <Calendar className="mr-2 h-4 w-4" />
-                    Schedule Maintenance
+                    Get Maintenance Quote
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
@@ -269,7 +269,7 @@ export default function PreventiveMaintenancePage() {
                                 All work performed by certified technicians
                               </p>
                               <Button asChild>
-                                <Link href="/booking">Book This Package</Link>
+                                <Link href="/quote">Get Package Quote</Link>
                               </Button>
                             </div>
                           </div>
@@ -377,8 +377,8 @@ export default function PreventiveMaintenancePage() {
               variant="primary"
               actions={[
                 {
-                  label: "Schedule Assessment",
-                  href: "/booking",
+                  label: "Get Assessment Quote",
+                  href: "/quote",
                   variant: "secondary"
                 },
                 {
