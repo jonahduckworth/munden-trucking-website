@@ -87,15 +87,36 @@ const Header = () => {
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent text-white dark:text-foreground data-[state=open]:bg-white/10 dark:data-[state=open]:bg-accent hover:bg-white/10 dark:hover:bg-accent">About</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4">
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-[.75fr_1fr]">
+                    <li className="row-span-3">
+                      <NavigationMenuLink asChild>
+                        <Link
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                          href="/about"
+                        >
+                          <div className="mb-2 mt-4 text-lg font-medium">
+                            About Munden
+                          </div>
+                          <p className="text-sm leading-tight text-muted-foreground">
+                            Learn about our 30-year journey and commitment to excellence
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
                     <ListItem href="/about/company" title="Our Company">
-                      Learn about our history and values
+                      Discover our history and values
                     </ListItem>
                     <ListItem href="/about/team" title="Our Team">
                       Meet our experienced professionals
                     </ListItem>
                     <ListItem href="/about/partners" title="Industry Partners">
                       Our trusted business partnerships
+                    </ListItem>
+                    <ListItem href="/news" title="News & Updates">
+                      Latest news and industry insights
+                    </ListItem>
+                    <ListItem href="/careers" title="Careers">
+                      Join our growing team
                     </ListItem>
                   </ul>
                 </NavigationMenuContent>
@@ -148,6 +169,8 @@ const Header = () => {
             <Link href="/services" className="text-sm font-medium text-white dark:text-foreground">Services</Link>
             <Link href="/equipment" className="text-sm font-medium text-white dark:text-foreground">Equipment</Link>
             <Link href="/about" className="text-sm font-medium text-white dark:text-foreground">About</Link>
+            <Link href="/news" className="text-sm font-medium text-white dark:text-foreground">News</Link>
+            <Link href="/careers" className="text-sm font-medium text-white dark:text-foreground">Careers</Link>
             <Link href="/booking" className="text-sm font-medium text-white dark:text-foreground">Book Service</Link>
             <Link href="/contact" className="text-sm font-medium text-white dark:text-foreground">Contact</Link>
             <Link href="/quote" className="text-sm font-medium text-white dark:text-foreground">Get Quote</Link>
