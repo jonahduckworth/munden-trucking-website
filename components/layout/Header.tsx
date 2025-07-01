@@ -5,6 +5,7 @@ import { useState } from "react"
 import { Menu, X, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -18,10 +19,10 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-munden-burgundy dark:bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-munden-burgundy/95 dark:supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
-          <span className="text-xl font-bold">Munden Truck & Equipment</span>
+          <span className="text-xl font-bold text-white dark:text-foreground">Munden Truck & Equipment</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -29,7 +30,7 @@ const Header = () => {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Services</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent text-white dark:text-foreground data-[state=open]:bg-white/10 dark:data-[state=open]:bg-accent hover:bg-white/10 dark:hover:bg-accent">Services</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                     <li className="row-span-3">
@@ -67,7 +68,7 @@ const Header = () => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Equipment</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent text-white dark:text-foreground data-[state=open]:bg-white/10 dark:data-[state=open]:bg-accent hover:bg-white/10 dark:hover:bg-accent">Equipment</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                     <ListItem href="/equipment/new/harvesters" title="Harvesters">
@@ -84,7 +85,7 @@ const Header = () => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger>About</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent text-white dark:text-foreground data-[state=open]:bg-white/10 dark:data-[state=open]:bg-accent hover:bg-white/10 dark:hover:bg-accent">About</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4">
                     <ListItem href="/about/company" title="Our Company">
@@ -102,7 +103,7 @@ const Header = () => {
 
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <Link href="/contact" className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                  <Link href="/contact" className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent text-white dark:text-foreground px-4 py-2 text-sm font-medium transition-colors hover:bg-white/10 dark:hover:bg-accent dark:hover:text-accent-foreground focus:bg-white/10 dark:focus:bg-accent dark:focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-white/10 dark:data-[active]:bg-accent/50 data-[state=open]:bg-white/10 dark:data-[state=open]:bg-accent/50">
                     Contact
                   </Link>
                 </NavigationMenuLink>
@@ -111,11 +112,12 @@ const Header = () => {
           </NavigationMenu>
 
           <div className="flex items-center space-x-4">
-            <a href="tel:1-800-XXX-XXXX" className="flex items-center space-x-2 text-sm">
+            <a href="tel:1-800-XXX-XXXX" className="flex items-center space-x-2 text-sm text-white dark:text-foreground">
               <Phone className="h-4 w-4" />
               <span>1-800-XXX-XXXX</span>
             </a>
-            <Button asChild>
+            <ThemeToggle />
+            <Button asChild variant="secondary">
               <Link href="/quote">Get Quote</Link>
             </Button>
           </div>
@@ -123,7 +125,7 @@ const Header = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden"
+          className="md:hidden text-white dark:text-foreground"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
         >
@@ -134,13 +136,13 @@ const Header = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden">
-          <nav className="flex flex-col space-y-4 p-4 border-t">
-            <Link href="/services" className="text-sm font-medium">Services</Link>
-            <Link href="/equipment" className="text-sm font-medium">Equipment</Link>
-            <Link href="/about" className="text-sm font-medium">About</Link>
-            <Link href="/contact" className="text-sm font-medium">Contact</Link>
-            <Link href="/quote" className="text-sm font-medium">Get Quote</Link>
-            <a href="tel:1-800-XXX-XXXX" className="text-sm font-medium">Call: 1-800-XXX-XXXX</a>
+          <nav className="flex flex-col space-y-4 p-4 border-t bg-munden-burgundy dark:bg-background">
+            <Link href="/services" className="text-sm font-medium text-white dark:text-foreground">Services</Link>
+            <Link href="/equipment" className="text-sm font-medium text-white dark:text-foreground">Equipment</Link>
+            <Link href="/about" className="text-sm font-medium text-white dark:text-foreground">About</Link>
+            <Link href="/contact" className="text-sm font-medium text-white dark:text-foreground">Contact</Link>
+            <Link href="/quote" className="text-sm font-medium text-white dark:text-foreground">Get Quote</Link>
+            <a href="tel:1-800-XXX-XXXX" className="text-sm font-medium text-white dark:text-foreground">Call: 1-800-XXX-XXXX</a>
           </nav>
         </div>
       )}

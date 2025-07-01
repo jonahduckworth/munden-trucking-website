@@ -50,6 +50,17 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Brand specific colors
+        munden: {
+          burgundy: "#7D3038",
+          silver: "#C3C7CC",
+          black: "#020102",
+        }
+      },
+      fontFamily: {
+        'display': ['Arial Black', 'Helvetica', 'sans-serif'], // Fallback for Adidas Half Block
+        'body': ['Inter', 'system-ui', 'sans-serif'], // Fallback for COCOGOOSE
+        'sans': ['Inter', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

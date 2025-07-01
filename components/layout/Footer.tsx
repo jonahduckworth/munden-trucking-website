@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Munden Truck & Equipment Ltd.</h3>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-munden-silver dark:text-muted-foreground">
               Your trusted partner for truck repair, log hauling, and forestry equipment in the BC Interior.
             </p>
             <div className="flex items-center space-x-2">
