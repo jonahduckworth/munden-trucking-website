@@ -5,9 +5,25 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Phone, Clock, MapPin, Wrench, Truck, TreePine, Shield, ArrowRight } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
+import { useState, useEffect } from "react"
 
 const TemporaryHomePage = () => {
+  const [taglineIndex, setTaglineIndex] = useState(0)
+  
+  const taglines = [
+    "4th Generation Family-Owned",
+    "Serving the BC Interior Commercial Transport & HD Industry"
+  ]
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTaglineIndex((prev) => (prev + 1) % taglines.length)
+    }, 3000) // Change every 3 seconds
+    
+    return () => clearInterval(interval)
+  }, [])
+  
   const services = [
     {
       icon: Wrench,
@@ -66,9 +82,20 @@ const TemporaryHomePage = () => {
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-munden-burgundy to-munden-black dark:from-primary dark:to-primary/60 bg-clip-text text-transparent">
               Munden Truck & Equipment Ltd.
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              4th Generation Family-Owned • Serving the BC Interior Commercial Transport & HD Industry
-            </p>
+            <div className="h-16 md:h-20 mb-8 relative">
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={taglineIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="text-xl md:text-2xl text-muted-foreground absolute inset-0 flex items-center justify-center text-center px-4"
+                >
+                  {taglines[taglineIndex]}
+                </motion.p>
+              </AnimatePresence>
+            </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Button size="lg" asChild>
@@ -86,14 +113,14 @@ const TemporaryHomePage = () => {
             </div>
 
             {/* Quick Info */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            <div className="flex flex-col gap-6 mt-12 w-fit mx-auto md:w-full md:grid md:grid-cols-3">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="flex items-center justify-center gap-3 text-muted-foreground"
+                className="flex items-center gap-3 text-muted-foreground"
               >
-                <Clock className="h-5 w-5 text-primary" />
+                <Clock className="h-5 w-5 text-primary flex-shrink-0" />
                 <div className="text-left">
                   <p className="font-semibold text-foreground">Open 7 Days</p>
                   <p className="text-sm">24/7 Service Available</p>
@@ -104,9 +131,9 @@ const TemporaryHomePage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="flex items-center justify-center gap-3 text-muted-foreground"
+                className="flex items-center gap-3 text-muted-foreground md:justify-center"
               >
-                <Phone className="h-5 w-5 text-primary" />
+                <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                 <div className="text-left">
                   <p className="font-semibold text-foreground">24/7 Emergency</p>
                   <p className="text-sm">Always Available</p>
@@ -117,9 +144,9 @@ const TemporaryHomePage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="flex items-center justify-center gap-3 text-muted-foreground"
+                className="flex items-center gap-3 text-muted-foreground md:justify-end"
               >
-                <MapPin className="h-5 w-5 text-primary" />
+                <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
                 <div className="text-left">
                   <p className="font-semibold text-foreground">Kamloops, BC</p>
                   <p className="text-sm">725 Carrier Street</p>
@@ -210,7 +237,7 @@ const TemporaryHomePage = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 1.3 }}
             >
-              <div className="text-4xl font-bold text-primary mb-2">Gov't</div>
+              <div className="text-4xl font-bold text-primary mb-2">CVIP</div>
               <p className="text-muted-foreground">Certified Inspection Facility</p>
             </motion.div>
             <motion.div
