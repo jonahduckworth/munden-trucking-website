@@ -8,7 +8,7 @@ interface MetaTagsProps extends NextSeoProps {
 }
 
 const MetaTags = ({ title, description, image, url, ...rest }: MetaTagsProps) => {
-  const siteName = "Munden Truck & Equipment Ltd."
+  const siteName = "Munden Truck & Equipment"
   const defaultImage = "/images/og-image.jpg" // We'll create this later
   
   return (

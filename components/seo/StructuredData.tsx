@@ -25,16 +25,17 @@ export const StructuredData: FC<StructuredDataProps> = ({ data }) => {
 export const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "Munden Truck & Equipment Ltd.",
+  "name": "Munden Truck & Equipment",
+  "alternateName": ["Munden", "Munden Truck", "Munden Trucking", "Munden Truck & Equipment Ltd."],
   "image": "https://mundentruckequipment.com/images/logo.png",
   "url": "https://mundentruckequipment.com",
-  "telephone": "1-800-XXX-XXXX",
+  "telephone": "250-828-2268",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "123 Industrial Way",
+    "streetAddress": "725 Carrier Street",
     "addressLocality": "Kamloops",
     "addressRegion": "BC",
-    "postalCode": "V2C 1A1",
+    "postalCode": "V2H 1G1",
     "addressCountry": "CA"
   },
   "geo": {
@@ -62,27 +63,62 @@ export const localBusinessSchema = {
   ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
-    "name": "Truck Repair and Equipment Services",
+    "name": "Kamloops Truck Repair and Equipment Services",
     "itemListElement": [
       {
         "@type": "Service",
-        "name": "Commercial Vehicle Inspections",
-        "description": "CVIP certified inspections for commercial vehicles"
-      },
-      {
-        "@type": "Service",
         "name": "Truck Repair",
-        "description": "Professional repair services for all truck makes and models"
+        "description": "Kamloops truck repair - engine repair, suspension repair, mechanical repair, automotive repair for all truck makes and models"
       },
       {
         "@type": "Service",
-        "name": "Log Hauling",
-        "description": "Professional log transportation services throughout BC Interior"
+        "name": "Trailer Repair",
+        "description": "Kamloops trailer repair - mechanical repair, maintenance, trailer parts and service"
+      },
+      {
+        "@type": "Service",
+        "name": "Equipment Repair",
+        "description": "Kamloops equipment repair - forestry repairs, construction repairs, civil repairs, crane repairs"
+      },
+      {
+        "@type": "Service",
+        "name": "CVIP Inspections",
+        "description": "CVIP, MVI, CVI certified truck inspection and trailer inspection facility in Kamloops"
+      },
+      {
+        "@type": "Service",
+        "name": "Mobile Service",
+        "description": "Kamloops mobile service truck - emergency service, roadside repair, service call available 24/7"
+      },
+      {
+        "@type": "Service",
+        "name": "Emergency Repair",
+        "description": "24/7 emergency repair, roadside service for trucks and trailers in Kamloops"
+      },
+      {
+        "@type": "Service",
+        "name": "Welding & Fabrication",
+        "description": "Professional welding, fabrication, and hydraulics services in Kamloops"
+      },
+      {
+        "@type": "Service",
+        "name": "Refrigeration Services",
+        "description": "Refrigeration trailer repair, reefer service - Carrier, Thermo King, Coldfront certified"
+      },
+      {
+        "@type": "Service",
+        "name": "A/C Repair",
+        "description": "Air conditioning repair, A/C service for trucks and equipment - Webasto, Espar, engine heater service"
+      },
+      {
+        "@type": "Service",
+        "name": "RV Repair",
+        "description": "RV repair and maintenance services in Kamloops"
       },
       {
         "@type": "Product",
-        "name": "EcoLog Equipment",
-        "description": "Authorized dealer for EcoLog harvesters and forwarders"
+        "name": "Truck Parts",
+        "description": "Truck parts, trailer parts, equipment parts, lubricants, hydraulic hose supply in Kamloops"
       }
     ]
   }
@@ -172,10 +208,11 @@ export const faqSchema = (faqs: Array<{ question: string; answer: string }>) => 
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Munden Truck & Equipment Ltd.",
+  "name": "Munden Truck & Equipment",
+  "alternateName": ["Munden", "Munden Truck", "Munden Trucking"],
   "url": "https://mundentruckequipment.com",
   "logo": "https://mundentruckequipment.com/images/logo.png",
-  "description": "Professional truck repair, CVIP inspections, log hauling services, and authorized EcoLog dealer serving the BC Interior.",
+  "description": "Munden Truck & Equipment - Kamloops truck repair, trailer repair, equipment repair. Truck shop, trailer shop, automotive shop. CVIP inspections, mobile service truck, emergency roadside service. Welding, fabrication, hydraulics. Refrigeration, A/C repair. Carrier, Thermo King, Webasto service. Truck parts and trailer parts.",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "123 Industrial Way",
@@ -184,13 +221,24 @@ export const organizationSchema = {
     "postalCode": "V2C 1A1",
     "addressCountry": "CA"
   },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+1-800-XXX-XXXX",
-    "contactType": "customer service",
-    "availableLanguage": "en",
-    "areaServed": "CA"
-  }
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+1-250-828-2268",
+      "contactType": "customer service",
+      "areaServed": "CA",
+      "contactOption": "TollFree",
+      "availableLanguage": ["en"]
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+1-250-828-2268",
+      "contactType": "emergency",
+      "contactOption": "24/7",
+      "availableLanguage": ["en"],
+      "areaServed": "CA"
+    }
+  ]
 }
 
 export { StructuredData as default }
