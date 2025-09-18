@@ -24,6 +24,11 @@ export const metadata: Metadata = {
       'Munden Truck & Equipment | Kamloops Truck Repair, Trailer Repair & CVIP Inspections',
     template: '%s | Munden Truck & Equipment',
   },
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png',
+  },
   description:
     'Munden Truck & Equipment - Kamloops truck repair, trailer repair, CVIP inspections, mobile service, emergency repairs. Welding, fabrication, hydraulics, A/C repair. Carrier, Thermo King, Webasto service. 24/7 emergency roadside service.',
   keywords: [
