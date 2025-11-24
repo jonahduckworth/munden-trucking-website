@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-// import Header from '@/components/layout/Header';
-// import Footer from '@/components/layout/Footer';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from './providers';
 import Script from 'next/script';
@@ -143,11 +143,15 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <head>
-        {(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || process.env.NEXT_PUBLIC_GOOGLE_ADS_ID) && (
+        {(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ||
+          process.env.NEXT_PUBLIC_GOOGLE_ADS_ID) && (
           <>
             <Script
               strategy='afterInteractive'
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || process.env.NEXT_PUBLIC_GOOGLE_ADS_ID}`}
+              src={`https://www.googletagmanager.com/gtag/js?id=${
+                process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ||
+                process.env.NEXT_PUBLIC_GOOGLE_ADS_ID
+              }`}
             />
             <Script
               id='google-analytics'
@@ -157,8 +161,16 @@ export default function RootLayout({
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
-                  ${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? `gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');` : ''}
-                  ${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ? `gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID}');` : ''}
+                  ${
+                    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+                      ? `gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');`
+                      : ''
+                  }
+                  ${
+                    process.env.NEXT_PUBLIC_GOOGLE_ADS_ID
+                      ? `gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID}');`
+                      : ''
+                  }
                 `,
               }}
             />
@@ -174,9 +186,9 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          {/* <Header /> */}
+          <Header />
           <main className='flex-1'>{children}</main>
-          {/* <Footer /> */}
+          <Footer />
           <Analytics />
         </ThemeProvider>
       </body>
