@@ -130,7 +130,7 @@ export default function HistoryPage() {
               <CardHeader>
                 <CardTitle className="text-2xl">Our Story</CardTitle>
               </CardHeader>
-              <CardContent className="prose prose-gray dark:prose-invert max-w-none">
+              <CardContent className="prose prose-gray dark:prose-invert max-w-none space-y-4">
                 <p>
                   Munden Truck & Equipment Ltd. was founded in 1994 by Robert
                   Munden with a simple yet powerful vision: to provide the BC
