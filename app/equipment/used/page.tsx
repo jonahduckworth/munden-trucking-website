@@ -36,7 +36,7 @@ const usedEquipment = [
     type: 'Harvester',
     year: 2019,
     hours: 4500,
-    price: '$285,000',
+    price: 'Contact for pricing',
     status: 'certified',
     features: [
       'Recent engine service',
@@ -53,7 +53,7 @@ const usedEquipment = [
     type: 'Forwarder',
     year: 2018,
     hours: 5200,
-    price: '$225,000',
+    price: 'Contact for pricing',
     status: 'as-is',
     features: [
       '20-ton capacity',
@@ -70,7 +70,7 @@ const usedEquipment = [
     type: 'Harvester',
     year: 2017,
     hours: 6800,
-    price: '$195,000',
+    price: 'Contact for pricing',
     status: 'certified',
     features: [
       'H7 harvesting head',
@@ -87,7 +87,7 @@ const usedEquipment = [
     type: 'Forwarder',
     year: 2020,
     hours: 3200,
-    price: '$315,000',
+    price: 'Contact for pricing',
     status: 'certified',
     features: [
       'Low hours',
@@ -119,8 +119,6 @@ export default function UsedEquipmentPage() {
         },
         offers: {
           '@type': 'Offer',
-          price: item.price.replace('$', '').replace(',', ''),
-          priceCurrency: 'CAD',
           availability: 'https://schema.org/InStock',
           itemCondition: `https://schema.org/${item.condition === 'Excellent' ? 'NewCondition' : 'UsedCondition'}`,
           seller: {
@@ -165,12 +163,12 @@ export default function UsedEquipmentPage() {
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-amber-50 to-background py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <Link 
-            href="/equipment" 
+          <Link
+            href="/equipment/ecolog"
             className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4"
           >
             <ChevronLeft className="mr-1 h-4 w-4" />
-            Back to Equipment
+            Back to EcoLog
           </Link>
           
           <div className="max-w-4xl">
@@ -247,7 +245,7 @@ export default function UsedEquipmentPage() {
               <h2 className="text-lg font-semibold">Filter Equipment</h2>
             </div>
             
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               <div className="space-y-2">
                 <Label htmlFor="search">Search</Label>
                 <div className="relative">
@@ -305,21 +303,6 @@ export default function UsedEquipmentPage() {
                 </Select>
               </div>
               
-              <div className="space-y-2">
-                <Label htmlFor="price">Max Price</Label>
-                <Select defaultValue="all">
-                  <SelectTrigger id="price">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Any Price</SelectItem>
-                    <SelectItem value="100k">Under $100,000</SelectItem>
-                    <SelectItem value="200k">Under $200,000</SelectItem>
-                    <SelectItem value="300k">Under $300,000</SelectItem>
-                    <SelectItem value="400k">Under $400,000</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
             </div>
             
             <div className="flex items-center justify-between">
@@ -367,9 +350,9 @@ export default function UsedEquipmentPage() {
                       </CardTitle>
                       <CardDescription>{item.type}</CardDescription>
                     </div>
-                    <div className="text-right">
-                      <p className="text-2xl font-bold">{item.price}</p>
-                    </div>
+                    <Badge variant="outline" className="whitespace-nowrap">
+                      {item.price}
+                    </Badge>
                   </div>
                 </CardHeader>
                 
@@ -580,7 +563,7 @@ export default function UsedEquipmentPage() {
                 <h3 className="font-semibold">Important Information</h3>
                 <ul className="space-y-1 text-sm text-muted-foreground">
                   <li>• All equipment subject to prior sale</li>
-                  <li>• Prices do not include applicable taxes or delivery</li>
+                  <li>• Contact us for current pricing</li>
                   <li>• Financing subject to credit approval</li>
                   <li>• Equipment specifications subject to verification</li>
                   <li>• Photos may not represent actual equipment</li>

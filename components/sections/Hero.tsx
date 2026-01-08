@@ -48,13 +48,13 @@ const Hero = () => {
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild className="bg-white/10 text-white border-white hover:bg-white hover:text-munden-burgundy">
-              <Link href="/services/repair-shop">
+              <Link href="/services/service-department">
                 <Wrench className="mr-2 h-4 w-4" />
                 Our Services
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild className="bg-white/10 text-white border-white hover:bg-white hover:text-munden-burgundy">
-              <a href="tel:1-800-XXX-XXXX">
+              <a href="tel:250-828-2268">
                 <Phone className="mr-2 h-4 w-4" />
                 Call Now
               </a>
