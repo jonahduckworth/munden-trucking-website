@@ -374,7 +374,6 @@ export default async function HarvesterDetailPage({ params }: Props) {
             <TabsList className="grid w-full max-w-md mx-auto grid-cols-3">
               <TabsTrigger value="features">Features</TabsTrigger>
               <TabsTrigger value="specifications">Specifications</TabsTrigger>
-              <TabsTrigger value="financing">Financing</TabsTrigger>
             </TabsList>
 
             <TabsContent value="features" className="space-y-8">
@@ -448,64 +447,9 @@ export default async function HarvesterDetailPage({ params }: Props) {
                       label,
                       value: value as string,
                     })),
-                  })
+                  }),
                 )}
               />
-            </TabsContent>
-
-            <TabsContent value="financing">
-              <div className="max-w-4xl mx-auto">
-                <Card className="mb-8">
-                  <CardHeader>
-                    <CardTitle>Flexible Financing Options</CardTitle>
-                    <CardDescription>
-                      Work with our finance team to find the perfect payment
-                      solution for your business
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid gap-4 md:grid-cols-3">
-                      <div>
-                        <h4 className="font-semibold mb-2">Lease Options</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Operating and capital lease programs with flexible
-                          terms
-                        </p>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-2">Loan Programs</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Competitive rates through our network of lenders
-                        </p>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-2">Trade-In Credit</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Apply your current equipment value to reduce costs
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Get a Custom Quote</CardTitle>
-                    <CardDescription>
-                      Contact our sales team to discuss financing options for
-                      the {harvester.model}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button size="lg" asChild className="w-full">
-                      <Link href="/about/contact">
-                        <Phone className="mr-2 h-4 w-4" />
-                        Request Financing Quote
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
             </TabsContent>
           </Tabs>
         </div>

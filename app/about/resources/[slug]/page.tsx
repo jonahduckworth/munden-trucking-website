@@ -1,10 +1,12 @@
-import { Metadata } from "next"
-import { notFound } from "next/navigation"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ChevronLeft, Calendar, Clock, User, Share2 } from "lucide-react"
-import StructuredData, { breadcrumbSchema } from "@/components/seo/StructuredData"
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ChevronLeft, Calendar, Clock, User, Share2 } from "lucide-react";
+import StructuredData, {
+  breadcrumbSchema,
+} from "@/components/seo/StructuredData";
 
 // In production, this would fetch from a database
 const getArticle = (slug: string) => {
@@ -30,31 +32,32 @@ const getArticle = (slug: string) => {
         <p>The 590G meets the strictest environmental standards with its Stage V engine and advanced emission control systems. The improved fuel efficiency not only reduces operating costs but also minimizes the environmental footprint of your forestry operations.</p>
 
         <h2>Available for Demo</h2>
-        <p>We invite you to experience the EcoLog 590G firsthand. Contact our sales team to schedule a demonstration and see how this remarkable machine can enhance your forestry operations. Our expert staff can help you explore financing options and discuss how the 590G fits into your fleet.</p>
+        <p>We invite you to experience the EcoLog 590G firsthand. Contact our sales team to schedule a demonstration and see how this remarkable machine can enhance your forestry operations. Our expert staff can help discuss how the 590G fits into your fleet.</p>
       `,
-      excerpt: "We're excited to announce the arrival of the latest EcoLog 590G harvester model, featuring enhanced performance and improved fuel efficiency.",
+      excerpt:
+        "We're excited to announce the arrival of the latest EcoLog 590G harvester model, featuring enhanced performance and improved fuel efficiency.",
       category: "Equipment",
       author: "Mike Thompson",
       date: "2024-03-15",
       readTime: "3 min read",
-    }
-  }
+    },
+  };
 
-  return articles[slug as keyof typeof articles] || null
-}
+  return articles[slug as keyof typeof articles] || null;
+};
 
 type Props = {
-  params: Promise<{ slug: string }>
-}
+  params: Promise<{ slug: string }>;
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
-  const article = getArticle(slug)
+  const { slug } = await params;
+  const article = getArticle(slug);
 
   if (!article) {
     return {
       title: "Article Not Found",
-    }
+    };
   }
 
   return {
@@ -63,27 +66,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: article.title,
       description: article.excerpt,
-      type: 'article',
+      type: "article",
       publishedTime: article.date,
       authors: [article.author],
     },
-  }
+  };
 }
 
 export default async function ResourceArticlePage({ params }: Props) {
-  const { slug } = await params
-  const article = getArticle(slug)
+  const { slug } = await params;
+  const article = getArticle(slug);
 
   if (!article) {
-    notFound()
+    notFound();
   }
 
   const breadcrumbs = [
     { name: "Home", url: "https://mundentruckequipment.com" },
     { name: "About", url: "https://mundentruckequipment.com/about" },
-    { name: "Resources", url: "https://mundentruckequipment.com/about/resources" },
-    { name: article.title, url: `https://mundentruckequipment.com/about/resources/${slug}` }
-  ]
+    {
+      name: "Resources",
+      url: "https://mundentruckequipment.com/about/resources",
+    },
+    {
+      name: article.title,
+      url: `https://mundentruckequipment.com/about/resources/${slug}`,
+    },
+  ];
 
   return (
     <>
@@ -103,7 +112,9 @@ export default async function ResourceArticlePage({ params }: Props) {
             {/* Article Header */}
             <header className="mb-8">
               <Badge className="mb-4">{article.category}</Badge>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">{article.title}</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                {article.title}
+              </h1>
 
               <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
                 <div className="flex items-center gap-1">
@@ -112,11 +123,13 @@ export default async function ResourceArticlePage({ params }: Props) {
                 </div>
                 <div className="flex items-center gap-1">
                   <Calendar className="h-4 w-4" />
-                  <span>{new Date(article.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}</span>
+                  <span>
+                    {new Date(article.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Clock className="h-4 w-4" />
@@ -134,7 +147,9 @@ export default async function ResourceArticlePage({ params }: Props) {
             {/* Featured Image */}
             <div className="aspect-video relative bg-muted mb-8 rounded-lg overflow-hidden">
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-muted-foreground">Article Featured Image</span>
+                <span className="text-muted-foreground">
+                  Article Featured Image
+                </span>
               </div>
             </div>
 
@@ -146,7 +161,9 @@ export default async function ResourceArticlePage({ params }: Props) {
 
             {/* CTA Section */}
             <div className="bg-muted rounded-lg p-8 text-center">
-              <h3 className="text-2xl font-bold mb-4">Need More Information?</h3>
+              <h3 className="text-2xl font-bold mb-4">
+                Need More Information?
+              </h3>
               <p className="text-muted-foreground mb-6">
                 Contact our team to learn more about our equipment and services
               </p>
@@ -163,5 +180,5 @@ export default async function ResourceArticlePage({ params }: Props) {
         </div>
       </article>
     </>
-  )
+  );
 }

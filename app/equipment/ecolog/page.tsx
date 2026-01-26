@@ -31,7 +31,7 @@ import { CTASection } from "@/components/services/CTASection";
 export const metadata: Metadata = {
   title: "EcoLog Forestry Equipment | Authorized Dealer | Munden Truck",
   description:
-    "Authorized EcoLog dealer in Western Canada. Swedish-engineered harvesters and forwarders with full parts and service support. Financing available.",
+    "Authorized EcoLog dealer in Western Canada. Swedish-engineered harvesters and forwarders with full parts and service support.",
   openGraph: {
     title: "EcoLog Forestry Equipment | Munden Truck & Equipment Ltd.",
     description:
@@ -350,45 +350,6 @@ export default function EcoLogPage() {
                 })}
               </div>
             </div>
-
-            {/* Financing */}
-            <Card className="mb-12 bg-muted/30">
-              <CardContent className="p-8">
-                <div className="flex flex-col md:flex-row items-center gap-6">
-                  <div className="flex-shrink-0">
-                    <DollarSign className="h-16 w-16 text-primary" />
-                  </div>
-                  <div className="flex-1 text-center md:text-left">
-                    <h3 className="text-2xl font-bold mb-2">
-                      Flexible Financing Available
-                    </h3>
-                    <p className="text-muted-foreground mb-4">
-                      We work with multiple lenders to offer competitive
-                      financing options. Trade-ins welcome with fair market
-                      valuations.
-                    </p>
-                    <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-green-500" />
-                        <span className="text-sm">Competitive rates</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-green-500" />
-                        <span className="text-sm">Flexible terms</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-green-500" />
-                        <span className="text-sm">Quick approvals</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-green-500" />
-                        <span className="text-sm">Trade-ins accepted</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
 
             {/* CTA Section */}
             <CTASection

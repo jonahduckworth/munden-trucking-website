@@ -1,124 +1,147 @@
-import { Metadata } from 'next'
-import Link from 'next/link'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Label } from '@/components/ui/label'
-import EquipmentComparison from '@/components/equipment/EquipmentComparison'
-import { StructuredData } from '@/components/seo/StructuredData'
-import { ChevronLeft, Filter, SlidersHorizontal, TreePine, Gauge, Fuel, Shield } from 'lucide-react'
+import { Metadata } from "next";
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import EquipmentComparison from "@/components/equipment/EquipmentComparison";
+import { StructuredData } from "@/components/seo/StructuredData";
+import {
+  ChevronLeft,
+  Filter,
+  SlidersHorizontal,
+  TreePine,
+  Gauge,
+  Fuel,
+  Shield,
+} from "lucide-react";
 
 export const metadata: Metadata = {
-  title: 'EcoLog Harvesters | New Forestry Equipment | Munden Truck & Equipment',
-  description: 'Browse our selection of new EcoLog harvesters. Models 590G and 580F available with financing options. Industry-leading forestry equipment in BC.',
-}
+  title:
+    "EcoLog Harvesters | New Forestry Equipment | Munden Truck & Equipment",
+  description:
+    "Browse our selection of new EcoLog harvesters. Industry-leading forestry equipment in BC.",
+};
 
 // Harvester data - in production this would come from a database
 const harvesters = [
   {
-    id: '590g',
-    model: 'EcoLog 590G',
-    type: 'Wheeled Harvester',
-    price: 'Contact for pricing',
-    image: '/images/equipment/590g-harvester.jpg',
-    badge: 'Most Popular',
+    id: "590g",
+    model: "EcoLog 590G",
+    type: "Wheeled Harvester",
+    price: "Contact for pricing",
+    image: "/images/equipment/590g-harvester.jpg",
+    badge: "Most Popular",
     features: [
-      '206 kW Volvo engine',
-      '20m reach crane',
-      'Log Max 7000C head',
-      'Comfort cab with AutoClimate'
+      "206 kW Volvo engine",
+      "20m reach crane",
+      "Log Max 7000C head",
+      "Comfort cab with AutoClimate",
     ],
     specs: {
-      enginePower: '206 kW',
-      craneReach: '20m',
-      weight: '22,500 kg',
-      fuelCapacity: '400L'
-    }
+      enginePower: "206 kW",
+      craneReach: "20m",
+      weight: "22,500 kg",
+      fuelCapacity: "400L",
+    },
   },
   {
-    id: '580f',
-    model: 'EcoLog 580F',
-    type: 'Wheeled Harvester',
-    price: 'Contact for pricing',
-    image: '/images/equipment/580f-harvester.jpg',
+    id: "580f",
+    model: "EcoLog 580F",
+    type: "Wheeled Harvester",
+    price: "Contact for pricing",
+    image: "/images/equipment/580f-harvester.jpg",
     features: [
-      '190 kW Volvo engine',
-      '18m reach crane',
-      'Log Max 6000C head',
-      'Ergonomic operator station'
+      "190 kW Volvo engine",
+      "18m reach crane",
+      "Log Max 6000C head",
+      "Ergonomic operator station",
     ],
     specs: {
-      enginePower: '190 kW',
-      craneReach: '18m',
-      weight: '20,500 kg',
-      fuelCapacity: '350L'
-    }
-  }
-]
+      enginePower: "190 kW",
+      craneReach: "18m",
+      weight: "20,500 kg",
+      fuelCapacity: "350L",
+    },
+  },
+];
 
 export default function HarvestersPage() {
   const productListSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: 'EcoLog Harvesters',
-    description: 'New EcoLog harvester models available at Munden Truck & Equipment',
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "EcoLog Harvesters",
+    description:
+      "New EcoLog harvester models available at Munden Truck & Equipment",
     numberOfItems: harvesters.length,
     itemListElement: harvesters.map((harvester, index) => ({
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: index + 1,
       item: {
-        '@type': 'Product',
+        "@type": "Product",
         name: harvester.model,
         description: `${harvester.type} with ${harvester.features[0]}`,
         brand: {
-          '@type': 'Brand',
-          name: 'EcoLog'
+          "@type": "Brand",
+          name: "EcoLog",
         },
         offers: {
-          '@type': 'Offer',
+          "@type": "Offer",
           price: harvester.price,
-          priceCurrency: 'CAD',
-          availability: 'https://schema.org/InStock',
+          priceCurrency: "CAD",
+          availability: "https://schema.org/InStock",
           seller: {
-            '@type': 'Organization',
-            name: 'Munden Truck & Equipment Ltd.'
-          }
-        }
-      }
-    }))
-  }
+            "@type": "Organization",
+            name: "Munden Truck & Equipment Ltd.",
+          },
+        },
+      },
+    })),
+  };
 
   const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
     itemListElement: [
       {
-        '@type': 'ListItem',
+        "@type": "ListItem",
         position: 1,
-        name: 'Home',
-        item: 'https://mundentruckandequipment.com'
+        name: "Home",
+        item: "https://mundentruckandequipment.com",
       },
       {
-        '@type': 'ListItem',
+        "@type": "ListItem",
         position: 2,
-        name: 'Equipment',
-        item: 'https://mundentruckandequipment.com/equipment'
+        name: "Equipment",
+        item: "https://mundentruckandequipment.com/equipment",
       },
       {
-        '@type': 'ListItem',
+        "@type": "ListItem",
         position: 3,
-        name: 'Harvesters',
-        item: 'https://mundentruckandequipment.com/equipment/harvesters'
-      }
-    ]
-  }
+        name: "Harvesters",
+        item: "https://mundentruckandequipment.com/equipment/harvesters",
+      },
+    ],
+  };
 
   return (
     <>
       <StructuredData data={productListSchema} />
       <StructuredData data={breadcrumbSchema} />
-      
+
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-green-50 to-background py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -129,7 +152,7 @@ export default function HarvestersPage() {
             <ChevronLeft className="mr-1 h-4 w-4" />
             Back to EcoLog
           </Link>
-          
+
           <div className="max-w-4xl">
             <Badge variant="secondary" className="mb-4">
               <TreePine className="mr-1 h-3 w-3" />
@@ -139,20 +162,17 @@ export default function HarvestersPage() {
               EcoLog Harvesters
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
-              Industry-leading wheeled harvesters designed for efficiency and operator comfort. 
-              Built to handle the demanding conditions of BC's forests.
+              Industry-leading wheeled harvesters designed for efficiency and
+              operator comfort. Built to handle the demanding conditions of BC's
+              forests.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" asChild>
-                <Link href="/quote">
-                  Request Quote
-                </Link>
+                <Link href="/quote">Request Quote</Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/about/contact">
-                  Schedule Demo
-                </Link>
+                <Link href="/about/contact">Schedule Demo</Link>
               </Button>
             </div>
           </div>
@@ -167,7 +187,7 @@ export default function HarvestersPage() {
               <Filter className="h-5 w-5 text-muted-foreground" />
               <h2 className="text-lg font-semibold">Filter Equipment</h2>
             </div>
-            
+
             <div className="flex flex-wrap gap-4 items-end">
               <div className="space-y-2">
                 <Label htmlFor="sort">Sort by</Label>
@@ -184,7 +204,7 @@ export default function HarvestersPage() {
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="crane-reach">Crane Reach</Label>
                 <Select defaultValue="all">
@@ -198,7 +218,7 @@ export default function HarvestersPage() {
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <Button variant="outline" size="sm">
                 <SlidersHorizontal className="mr-2 h-4 w-4" />
                 More Filters
@@ -216,13 +236,13 @@ export default function HarvestersPage() {
               Showing {harvesters.length} harvesters
             </p>
           </div>
-          
+
           <div className="grid gap-6 md:grid-cols-2">
             {harvesters.map((harvester) => (
               <Card key={harvester.id} className="overflow-hidden">
                 <div className="aspect-video relative bg-muted">
-                  <img 
-                    src={harvester.image} 
+                  <img
+                    src={harvester.image}
                     alt={harvester.model}
                     className="w-full h-full object-cover"
                   />
@@ -232,61 +252,80 @@ export default function HarvestersPage() {
                     </Badge>
                   )}
                 </div>
-                
+
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div>
-                      <CardTitle className="text-2xl">{harvester.model}</CardTitle>
+                      <CardTitle className="text-2xl">
+                        {harvester.model}
+                      </CardTitle>
                       <CardDescription>{harvester.type}</CardDescription>
                     </div>
                     <Badge variant="outline">{harvester.price}</Badge>
                   </div>
                 </CardHeader>
-                
+
                 <CardContent className="space-y-4">
                   <div>
                     <h4 className="font-semibold mb-2">Key Features</h4>
                     <ul className="space-y-1">
                       {harvester.features.map((feature, index) => (
-                        <li key={index} className="text-sm text-muted-foreground flex items-center">
+                        <li
+                          key={index}
+                          className="text-sm text-muted-foreground flex items-center"
+                        >
                           <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2" />
                           {feature}
                         </li>
                       ))}
                     </ul>
                   </div>
-                  
+
                   <div className="grid grid-cols-2 gap-4 pt-4 border-t">
                     <div className="flex items-center gap-2">
                       <Gauge className="h-4 w-4 text-muted-foreground" />
                       <div>
-                        <p className="text-xs text-muted-foreground">Engine Power</p>
-                        <p className="text-sm font-semibold">{harvester.specs.enginePower}</p>
+                        <p className="text-xs text-muted-foreground">
+                          Engine Power
+                        </p>
+                        <p className="text-sm font-semibold">
+                          {harvester.specs.enginePower}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                       <TreePine className="h-4 w-4 text-muted-foreground" />
                       <div>
-                        <p className="text-xs text-muted-foreground">Crane Reach</p>
-                        <p className="text-sm font-semibold">{harvester.specs.craneReach}</p>
+                        <p className="text-xs text-muted-foreground">
+                          Crane Reach
+                        </p>
+                        <p className="text-sm font-semibold">
+                          {harvester.specs.craneReach}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                       <Shield className="h-4 w-4 text-muted-foreground" />
                       <div>
                         <p className="text-xs text-muted-foreground">Weight</p>
-                        <p className="text-sm font-semibold">{harvester.specs.weight}</p>
+                        <p className="text-sm font-semibold">
+                          {harvester.specs.weight}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                       <Fuel className="h-4 w-4 text-muted-foreground" />
                       <div>
-                        <p className="text-xs text-muted-foreground">Fuel Capacity</p>
-                        <p className="text-sm font-semibold">{harvester.specs.fuelCapacity}</p>
+                        <p className="text-xs text-muted-foreground">
+                          Fuel Capacity
+                        </p>
+                        <p className="text-sm font-semibold">
+                          {harvester.specs.fuelCapacity}
+                        </p>
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="flex gap-2 pt-4">
                     <Button asChild className="flex-1">
                       <Link href={`/equipment/harvesters/${harvester.id}`}>
@@ -294,9 +333,7 @@ export default function HarvestersPage() {
                       </Link>
                     </Button>
                     <Button variant="outline" asChild>
-                      <Link href="/quote">
-                        Get Quote
-                      </Link>
+                      <Link href="/quote">Get Quote</Link>
                     </Button>
                   </div>
                 </CardContent>
@@ -312,7 +349,8 @@ export default function HarvestersPage() {
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold mb-4">Compare Harvesters</h2>
             <p className="text-lg text-muted-foreground">
-              Not sure which model is right for you? Compare specifications side-by-side.
+              Not sure which model is right for you? Compare specifications
+              side-by-side.
             </p>
           </div>
           <EquipmentComparison />
@@ -323,8 +361,10 @@ export default function HarvestersPage() {
       <section className="py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-8">Why Choose EcoLog Harvesters?</h2>
-            
+            <h2 className="text-3xl font-bold text-center mb-8">
+              Why Choose EcoLog Harvesters?
+            </h2>
+
             <div className="grid gap-6 md:grid-cols-2">
               <Card>
                 <CardHeader>
@@ -332,8 +372,9 @@ export default function HarvestersPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-4">
-                    EcoLog harvesters feature the latest in forestry technology, including advanced control systems, 
-                    efficient hydraulics, and precision harvesting heads.
+                    EcoLog harvesters feature the latest in forestry technology,
+                    including advanced control systems, efficient hydraulics,
+                    and precision harvesting heads.
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center text-sm">
@@ -351,15 +392,16 @@ export default function HarvestersPage() {
                   </ul>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader>
                   <CardTitle>Operator Comfort & Safety</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-4">
-                    Designed with the operator in mind, EcoLog cabs provide exceptional comfort and visibility 
-                    for long working days in challenging conditions.
+                    Designed with the operator in mind, EcoLog cabs provide
+                    exceptional comfort and visibility for long working days in
+                    challenging conditions.
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center text-sm">
@@ -377,15 +419,16 @@ export default function HarvestersPage() {
                   </ul>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader>
                   <CardTitle>Local Support & Service</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-4">
-                    As your authorized EcoLog dealer, we provide comprehensive support including parts, 
-                    service, and expert technicians who know your equipment.
+                    As your authorized EcoLog dealer, we provide comprehensive
+                    support including parts, service, and expert technicians who
+                    know your equipment.
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center text-sm">
@@ -403,15 +446,16 @@ export default function HarvestersPage() {
                   </ul>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader>
                   <CardTitle>Proven Performance</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-4">
-                    EcoLog harvesters have proven themselves in BC's forests, delivering reliability 
-                    and productivity in our unique terrain and conditions.
+                    EcoLog harvesters have proven themselves in BC's forests,
+                    delivering reliability and productivity in our unique
+                    terrain and conditions.
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center text-sm">
@@ -442,35 +486,40 @@ export default function HarvestersPage() {
               Ready to Upgrade Your Harvesting Operation?
             </h2>
             <p className="text-lg mb-8 opacity-90">
-              Contact us today to discuss your needs and explore financing options. 
-              Our team is ready to help you find the perfect harvester for your operation.
+              Our team is ready to help you find the perfect harvester for your
+              operation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" asChild>
-                <Link href="/quote">
-                  Request a Quote
-                </Link>
+                <Link href="/quote">Request a Quote</Link>
               </Button>
-              <Button size="lg" variant="outline" asChild className="border-white text-white bg-transparent hover:bg-white/10">
-                <Link href="/about/contact">
-                  Contact Sales Team
-                </Link>
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="border-white text-white bg-transparent hover:bg-white/10"
+              >
+                <Link href="/about/contact">Contact Sales Team</Link>
               </Button>
             </div>
           </div>
         </div>
       </section>
-      
+
       {/* Related Links */}
       <section className="py-12 bg-muted/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-2xl font-bold text-center mb-8">Explore More Equipment</h3>
+          <h3 className="text-2xl font-bold text-center mb-8">
+            Explore More Equipment
+          </h3>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto">
             <Button variant="outline" asChild className="h-auto p-4">
               <Link href="/equipment/forwarders">
                 <div className="text-left">
                   <div className="font-semibold">EcoLog Forwarders</div>
-                  <div className="text-sm text-muted-foreground">Transport logs efficiently</div>
+                  <div className="text-sm text-muted-foreground">
+                    Transport logs efficiently
+                  </div>
                 </div>
               </Link>
             </Button>
@@ -478,7 +527,9 @@ export default function HarvestersPage() {
               <Link href="/equipment/used">
                 <div className="text-left">
                   <div className="font-semibold">Used Equipment</div>
-                  <div className="text-sm text-muted-foreground">Quality pre-owned machines</div>
+                  <div className="text-sm text-muted-foreground">
+                    Quality pre-owned machines
+                  </div>
                 </div>
               </Link>
             </Button>
@@ -486,7 +537,9 @@ export default function HarvestersPage() {
               <Link href="/equipment/ecolog">
                 <div className="text-left">
                   <div className="font-semibold">EcoLog Equipment</div>
-                  <div className="text-sm text-muted-foreground">About EcoLog forestry</div>
+                  <div className="text-sm text-muted-foreground">
+                    About EcoLog forestry
+                  </div>
                 </div>
               </Link>
             </Button>
@@ -494,5 +547,5 @@ export default function HarvestersPage() {
         </div>
       </section>
     </>
-  )
+  );
 }
