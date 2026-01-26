@@ -315,7 +315,7 @@ export default function PartsDepartmentPage() {
             </div>
 
             {/* EcoLog Parts */}
-            <Card className="mb-12 border-primary">
+            {/* <Card className="mb-12 border-primary">
               <CardHeader className="text-center">
                 <Badge className="w-fit mx-auto mb-4">Authorized Dealer</Badge>
                 <CardTitle className="text-2xl">
@@ -360,7 +360,7 @@ export default function PartsDepartmentPage() {
                   </Button>
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* Brands We Support */}
             <div className="mb-12">
