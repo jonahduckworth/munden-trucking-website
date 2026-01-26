@@ -184,12 +184,12 @@ export default function MobileServicePage() {
     {
       question: "What areas do you service?",
       answer:
-        "We provide 24/7 mobile service throughout Kamloops and within a 200km radius. This includes all major highways and logging roads in the BC Interior.",
+        "We provide 24/7 mobile service throughout Kamloops and within a 200km radius. This includes all major highways and forestry roads in the BC Interior.",
     },
     {
       question: "What's your average response time?",
       answer:
-        "Our average response time is under 60 minutes within the Kamloops area. Response times may vary based on location, weather conditions, and technician availability.",
+        "Our average response time is under 30 minutes within the Kamloops area. Response times may vary based on location, weather conditions, and technician availability.",
     },
     {
       question: "Can you repair any truck make or model?",
@@ -199,12 +199,7 @@ export default function MobileServicePage() {
     {
       question: "What if my truck needs to be towed?",
       answer:
-        "If your vehicle cannot be repaired on-site, we'll coordinate towing to our facility and provide priority service to minimize your downtime.",
-    },
-    {
-      question: "Do you offer service contracts?",
-      answer:
-        "Yes, we offer priority service contracts for fleets with guaranteed response times and discounted rates. Contact us for details.",
+        "If your vehicle cannot be repaired on-site, the vehicle will be towed to our shop location.",
     },
   ];
 
@@ -352,11 +347,11 @@ export default function MobileServicePage() {
                 <div className="bg-muted/30 rounded-lg p-8 text-center">
                   <MapPin className="h-12 w-12 text-primary mx-auto mb-4" />
                   <p className="text-lg font-semibold mb-2">
-                    200km Service Radius from Kamloops
+                    250km Service Radius from Kamloops
                   </p>
                   <p className="text-muted-foreground mb-4">
                     Including all major highways: Trans-Canada, Coquihalla,
-                    Yellowhead, and logging roads
+                    Yellowhead, and forestry roads
                   </p>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
                     <div className="text-center">
@@ -376,6 +371,30 @@ export default function MobileServicePage() {
                     <div className="text-center">
                       <p className="font-semibold">Barriere</p>
                       <p className="text-sm text-muted-foreground">60 min</p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                    <div className="text-center">
+                      <p className="font-semibold">Valemount</p>
+                      <p className="text-sm text-muted-foreground">60 min</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold">Revelstoke</p>
+                      <p className="text-sm text-muted-foreground">
+                        &lt; 90 min
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold">Lillooet</p>
+                      <p className="text-sm text-muted-foreground">
+                        &lt; 90 min
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold">Blue River</p>
+                      <p className="text-sm text-muted-foreground">
+                        &lt; 90 min
+                      </p>
                     </div>
                   </div>
                 </div>

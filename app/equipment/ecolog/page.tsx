@@ -91,7 +91,7 @@ const whyEcoLog = [
   },
   {
     icon: Shield,
-    title: "Built for BC Conditions",
+    title: "Built for Western Canadian Conditions",
     description:
       "Proven performance in British Columbia's unique terrain and climate. Reliable operation in steep slopes and variable conditions.",
   },
