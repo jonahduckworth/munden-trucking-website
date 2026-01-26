@@ -44,7 +44,7 @@ import { CTASection } from "@/components/services/CTASection";
 export const metadata: Metadata = {
   title: "Service Department | Truck & Equipment Repair | Munden Truck",
   description:
-    "Full-service truck and heavy equipment repair in Kamloops. CVIP inspections, preventive maintenance, fleet services. Certified technicians, 24/7 emergency support.",
+    "Full-service truck and heavy equipment repair in Kamloops. CVIP inspections, preventive maintenance. Certified technicians, 24/7 emergency support.",
   openGraph: {
     title: "Service Department | Munden Truck & Equipment Ltd.",
     description:
@@ -142,12 +142,6 @@ const features = [
     title: "Quality Guarantee",
     description:
       "All repairs come with our comprehensive warranty for your peace of mind.",
-  },
-  {
-    icon: Users,
-    title: "Fleet Services",
-    description:
-      "Specialized programs for fleet operators with priority scheduling and volume discounts.",
   },
 ];
 
@@ -439,7 +433,7 @@ export default function ServiceDepartmentPage() {
               <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
                 Professional repair services for all makes and models of trucks
                 and heavy equipment. CVIP certified facility with preventive
-                maintenance programs and dedicated fleet services.
+                maintenance programs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild>
@@ -484,7 +478,6 @@ export default function ServiceDepartmentPage() {
                 <TabsTrigger value="overview">Overview</TabsTrigger>
                 <TabsTrigger value="cvip">CVIP Inspections</TabsTrigger>
                 <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
-                <TabsTrigger value="fleet">Fleet Services</TabsTrigger>
               </TabsList>
 
               {/* Overview Tab */}
@@ -941,143 +934,6 @@ export default function ServiceDepartmentPage() {
                     ]}
                   />
                 </div>
-              </TabsContent>
-
-              {/* Fleet Services Tab */}
-              <TabsContent value="fleet" className="mt-6">
-                {/* Key Benefits */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                  {fleetBenefits.map((benefit) => {
-                    const Icon = benefit.icon;
-                    return (
-                      <Card key={benefit.title}>
-                        <CardHeader>
-                          <Icon className="h-8 w-8 text-primary mb-2" />
-                          <CardTitle className="text-lg">
-                            {benefit.title}
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-muted-foreground">
-                            {benefit.description}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-
-                {/* Comprehensive Services */}
-                <Card className="mb-12">
-                  <CardHeader>
-                    <Truck className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle className="text-2xl">
-                      Comprehensive Fleet Services
-                    </CardTitle>
-                    <CardDescription>
-                      Everything you need to keep your fleet operating
-                      efficiently
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {fleetServices.map((service) => (
-                        <div key={service} className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
-                          <span>{service}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* How It Works */}
-                <div className="mb-12">
-                  <h2 className="text-3xl font-bold text-center mb-8">
-                    How Our Fleet Program Works
-                  </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    {[
-                      {
-                        step: "1",
-                        title: "Fleet Assessment",
-                        description:
-                          "We analyze your fleet's needs and operational requirements",
-                      },
-                      {
-                        step: "2",
-                        title: "Custom Program",
-                        description:
-                          "Design a maintenance program tailored to your vehicles and schedule",
-                      },
-                      {
-                        step: "3",
-                        title: "Implementation",
-                        description:
-                          "Set up priority scheduling, billing, and reporting systems",
-                      },
-                      {
-                        step: "4",
-                        title: "Ongoing Support",
-                        description:
-                          "Regular reviews and adjustments to optimize fleet performance",
-                      },
-                    ].map((item) => (
-                      <div key={item.step} className="text-center">
-                        <div className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                          {item.step}
-                        </div>
-                        <h3 className="font-semibold mb-2">{item.title}</h3>
-                        <p className="text-sm text-muted-foreground">
-                          {item.description}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Fleet Analytics */}
-                <Card className="mb-12 border-primary">
-                  <CardHeader className="text-center">
-                    <BarChart3 className="h-12 w-12 text-primary mx-auto mb-4" />
-                    <CardTitle className="text-2xl">
-                      Fleet Intelligence & Analytics
-                    </CardTitle>
-                    <CardDescription className="text-lg">
-                      Make data-driven decisions with comprehensive fleet
-                      reporting
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="text-center">
-                        <h3 className="font-semibold mb-2">
-                          Maintenance Tracking
-                        </h3>
-                        <p className="text-sm text-muted-foreground">
-                          Complete service history and upcoming maintenance
-                          schedules for every vehicle
-                        </p>
-                      </div>
-                      <div className="text-center">
-                        <h3 className="font-semibold mb-2">Cost Analysis</h3>
-                        <p className="text-sm text-muted-foreground">
-                          Detailed breakdown of maintenance costs, repairs, and
-                          total cost of ownership
-                        </p>
-                      </div>
-                      <div className="text-center">
-                        <h3 className="font-semibold mb-2">
-                          Performance Metrics
-                        </h3>
-                        <p className="text-sm text-muted-foreground">
-                          Vehicle uptime, fuel efficiency, and reliability
-                          metrics to optimize your fleet
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
               </TabsContent>
             </Tabs>
 

@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { useState } from 'react';
-import { Menu, X, Phone } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { Button } from '@/components/ui/button';
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
+import { Menu, X, Phone } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,65 +14,65 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu';
+} from "@/components/ui/navigation-menu";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className='sticky top-0 z-50 w-full border-b bg-munden-burgundy dark:bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-munden-burgundy/95 dark:supports-[backdrop-filter]:bg-background/60'>
-      <div className='container flex h-16 items-center justify-between'>
-        <Link href='/' className='flex items-center space-x-2'>
+    <header className="sticky top-0 z-50 w-full border-b bg-munden-burgundy dark:bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-munden-burgundy/95 dark:supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-16 items-center justify-between">
+        <Link href="/" className="flex items-center space-x-2">
           {/* Mobile: Small logo image */}
           <Image
             src="/images/logo.png"
             alt="Munden Truck & Equipment"
             width={40}
             height={40}
-            className='sm:hidden w-10 h-10'
+            className="sm:hidden w-10 h-10"
           />
           {/* Desktop: Text logo */}
-          <span className='hidden sm:inline text-xl font-bold text-white dark:text-foreground'>
+          <span className="hidden sm:inline text-xl font-bold text-white dark:text-foreground">
             Munden Truck & Equipment
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className='hidden md:flex items-center space-x-8'>
+        <nav className="hidden md:flex items-center space-x-8">
           <NavigationMenu>
             <NavigationMenuList>
               {/* Shop Services */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className='bg-transparent text-white dark:text-foreground data-[state=open]:bg-white/10 dark:data-[state=open]:bg-accent hover:bg-white/10 dark:hover:bg-accent'>
+                <NavigationMenuTrigger className="bg-transparent text-white dark:text-foreground data-[state=open]:bg-white/10 dark:data-[state=open]:bg-accent hover:bg-white/10 dark:hover:bg-accent">
                   Shop Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className='grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]'>
-                    <li className='row-span-3'>
+                  <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                    <li className="row-span-3">
                       <NavigationMenuLink asChild>
                         <Link
-                          className='flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md'
-                          href='/services/service-department'
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                          href="/services/service-department"
                         >
-                          <div className='mb-2 mt-4 text-lg font-medium'>
+                          <div className="mb-2 mt-4 text-lg font-medium">
                             Service Department
                           </div>
-                          <p className='text-sm leading-tight text-muted-foreground'>
-                            Full-service repairs, CVIP inspections, preventive
-                            maintenance, and fleet services
+                          <p className="text-sm leading-tight text-muted-foreground">
+                            Full-service repairs, CVIP inspections, and
+                            preventive maintenance
                           </p>
                         </Link>
                       </NavigationMenuLink>
                     </li>
                     <ListItem
-                      href='/services/parts-department'
-                      title='Parts Department'
+                      href="/services/parts-department"
+                      title="Parts Department"
                     >
                       OEM and aftermarket parts with expert lookup service
                     </ListItem>
                     <ListItem
-                      href='/services/mobile-service'
-                      title='Mobile Service'
+                      href="/services/mobile-service"
+                      title="Mobile Service"
                     >
                       24/7 emergency roadside repairs and on-site service
                     </ListItem>
@@ -82,34 +82,34 @@ const Header = () => {
 
               {/* Equipment Sales */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className='bg-transparent text-white dark:text-foreground data-[state=open]:bg-white/10 dark:data-[state=open]:bg-accent hover:bg-white/10 dark:hover:bg-accent'>
+                <NavigationMenuTrigger className="bg-transparent text-white dark:text-foreground data-[state=open]:bg-white/10 dark:data-[state=open]:bg-accent hover:bg-white/10 dark:hover:bg-accent">
                   Equipment Sales
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className='grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]'>
-                    <li className='row-span-3'>
+                  <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                    <li className="row-span-3">
                       <NavigationMenuLink asChild>
                         <Link
-                          className='flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md'
-                          href='/equipment/ecolog'
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                          href="/equipment/ecolog"
                         >
-                          <div className='mb-2 mt-4 text-lg font-medium'>
+                          <div className="mb-2 mt-4 text-lg font-medium">
                             EcoLog Forestry
                           </div>
-                          <p className='text-sm leading-tight text-muted-foreground'>
+                          <p className="text-sm leading-tight text-muted-foreground">
                             Authorized EcoLog dealer for Western Canada -
                             premium forestry equipment
                           </p>
                         </Link>
                       </NavigationMenuLink>
                     </li>
-                    <ListItem href='/equipment/harvesters' title='Harvesters'>
+                    <ListItem href="/equipment/harvesters" title="Harvesters">
                       EcoLog 500 Series harvesters
                     </ListItem>
-                    <ListItem href='/equipment/forwarders' title='Forwarders'>
+                    <ListItem href="/equipment/forwarders" title="Forwarders">
                       EcoLog 500F Series forwarders
                     </ListItem>
-                    <ListItem href='/equipment/used' title='Used Equipment'>
+                    <ListItem href="/equipment/used" title="Used Equipment">
                       Quality pre-owned equipment
                     </ListItem>
                   </ul>
@@ -118,18 +118,18 @@ const Header = () => {
 
               {/* About Us */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className='bg-transparent text-white dark:text-foreground data-[state=open]:bg-white/10 dark:data-[state=open]:bg-accent hover:bg-white/10 dark:hover:bg-accent'>
+                <NavigationMenuTrigger className="bg-transparent text-white dark:text-foreground data-[state=open]:bg-white/10 dark:data-[state=open]:bg-accent hover:bg-white/10 dark:hover:bg-accent">
                   About Us
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]'>
-                    <ListItem href='/about/contact' title='Contact'>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    <ListItem href="/about/contact" title="Contact">
                       Get in touch with our team
                     </ListItem>
-                    <ListItem href='/about/history' title='Our History'>
+                    <ListItem href="/about/history" title="Our History">
                       30 years of excellence since 1994
                     </ListItem>
-                    <ListItem href='/about/resources' title='Resources'>
+                    <ListItem href="/about/resources" title="Resources">
                       Industry news and helpful articles
                     </ListItem>
                   </ul>
@@ -138,12 +138,12 @@ const Header = () => {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <div className='flex items-center space-x-4'>
+          <div className="flex items-center space-x-4">
             <a
-              href='tel:250-828-2268'
-              className='flex items-center space-x-2 text-sm text-white dark:text-foreground hover:text-white/80'
+              href="tel:250-828-2268"
+              className="flex items-center space-x-2 text-sm text-white dark:text-foreground hover:text-white/80"
             >
-              <Phone className='h-4 w-4' />
+              <Phone className="h-4 w-4" />
               <span>250-828-2268</span>
             </a>
             <ThemeToggle />
@@ -151,17 +151,17 @@ const Header = () => {
         </nav>
 
         {/* Mobile Menu Button */}
-        <div className='flex items-center gap-2 md:hidden'>
+        <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
           <button
-            className='text-white dark:text-foreground'
+            className="text-white dark:text-foreground"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label='Toggle menu'
+            aria-label="Toggle menu"
           >
             {isMenuOpen ? (
-              <X className='h-6 w-6' />
+              <X className="h-6 w-6" />
             ) : (
-              <Menu className='h-6 w-6' />
+              <Menu className="h-6 w-6" />
             )}
           </button>
         </div>
@@ -169,100 +169,100 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className='md:hidden'>
-          <nav className='flex flex-col space-y-4 p-4 border-t bg-munden-burgundy dark:bg-background'>
-            <div className='space-y-2'>
-              <p className='text-xs font-semibold text-white/60 uppercase tracking-wider'>
+        <div className="md:hidden">
+          <nav className="flex flex-col space-y-4 p-4 border-t bg-munden-burgundy dark:bg-background">
+            <div className="space-y-2">
+              <p className="text-xs font-semibold text-white/60 uppercase tracking-wider">
                 Shop Services
               </p>
               <Link
-                href='/services/service-department'
-                className='block text-sm font-medium text-white dark:text-foreground py-1'
+                href="/services/service-department"
+                className="block text-sm font-medium text-white dark:text-foreground py-1"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Service Department
               </Link>
               <Link
-                href='/services/parts-department'
-                className='block text-sm font-medium text-white dark:text-foreground py-1'
+                href="/services/parts-department"
+                className="block text-sm font-medium text-white dark:text-foreground py-1"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Parts Department
               </Link>
               <Link
-                href='/services/mobile-service'
-                className='block text-sm font-medium text-white dark:text-foreground py-1'
+                href="/services/mobile-service"
+                className="block text-sm font-medium text-white dark:text-foreground py-1"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Mobile Service
               </Link>
             </div>
 
-            <div className='space-y-2 pt-2 border-t border-white/20'>
-              <p className='text-xs font-semibold text-white/60 uppercase tracking-wider'>
+            <div className="space-y-2 pt-2 border-t border-white/20">
+              <p className="text-xs font-semibold text-white/60 uppercase tracking-wider">
                 Equipment Sales
               </p>
               <Link
-                href='/equipment/ecolog'
-                className='block text-sm font-medium text-white dark:text-foreground py-1'
+                href="/equipment/ecolog"
+                className="block text-sm font-medium text-white dark:text-foreground py-1"
                 onClick={() => setIsMenuOpen(false)}
               >
                 EcoLog Forestry
               </Link>
               <Link
-                href='/equipment/harvesters'
-                className='block text-sm font-medium text-white dark:text-foreground py-1'
+                href="/equipment/harvesters"
+                className="block text-sm font-medium text-white dark:text-foreground py-1"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Harvesters
               </Link>
               <Link
-                href='/equipment/forwarders'
-                className='block text-sm font-medium text-white dark:text-foreground py-1'
+                href="/equipment/forwarders"
+                className="block text-sm font-medium text-white dark:text-foreground py-1"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Forwarders
               </Link>
               <Link
-                href='/equipment/used'
-                className='block text-sm font-medium text-white dark:text-foreground py-1'
+                href="/equipment/used"
+                className="block text-sm font-medium text-white dark:text-foreground py-1"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Used Equipment
               </Link>
             </div>
 
-            <div className='space-y-2 pt-2 border-t border-white/20'>
-              <p className='text-xs font-semibold text-white/60 uppercase tracking-wider'>
+            <div className="space-y-2 pt-2 border-t border-white/20">
+              <p className="text-xs font-semibold text-white/60 uppercase tracking-wider">
                 About Us
               </p>
               <Link
-                href='/about/contact'
-                className='block text-sm font-medium text-white dark:text-foreground py-1'
+                href="/about/contact"
+                className="block text-sm font-medium text-white dark:text-foreground py-1"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact
               </Link>
               <Link
-                href='/about/history'
-                className='block text-sm font-medium text-white dark:text-foreground py-1'
+                href="/about/history"
+                className="block text-sm font-medium text-white dark:text-foreground py-1"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Our History
               </Link>
               <Link
-                href='/about/resources'
-                className='block text-sm font-medium text-white dark:text-foreground py-1'
+                href="/about/resources"
+                className="block text-sm font-medium text-white dark:text-foreground py-1"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Resources
               </Link>
             </div>
 
-            <div className='pt-4 border-t border-white/20'>
-              <Button asChild variant='secondary' className='w-full'>
-                <a href='tel:250-828-2268'>
-                  <Phone className='mr-2 h-4 w-4' />
+            <div className="pt-4 border-t border-white/20">
+              <Button asChild variant="secondary" className="w-full">
+                <a href="tel:250-828-2268">
+                  <Phone className="mr-2 h-4 w-4" />
                   Call: 250-828-2268
                 </a>
               </Button>
@@ -294,13 +294,13 @@ const ListItem = ({
         <Link
           href={href}
           className={cn(
-            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
-            className
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className,
           )}
           {...props}
         >
-          <div className='text-sm font-medium leading-none'>{title}</div>
-          <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
           </p>
         </Link>

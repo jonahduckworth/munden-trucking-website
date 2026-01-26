@@ -15,7 +15,7 @@ const services = [
   {
     title: "Service Department",
     description:
-      "Full-service repairs, CVIP inspections, preventive maintenance, and fleet services with certified technicians.",
+      "Full-service repairs, CVIP inspections, and preventive maintenance with certified technicians.",
     icon: Truck,
     href: "/services/service-department",
   },

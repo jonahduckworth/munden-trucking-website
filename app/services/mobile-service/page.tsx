@@ -538,35 +538,6 @@ export default function MobileServicePage() {
               </div>
             </div>
 
-            {/* Fleet Service Contracts */}
-            <Card className="mb-12 bg-muted/30">
-              <CardContent className="p-8">
-                <div className="flex flex-col md:flex-row items-center gap-6">
-                  <div className="flex-shrink-0">
-                    <Shield className="h-16 w-16 text-primary" />
-                  </div>
-                  <div className="flex-1 text-center md:text-left">
-                    <h3 className="text-2xl font-bold mb-2">
-                      Fleet Service Contracts
-                    </h3>
-                    <p className="text-muted-foreground mb-4">
-                      Get priority response and discounted rates with a fleet
-                      service contract. Guaranteed response times and dedicated
-                      support for your operations.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-                      <Button asChild>
-                        <Link href="/services/service-department">
-                          <Users className="mr-2 h-4 w-4" />
-                          Learn About Fleet Services
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
             {/* CTA Section */}
             <CTASection
               title="Save Our Emergency Number"
