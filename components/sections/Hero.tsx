@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Phone, Calendar, Wrench, Package } from "lucide-react"
-import { motion } from "framer-motion"
+import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Phone, Calendar, Wrench, Package } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
@@ -12,9 +12,7 @@ const Hero = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-munden-black/80 to-munden-burgundy/40 dark:from-black/80 dark:to-primary/30 z-10" />
-        <div 
-          className="h-full w-full bg-gradient-to-br from-munden-burgundy via-munden-black to-munden-burgundy dark:from-background dark:via-primary/20 dark:to-background"
-        />
+        <div className="h-full w-full bg-gradient-to-br from-munden-burgundy via-munden-black to-munden-burgundy dark:from-background dark:via-primary/20 dark:to-background" />
       </div>
 
       {/* Content */}
@@ -30,30 +28,41 @@ const Hero = () => {
               Your Trusted Partner for Truck Repair & Forestry Equipment
             </h1>
             <p className="text-lg md:text-xl mb-8 text-gray-200">
-              Professional truck repair services, CVIP inspections, and authorized EcoLog dealer
-              serving the BC Interior. Available 24/7 for emergency repairs.
+              Professional truck repair services, CVIP inspections, and
+              authorized EcoLog dealer serving the BC Interior. Available 24/7
+              for emergency repairs.
             </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mb-12">
-            <Button size="lg" asChild className="group">
-              <a href="tel:250-828-2268">
-                <Phone className="mr-2 h-4 w-4" />
-                Call Now
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" asChild className="bg-white/10 text-white border-white hover:bg-white hover:text-munden-burgundy">
-              <Link href="/services/service-department">
-                <Wrench className="mr-2 h-4 w-4" />
-                Our Services
-              </Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild className="bg-white/10 text-white border-white hover:bg-white hover:text-munden-burgundy">
-              <Link href="/services/parts">
-                <Package className="mr-2 h-4 w-4" />
-                Our Parts
-              </Link>
-            </Button>
-          </div>
+            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+              <Button size="lg" asChild className="group">
+                <a href="tel:250-828-2268">
+                  <Phone className="mr-2 h-4 w-4" />
+                  Call Now
+                </a>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="bg-white/10 text-white border-white hover:bg-white hover:text-munden-burgundy"
+              >
+                <Link href="/services/service-department">
+                  <Wrench className="mr-2 h-4 w-4" />
+                  Our Services
+                </Link>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="bg-white/10 text-white border-white hover:bg-white hover:text-munden-burgundy"
+              >
+                <Link href="/services/parts">
+                  <Package className="mr-2 h-4 w-4" />
+                  Our Parts
+                </Link>
+              </Button>
+            </div>
 
             {/* Trust Indicators */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -67,8 +76,8 @@ const Hero = () => {
                   <Calendar className="h-6 w-6" />
                 </div>
                 <div>
-                  <p className="font-semibold">Open 6 Days</p>
-                  <p className="text-sm text-gray-300">Mon-Sat Service</p>
+                  <p className="font-semibold">Open 7 Days</p>
+                  <p className="text-sm text-gray-300">24 Hours a Day</p>
                 </div>
               </motion.div>
 
@@ -83,7 +92,9 @@ const Hero = () => {
                 </div>
                 <div>
                   <p className="font-semibold">Expert Technicians</p>
-                  <p className="text-sm text-gray-300">Certified Professionals</p>
+                  <p className="text-sm text-gray-300">
+                    Certified Professionals
+                  </p>
                 </div>
               </motion.div>
 
@@ -97,7 +108,7 @@ const Hero = () => {
                   <Phone className="h-6 w-6" />
                 </div>
                 <div>
-                  <p className="font-semibold">24/7 Emergency</p>
+                  <p className="font-semibold">24/7 Service Trucks</p>
                   <p className="text-sm text-gray-300">Always Available</p>
                 </div>
               </motion.div>
@@ -122,7 +133,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

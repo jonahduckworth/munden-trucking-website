@@ -1,36 +1,46 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Truck, Package, AlertCircle, Trees } from "lucide-react"
-import { motion } from "framer-motion"
+import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Truck, Package, AlertCircle, Trees } from "lucide-react";
+import { motion } from "framer-motion";
 
 const services = [
   {
     title: "Service Department",
-    description: "Full-service repairs, CVIP inspections, preventive maintenance, and fleet services with certified technicians.",
+    description:
+      "Full-service repairs, CVIP inspections, preventive maintenance, and fleet services with certified technicians.",
     icon: Truck,
     href: "/services/service-department",
   },
   {
     title: "Parts Department",
-    description: "OEM and aftermarket parts for trucks and heavy equipment. Expert parts lookup and fast availability.",
+    description:
+      "OEM and aftermarket parts for trucks and heavy equipment. Expert parts lookup and fast availability.",
     icon: Package,
     href: "/services/parts-department",
   },
   {
     title: "Mobile Service",
-    description: "24/7 emergency roadside repairs and on-site service throughout the BC Interior.",
+    description:
+      "24/7 emergency roadside repairs and on-site service throughout the BC Interior.",
     icon: AlertCircle,
     href: "/services/mobile-service",
   },
   {
-    title: "EcoLog Equipment",
-    description: "Authorized EcoLog dealer - premium forestry harvesters and forwarders with full parts and service support.",
+    title: "EcoLog Forestry Sales",
+    description:
+      "Authorized EcoLog dealer - premium forestry harvesters and forwarders with full parts and service support.",
     icon: Trees,
     href: "/equipment/ecolog",
-  }
-]
+  },
+];
 
 const ServicesGrid = () => {
   return (
@@ -45,13 +55,14 @@ const ServicesGrid = () => {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            From routine maintenance to emergency repairs, we provide comprehensive services for the trucking and forestry industries.
+            From routine maintenance to emergency repairs, we provide
+            comprehensive services for the trucking and forestry industries.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => {
-            const Icon = service.icon
+            const Icon = service.icon;
             return (
               <motion.div
                 key={service.title}
@@ -84,12 +95,12 @@ const ServicesGrid = () => {
                   </Card>
                 </Link>
               </motion.div>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default ServicesGrid
+export default ServicesGrid;
