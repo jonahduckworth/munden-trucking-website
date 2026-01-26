@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Phone, Calendar, Wrench } from "lucide-react"
+import { Phone, Calendar, Wrench, Package } from "lucide-react"
 import { motion } from "framer-motion"
 
 const Hero = () => {
@@ -36,16 +36,10 @@ const Hero = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
             <Button size="lg" asChild className="group">
-              <Link href="/quote">
-                Get Free Quote
-                <motion.span
-                  className="ml-2 inline-block"
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ repeat: Infinity, duration: 1.5 }}
-                >
-                  →
-                </motion.span>
-              </Link>
+              <a href="tel:250-828-2268">
+                <Phone className="mr-2 h-4 w-4" />
+                Call Now
+              </a>
             </Button>
             <Button size="lg" variant="outline" asChild className="bg-white/10 text-white border-white hover:bg-white hover:text-munden-burgundy">
               <Link href="/services/service-department">
@@ -54,10 +48,10 @@ const Hero = () => {
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild className="bg-white/10 text-white border-white hover:bg-white hover:text-munden-burgundy">
-              <a href="tel:250-828-2268">
-                <Phone className="mr-2 h-4 w-4" />
-                Call Now
-              </a>
+              <Link href="/services/parts">
+                <Package className="mr-2 h-4 w-4" />
+                Our Parts
+              </Link>
             </Button>
           </div>
 
