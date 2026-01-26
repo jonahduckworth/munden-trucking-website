@@ -441,16 +441,32 @@ export default function PartsDepartmentPage() {
                     </h3>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span>Monday - Friday</span>
-                        <span className="font-medium">7:00 AM - 5:00 PM</span>
+                        <span>Sunday</span>
+                        <span className="font-medium">12:00 AM - 11:59 PM</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Monday</span>
+                        <span className="font-medium">12:00 AM - 11:59 PM</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Tuesday</span>
+                        <span className="font-medium">12:00 AM - 11:59 PM</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Wednesday</span>
+                        <span className="font-medium">12:00 AM - 11:59 PM</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Thursday</span>
+                        <span className="font-medium">12:00 AM - 11:59 PM</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Friday</span>
+                        <span className="font-medium">12:00 AM - 11:59 PM</span>
                       </div>
                       <div className="flex justify-between">
                         <span>Saturday</span>
-                        <span className="font-medium">8:00 AM - 12:00 PM</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Sunday</span>
-                        <span className="font-medium">Closed</span>
+                        <span className="font-medium">12:00 AM - 11:59 PM</span>
                       </div>
                     </div>
                     <p className="text-sm text-muted-foreground mt-4">
