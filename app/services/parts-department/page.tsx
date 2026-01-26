@@ -17,6 +17,7 @@ import {
   Clock,
   Shield,
   CheckCircle,
+  Mail,
   Wrench,
   Search,
   Zap,
@@ -47,7 +48,6 @@ const partsCategories = [
     description:
       "Complete engine components, transmission parts, and drivetrain systems",
     items: [
-      "Engine rebuild kits",
       "Turbochargers",
       "Fuel injectors",
       "Transmission components",
@@ -221,10 +221,10 @@ export default function PartsDepartmentPage() {
                   </a>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <Link href="/about/contact">
-                    <Package className="mr-2 h-4 w-4" />
-                    Parts Inquiry
-                  </Link>
+                  <a href="mailto:kamloops.parts@mundengroup.ca">
+                    <Mail className="mr-2 h-4 w-4" />
+                    Email
+                  </a>
                 </Button>
               </div>
             </div>
