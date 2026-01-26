@@ -44,8 +44,8 @@ const testimonials = [
     name: "Robert Wilson",
     company: "Wilson Bros. Hauling",
     rating: 5,
-    text: "When it comes to log hauling in the BC Interior, nobody knows the business better than Munden. Reliable, professional, and always on time.",
-    service: "Log Hauling"
+    text: "Outstanding service and support for our fleet. Munden keeps our trucks running reliably. Professional and always on time.",
+    service: "Fleet Services"
   }
 ]
 

@@ -59,7 +59,7 @@ export default function TermsPage() {
                 <h2>2. Services</h2>
                 <p>
                   Munden Truck & Equipment Ltd. provides truck repair,
-                  maintenance, inspection, equipment sales, and log hauling
+                  maintenance, inspection, and equipment sales
                   services. Our services are subject to availability and may be
                   modified or discontinued at any time without notice.
                 </p>

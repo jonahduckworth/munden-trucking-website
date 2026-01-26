@@ -30,7 +30,7 @@ const Hero = () => {
               Your Trusted Partner for Truck Repair & Forestry Equipment
             </h1>
             <p className="text-lg md:text-xl mb-8 text-gray-200">
-              Professional truck repair services, CVIP inspections, log hauling, and authorized EcoLog dealer
+              Professional truck repair services, CVIP inspections, and authorized EcoLog dealer
               serving the BC Interior. Available 24/7 for emergency repairs.
             </p>
 
