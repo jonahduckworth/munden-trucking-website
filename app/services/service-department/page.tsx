@@ -20,6 +20,7 @@ import {
   Users,
   ChevronLeft,
   Phone,
+  Mail,
   AlertTriangle,
   FileCheck,
   CalendarDays,
@@ -56,7 +57,6 @@ const repairServices = [
   {
     category: "Engine Services",
     services: [
-      "Complete engine rebuilds",
       "Diesel engine diagnostics",
       "Turbocharger repair",
       "Fuel system service",
@@ -64,7 +64,7 @@ const repairServices = [
     ],
   },
   {
-    category: "Transmission & Drivetrain",
+    category: "Drivetrain",
     services: [
       "Manual & automatic transmission repair",
       "Clutch replacement",
@@ -111,6 +111,15 @@ const repairServices = [
       "Hose replacement",
       "System diagnostics",
       "Preventive maintenance",
+    ],
+  },
+  {
+    category: "Crane",
+    services: [
+      "Crane inspections",
+      "Welding & fabricating",
+      "Refers",
+      "Engine heaters",
     ],
   },
 ];
@@ -310,49 +319,6 @@ const maintenanceSchedule = [
   },
 ];
 
-// Fleet Services Tab Data
-const fleetPrograms = [
-  {
-    name: "Essential Fleet Care",
-    minVehicles: "5-10 vehicles",
-    features: [
-      "Priority scheduling",
-      "5% parts discount",
-      "Quarterly fleet health reports",
-      "Dedicated service advisor",
-      "Extended warranty options",
-    ],
-    ideal: "Small to medium fleets",
-  },
-  {
-    name: "Professional Fleet Management",
-    minVehicles: "11-25 vehicles",
-    features: [
-      "Expedited service lanes",
-      "10% parts discount",
-      "Monthly fleet analytics",
-      "24/7 emergency support",
-      "Custom maintenance schedules",
-      "Fleet fuel card program",
-    ],
-    ideal: "Growing commercial operations",
-  },
-  {
-    name: "Enterprise Fleet Solutions",
-    minVehicles: "26+ vehicles",
-    features: [
-      "Dedicated service bays",
-      "15% parts discount",
-      "Real-time fleet tracking",
-      "On-site service options",
-      "Custom billing solutions",
-      "Fleet replacement planning",
-      "Driver training programs",
-    ],
-    ideal: "Large fleet operations",
-  },
-];
-
 const fleetBenefits = [
   {
     icon: Clock,
@@ -478,14 +444,14 @@ export default function ServiceDepartmentPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild>
                   <Link href="/quote">
-                    <Clock className="mr-2 h-4 w-4" />
-                    Get Quote
+                    <Phone className="mr-2 h-4 w-4" />
+                    Call: 250-828-2268
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <a href="tel:250-828-2268">
-                    <Phone className="mr-2 h-4 w-4" />
-                    Call: 250-828-2268
+                  <a href="mailto:kamloops.shop@mundengroup.ca">
+                    <Mail className="mr-2 h-4 w-4" />
+                    Email
                   </a>
                 </Button>
               </div>
@@ -645,9 +611,9 @@ export default function ServiceDepartmentPage() {
                         <CardHeader>
                           <CardTitle>{type.title}</CardTitle>
                           <CardDescription>{type.description}</CardDescription>
-                          <Badge variant="outline" className="w-fit">
+                          {/* <Badge variant="outline" className="w-fit">
                             Duration: {type.duration}
-                          </Badge>
+                          </Badge> */}
                         </CardHeader>
                         <CardContent>
                           <p className="font-medium mb-2">Includes:</p>
@@ -1000,61 +966,6 @@ export default function ServiceDepartmentPage() {
                     );
                   })}
                 </div>
-
-                {/* Fleet Programs */}
-                <Card className="mb-12">
-                  <CardHeader>
-                    <CardTitle className="text-2xl">
-                      Fleet Management Programs
-                    </CardTitle>
-                    <CardDescription>
-                      Choose the program that best fits your fleet size and
-                      operational needs
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Tabs defaultValue="essential" className="w-full">
-                      <TabsList className="grid w-full grid-cols-3 h-auto">
-                        <TabsTrigger value="essential">Essential</TabsTrigger>
-                        <TabsTrigger value="professional">
-                          Professional
-                        </TabsTrigger>
-                        <TabsTrigger value="enterprise">Enterprise</TabsTrigger>
-                      </TabsList>
-                      {fleetPrograms.map((program) => (
-                        <TabsContent
-                          key={program.name}
-                          value={program.name.split(" ")[0].toLowerCase()}
-                        >
-                          <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                              <h3 className="text-xl font-semibold">
-                                {program.name}
-                              </h3>
-                              <Badge variant="secondary">
-                                {program.minVehicles}
-                              </Badge>
-                            </div>
-                            <p className="text-muted-foreground">
-                              Ideal for: {program.ideal}
-                            </p>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                              {program.features.map((feature) => (
-                                <div
-                                  key={feature}
-                                  className="flex items-start gap-2"
-                                >
-                                  <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                                  <span className="text-sm">{feature}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        </TabsContent>
-                      ))}
-                    </Tabs>
-                  </CardContent>
-                </Card>
 
                 {/* Comprehensive Services */}
                 <Card className="mb-12">
