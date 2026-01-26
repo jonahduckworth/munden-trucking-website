@@ -108,14 +108,7 @@ const commonRepairs = [
   },
   {
     category: "Tires & Wheels",
-    issues: [
-      "Tire replacement",
-      "Wheel bearing failure",
-      "Hub repairs",
-      "Tire pressure issues",
-      "Rim damage",
-      "Dual tire problems",
-    ],
+    issues: ["Wheel bearing failure", "Hub repairs", "Tire pressure issues"],
   },
   {
     category: "Cooling & Fluids",
@@ -126,17 +119,6 @@ const commonRepairs = [
       "Oil leaks",
       "Hydraulic leaks",
       "DEF system issues",
-    ],
-  },
-  {
-    category: "Other Emergency Services",
-    issues: [
-      "Lockout service",
-      "Fuel delivery",
-      "Jump starts",
-      "Temporary repairs",
-      "Towing coordination",
-      "Load transfer assistance",
     ],
   },
 ];
