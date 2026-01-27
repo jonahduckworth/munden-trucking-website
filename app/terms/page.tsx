@@ -121,8 +121,7 @@ export default function TermsPage() {
                 </p>
                 <p>
                   <strong>Equipment Sales:</strong> New equipment is covered by
-                  manufacturer warranty. Used equipment is sold "as is" unless
-                  otherwise specified in writing.
+                  manufacturer warranty.
                 </p>
 
                 <h2>7. Limitation of Liability</h2>

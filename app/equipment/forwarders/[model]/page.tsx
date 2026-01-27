@@ -482,16 +482,6 @@ export default async function ForwarderDetailPage({ params }: Props) {
               </Link>
             </Button>
             <Button variant="outline" asChild className="h-auto p-4">
-              <Link href="/equipment/used">
-                <div className="text-left">
-                  <div className="font-semibold">Used Forwarders</div>
-                  <div className="text-sm text-muted-foreground">
-                    Budget-friendly options
-                  </div>
-                </div>
-              </Link>
-            </Button>
-            <Button variant="outline" asChild className="h-auto p-4">
               <Link href="/equipment/ecolog">
                 <div className="text-left">
                   <div className="font-semibold">EcoLog Equipment</div>

@@ -109,9 +109,6 @@ const Header = () => {
                     <ListItem href="/equipment/forwarders" title="Forwarders">
                       EcoLog 500F Series forwarders
                     </ListItem>
-                    <ListItem href="/equipment/used" title="Used Equipment">
-                      Quality pre-owned equipment
-                    </ListItem>
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -222,13 +219,6 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Forwarders
-              </Link>
-              <Link
-                href="/equipment/used"
-                className="block text-sm font-medium text-white dark:text-foreground py-1"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Used Equipment
               </Link>
             </div>
 

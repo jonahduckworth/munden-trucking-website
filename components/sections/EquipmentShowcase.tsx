@@ -27,16 +27,6 @@ const equipment = [
     features: ["20-ton capacity", "Low ground pressure", "Comfortable cab"],
     href: "/equipment/forwarders/594f",
     isNew: true
-  },
-  {
-    id: 3,
-    name: "Used Equipment Inventory",
-    category: "Various",
-    description: "Quality pre-owned forestry equipment",
-    image: "/images/equipment/used-inventory.jpg",
-    features: ["Inspected & certified", "Warranty available", "Competitive pricing"],
-    href: "/equipment/used",
-    isNew: false
   }
 ]
 
@@ -59,11 +49,6 @@ const EquipmentShowcase = () => {
             <Button asChild>
               <Link href="/equipment/ecolog">
                 View EcoLog Equipment
-              </Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <Link href="/equipment/used">
-                Browse Used Inventory
               </Link>
             </Button>
           </div>

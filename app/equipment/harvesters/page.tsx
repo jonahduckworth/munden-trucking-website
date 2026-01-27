@@ -524,16 +524,6 @@ export default function HarvestersPage() {
               </Link>
             </Button>
             <Button variant="outline" asChild className="h-auto p-4">
-              <Link href="/equipment/used">
-                <div className="text-left">
-                  <div className="font-semibold">Used Equipment</div>
-                  <div className="text-sm text-muted-foreground">
-                    Quality pre-owned machines
-                  </div>
-                </div>
-              </Link>
-            </Button>
-            <Button variant="outline" asChild className="h-auto p-4">
               <Link href="/equipment/ecolog">
                 <div className="text-left">
                   <div className="font-semibold">EcoLog Equipment</div>

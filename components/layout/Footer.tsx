@@ -85,14 +85,6 @@ const Footer = () => {
                   Forwarders
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/equipment/used"
-                  className="text-sm hover:underline"
-                >
-                  Used Equipment
-                </Link>
-              </li>
             </ul>
           </div>
 

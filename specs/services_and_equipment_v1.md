@@ -17,7 +17,6 @@ This plan outlines the implementation and standardization of all services and eq
 ### Equipment Dropdown
 1. **Harvesters** - `/equipment/new/harvesters`
 2. **Forwarders** - `/equipment/new/forwarders`
-3. **Used Equipment** - `/equipment/used`
 
 ## Implementation Plan
 
@@ -133,15 +132,6 @@ This plan outlines the implementation and standardization of all services and eq
   - Specifications filter
   - Individual product pages for each model
   - Request quote functionality
-
-#### 2.5 Used Equipment
-- **Status**: Exists at `/equipment/used/page.tsx`
-- **Action**: Enhance with dynamic inventory
-- **Features**:
-  - Advanced filtering (type, year, price, hours)
-  - Individual listing pages
-  - Inspection report links
-  - Trade-in value calculator
 
 ### Phase 3: Shared Components & Templates
 

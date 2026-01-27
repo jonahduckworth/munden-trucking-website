@@ -406,19 +406,6 @@ export default function EcoLogPage() {
                 </Card>
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-lg">Used Equipment</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Quality pre-owned forestry equipment
-                    </p>
-                    <Button variant="outline" size="sm" asChild>
-                      <Link href="/equipment/used">View Inventory</Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader>
                     <CardTitle className="text-lg">Parts & Service</CardTitle>
                   </CardHeader>
                   <CardContent>
