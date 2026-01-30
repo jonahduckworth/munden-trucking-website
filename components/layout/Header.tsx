@@ -22,16 +22,14 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-munden-burgundy dark:bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-munden-burgundy/95 dark:supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center space-x-2">
-          {/* Mobile: Small logo image */}
+        <Link href="/" className="flex items-center space-x-8">
           <Image
             src="/images/logo.png"
             alt="Munden Truck & Equipment"
-            width={40}
-            height={40}
-            className="sm:hidden w-10 h-10"
+            width={50}
+            height={50}
+            className="w-10 h-10 sm:w-12 sm:h-12"
           />
-          {/* Desktop: Text logo */}
           <span className="hidden sm:inline text-xl font-bold text-white dark:text-foreground">
             Munden Truck & Equipment
           </span>
@@ -135,7 +133,7 @@ const Header = () => {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-8">
             <a
               href="tel:250-828-2268"
               className="flex items-center space-x-2 text-sm text-white dark:text-foreground hover:text-white/80"
@@ -143,6 +141,53 @@ const Header = () => {
               <Phone className="h-4 w-4" />
               <span>250-828-2268</span>
             </a>
+            <div className="flex items-center space-x-4">
+              <a
+                href="https://www.facebook.com/MundenGroup/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-80 transition-opacity"
+                aria-label="Facebook"
+              >
+                <Image
+                  src="/images/social/fb.png"
+                  alt="Facebook"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5"
+                />
+              </a>
+              <a
+                href="https://www.instagram.com/p/CiSq0mELIXD/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-80 transition-opacity"
+                aria-label="Instagram"
+              >
+                <Image
+                  src="/images/social/ig.svg"
+                  alt="Instagram"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5"
+                />
+              </a>
+              <a
+                href="https://ca.linkedin.com/company/mundengroup"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-80 transition-opacity"
+                aria-label="LinkedIn"
+              >
+                <Image
+                  src="/images/social/linked.png"
+                  alt="LinkedIn"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5"
+                />
+              </a>
+            </div>
             <ThemeToggle />
           </div>
         </nav>
@@ -256,6 +301,53 @@ const Header = () => {
                   Call: 250-828-2268
                 </a>
               </Button>
+              <div className="flex items-center justify-center space-x-8 mt-4">
+                <a
+                  href="https://www.facebook.com/MundenGroup/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-80 transition-opacity"
+                  aria-label="Facebook"
+                >
+                  <Image
+                    src="/images/social/fb.png"
+                    alt="Facebook"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
+                </a>
+                <a
+                  href="https://www.instagram.com/p/CiSq0mELIXD/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-80 transition-opacity"
+                  aria-label="Instagram"
+                >
+                  <Image
+                    src="/images/social/ig.svg"
+                    alt="Instagram"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
+                </a>
+                <a
+                  href="https://ca.linkedin.com/company/mundengroup"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-80 transition-opacity"
+                  aria-label="LinkedIn"
+                >
+                  <Image
+                    src="/images/social/linked.png"
+                    alt="LinkedIn"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
+                </a>
+              </div>
             </div>
           </nav>
         </div>
