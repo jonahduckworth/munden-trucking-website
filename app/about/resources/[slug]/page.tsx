@@ -11,35 +11,44 @@ import StructuredData, {
 // In production, this would fetch from a database
 const getArticle = (slug: string) => {
   const articles = {
-    "new-ecolog-590g-harvester-available": {
-      title: "New EcoLog 590G Harvester Now Available",
+    "turning-uncertainty-into-opportunity-forestry-evolution": {
+      title:
+        "Turning Uncertainty into Opportunity: The Evolution of Forestry in Western Canada",
       content: `
-        <p>We're thrilled to announce that the highly anticipated EcoLog 590G harvester is now available at Munden Truck & Equipment Ltd. This latest addition to the EcoLog family represents a significant leap forward in forestry equipment technology.</p>
+        <p>The forestry sector in British Columbia—and across much of Canada—is navigating a period of deep uncertainty. From ongoing softwood lumber tariffs to complex First Nations consultation processes and an increasingly demanding regulatory environment, it's no secret that our industry is under pressure. Harvesting levels continue to decline, and many contractors and manufacturers are asking the same question: Where do we go from here?</p>
 
-        <h2>Enhanced Performance Features</h2>
-        <p>The 590G model comes equipped with a Stage V compliant engine that delivers 281 horsepower while maintaining exceptional fuel efficiency. The improved hydraulic system provides faster cycle times and smoother operation, allowing operators to maximize productivity throughout their shift.</p>
+        <p>History has shown that moments like this—where long-standing systems are challenged—often spark the most significant progress. When old models no longer fit the realities of new markets, technologies, and social expectations, innovation is not just an option—it becomes a necessity.</p>
 
-        <h2>Operator Comfort and Safety</h2>
-        <p>EcoLog has completely redesigned the cab with operator comfort in mind. The new ergonomic seat, improved visibility, and intuitive control layout reduce operator fatigue during long working days. Advanced safety features include:</p>
-        <ul>
-          <li>360-degree camera system</li>
-          <li>Automatic fire suppression system</li>
-          <li>Enhanced ROPS/FOPS certified cab structure</li>
-          <li>LED work lights for superior visibility</li>
-        </ul>
+        <p>At Munden Truck & Equipment Ltd., we've always believed that the forestry industry's strength lies in its ability to adapt. Our forests and our communities have weathered change before, and we'll do so again. But this time, the evolution may look different.</p>
 
-        <h2>Environmental Considerations</h2>
-        <p>The 590G meets the strictest environmental standards with its Stage V engine and advanced emission control systems. The improved fuel efficiency not only reduces operating costs but also minimizes the environmental footprint of your forestry operations.</p>
+        <h2>A Shift Toward Value, Not Just Volume</h2>
+        <p>As the allowable annual cut in many timber supply areas continues to tighten, the economics of "conventional" full-tree or clear-cut logging are becoming increasingly difficult to sustain. Simply put, there's less fibre to harvest, and more scrutiny over how it's done. Yet demand for sustainably sourced, high-quality wood products continues to grow—both at home and abroad.</p>
 
-        <h2>Available for Demo</h2>
-        <p>We invite you to experience the EcoLog 590G firsthand. Contact our sales team to schedule a demonstration and see how this remarkable machine can enhance your forestry operations. Our expert staff can help discuss how the 590G fits into your fleet.</p>
+        <p>This reality is forcing a shift in thinking: from maximizing volume to maximizing value. The future of forestry in Western Canada may depend not on how much we cut, but how intelligently and selectively we harvest.</p>
+
+        <h2>Learning from Global Leaders</h2>
+        <p>In Scandinavia, much of Europe, and increasingly in Eastern Canada, the industry has already embraced commercial thinning and selective harvesting as core components of sustainable forest management. Specialized equipment—like the EcoLog harvesters and forwarders we're proud to represent—has become the foundation of this evolution.</p>
+
+        <p>These machines are designed for precision. They enable operators to remove select trees efficiently and with minimal impact to the surrounding stand—encouraging forest health, improving long-term yield, and providing an ongoing source of income rather than a once-per-rotation payout.</p>
+
+        <p>While this approach is not yet widespread in Western Canada, the pressures we're experiencing are setting the stage for change. The economics, environmental expectations, and market dynamics are aligning in a way that makes this shift inevitable.</p>
+
+        <h2>Turbulence Breeds Innovation</h2>
+        <p>It often takes turbulence to drive transformation. When challenges mount, the innovators step forward. Those willing to test new models, adopt emerging technology, and rethink traditional practices become the leaders of the next era.</p>
+
+        <p>We see tremendous opportunity ahead for forward-thinking contractors and licensees who are ready to adapt—those who see the potential in smaller, more agile operations that prioritize stand improvement, reduced environmental footprint, and long-term sustainability.</p>
+
+        <h2>A Future Worth Building</h2>
+        <p>There's no question that the road ahead for forestry in British Columbia is uncertain. But uncertainty doesn't have to mean decline. It can mean renewal. The very forces challenging our industry today may be the ones that ultimately shape a stronger, more resilient, and more value-driven future.</p>
+
+        <p>At Munden Truck & Equipment, we're proud to support the people and the ideas that are helping build that future—because the evolution of forestry isn't coming someday; it's already begun.</p>
       `,
       excerpt:
-        "We're excited to announce the arrival of the latest EcoLog 590G harvester model, featuring enhanced performance and improved fuel efficiency.",
-      category: "Equipment",
-      author: "Mike Thompson",
-      date: "2024-03-15",
-      readTime: "3 min read",
+        "The forestry sector in British Columbia is navigating a period of deep uncertainty. From ongoing softwood lumber tariffs to complex First Nations consultation processes, our industry is under pressure. But history has shown that moments like this often spark the most significant progress.",
+      category: "Industry Insights",
+      author: "Nolan Munden",
+      date: "2025-11-14",
+      readTime: "6 min read",
     },
   };
 
@@ -146,17 +155,25 @@ export default async function ResourceArticlePage({ params }: Props) {
 
             {/* Featured Image */}
             <div className="aspect-video relative bg-muted mb-8 rounded-lg overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-muted-foreground">
-                  Article Featured Image
-                </span>
-              </div>
+              <img
+                src="/images/equipment/blog1.jpeg"
+                alt={article.title}
+                className="w-full h-full object-cover"
+              />
             </div>
 
             {/* Article Content */}
             <div
-              className="prose prose-lg dark:prose-invert max-w-none mb-12"
-              dangerouslySetInnerHTML={{ __html: article.content }}
+              className="mb-12"
+              style={{
+                fontSize: '1.125rem',
+                lineHeight: '1.8',
+              }}
+              dangerouslySetInnerHTML={{
+                __html: article.content
+                  .replace(/<h2>/g, '<h2 style="color: #7D3038; font-size: 1.875rem; font-weight: 700; margin-top: 4rem; margin-bottom: 2rem;">')
+                  .replace(/<p>/g, '<p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 2rem;">')
+              }}
             />
 
             {/* CTA Section */}
