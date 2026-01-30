@@ -274,7 +274,10 @@ export default async function HarvesterDetailPage({ params }: Props) {
 
                 <div className="flex flex-col gap-3">
                   <Button size="lg" asChild className="w-full">
-                    <Link href="/quote">Request Quote</Link>
+                    <Link href="/about/contact">
+                      <Calendar className="mr-2 h-4 w-4" />
+                      Schedule Demo
+                    </Link>
                   </Button>
                   <Button
                     size="lg"
@@ -286,17 +289,6 @@ export default async function HarvesterDetailPage({ params }: Props) {
                       <Phone className="mr-2 h-4 w-4" />
                       Call Sales
                     </a>
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    asChild
-                    className="w-full"
-                  >
-                    <Link href="/about/contact">
-                      <Calendar className="mr-2 h-4 w-4" />
-                      Schedule Demo
-                    </Link>
                   </Button>
                 </div>
 
