@@ -1,14 +1,14 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 const partners = [
-  { id: 1, name: "EcoLog", logo: "/images/partners/ecolog.png" },
-  { id: 2, name: "Partner 2", logo: "/images/partners/partner2.png" },
-  { id: 3, name: "Partner 3", logo: "/images/partners/partner3.png" },
-  { id: 4, name: "Partner 4", logo: "/images/partners/partner4.png" },
-  { id: 5, name: "Partner 5", logo: "/images/partners/partner5.png" },
-  { id: 6, name: "Partner 6", logo: "/images/partners/partner6.png" },
+  { id: 1, name: "British Columbia", logo: "/images/partners/british_columbia.jpeg" },
+  { id: 2, name: "Carrier", logo: "/images/partners/carrier.png" },
+  { id: 3, name: "Google", logo: "/images/partners/google.png" },
+  { id: 4, name: "Parker", logo: "/images/partners/parker.jpeg" },
+  { id: 5, name: "Webasto", logo: "/images/partners/webasto.png" },
 ]
 
 const PartnersLogos = () => {
@@ -28,7 +28,7 @@ const PartnersLogos = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center">
           {partners.map((partner, index) => (
             <motion.div
               key={partner.id}
@@ -36,11 +36,16 @@ const PartnersLogos = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              className="flex items-center justify-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
             >
-              {/* Placeholder for partner logos */}
-              <div className="w-32 h-16 bg-gray-200 rounded flex items-center justify-center">
-                <span className="text-xs text-gray-500">{partner.name}</span>
+              <div className="relative w-full h-16">
+                <Image
+                  src={partner.logo}
+                  alt={partner.name}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                />
               </div>
             </motion.div>
           ))}
