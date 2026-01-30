@@ -9,35 +9,51 @@ import { motion, AnimatePresence } from "framer-motion";
 const testimonials = [
   {
     id: 1,
-    name: "John Thompson",
-    company: "Thompson Logging Inc.",
+    name: "Jennifer Naples",
+    company: "Google Review",
     rating: 5,
-    text: "Munden's emergency repair service saved our operation. They had our truck back on the road within hours. Their technicians are true professionals.",
-    service: "Emergency Repair",
+    text: "Huge thanks to the team at Munden for their help during a stressful situation. I arrived Sunday evening, they diagnosed the issue right away, allowed me to stay overnight in my truck and camper, and had me back on the road in under 24 hours. Special thanks to Mike and Ryan!",
+    service: "Emergency Service",
   },
   {
     id: 2,
-    name: "Sarah Mitchell",
-    company: "Interior Transport Solutions",
+    name: "Katie Smallhorn",
+    company: "Google Review",
     rating: 5,
-    text: "We've been using Munden for our entire fleet's CVIP inspections for years. They're thorough, efficient, and always honest about what needs work.",
-    service: "CVIP Inspections",
+    text: "Our 1988 RV engine stopped running on our trip from SK through BC. The guys here treated my husband and I with kindness and made us feel so reassured that everything was going to be okay. The mechanic identified the failing fuel pump and replaced it super quickly. The price was reasonable and the service was professional and fast.",
+    service: "RV Repair",
   },
   {
     id: 3,
-    name: "Mike Anderson",
-    company: "Anderson Forestry",
+    name: "Ryan Vik",
+    company: "Cardinal Boat Movers, Delta BC",
     rating: 5,
-    text: "The EcoLog harvester we purchased from Munden has exceeded our expectations. Their knowledge and after-sales support are second to none.",
-    service: "Equipment Sales",
+    text: "I had a wheel seal go out on my western star and was in a rush to get to my next location and they got me straight in and all fixed up in under 2 hrs. As an owner operator I really appreciate good service and people who do what they say and these guys were spot on.",
+    service: "Quick Repair",
   },
   {
     id: 4,
-    name: "Lisa Chen",
-    company: "Pacific Logistics Ltd.",
+    name: "Kevin Joslin",
+    company: "Google Review",
     rating: 5,
-    text: "Their preventive maintenance program has reduced our downtime by 40%. The team at Munden truly understands the trucking business.",
-    service: "Preventive Maintenance",
+    text: "Prompt and professional. I've used their mobile service and also taken my truck to their shop and have been very pleased every time. Very knowledgeable techs there. Highly recommend.",
+    service: "Mobile & Shop Service",
+  },
+  {
+    id: 5,
+    name: "Shea Goertz",
+    company: "Google Review",
+    rating: 5,
+    text: "Awesome shop. They always get our trucks in right away and will actually call us when they are slow to see if we need service done.",
+    service: "Fleet Service",
+  },
+  {
+    id: 6,
+    name: "Sukhpreet Singh",
+    company: "Google Review",
+    rating: 5,
+    text: "Great experience at this truck repair shop. They fixed my reefer quickly and did a solid job. Ryan was super friendly and very professional throughout the whole process. Really appreciate the fast and reliable service.",
+    service: "Reefer Repair",
   },
 ];
 
@@ -86,8 +102,7 @@ const TestimonialsCarousel = () => {
             What Our Clients Say
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Trusted by the BC Interior&apos;s leading trucking and forestry
-            companies for over 30 years
+            Real reviews from real customers. Trusted by drivers, fleets, and RV owners across BC for over 30 years
           </p>
         </motion.div>
 
