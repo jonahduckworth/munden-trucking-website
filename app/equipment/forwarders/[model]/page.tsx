@@ -261,12 +261,6 @@ export default async function ForwarderDetailPage({ params }: Props) {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="grid grid-cols-4 gap-2">
-                {/* Thumbnail images would go here */}
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="aspect-video bg-muted rounded" />
-                ))}
-              </div>
             </div>
 
             {/* Info Section */}
@@ -380,7 +374,7 @@ export default async function ForwarderDetailPage({ params }: Props) {
       <section className="py-12 bg-muted/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <Tabs defaultValue="features" className="space-y-8">
-            <TabsList className="grid w-full max-w-md mx-auto grid-cols-3">
+            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
               <TabsTrigger value="features">Features</TabsTrigger>
               <TabsTrigger value="specifications">Specifications</TabsTrigger>
             </TabsList>
