@@ -30,6 +30,7 @@ const LocationSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
+            className="space-y-6"
           >
             <Card className="overflow-hidden">
               <CardContent className="p-0">
@@ -45,6 +46,20 @@ const LocationSection = () => {
                 />
               </CardContent>
             </Card>
+
+            <div className="flex flex-col gap-4">
+              <Button asChild size="lg" className="w-full">
+                <a href="tel:250-828-2268">
+                  <Phone className="mr-2 h-4 w-4" />
+                  Call Us Now
+                </a>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="w-full">
+                <Link href="/about/contact">
+                  Send a Message
+                </Link>
+              </Button>
+            </div>
           </motion.div>
 
           {/* Contact Info */}
@@ -53,7 +68,6 @@ const LocationSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="space-y-6"
           >
             <Card>
               <CardContent className="p-6 space-y-4">
@@ -89,8 +103,8 @@ const LocationSection = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <a href="mailto:info@mundentruckequipment.com" className="text-muted-foreground hover:text-primary">
-                      info@mundentruckequipment.com
+                    <a href="mailto:kamloops.shop@mundengroup.ca" className="text-muted-foreground hover:text-primary">
+                      kamloops.shop@mundengroup.ca
                     </a>
                   </div>
                 </div>
@@ -102,28 +116,21 @@ const LocationSection = () => {
                   <div>
                     <h3 className="font-semibold mb-1">Hours</h3>
                     <p className="text-muted-foreground text-sm">
-                      Monday - Friday: 7:00 AM - 5:00 PM<br />
-                      Saturday: 8:00 AM - 12:00 PM<br />
-                      Sunday: Closed
+                      Sunday - 12:00 AM to 11:59 PM<br />
+                      Monday - 12:00 AM to 11:59 PM<br />
+                      Tuesday - 12:00 AM to 11:59 PM<br />
+                      Wednesday - 12:00 AM to 11:59 PM<br />
+                      Thursday - 12:00 AM to 11:59 PM<br />
+                      Friday - 12:00 AM to 11:59 PM<br />
+                      Saturday - 12:00 AM to 11:59 PM
+                    </p>
+                    <p className="text-sm text-destructive font-medium mt-1">
+                      24/7 Emergency Service Available
                     </p>
                   </div>
                 </div>
               </CardContent>
             </Card>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="flex-1">
-                <a href="tel:250-828-2268">
-                  <Phone className="mr-2 h-4 w-4" />
-                  Call Us Now
-                </a>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="flex-1">
-                <Link href="/about/contact">
-                  Send a Message
-                </Link>
-              </Button>
-            </div>
           </motion.div>
         </div>
       </div>

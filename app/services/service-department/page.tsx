@@ -116,10 +116,47 @@ const repairServices = [
   {
     category: "Crane",
     services: [
-      "Crane inspections",
-      "Welding & fabricating",
-      "Refers",
-      "Engine heaters",
+      "Crane inspections & certifications",
+      "Boom repair & maintenance",
+      "Hydraulic system service",
+      "Wire rope replacement",
+      "Load testing",
+      "Safety device calibration",
+    ],
+  },
+  {
+    category: "Reefers",
+    services: [
+      "Refrigeration unit repair",
+      "Temperature control diagnostics",
+      "Compressor service",
+      "Condenser & evaporator maintenance",
+      "Refrigerant charging",
+      "Electrical system repair",
+      "Insulation & door seal replacement",
+    ],
+  },
+  {
+    category: "Welding & Fabricating",
+    services: [
+      "Frame repairs",
+      "Custom fabrication",
+      "Aluminum welding",
+      "Stainless steel welding",
+      "Structural welding",
+      "Exhaust system fabrication",
+      "Bracket & mount fabrication",
+    ],
+  },
+  {
+    category: "Engine Heaters",
+    services: [
+      "Block heater installation",
+      "Tank heater service",
+      "Coolant heater repair",
+      "Heating element replacement",
+      "Thermostat & control diagnostics",
+      "Wiring & electrical connections",
     ],
   },
 ];
@@ -371,7 +408,7 @@ export default function ServiceDepartmentPage() {
     description:
       "Full-service repair shop for all makes and models of trucks and heavy equipment. CVIP certified, preventive maintenance, fleet programs.",
     serviceType: "Automotive Repair",
-    areaServed: "200km",
+    areaServed: "250km",
   });
 
   const breadcrumbs = [
@@ -437,13 +474,13 @@ export default function ServiceDepartmentPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild>
-                  <Link href="/quote">
+                  <a href="tel:250-828-2268">
                     <Phone className="mr-2 h-4 w-4" />
                     Call: 250-828-2268
-                  </Link>
+                  </a>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <a href="mailto:kamloops.shop@mundengroup.ca">
+                  <a href="mailto:kamloops.parts@mundengroup.ca">
                     <Mail className="mr-2 h-4 w-4" />
                     Email
                   </a>
@@ -944,15 +981,16 @@ export default function ServiceDepartmentPage() {
               variant="primary"
               actions={[
                 {
-                  label: "Get Service Quote",
-                  href: "/quote",
-                  variant: "secondary",
-                },
-                {
                   label: "Call: 250-828-2268",
                   href: "tel:250-828-2268",
-                  variant: "outline",
+                  variant: "secondary",
                   icon: Phone,
+                },
+                {
+                  label: "Email",
+                  href: "mailto:kamloops.parts@mundengroup.ca",
+                  variant: "outline",
+                  icon: Mail,
                 },
               ]}
             />

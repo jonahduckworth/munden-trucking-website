@@ -59,11 +59,11 @@ const harvesters = [
     },
   },
   {
-    id: "580f",
-    model: "EcoLog 580F",
+    id: "580g",
+    model: "EcoLog 580G",
     type: "Wheeled Harvester",
     price: "Contact for pricing",
-    image: "/images/equipment/580f-harvester.jpg",
+    image: "/images/equipment/580g-harvester.jpg",
     features: [
       "190 kW Volvo engine",
       "18m reach crane",

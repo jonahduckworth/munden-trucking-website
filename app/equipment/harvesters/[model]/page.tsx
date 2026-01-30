@@ -80,14 +80,14 @@ const harvesters = {
       },
     },
   },
-  "580f": {
-    model: "EcoLog 580F",
+  "580g": {
+    model: "EcoLog 580G",
     type: "6-Wheel Harvester",
     tagline: "Versatile performance for diverse operations",
     description:
-      "The EcoLog 580F is a versatile 6-wheel harvester that excels in various forest conditions. Its balanced design and advanced features make it perfect for both thinning and final felling operations.",
-    image: "/images/equipment/580f-harvester.jpg",
-    brochure: "/brochures/ecolog-580f.pdf",
+      "The EcoLog 580G is a versatile 6-wheel harvester that excels in various forest conditions. Its balanced design and advanced features make it perfect for both thinning and final felling operations.",
+    image: "/images/equipment/580g-harvester.jpg",
+    brochure: "/brochures/ecolog-580g.pdf",
     features: [
       "Stage V compliant engine with 190 kW power output",
       "Versatile 6-wheel configuration for all terrains",

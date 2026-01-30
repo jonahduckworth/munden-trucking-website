@@ -60,7 +60,7 @@ const mobileServices = [
     icon: MapPin,
     title: "Wide Coverage Area",
     description:
-      "Service throughout Kamloops and 200km radius including all major highways",
+      "Service throughout Kamloops and 250km radius including all major highways",
     available: "All weather",
   },
   {
@@ -168,7 +168,7 @@ export default function MobileServicePage() {
     description:
       "Emergency mobile truck repair service throughout the BC Interior. Fully equipped service trucks available 24/7.",
     serviceType: "Mobile Repair Service",
-    areaServed: "200km",
+    areaServed: "250km",
   });
 
   const breadcrumbs = [
@@ -184,7 +184,7 @@ export default function MobileServicePage() {
     {
       question: "What areas do you service?",
       answer:
-        "We provide 24/7 mobile service throughout Kamloops and within a 200km radius. This includes all major highways and forestry roads in the BC Interior.",
+        "We provide 24/7 mobile service throughout Kamloops and within a 250km radius. This includes all major highways and forestry roads in the BC Interior.",
     },
     {
       question: "What's your average response time?",
@@ -356,45 +356,45 @@ export default function MobileServicePage() {
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
                     <div className="text-center">
                       <p className="font-semibold">Kamloops</p>
-                      <p className="text-sm text-muted-foreground">
-                        &lt; 30 min
-                      </p>
                     </div>
                     <div className="text-center">
                       <p className="font-semibold">Merritt</p>
-                      <p className="text-sm text-muted-foreground">45-60 min</p>
                     </div>
                     <div className="text-center">
-                      <p className="font-semibold">Chase</p>
-                      <p className="text-sm text-muted-foreground">45 min</p>
+                      <p className="font-semibold">Clearwater</p>
                     </div>
                     <div className="text-center">
                       <p className="font-semibold">Barriere</p>
-                      <p className="text-sm text-muted-foreground">60 min</p>
                     </div>
-                  </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                    <div className="text-center">
+                      <p className="font-semibold">Chase</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold">Logan Lake</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold">Ashcroft</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold">Cache Creek</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold">Sun Peaks</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold">Salmon Arm</p>
+                    </div>
                     <div className="text-center">
                       <p className="font-semibold">Valemount</p>
-                      <p className="text-sm text-muted-foreground">60 min</p>
                     </div>
                     <div className="text-center">
                       <p className="font-semibold">Revelstoke</p>
-                      <p className="text-sm text-muted-foreground">
-                        &lt; 90 min
-                      </p>
                     </div>
                     <div className="text-center">
                       <p className="font-semibold">Lillooet</p>
-                      <p className="text-sm text-muted-foreground">
-                        &lt; 90 min
-                      </p>
                     </div>
                     <div className="text-center">
                       <p className="font-semibold">Blue River</p>
-                      <p className="text-sm text-muted-foreground">
-                        &lt; 90 min
-                      </p>
                     </div>
                   </div>
                 </div>

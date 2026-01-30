@@ -174,7 +174,7 @@ export default function PartsDepartmentPage() {
     description:
       "Quality OEM and aftermarket parts for trucks and heavy equipment. Expert parts lookup and fast availability.",
     serviceType: "Parts Sales",
-    areaServed: "200km",
+    areaServed: "250km",
   });
 
   const breadcrumbs = [
