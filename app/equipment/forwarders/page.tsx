@@ -27,6 +27,8 @@ import {
   Weight,
   Gauge,
   Shield,
+  Phone,
+  Mail,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -497,7 +499,10 @@ export default function ForwardersPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" asChild>
-                <Link href="/quote">Request a Quote</Link>
+                <a href="tel:250-828-2268">
+                  <Phone className="mr-2 h-4 w-4" />
+                  Call: 250-828-2268
+                </a>
               </Button>
               <Button
                 size="lg"
@@ -505,7 +510,10 @@ export default function ForwardersPage() {
                 asChild
                 className="border-white text-white bg-transparent hover:bg-white/10"
               >
-                <Link href="/about/contact">Contact Sales Team</Link>
+                <a href="mailto:kamloops.shop@mundengroup.ca">
+                  <Mail className="mr-2 h-4 w-4" />
+                  Email
+                </a>
               </Button>
             </div>
           </div>
