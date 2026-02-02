@@ -15,7 +15,7 @@ const equipment = [
     description: "High-performance harvester designed for demanding conditions",
     image: "/images/equipment/590g-harvester.jpg",
     features: ["6-wheel drive", "Powerful crane", "Efficient fuel consumption"],
-    href: "/equipment/new/harvesters/590g",
+    href: "/equipment/harvesters/590g",
     isNew: true
   },
   {
@@ -25,18 +25,8 @@ const equipment = [
     description: "Robust forwarder with exceptional load capacity",
     image: "/images/equipment/594f-forwarder.jpg",
     features: ["20-ton capacity", "Low ground pressure", "Comfortable cab"],
-    href: "/equipment/new/forwarders/594f",
+    href: "/equipment/forwarders/594f",
     isNew: true
-  },
-  {
-    id: 3,
-    name: "Used Equipment Inventory",
-    category: "Various",
-    description: "Quality pre-owned forestry equipment",
-    image: "/images/equipment/used-inventory.jpg",
-    features: ["Inspected & certified", "Warranty available", "Competitive pricing"],
-    href: "/equipment/used",
-    isNew: false
   }
 ]
 
@@ -57,13 +47,8 @@ const EquipmentShowcase = () => {
           </p>
           <div className="flex justify-center space-x-4">
             <Button asChild>
-              <Link href="/equipment/new">
-                View New Equipment
-              </Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <Link href="/equipment/used">
-                Browse Used Inventory
+              <Link href="/equipment/ecolog">
+                View EcoLog Equipment
               </Link>
             </Button>
           </div>

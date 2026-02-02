@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
     // Simulate sending email
     // await sendEmail({
-    //   to: "info@mundentruckequipment.com",
+    //   to: "kamloops.shop@mundengroup.ca",
     //   subject: `New Contact Form Submission: ${subject}`,
     //   html: `
     //     <h2>New Contact Form Submission</h2>

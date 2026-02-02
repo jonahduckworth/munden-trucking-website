@@ -1,6 +1,6 @@
 # Munden Truck & Equipment Ltd. Website
 
-A modern, SEO-optimized website for Munden Truck & Equipment Ltd., featuring truck repair services, CVIP inspections, log hauling, and EcoLog forestry equipment sales in the BC Interior.
+A modern, SEO-optimized website for Munden Truck & Equipment Ltd., featuring truck repair services, CVIP inspections, and EcoLog forestry equipment sales in the BC Interior.
 
 ## 🚀 Features
 
@@ -66,7 +66,6 @@ This site is optimized for deployment on [Vercel](https://vercel.com):
 - CVIP Inspections
 - Emergency Repairs (24/7)
 - Preventive Maintenance
-- Log Hauling Services
 - Equipment Sales (EcoLog Dealer)
 
 ### SEO Features

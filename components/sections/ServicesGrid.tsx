@@ -1,54 +1,52 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Truck, CheckCircle, AlertCircle, Settings, Trees, ShoppingCart } from "lucide-react"
-import { motion } from "framer-motion"
+import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Truck, Package, AlertCircle, Trees } from "lucide-react";
+import { motion } from "framer-motion";
 
 const services = [
   {
-    title: "Truck & Equipment Repair",
-    description: "Full-service repair shop for all makes and models of trucks and heavy equipment with certified technicians.",
+    title: "Service Department",
+    description:
+      "Full-service repairs, CVIP inspections, and preventive maintenance with certified technicians.",
     icon: Truck,
-    href: "/services/repair-shop",
+    href: "/services/service-department",
   },
   {
-    title: "CVIP Inspections",
-    description: "Certified Commercial Vehicle Inspection Program facility. Keep your fleet compliant and road-ready.",
-    icon: CheckCircle,
-    href: "/services/repair-shop/commercial-vehicle-inspections",
+    title: "Parts Department",
+    description:
+      "OEM and aftermarket parts for trucks and heavy equipment. Expert parts lookup and fast availability.",
+    icon: Package,
+    href: "/services/parts-department",
   },
   {
-    title: "Emergency Repairs",
-    description: "24/7 emergency breakdown service. We'll get you back on the road quickly and safely.",
+    title: "Mobile Service",
+    description:
+      "24/7 emergency roadside repairs and on-site service throughout the BC Interior.",
     icon: AlertCircle,
-    href: "/services/repair-shop/emergency-repairs",
+    href: "/services/mobile-service",
   },
   {
-    title: "Preventive Maintenance",
-    description: "Scheduled maintenance programs to minimize downtime and extend equipment life.",
-    icon: Settings,
-    href: "/services/repair-shop/preventive-maintenance",
-  },
-  {
-    title: "Log Hauling Services",
-    description: "Professional log transportation throughout the BC Interior with modern equipment.",
+    title: "EcoLog Forestry Sales",
+    description:
+      "Authorized EcoLog dealer - premium forestry harvesters and forwarders with full parts and service support.",
     icon: Trees,
-    href: "/services/log-hauling",
+    href: "/equipment/ecolog",
   },
-  {
-    title: "Equipment Sales",
-    description: "Authorized EcoLog dealer - new and used forestry equipment, harvesters, and forwarders.",
-    icon: ShoppingCart,
-    href: "/services/equipment-sales",
-  }
-]
+];
 
 const ServicesGrid = () => {
   return (
     <section className="py-20 bg-secondary/30 dark:bg-muted/30">
       <div className="container">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -57,13 +55,14 @@ const ServicesGrid = () => {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            From routine maintenance to emergency repairs, we provide comprehensive services for the trucking and forestry industries.
+            From routine maintenance to emergency repairs, we provide
+            comprehensive services for the trucking and forestry industries.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => {
-            const Icon = service.icon
+            const Icon = service.icon;
             return (
               <motion.div
                 key={service.title}
@@ -96,12 +95,12 @@ const ServicesGrid = () => {
                   </Card>
                 </Link>
               </motion.div>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default ServicesGrid
+export default ServicesGrid;

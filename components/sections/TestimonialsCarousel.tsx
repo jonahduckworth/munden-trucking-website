@@ -1,98 +1,108 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 
 const testimonials = [
   {
     id: 1,
-    name: "John Thompson",
-    company: "Thompson Logging Inc.",
+    name: "Jennifer Naples",
+    company: "Google Review",
     rating: 5,
-    text: "Munden's emergency repair service saved our operation. They had our truck back on the road within hours. Their technicians are true professionals.",
-    service: "Emergency Repair"
+    text: "Huge thanks to the team at Munden for their help during a stressful situation. I arrived Sunday evening, they diagnosed the issue right away, allowed me to stay overnight in my truck and camper, and had me back on the road in under 24 hours. Special thanks to Mike and Ryan!",
+    service: "Emergency Service",
   },
   {
     id: 2,
-    name: "Sarah Mitchell",
-    company: "Interior Transport Solutions",
+    name: "Katie Smallhorn",
+    company: "Google Review",
     rating: 5,
-    text: "We've been using Munden for our entire fleet's CVIP inspections for years. They're thorough, efficient, and always honest about what needs work.",
-    service: "CVIP Inspections"
+    text: "Our 1988 RV engine stopped running on our trip from SK through BC. The guys here treated my husband and I with kindness and made us feel so reassured that everything was going to be okay. The mechanic identified the failing fuel pump and replaced it super quickly. The price was reasonable and the service was professional and fast.",
+    service: "RV Repair",
   },
   {
     id: 3,
-    name: "Mike Anderson",
-    company: "Anderson Forestry",
+    name: "Ryan Vik",
+    company: "Cardinal Boat Movers, Delta BC",
     rating: 5,
-    text: "The EcoLog harvester we purchased from Munden has exceeded our expectations. Their knowledge and after-sales support are second to none.",
-    service: "Equipment Sales"
+    text: "I had a wheel seal go out on my western star and was in a rush to get to my next location and they got me straight in and all fixed up in under 2 hrs. As an owner operator I really appreciate good service and people who do what they say and these guys were spot on.",
+    service: "Quick Repair",
   },
   {
     id: 4,
-    name: "Lisa Chen",
-    company: "Pacific Logistics Ltd.",
+    name: "Kevin Joslin",
+    company: "Google Review",
     rating: 5,
-    text: "Their preventive maintenance program has reduced our downtime by 40%. The team at Munden truly understands the trucking business.",
-    service: "Preventive Maintenance"
+    text: "Prompt and professional. I've used their mobile service and also taken my truck to their shop and have been very pleased every time. Very knowledgeable techs there. Highly recommend.",
+    service: "Mobile & Shop Service",
   },
   {
     id: 5,
-    name: "Robert Wilson",
-    company: "Wilson Bros. Hauling",
+    name: "Shea Goertz",
+    company: "Google Review",
     rating: 5,
-    text: "When it comes to log hauling in the BC Interior, nobody knows the business better than Munden. Reliable, professional, and always on time.",
-    service: "Log Hauling"
-  }
-]
+    text: "Awesome shop. They always get our trucks in right away and will actually call us when they are slow to see if we need service done.",
+    service: "Fleet Service",
+  },
+  {
+    id: 6,
+    name: "Sukhpreet Singh",
+    company: "Google Review",
+    rating: 5,
+    text: "Great experience at this truck repair shop. They fixed my reefer quickly and did a solid job. Ryan was super friendly and very professional throughout the whole process. Really appreciate the fast and reliable service.",
+    service: "Reefer Repair",
+  },
+];
 
 const TestimonialsCarousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   useEffect(() => {
-    if (!isAutoPlaying) return
+    if (!isAutoPlaying) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length)
-    }, 5000)
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+    }, 5000);
 
-    return () => clearInterval(interval)
-  }, [isAutoPlaying])
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
 
   const goToPrevious = () => {
-    setIsAutoPlaying(false)
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
-    )
-  }
+    setIsAutoPlaying(false);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1,
+    );
+  };
 
   const goToNext = () => {
-    setIsAutoPlaying(false)
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length)
-  }
+    setIsAutoPlaying(false);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+  };
 
   const goToSlide = (index: number) => {
-    setIsAutoPlaying(false)
-    setCurrentIndex(index)
-  }
+    setIsAutoPlaying(false);
+    setCurrentIndex(index);
+  };
 
   return (
     <section className="py-20 bg-muted/30">
       <div className="container">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            What Our Clients Say
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Trusted by the BC Interior&apos;s leading trucking and forestry companies for over 30 years
+            Real reviews from real customers. Trusted by drivers, fleets, and RV owners across BC for over 30 years
           </p>
         </motion.div>
 
@@ -108,11 +118,16 @@ const TestimonialsCarousel = () => {
               <Card className="border-muted-foreground/20">
                 <CardContent className="p-8 md:p-12">
                   <Quote className="h-12 w-12 text-primary/20 mb-6" />
-                  
+
                   <div className="flex mb-4">
-                    {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 fill-primary text-primary" />
-                    ))}
+                    {[...Array(testimonials[currentIndex].rating)].map(
+                      (_, i) => (
+                        <Star
+                          key={i}
+                          className="h-5 w-5 fill-primary text-primary"
+                        />
+                      ),
+                    )}
                   </div>
 
                   <p className="text-lg md:text-xl mb-6 italic">
@@ -121,7 +136,9 @@ const TestimonialsCarousel = () => {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-semibold">{testimonials[currentIndex].name}</p>
+                      <p className="font-semibold">
+                        {testimonials[currentIndex].name}
+                      </p>
                       <p className="text-sm text-muted-foreground">
                         {testimonials[currentIndex].company}
                       </p>
@@ -162,8 +179,8 @@ const TestimonialsCarousel = () => {
                 key={index}
                 onClick={() => goToSlide(index)}
                 className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex 
-                    ? "bg-primary w-8" 
+                  index === currentIndex
+                    ? "bg-primary w-8"
                     : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}
@@ -173,19 +190,11 @@ const TestimonialsCarousel = () => {
 
           {/* Mobile Navigation */}
           <div className="flex justify-center gap-4 mt-6 md:hidden">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={goToPrevious}
-            >
+            <Button variant="outline" size="sm" onClick={goToPrevious}>
               <ChevronLeft className="h-4 w-4 mr-1" />
               Previous
             </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={goToNext}
-            >
+            <Button variant="outline" size="sm" onClick={goToNext}>
               Next
               <ChevronRight className="h-4 w-4 ml-1" />
             </Button>
@@ -193,7 +202,7 @@ const TestimonialsCarousel = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default TestimonialsCarousel
+export default TestimonialsCarousel;

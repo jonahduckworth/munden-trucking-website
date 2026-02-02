@@ -13,89 +13,85 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-// Example equipment data - in production, this would come from a database
+// Equipment data matching the actual models available
 const equipmentData = {
   harvesters: [
     {
-      id: "ecolog-590f",
-      name: "EcoLog 590F",
+      id: "ecolog-590g",
+      name: "EcoLog 590G",
       category: "Harvester",
       specs: {
-        engine: "Cummins QSL9, Tier 4F",
-        power: "300 hp (224 kW)",
-        weight: "20,900 kg",
+        engine: "190 kW Volvo engine",
+        power: "255 hp (190 kW)",
+        weight: "21,000 kg",
         reach: "10.3 m",
         wheelbase: "3.4 m",
         fuelCapacity: "400 L",
         hydraulicCapacity: "300 L",
         maxCuttingDiameter: "65 cm",
-        feedSpeed: "5.0 m/s",
-        tractionForce: "240 kN",
+        feedSpeed: "Up to 5.0 m/s",
         groundClearance: "695 mm",
         transportWidth: "2.99 m",
-        features: ["GPS tracking", "Remote diagnostics", "Eco mode", "Automatic lubrication", "LED work lights"]
+        features: ["6-wheel drive", "Powerful crane", "Efficient fuel consumption", "Advanced forestry head", "All-terrain capability"]
       }
     },
     {
-      id: "ecolog-560f",
-      name: "EcoLog 560F",
+      id: "ecolog-580g",
+      name: "EcoLog 580G",
       category: "Harvester",
       specs: {
-        engine: "Cummins QSB6.7, Tier 4F",
-        power: "230 hp (172 kW)",
-        weight: "17,500 kg",
-        reach: "8.6 m",
+        engine: "190 kW Volvo engine",
+        power: "255 hp (190 kW)",
+        weight: "18,500 kg",
+        reach: "9.5 m",
         wheelbase: "3.2 m",
-        fuelCapacity: "330 L",
+        fuelCapacity: "350 L",
         hydraulicCapacity: "250 L",
-        maxCuttingDiameter: "55 cm",
-        feedSpeed: "4.5 m/s",
-        tractionForce: "200 kN",
-        groundClearance: "650 mm",
-        transportWidth: "2.80 m",
-        features: ["GPS tracking", "Remote diagnostics", "Eco mode", "LED work lights"]
+        maxCuttingDiameter: "60 cm",
+        feedSpeed: "Up to 4.5 m/s",
+        groundClearance: "670 mm",
+        transportWidth: "2.85 m",
+        features: ["6-wheel drive", "Compact design", "Excellent maneuverability", "Efficient operation", "Durable construction"]
       }
     }
   ],
   forwarders: [
     {
-      id: "ecolog-574f",
-      name: "EcoLog 574F",
-      category: "Forwarder",
-      specs: {
-        engine: "Cummins QSB6.7, Tier 4F",
-        power: "210 hp (156 kW)",
-        weight: "17,100 kg",
-        loadCapacity: "14,000 kg",
-        reach: "8.5 m",
-        wheelbase: "4.4 m",
-        fuelCapacity: "200 L",
-        hydraulicCapacity: "180 L",
-        craneType: "EcoLog 80F",
-        liftingTorque: "102 kNm",
-        groundClearance: "680 mm",
-        transportWidth: "2.82 m",
-        features: ["Load scale", "GPS tracking", "Eco mode", "LED work lights", "Central lubrication"]
-      }
-    },
-    {
       id: "ecolog-594f",
       name: "EcoLog 594F",
       category: "Forwarder",
       specs: {
-        engine: "Cummins QSL9, Tier 4F",
-        power: "280 hp (209 kW)",
+        engine: "210 kW Volvo engine",
+        power: "281 hp (210 kW)",
         weight: "19,800 kg",
-        loadCapacity: "18,000 kg",
+        loadCapacity: "20,000 kg",
         reach: "10.0 m",
         wheelbase: "4.6 m",
-        fuelCapacity: "260 L",
+        fuelCapacity: "400 L",
         hydraulicCapacity: "220 L",
-        craneType: "EcoLog 110F",
-        liftingTorque: "136 kNm",
+        craneType: "High-capacity crane",
         groundClearance: "715 mm",
         transportWidth: "2.95 m",
-        features: ["Load scale", "GPS tracking", "Remote diagnostics", "Eco mode", "LED work lights", "Central lubrication", "Automatic greasing"]
+        features: ["20-ton capacity", "Low ground pressure", "Comfortable cab", "Advanced hydraulics", "All-terrain capability"]
+      }
+    },
+    {
+      id: "ecolog-584f",
+      name: "EcoLog 584F",
+      category: "Forwarder",
+      specs: {
+        engine: "175 kW Volvo engine",
+        power: "235 hp (175 kW)",
+        weight: "17,500 kg",
+        loadCapacity: "16,000 kg",
+        reach: "9.0 m",
+        wheelbase: "4.4 m",
+        fuelCapacity: "350 L",
+        hydraulicCapacity: "200 L",
+        craneType: "Mid-range crane",
+        groundClearance: "685 mm",
+        transportWidth: "2.85 m",
+        features: ["16-ton capacity", "Excellent stability", "Fuel efficient", "Reliable performance", "Easy maintenance"]
       }
     }
   ]
@@ -109,7 +105,7 @@ interface EquipmentComparisonProps {
 
 const EquipmentComparison = ({ preselectedIds = [] }: EquipmentComparisonProps) => {
   const [selectedEquipment, setSelectedEquipment] = useState<string[]>(
-    preselectedIds.slice(0, 3)
+    preselectedIds.length > 0 ? preselectedIds.slice(0, 4) : ['ecolog-590g', 'ecolog-580g', 'ecolog-594f', 'ecolog-584f']
   )
 
   const handleEquipmentSelect = (index: number, equipmentId: string) => {
@@ -161,8 +157,8 @@ const EquipmentComparison = ({ preselectedIds = [] }: EquipmentComparisonProps) 
         </CardHeader>
         <CardContent className="p-6">
           {/* Equipment Selectors */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            {[0, 1, 2].map((index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {[0, 1, 2, 3].map((index) => (
               <div key={index}>
                 <label className="text-sm font-medium mb-2 block">
                   Equipment {index + 1}
@@ -265,10 +261,10 @@ const EquipmentComparison = ({ preselectedIds = [] }: EquipmentComparisonProps) 
           {selectedEquipmentData.length > 0 && (
             <div className="mt-6 flex flex-col sm:flex-row gap-4">
               <Button asChild>
-                <a href="/quote">Request Quote for Selected Equipment</a>
+                <a href="/about/contact">Request Quote for Selected Equipment</a>
               </Button>
               <Button variant="outline" asChild>
-                <a href="/contact">Contact Sales Team</a>
+                <a href="tel:250-828-2268">Call: 250-828-2268</a>
               </Button>
             </div>
           )}
