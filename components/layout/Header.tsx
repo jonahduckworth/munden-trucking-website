@@ -188,7 +188,7 @@ const Header = () => {
                 />
               </a>
               <a
-                href="https://www.google.com/search?q=Munden+Truck+%26+Equipment+Ltd.+Reviews"
+                href="https://www.google.com/search?q=Munden+Truck+%26+Equipment+Ltd."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:opacity-80 transition-opacity"
