@@ -187,6 +187,21 @@ const Header = () => {
                   className="w-5 h-5"
                 />
               </a>
+              <a
+                href="https://www.google.com/search?q=Munden+Truck+%26+Equipment+Ltd.+Reviews"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-80 transition-opacity"
+                aria-label="Google Reviews"
+              >
+                <Image
+                  src="/images/social/google.png"
+                  alt="Google Reviews"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5"
+                />
+              </a>
             </div>
             <ThemeToggle />
           </div>
@@ -342,6 +357,21 @@ const Header = () => {
                   <Image
                     src="/images/social/linked.png"
                     alt="LinkedIn"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
+                </a>
+                <a
+                  href="https://www.google.com/search?q=Munden+Truck+%26+Equipment+Ltd.+Reviews"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-80 transition-opacity"
+                  aria-label="Google Reviews"
+                >
+                  <Image
+                    src="/images/social/google.png"
+                    alt="Google Reviews"
                     width={24}
                     height={24}
                     className="w-6 h-6"
