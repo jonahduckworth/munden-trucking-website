@@ -57,7 +57,7 @@ const Hero = () => {
                 asChild
                 className="bg-white/10 text-white border-white hover:bg-white hover:text-munden-burgundy"
               >
-                <Link href="/services/parts">
+                <Link href="/services/parts-department">
                   <Package className="mr-2 h-4 w-4" />
                   Our Parts
                 </Link>

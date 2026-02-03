@@ -70,10 +70,10 @@ const LocationSection = () => {
             viewport={{ once: true }}
           >
             <Card>
-              <CardContent className="p-6 space-y-4">
+              <CardContent className="p-6 space-y-5">
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-primary/10 rounded-full">
-                    <MapPin className="h-6 w-6 text-primary" />
+                  <div className="p-3 bg-primary/10 rounded-full shrink-0">
+                    <MapPin className="h-5 w-5 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Location</h3>
@@ -85,44 +85,37 @@ const LocationSection = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-primary/10 rounded-full">
-                    <Phone className="h-6 w-6 text-primary" />
+                  <div className="p-3 bg-primary/10 rounded-full shrink-0">
+                    <Phone className="h-5 w-5 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Phone</h3>
                     <a href="tel:250-828-2268" className="text-muted-foreground hover:text-primary">
                       250-828-2268
                     </a>
-                    <p className="text-sm text-primary font-medium">24/7 Emergency Service</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-primary/10 rounded-full">
-                    <Mail className="h-6 w-6 text-primary" />
+                  <div className="p-3 bg-primary/10 rounded-full shrink-0">
+                    <Mail className="h-5 w-5 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <a href="mailto:kamloops.shop@mundengroup.ca" className="text-muted-foreground hover:text-primary">
+                    <a href="mailto:kamloops.shop@mundengroup.ca" className="text-muted-foreground hover:text-primary break-all">
                       kamloops.shop@mundengroup.ca
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-primary/10 rounded-full">
-                    <Clock className="h-6 w-6 text-primary" />
+                  <div className="p-3 bg-primary/10 rounded-full shrink-0">
+                    <Clock className="h-5 w-5 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Hours</h3>
-                    <p className="text-muted-foreground text-sm">
-                      Sunday - 12:00 AM to 11:59 PM<br />
-                      Monday - 12:00 AM to 11:59 PM<br />
-                      Tuesday - 12:00 AM to 11:59 PM<br />
-                      Wednesday - 12:00 AM to 11:59 PM<br />
-                      Thursday - 12:00 AM to 11:59 PM<br />
-                      Friday - 12:00 AM to 11:59 PM<br />
-                      Saturday - 12:00 AM to 11:59 PM
+                    <p className="text-muted-foreground">
+                      Open 24 hours — 7 days a week
                     </p>
                     <p className="text-sm text-destructive font-medium mt-1">
                       24/7 Emergency Service Available

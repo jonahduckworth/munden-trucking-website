@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bunx create-next-app:*)",
+      "Bash(mkdir:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(xargs basename:*)",
+      "Bash(rm:*)",
+      "Bash(/Users/jonah/dev/jd-builds/munden-trucking/app/equipment/page.tsx )",
+      "Bash(/Users/jonah/dev/jd-builds/munden-trucking/app/services/page.tsx)"
+    ],
+    "deny": []
+  }
+}
