@@ -248,7 +248,7 @@ const cvipBenefits = [
 // Preventive Maintenance Tab Data
 const maintenancePackages = [
   {
-    name: "Basic Maintenance",
+    name: "Light-Duty Maintenance",
     interval: "Every 5,000 km",
     ideal: "Light-duty trucks",
     services: [
@@ -259,14 +259,13 @@ const maintenancePackages = [
       "Battery test",
       "Visual safety inspection",
     ],
-    savings: "Save up to 15% on repairs",
   },
   {
-    name: "Standard Maintenance",
+    name: "Medium-Duty Maintenance",
     interval: "Every 10,000 km",
     ideal: "Medium-duty commercial vehicles",
     services: [
-      "All Basic services plus:",
+      "All Medium-Duty services plus:",
       "Transmission service",
       "Coolant system flush",
       "Air filter replacement",
@@ -274,14 +273,13 @@ const maintenancePackages = [
       "Exhaust system check",
       "Detailed diagnostic scan",
     ],
-    savings: "Save up to 25% on repairs",
   },
   {
-    name: "Comprehensive Maintenance",
+    name: "Heavy-Duty Maintenance",
     interval: "Customized schedule",
     ideal: "Heavy-duty trucks & fleets",
     services: [
-      "All Standard services plus:",
+      "All Medium-Duty services plus:",
       "Differential service",
       "Power steering flush",
       "Fuel system cleaning",
@@ -289,7 +287,6 @@ const maintenancePackages = [
       "Hydraulic system service",
       "Predictive maintenance analysis",
     ],
-    savings: "Save up to 35% on repairs",
   },
 ];
 
@@ -805,13 +802,11 @@ export default function ServiceDepartmentPage() {
                   <h2 className="text-3xl font-bold text-center mb-8">
                     Maintenance Packages
                   </h2>
-                  <Tabs defaultValue="basic" className="w-full">
+                  <Tabs defaultValue="light-duty" className="w-full">
                     <TabsList className="grid w-full grid-cols-3 h-auto">
-                      <TabsTrigger value="basic">Basic</TabsTrigger>
-                      <TabsTrigger value="standard">Standard</TabsTrigger>
-                      <TabsTrigger value="comprehensive">
-                        Comprehensive
-                      </TabsTrigger>
+                      <TabsTrigger value="light-duty">Light-Duty</TabsTrigger>
+                      <TabsTrigger value="medium-duty">Medium-Duty</TabsTrigger>
+                      <TabsTrigger value="heavy-duty">Heavy-Duty</TabsTrigger>
                     </TabsList>
                     {maintenancePackages.map((pkg) => (
                       <TabsContent
@@ -829,9 +824,6 @@ export default function ServiceDepartmentPage() {
                                   {pkg.interval}
                                 </CardDescription>
                               </div>
-                              <Badge variant="secondary" className="text-sm">
-                                {pkg.savings}
-                              </Badge>
                             </div>
                             <p className="text-muted-foreground">
                               Ideal for: {pkg.ideal}
