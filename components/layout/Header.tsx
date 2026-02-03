@@ -121,9 +121,6 @@ const Header = () => {
                     <ListItem href="/about/contact" title="Contact">
                       Get in touch with our team
                     </ListItem>
-                    <ListItem href="/about/history" title="Our History">
-                      30 years of excellence since 1994
-                    </ListItem>
                     <ListItem href="/about/resources" title="Resources">
                       Industry news and helpful articles
                     </ListItem>
@@ -292,13 +289,6 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact
-              </Link>
-              <Link
-                href="/about/history"
-                className="block text-sm font-medium text-white dark:text-foreground py-1"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Our History
               </Link>
               <Link
                 href="/about/resources"
