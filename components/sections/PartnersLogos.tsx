@@ -1,30 +1,37 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Image from "next/image"
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 const partners = [
-  { id: 1, name: "British Columbia", logo: "/images/partners/british_columbia.jpeg" },
+  {
+    id: 1,
+    name: "British Columbia",
+    logo: "/images/partners/british_columbia.jpeg",
+  },
   { id: 2, name: "Carrier", logo: "/images/partners/carrier.png" },
-  { id: 3, name: "Google", logo: "/images/partners/google.png" },
+  { id: 3, name: "EcoLog", logo: "/images/partners/ecolog.png" },
   { id: 4, name: "Parker", logo: "/images/partners/parker.jpeg" },
   { id: 5, name: "Webasto", logo: "/images/partners/webasto.png" },
-]
+];
 
 const PartnersLogos = () => {
   return (
     <section className="py-16 bg-gray-50">
       <div className="container">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Our Industry Partners</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            Our Industry Partners
+          </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            We work with leading manufacturers and suppliers to provide the best equipment and services
+            We work with leading manufacturers and suppliers to provide the best
+            equipment and services
           </p>
         </motion.div>
 
@@ -52,7 +59,7 @@ const PartnersLogos = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default PartnersLogos
+export default PartnersLogos;
