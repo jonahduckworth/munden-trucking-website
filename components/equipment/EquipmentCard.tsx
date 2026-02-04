@@ -110,7 +110,7 @@ export function EquipmentCard({
             </Link>
           </Button>
           <Button asChild className="flex-1">
-            <Link href="/quote">Get Quote</Link>
+            <Link href="/about/contact">Get Quote</Link>
           </Button>
         </div>
       </CardContent>

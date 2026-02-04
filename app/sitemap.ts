@@ -116,12 +116,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Other pages
     {
-      url: `${baseUrl}/quote`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/privacy`,
       lastModified: new Date(),
       changeFrequency: "yearly",

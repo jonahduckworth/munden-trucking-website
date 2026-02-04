@@ -303,10 +303,10 @@ const QuoteCalculator = () => {
           {selectedService && selectedService !== 'placeholder' && (
             <div className="flex flex-col sm:flex-row gap-3 pt-4">
               <Button className="flex-1" asChild>
-                <a href="/quote">Request Official Quote</a>
+                <a href="/about/contact">Request Official Quote</a>
               </Button>
               <Button variant="outline" className="flex-1" asChild>
-                <a href="/quote">Request Service Quote</a>
+                <a href="/about/contact">Request Service Quote</a>
               </Button>
             </div>
           )}
