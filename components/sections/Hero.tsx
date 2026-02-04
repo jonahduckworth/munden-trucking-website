@@ -7,9 +7,12 @@ import { Phone, Calendar, Wrench, Package } from "lucide-react";
 import { motion } from "framer-motion";
 
 const SLIDER_ITEMS = [
-  "Truck Repair",
+  "Truck & Trailer Repair",
   "Parts",
   "Forestry Equipment",
+  "Equipment Repair",
+  "Mobile Service",
+  "CVIP Inspections",
 ];
 
 const InfiniteSlider = () => {
@@ -20,7 +23,7 @@ const InfiniteSlider = () => {
     SLIDER_ITEMS.map((item, index) => (
       <span
         key={`${keyPrefix}-${index}`}
-        className="inline-flex items-center text-2xl sm:text-3xl font-bold text-white shrink-0"
+        className="inline-flex items-center text-2xl sm:text-3xl lg:text-4xl font-bold text-white shrink-0"
       >
         <span className="mx-5 text-primary/40 text-lg">•</span>
         {item}
@@ -91,10 +94,25 @@ const Hero = () => {
               </motion.div>
             </div>
 
-            {/* Desktop: Original h1 */}
-            <h1 className="hidden lg:block text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Your Trusted Partner for Truck Repair & Forestry Equipment
-            </h1>
+            {/* Desktop: "Your Trusted Partner For" + Slider */}
+            <div className="hidden lg:block mb-6">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-xl text-gray-300 tracking-wide uppercase font-medium mb-2"
+              >
+                Your Trusted Partner For
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="w-full"
+              >
+                <InfiniteSlider />
+              </motion.div>
+            </div>
 
             <p className="text-lg md:text-xl mb-8 text-gray-200 text-center lg:text-left">
               Professional truck repair services, CVIP inspections, and
