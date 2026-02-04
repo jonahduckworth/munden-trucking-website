@@ -6,6 +6,50 @@ import { Button } from "@/components/ui/button";
 import { Phone, Calendar, Wrench, Package } from "lucide-react";
 import { motion } from "framer-motion";
 
+const SLIDER_ITEMS = [
+  "Truck Repair",
+  "Parts",
+  "Forestry Equipment",
+];
+
+const InfiniteSlider = () => {
+  // Duplicate items enough times for seamless loop
+  const items = [...SLIDER_ITEMS, ...SLIDER_ITEMS, ...SLIDER_ITEMS, ...SLIDER_ITEMS];
+
+  return (
+    <div className="relative overflow-hidden w-full py-4">
+      {/* Fade edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-munden-black/80 to-transparent z-10" />
+      <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-munden-black/80 to-transparent z-10" />
+
+      <motion.div
+        className="flex whitespace-nowrap"
+        animate={{
+          x: ["0%", "-50%"],
+        }}
+        transition={{
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: 12,
+            ease: "linear",
+          },
+        }}
+      >
+        {items.map((item, index) => (
+          <span
+            key={index}
+            className="inline-flex items-center text-2xl sm:text-3xl font-bold text-white mx-3"
+          >
+            {item}
+            <span className="mx-4 text-primary/60">•</span>
+          </span>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
 const Hero = () => {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
@@ -24,16 +68,52 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            {/* Mobile: Logo + "Your Trusted Partner For" + Slider */}
+            <div className="lg:hidden flex flex-col items-center text-center mb-8">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+              >
+                <Image
+                  src="/images/logo.png"
+                  alt="Munden Truck & Equipment Ltd."
+                  width={250}
+                  height={250}
+                  className="w-[200px] sm:w-[250px] h-auto mb-6"
+                  priority
+                />
+              </motion.div>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-lg sm:text-xl text-gray-300 tracking-wide uppercase font-medium"
+              >
+                Your Trusted Partner For
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="w-full mt-2"
+              >
+                <InfiniteSlider />
+              </motion.div>
+            </div>
+
+            {/* Desktop: Original h1 */}
+            <h1 className="hidden lg:block text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               Your Trusted Partner for Truck Repair & Forestry Equipment
             </h1>
-            <p className="text-lg md:text-xl mb-8 text-gray-200">
+
+            <p className="text-lg md:text-xl mb-8 text-gray-200 text-center lg:text-left">
               Professional truck repair services, CVIP inspections, and
               authorized EcoLog dealer serving the BC Interior. Available 24/7
               for emergency repairs.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 mb-12 justify-center lg:justify-start">
               <Button size="lg" asChild className="group">
                 <a href="tel:250-828-2268">
                   <Phone className="mr-2 h-4 w-4" />
@@ -115,6 +195,7 @@ const Hero = () => {
             </div>
           </motion.div>
 
+          {/* Desktop logo (unchanged) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
