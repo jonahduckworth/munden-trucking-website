@@ -848,18 +848,9 @@ export default function ServiceDepartmentPage() {
                                 </ul>
                               </div>
                               <div className="flex items-center justify-center">
-                                <div className="text-center p-6 bg-muted/50 rounded-lg">
-                                  <Wrench className="h-12 w-12 text-primary mx-auto mb-3" />
-                                  <p className="font-semibold mb-2">
-                                    Professional Service
-                                  </p>
-                                  <p className="text-sm text-muted-foreground mb-4">
-                                    All work performed by certified technicians
-                                  </p>
-                                  <Button asChild>
-                                    <Link href="/quote">Get Package Quote</Link>
-                                  </Button>
-                                </div>
+                                <Button asChild>
+                                  <Link href="/quote">Get Package Quote</Link>
+                                </Button>
                               </div>
                             </div>
                           </CardContent>
