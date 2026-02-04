@@ -13,39 +13,28 @@ const SLIDER_ITEMS = [
 ];
 
 const InfiniteSlider = () => {
-  // Duplicate items enough times for seamless loop
-  const items = [...SLIDER_ITEMS, ...SLIDER_ITEMS, ...SLIDER_ITEMS, ...SLIDER_ITEMS];
+  // We render two identical sets side by side, then CSS-animate the first set's
+  // width to the left. When the first set is fully off-screen the second set
+  // is in exactly the same position, so the loop is seamless.
+  const renderSet = (keyPrefix: string) =>
+    SLIDER_ITEMS.map((item, index) => (
+      <span
+        key={`${keyPrefix}-${index}`}
+        className="inline-flex items-center text-2xl sm:text-3xl font-bold text-white shrink-0"
+      >
+        <span className="mx-5 text-primary/40 text-lg">•</span>
+        {item}
+      </span>
+    ));
 
   return (
     <div className="relative overflow-hidden w-full py-4">
-      {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-munden-black/80 to-transparent z-10" />
-      <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-munden-black/80 to-transparent z-10" />
-
-      <motion.div
-        className="flex whitespace-nowrap"
-        animate={{
-          x: ["0%", "-50%"],
-        }}
-        transition={{
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: 12,
-            ease: "linear",
-          },
-        }}
-      >
-        {items.map((item, index) => (
-          <span
-            key={index}
-            className="inline-flex items-center text-2xl sm:text-3xl font-bold text-white mx-3"
-          >
-            {item}
-            <span className="mx-4 text-primary/60">•</span>
-          </span>
-        ))}
-      </motion.div>
+      <div className="inline-flex animate-marquee">
+        {renderSet("a")}
+        {renderSet("b")}
+        {renderSet("c")}
+        {renderSet("d")}
+      </div>
     </div>
   );
 };
@@ -60,7 +49,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container relative z-20">
+      <div className="container relative z-20 py-16 lg:py-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -69,7 +58,7 @@ const Hero = () => {
             className="text-white"
           >
             {/* Mobile: Logo + "Your Trusted Partner For" + Slider */}
-            <div className="lg:hidden flex flex-col items-center text-center mb-8">
+            <div className="lg:hidden flex flex-col items-center text-center mb-8 pt-4">
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
