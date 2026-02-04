@@ -171,7 +171,7 @@ export default function HarvestersPage() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" asChild>
-                <Link href="/quote">Request Quote</Link>
+                <Link href="/about/contact">Request Quote</Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link href="/about/contact">Schedule Demo</Link>
@@ -335,7 +335,7 @@ export default function HarvestersPage() {
                       </Link>
                     </Button>
                     <Button variant="outline" asChild>
-                      <Link href="/quote">Get Quote</Link>
+                      <Link href="/about/contact">Get Quote</Link>
                     </Button>
                   </div>
                 </CardContent>

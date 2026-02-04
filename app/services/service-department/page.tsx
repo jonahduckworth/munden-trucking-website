@@ -849,7 +849,7 @@ export default function ServiceDepartmentPage() {
                               </div>
                               <div className="flex items-center justify-center">
                                 <Button asChild>
-                                  <Link href="/quote">Get Package Quote</Link>
+                                  <Link href="/about/contact">Get Package Quote</Link>
                                 </Button>
                               </div>
                             </div>
