@@ -60,10 +60,12 @@ export default function ResourcesPage() {
           <Card className="mb-12 overflow-hidden max-w-5xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               <div className="aspect-video lg:aspect-auto relative bg-muted">
-                <img
+                <Image
                   src="/images/equipment/blog1.jpeg"
                   alt={featuredArticle.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
                 />
               </div>
               <div className="p-8 flex flex-col justify-center">

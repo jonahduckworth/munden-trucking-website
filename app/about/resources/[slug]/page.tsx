@@ -156,10 +156,12 @@ export default async function ResourceArticlePage({ params }: Props) {
 
             {/* Featured Image */}
             <div className="aspect-video relative bg-muted mb-8 rounded-lg overflow-hidden">
-              <img
+              <Image
                 src="/images/equipment/blog1.jpeg"
                 alt={article.title}
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 800px"
+                className="object-cover"
               />
             </div>
 

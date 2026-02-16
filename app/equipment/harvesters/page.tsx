@@ -244,10 +244,12 @@ export default function HarvestersPage() {
             {harvesters.map((harvester) => (
               <Card key={harvester.id} className="overflow-hidden">
                 <div className="aspect-video relative bg-muted">
-                  <img
+                  <Image
                     src={harvester.image}
                     alt={harvester.model}
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover"
                   />
                   {harvester.badge && (
                     <Badge className="absolute top-4 right-4">

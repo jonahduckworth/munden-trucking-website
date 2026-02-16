@@ -67,10 +67,12 @@ const EquipmentShowcase = () => {
               <Link href={item.href}>
                 <Card className="h-full hover:shadow-xl transition-all duration-300 group cursor-pointer overflow-hidden">
                   <div className="relative h-64 overflow-hidden bg-gray-100">
-                    <img 
+                    <Image 
                       src={item.image} 
                       alt={item.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     {item.isNew && (
                       <Badge className="absolute top-4 right-4">NEW</Badge>

@@ -243,10 +243,12 @@ export default async function HarvesterDetailPage({ params }: Props) {
             {/* Image Section */}
             <div className="space-y-4">
               <div className="aspect-video relative bg-muted rounded-lg overflow-hidden">
-                <img
+                <Image
                   src={harvester.image}
                   alt={harvester.model}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
                 />
               </div>
             </div>

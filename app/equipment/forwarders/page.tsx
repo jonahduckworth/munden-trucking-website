@@ -249,10 +249,12 @@ export default function ForwardersPage() {
             {forwarders.map((forwarder) => (
               <Card key={forwarder.id} className="overflow-hidden">
                 <div className="aspect-video relative bg-muted">
-                  <img
+                  <Image
                     src={forwarder.image}
                     alt={forwarder.model}
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover"
                   />
                   {forwarder.badge && (
                     <Badge className="absolute top-4 right-4">

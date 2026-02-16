@@ -255,10 +255,12 @@ export default async function ForwarderDetailPage({ params }: Props) {
             {/* Image Section */}
             <div className="space-y-4">
               <div className="aspect-video relative bg-muted rounded-lg overflow-hidden">
-                <img
+                <Image
                   src={forwarder.image}
                   alt={forwarder.model}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
                 />
               </div>
             </div>
