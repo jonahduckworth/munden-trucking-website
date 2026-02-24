@@ -51,7 +51,7 @@ const harvesters = [
     features: [
       "206 kW Volvo engine",
       "20m reach crane",
-      "Log Max 7000C head",
+      "EcoLog 661LF head",
       "Comfort cab with AutoClimate",
     ],
     specs: {
@@ -70,7 +70,7 @@ const harvesters = [
     features: [
       "190 kW Volvo engine",
       "18m reach crane",
-      "Log Max 6000C head",
+      "EcoLog 661LF head",
       "Ergonomic operator station",
     ],
     specs: {

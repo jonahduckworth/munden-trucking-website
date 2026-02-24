@@ -62,7 +62,7 @@ const harvesters = {
         Rotation: "360° continuous",
       },
       "Harvester Head": {
-        "Compatible Models": "Log Max 7000C, Waratah H480C",
+        "Compatible Models": "EcoLog 661LF, Waratah H480C",
         "Max Cutting Diameter": "750 mm",
         "Feed Speed": "5.0 m/s",
         "Feed Force": "25 kN",
@@ -113,7 +113,7 @@ const harvesters = {
         Rotation: "360° continuous",
       },
       "Harvester Head": {
-        "Compatible Models": "Log Max 6000C, Waratah H470C",
+        "Compatible Models": "EcoLog 661LF, Waratah H470C",
         "Max Cutting Diameter": "650 mm",
         "Feed Speed": "4.5 m/s",
         "Feed Force": "22 kN",
