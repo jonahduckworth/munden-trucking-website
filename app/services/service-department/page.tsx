@@ -127,6 +127,7 @@ const repairServices = [
   {
     category: "Reefers",
     services: [
+      "Carrier Transicold service & warranty",
       "Refrigeration unit repair",
       "Temperature control diagnostics",
       "Compressor service",
@@ -149,14 +150,27 @@ const repairServices = [
     ],
   },
   {
-    category: "Engine Heaters",
+    category: "Engine & Cab Heaters",
     services: [
-      "Block heater installation",
-      "Tank heater service",
-      "Coolant heater repair",
-      "Heating element replacement",
-      "Thermostat & control diagnostics",
-      "Wiring & electrical connections",
+      "Cab & engine heater installations (Webasto certified)",
+      "Webasto service & warranty repairs",
+      "Preventative & seasonal maintenance",
+      "Troubleshooting & diagnostics",
+      "Coolant heater repair & replacement",
+      "Thermostat & control system service",
+    ],
+  },
+  {
+    category: "Truck Rigouts",
+    services: [
+      "Logging truck rigouts",
+      "Chassis rigouts & modifications",
+      "Lowbed ramps",
+      "Fifth wheel installations",
+      "Wet kit installations",
+      "PTO installs",
+      "Hydraulic system installs",
+      "Custom truck modifications",
     ],
   },
 ];
