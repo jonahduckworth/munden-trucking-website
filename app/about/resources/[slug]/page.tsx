@@ -50,6 +50,7 @@ const getArticle = (slug: string) => {
       author: "Nolan Munden",
       date: "2025-11-14",
       readTime: "6 min read",
+      image: "/images/equipment/blog1.jpeg",
     },
     "turning-jobs-into-careers-employee-retention": {
       title: "Turning Jobs Into Careers: Keys to Employee Retention in Trucking",
@@ -93,6 +94,7 @@ const getArticle = (slug: string) => {
       author: "Nolan Munden",
       date: "2025-12-10",
       readTime: "8 min read",
+      image: "/images/news/careers.jpg",
     },
     "steering-suspension-systems-checked": {
       title: "When Should You Have Your Truck's Steering & Suspension Systems Checked?",
@@ -122,6 +124,7 @@ const getArticle = (slug: string) => {
       author: "Munden Truck & Equipment",
       date: "2026-01-15",
       readTime: "4 min read",
+      image: "/images/news/steering-suspension.jpg",
     },
     "prevent-freeze-ups-commercial-truck-air-system": {
       title: "What Can Be Done to Prevent Freeze Ups in Your Commercial Truck and Trailer Air System?",
@@ -153,6 +156,7 @@ const getArticle = (slug: string) => {
       author: "Munden Truck & Equipment",
       date: "2026-02-01",
       readTime: "5 min read",
+      image: "/images/news/freeze-prevention.jpg",
     },
   };
 
@@ -260,7 +264,7 @@ export default async function ResourceArticlePage({ params }: Props) {
             {/* Featured Image */}
             <div className="aspect-video relative bg-muted mb-8 rounded-lg overflow-hidden">
               <Image
-                src="/images/equipment/blog1.jpeg"
+                src={article.image}
                 alt={article.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 800px"
