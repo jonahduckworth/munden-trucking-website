@@ -29,10 +29,43 @@ const articles = [
     readTime: "6 min read",
     image: "/images/news/forestry-evolution.jpg",
     slug: "turning-uncertainty-into-opportunity-forestry-evolution"
+  },
+  {
+    id: 2,
+    title: "Turning Jobs Into Careers: Keys to Employee Retention in Trucking",
+    excerpt: "As a fourth-generation company, we understand the importance of long-term satisfied employees. Here are some insights into what we've found to be keys for success in employee retention.",
+    category: "Company Culture",
+    author: "Nolan Munden",
+    date: "2025-12-10",
+    readTime: "8 min read",
+    image: "/images/news/careers.jpg",
+    slug: "turning-jobs-into-careers-employee-retention"
+  },
+  {
+    id: 3,
+    title: "When Should You Have Your Truck's Steering & Suspension Systems Checked?",
+    excerpt: "Properly working steering and suspension systems are critical to the safe usage of a commercial vehicle. Here's how to spot problems before they become safety issues.",
+    category: "Maintenance Tips",
+    author: "Munden Truck & Equipment",
+    date: "2026-01-15",
+    readTime: "4 min read",
+    image: "/images/news/steering-suspension.jpg",
+    slug: "steering-suspension-systems-checked"
+  },
+  {
+    id: 4,
+    title: "What Can Be Done to Prevent Freeze Ups in Your Commercial Truck and Trailer Air System?",
+    excerpt: "Winter temperatures can take their toll on your air systems. Being prepared will help prevent freeze-ups and save money and time. Here are tips to keep in mind.",
+    category: "Maintenance Tips",
+    author: "Munden Truck & Equipment",
+    date: "2026-02-01",
+    readTime: "5 min read",
+    image: "/images/news/freeze-prevention.jpg",
+    slug: "prevent-freeze-ups-commercial-truck-air-system"
   }
 ]
 
-const categories = ["All", "Industry Insights"]
+const categories = ["All", "Industry Insights", "Company Culture", "Maintenance Tips"]
 
 export default function ResourcesPage() {
   const breadcrumbs = [
@@ -101,6 +134,49 @@ export default function ResourcesPage() {
               </div>
             </div>
           </Card>
+
+          {/* All Articles Grid */}
+          {articles.length > 1 && (
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-2xl font-bold mb-8">More Articles</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {articles.slice(1).map((article) => (
+                  <Card key={article.id} className="overflow-hidden flex flex-col">
+                    <div className="aspect-video relative bg-muted">
+                      <Image
+                        src={article.image}
+                        alt={article.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover"
+                      />
+                    </div>
+                    <CardHeader>
+                      <Badge className="w-fit mb-2">{article.category}</Badge>
+                      <CardTitle className="text-lg">
+                        <Link href={`/about/resources/${article.slug}`} className="hover:text-primary transition-colors">
+                          {article.title}
+                        </Link>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-1">
+                      <CardDescription className="line-clamp-3">{article.excerpt}</CardDescription>
+                    </CardContent>
+                    <CardFooter className="flex items-center justify-between text-sm text-muted-foreground">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="h-3 w-3" />
+                        <span>{new Date(article.date).toLocaleDateString()}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="h-3 w-3" />
+                        <span>{article.readTime}</span>
+                      </div>
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </>
