@@ -132,6 +132,79 @@ const harvesters = {
       },
     },
   },
+  "688g": {
+    model: "EcoLog 688G",
+    type: "8-Wheel Harvester",
+    tagline: "Strong, stable and gentle",
+    description:
+      "The EcoLog 688G is our powerful eight-wheeled harvester, specifically designed to deliver maximum performance and traction with minimum ground impact. Perfect for working on challenging and steep terrain as well as on sensitive soils. With its modern cab, versatility, and reliable Volvo Penta D8 engine, the 688G is ready to take on the very toughest jobs – day after day.",
+    image: "/images/equipment/688g-harvester.jpg",
+    brochure: "/brochures/ecolog-688g.pdf",
+    features: [
+      "Volvo Penta D8 engine with 210 kW (286 hp) power output",
+      "8-wheel drive for superior traction on steep and sensitive terrain",
+      "300 kNm gross lifting torque crane with 10/11m reach",
+      "Selectable driving modes: Comfort, Balanced, Dynamic + Boost",
+      "350° rotating cab with ±19° sideways tilt",
+      "Low ground pressure design for minimum soil impact",
+      "Forester bucking system with 15.6\" wide touch screen",
+      "230 kN tractive force for extreme conditions",
+    ],
+    specifications: {
+      Engine: {
+        "Make & Model": "Volvo Penta D8, 7.7L",
+        "Power Output": "210 kW (286 hp) @ 2200 RPM",
+        Torque: "1,237 Nm",
+        "Emission Standard": "Stage V",
+        "Fuel Tank Capacity": "460 L",
+      },
+      Crane: {
+        "Gross Lifting Torque": "300 kNm",
+        Reach: "10/11 m",
+        "Gross Slewing Torque": "50/70 kNm",
+        Rotation: "Continuous",
+      },
+      "Harvester Head": {
+        "Standard Head": "EcoLog EC 661 LF",
+        "Optional Head": "EcoLog EC 561 LF",
+        "Compatible Log Max": "5000V, 6000V",
+      },
+      Dimensions: {
+        Length: "11,065 mm (total)",
+        Width: "2,940/3,000 mm (710/800 tires)",
+        "Transport Height": "3,910 mm",
+        "Ground Clearance": "620 mm",
+        Weight: "23,500 kg",
+      },
+      Transmission: {
+        Type: "Hydrostatic mechanical",
+        "Tractive Force": "230 kN",
+        "Maximum Speed": "20 km/h",
+      },
+      Hydraulics: {
+        "Crane Pump": "145 cm³",
+        "Crane Flow @ 1600 RPM": "275 l/min",
+        "Head Pump": "145 cm³",
+        "Head Flow @ 1600 RPM": "285 l/min",
+        Pressure: "260 bar",
+        "Tank Volume": "200 L",
+      },
+      Cabin: {
+        Rotation: "350°",
+        "Sideways Tilt": "±19°",
+        "Pitch Front/Rear": "15°/16°",
+      },
+      Wheels: {
+        Standard: "8 wheels 710/45 – 26.5\"",
+        Option: "8 wheels 800/40 – 26.5\"",
+      },
+      Electrical: {
+        Voltage: "24V",
+        Alternator: "130A",
+        "Battery Capacity": "2 × 145 Ah",
+      },
+    },
+  },
 };
 
 type Props = {

@@ -80,6 +80,26 @@ const harvesters = [
       fuelCapacity: "350L",
     },
   },
+  {
+    id: "688g",
+    model: "EcoLog 688G",
+    type: "Wheeled Harvester",
+    price: "Contact for pricing",
+    image: "/images/equipment/688g-harvester.jpg",
+    badge: "New",
+    features: [
+      "210 kW Volvo Penta D8 engine",
+      "8-wheel drive for maximum traction",
+      "EcoLog 661LF head",
+      "300 kNm crane torque",
+    ],
+    specs: {
+      enginePower: "210 kW",
+      craneReach: "11m",
+      weight: "23,500 kg",
+      fuelCapacity: "460L",
+    },
+  },
 ];
 
 export default function HarvestersPage() {

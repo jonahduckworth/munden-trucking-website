@@ -52,6 +52,7 @@ const equipmentCategories = [
         spec: "206 kW, 20m crane reach",
       },
       { name: "580G", spec: "190 kW, 18m crane reach" },
+      { name: "688G", spec: "210 kW, 8-wheel, 300 kNm crane", highlight: "New" },
     ],
     link: "/equipment/harvesters",
     badge: "In Stock",

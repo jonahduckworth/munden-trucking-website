@@ -53,6 +53,25 @@ const equipmentData = {
         transportWidth: "2.85 m",
         features: ["6-wheel drive", "Compact design", "Excellent maneuverability", "Efficient operation", "Durable construction"]
       }
+    },
+    {
+      id: "ecolog-688g",
+      name: "EcoLog 688G",
+      category: "Harvester",
+      specs: {
+        engine: "210 kW Volvo Penta D8",
+        power: "286 hp (210 kW)",
+        weight: "23,500 kg",
+        reach: "10/11 m",
+        wheelbase: "4.5 m",
+        fuelCapacity: "460 L",
+        hydraulicCapacity: "200 L",
+        maxCuttingDiameter: "66 cm",
+        feedSpeed: "Up to 5.0 m/s",
+        groundClearance: "620 mm",
+        transportWidth: "2.94/3.00 m",
+        features: ["8-wheel drive", "300 kNm crane", "230 kN tractive force", "Steep terrain capability", "Driving modes + Boost"]
+      }
     }
   ],
   forwarders: [
