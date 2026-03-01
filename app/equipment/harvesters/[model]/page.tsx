@@ -407,9 +407,9 @@ export default async function HarvesterDetailPage({ params }: Props) {
                     <p className="text-muted-foreground">Max Cut Diameter</p>
                     <p className="font-semibold">
                       {
-                        harvester.specifications["Harvester Head"][
-                          "Max Cutting Diameter"
-                        ]
+                        ("Max Cutting Diameter" in harvester.specifications["Harvester Head"])
+                          ? (harvester.specifications["Harvester Head"] as Record<string, string>)["Max Cutting Diameter"]
+                          : "N/A"
                       }
                     </p>
                   </div>
