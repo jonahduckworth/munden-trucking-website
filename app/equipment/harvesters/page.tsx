@@ -50,13 +50,13 @@ const harvesters = [
     badge: "Most Popular",
     features: [
       "206 kW Volvo engine",
-      "20m reach crane",
+      "11m reach crane",
       "EcoLog 661LF head",
       "Comfort cab with AutoClimate",
     ],
     specs: {
       enginePower: "206 kW",
-      craneReach: "20m",
+      craneReach: "11m",
       weight: "22,500 kg",
       fuelCapacity: "400L",
     },
@@ -69,13 +69,13 @@ const harvesters = [
     image: "/images/equipment/580g-harvester.jpg",
     features: [
       "190 kW Volvo engine",
-      "18m reach crane",
+      "11m reach crane",
       "EcoLog 661LF head",
       "Ergonomic operator station",
     ],
     specs: {
       enginePower: "190 kW",
-      craneReach: "18m",
+      craneReach: "11m",
       weight: "20,500 kg",
       fuelCapacity: "350L",
     },

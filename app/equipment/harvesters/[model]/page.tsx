@@ -107,7 +107,7 @@ const harvesters = {
       },
       Crane: {
         Model: "EcoLog 230F",
-        Reach: "10 m",
+        Reach: "11 m",
         "Lifting Torque": "230 kNm",
         "Slewing Torque": "50 kNm",
         Rotation: "360° continuous",
