@@ -1,6 +1,5 @@
 import Hero from "@/components/sections/Hero";
 import ServicesGrid from "@/components/sections/ServicesGrid";
-// import EquipmentShowcase from '@/components/sections/EquipmentShowcase';
 import TestimonialsCarousel from "@/components/sections/TestimonialsCarousel";
 import CTABanner from "@/components/sections/CTABanner";
 import LocationSection from "@/components/sections/LocationSection";
@@ -16,7 +15,6 @@ export default function Home() {
       <Hero />
       <LocationSection />
       <ServicesGrid />
-      {/* <EquipmentShowcase /> */}
       <TestimonialsCarousel />
       <CTABanner />
       <PartnersLogos />
