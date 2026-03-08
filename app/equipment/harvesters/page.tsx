@@ -143,19 +143,19 @@ export default function HarvestersPage() {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://mundentruckandequipment.com",
+        item: "https://mundentruckequipment.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Equipment",
-        item: "https://mundentruckandequipment.com/equipment",
+        item: "https://mundentruckequipment.com/equipment",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "Harvesters",
-        item: "https://mundentruckandequipment.com/equipment/harvesters",
+        item: "https://mundentruckequipment.com/equipment/harvesters",
       },
     ],
   };

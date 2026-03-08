@@ -123,19 +123,19 @@ export default function ForwardersPage() {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://mundentruckandequipment.com",
+        item: "https://mundentruckequipment.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Equipment",
-        item: "https://mundentruckandequipment.com/equipment",
+        item: "https://mundentruckequipment.com/equipment",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "Forwarders",
-        item: "https://mundentruckandequipment.com/equipment/forwarders",
+        item: "https://mundentruckequipment.com/equipment/forwarders",
       },
     ],
   };
