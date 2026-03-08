@@ -14,12 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Shop Services
     {
-      url: `${baseUrl}/services`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/services/service-department`,
       lastModified: new Date(),
       changeFrequency: "weekly",
@@ -40,12 +34,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Equipment Sales
     {
-      url: `${baseUrl}/equipment`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/equipment/ecolog`,
       lastModified: new Date(),
       changeFrequency: "weekly",
@@ -64,7 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/equipment/harvesters/580G`,
+      url: `${baseUrl}/equipment/harvesters/580g`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
@@ -89,12 +77,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
 
     // About Us
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
     {
       url: `${baseUrl}/about/contact`,
       lastModified: new Date(),
