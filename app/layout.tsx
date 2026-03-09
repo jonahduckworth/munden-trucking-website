@@ -115,6 +115,14 @@ export const metadata: Metadata = {
     siteName: 'Munden Truck & Equipment',
     locale: 'en_CA',
     type: 'website',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Munden Truck & Equipment - Truck Repair & Service in Kamloops',
+      },
+    ],
   },
   robots: {
     index: true,
@@ -132,6 +140,7 @@ export const metadata: Metadata = {
     description:
       'Munden trucking - Kamloops truck repair, trailer repair, equipment repair. CVIP, MVI inspections. Mobile service truck, emergency roadside repair. Welding, hydraulics, A/C repair.',
     card: 'summary_large_image',
+    images: ['/opengraph-image'],
   },
 };
 
