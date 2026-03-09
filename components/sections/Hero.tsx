@@ -60,6 +60,11 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
+            {/* SEO/Accessibility: Semantic h1 heading */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white text-center lg:text-left mb-6">
+              Truck &amp; Equipment Repair, CVIP Inspections &amp; Parts in Kamloops, BC
+            </h1>
+
             {/* Mobile: Logo + "Your Trusted Partner For" + Slider */}
             <div className="lg:hidden flex flex-col items-center text-center mb-8 pt-4">
               <motion.div
