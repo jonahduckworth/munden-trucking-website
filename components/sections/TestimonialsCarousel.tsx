@@ -131,9 +131,9 @@ const TestimonialsCarousel = () => {
         </motion.div>
 
         <div className="relative max-w-4xl mx-auto">
-          {/* aria-live: only announce when autoplay is active */}
+          {/* aria-live: announce only when user is controlling (paused/manual), not during autoplay */}
           <div
-            aria-live={isAutoPlaying ? "polite" : "off"}
+            aria-live={isAutoPlaying ? "off" : "polite"}
             aria-atomic="true"
           >
             <AnimatePresence mode="wait">
