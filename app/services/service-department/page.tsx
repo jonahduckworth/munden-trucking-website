@@ -262,6 +262,7 @@ const cvipBenefits = [
 // Preventive Maintenance Tab Data
 const maintenancePackages = [
   {
+    value: "light-duty",
     name: "Light-Duty Maintenance",
     interval: "Every 5,000 km",
     ideal: "Light-duty trucks",
@@ -275,6 +276,7 @@ const maintenancePackages = [
     ],
   },
   {
+    value: "medium-duty",
     name: "Medium-Duty Maintenance",
     interval: "Every 10,000 km",
     ideal: "Medium-duty commercial vehicles",
@@ -289,6 +291,7 @@ const maintenancePackages = [
     ],
   },
   {
+    value: "heavy-duty",
     name: "Heavy-Duty Maintenance",
     interval: "Customized schedule",
     ideal: "Heavy-duty trucks & fleets",
@@ -824,8 +827,8 @@ export default function ServiceDepartmentPage() {
                     </TabsList>
                     {maintenancePackages.map((pkg) => (
                       <TabsContent
-                        key={pkg.name}
-                        value={pkg.name.split(" ")[0].toLowerCase()}
+                        key={pkg.value}
+                        value={pkg.value}
                       >
                         <Card>
                           <CardHeader>
