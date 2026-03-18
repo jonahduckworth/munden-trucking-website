@@ -337,32 +337,32 @@ const maintenanceBenefits = [
   },
 ];
 
-const maintenanceSchedule = [
-  { component: "Engine Oil", interval: "5,000-10,000 km", critical: true },
-  {
-    component: "Transmission Fluid",
-    interval: "50,000-100,000 km",
-    critical: true,
-  },
-  { component: "Coolant", interval: "2 years or 80,000 km", critical: true },
-  {
-    component: "Brake Fluid",
-    interval: "2 years or 40,000 km",
-    critical: true,
-  },
-  { component: "Air Filters", interval: "20,000-40,000 km", critical: false },
-  { component: "Fuel Filters", interval: "30,000-50,000 km", critical: false },
-  {
-    component: "Differential Oil",
-    interval: "50,000-100,000 km",
-    critical: false,
-  },
-  {
-    component: "Power Steering Fluid",
-    interval: "80,000-100,000 km",
-    critical: false,
-  },
-];
+const maintenanceSchedules = {
+  "light-duty": [
+    { component: "Engine Oil", interval: "5,000 km", critical: true },
+    { component: "Tire Rotation", interval: "8,000-10,000 km", critical: false },
+    { component: "Brake Inspection", interval: "Every service visit", critical: true },
+    { component: "Air Filter", interval: "20,000-25,000 km", critical: false },
+    { component: "Coolant", interval: "2 years or 80,000 km", critical: true },
+    { component: "Battery Test", interval: "Every 6 months", critical: false },
+  ],
+  "medium-duty": [
+    { component: "Engine Oil", interval: "10,000 km", critical: true },
+    { component: "Transmission Service", interval: "40,000-60,000 km", critical: true },
+    { component: "Coolant System Flush", interval: "2 years or 120,000 km", critical: true },
+    { component: "Air Filter", interval: "15,000-20,000 km", critical: false },
+    { component: "Suspension Inspection", interval: "Every 20,000 km", critical: false },
+    { component: "Diagnostic Scan", interval: "Every service visit", critical: false },
+  ],
+  "heavy-duty": [
+    { component: "Engine Oil", interval: "Customized by fleet usage", critical: true },
+    { component: "Differential Service", interval: "50,000-80,000 km", critical: true },
+    { component: "Fuel System Cleaning", interval: "25,000-40,000 km", critical: false },
+    { component: "Power Steering Flush", interval: "80,000-100,000 km", critical: false },
+    { component: "Electrical System Check", interval: "Quarterly", critical: true },
+    { component: "Hydraulic System Service", interval: "Customized by equipment", critical: true },
+  ],
+} as const;
 
 const fleetBenefits = [
   {
@@ -825,117 +825,117 @@ export default function ServiceDepartmentPage() {
                       <TabsTrigger value="medium-duty">Medium-Duty</TabsTrigger>
                       <TabsTrigger value="heavy-duty">Heavy-Duty</TabsTrigger>
                     </TabsList>
-                    {maintenancePackages.map((pkg) => (
-                      <TabsContent
-                        key={pkg.value}
-                        value={pkg.value}
-                      >
-                        <Card>
-                          <CardHeader>
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <CardTitle className="text-2xl">
-                                  {pkg.name}
-                                </CardTitle>
-                                <CardDescription className="text-lg">
-                                  {pkg.interval}
-                                </CardDescription>
+                    {maintenancePackages.map((pkg) => {
+                      const schedule = maintenanceSchedules[pkg.value];
+
+                      return (
+                        <TabsContent key={pkg.value} value={pkg.value}>
+                          <Card className="mb-12">
+                            <CardHeader>
+                              <div className="flex items-center justify-between">
+                                <div>
+                                  <CardTitle className="text-2xl">
+                                    {pkg.name}
+                                  </CardTitle>
+                                  <CardDescription className="text-lg">
+                                    {pkg.interval}
+                                  </CardDescription>
+                                </div>
                               </div>
-                            </div>
-                            <p className="text-muted-foreground">
-                              Ideal for: {pkg.ideal}
-                            </p>
-                          </CardHeader>
-                          <CardContent>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <h3 className="font-semibold mb-3">
-                                  Included Services:
-                                </h3>
-                                <ul className="space-y-2">
-                                  {pkg.services.map((service) => (
-                                    <li
-                                      key={service}
-                                      className="flex items-start gap-2"
-                                    >
-                                      <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                                      <span className="text-sm">{service}</span>
-                                    </li>
-                                  ))}
-                                </ul>
+                              <p className="text-muted-foreground">
+                                Ideal for: {pkg.ideal}
+                              </p>
+                            </CardHeader>
+                            <CardContent>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                  <h3 className="font-semibold mb-3">
+                                    Included Services:
+                                  </h3>
+                                  <ul className="space-y-2">
+                                    {pkg.services.map((service) => (
+                                      <li
+                                        key={service}
+                                        className="flex items-start gap-2"
+                                      >
+                                        <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                                        <span className="text-sm">{service}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                                <div className="flex items-center justify-center">
+                                  <Button asChild>
+                                    <Link href="/about/contact">Get Package Quote</Link>
+                                  </Button>
+                                </div>
                               </div>
-                              <div className="flex items-center justify-center">
-                                <Button asChild>
-                                  <Link href="/about/contact">Get Package Quote</Link>
-                                </Button>
+                            </CardContent>
+                          </Card>
+
+                          <Card className="mb-12">
+                            <CardHeader>
+                              <Calendar className="h-8 w-8 text-primary mb-2" />
+                              <CardTitle className="text-2xl">
+                                Typical Maintenance Schedule
+                              </CardTitle>
+                              <CardDescription>
+                                Recommended service intervals for {pkg.ideal.toLowerCase()}
+                              </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                              <div className="overflow-x-auto">
+                                <table className="w-full">
+                                  <thead>
+                                    <tr className="border-b">
+                                      <th className="text-left p-2">Component</th>
+                                      <th className="text-left p-2">Service Interval</th>
+                                      <th className="text-center p-2">Priority</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {schedule.map((item) => (
+                                      <tr key={item.component} className="border-b">
+                                        <td className="p-2 font-medium">
+                                          {item.component}
+                                        </td>
+                                        <td className="p-2 text-muted-foreground">
+                                          {item.interval}
+                                        </td>
+                                        <td className="p-2 text-center">
+                                          {item.critical ? (
+                                            <Badge
+                                              variant="destructive"
+                                              className="text-xs"
+                                            >
+                                              Critical
+                                            </Badge>
+                                          ) : (
+                                            <Badge
+                                              variant="secondary"
+                                              className="text-xs"
+                                            >
+                                              Recommended
+                                            </Badge>
+                                          )}
+                                        </td>
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
                               </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </TabsContent>
-                    ))}
+                              <p className="text-sm text-muted-foreground mt-4">
+                                <AlertTriangle className="h-4 w-4 inline mr-1" />
+                                Note: Actual intervals may vary based on vehicle usage and
+                                operating conditions
+                              </p>
+                            </CardContent>
+                          </Card>
+                        </TabsContent>
+                      );
+                    })}
                   </Tabs>
                 </div>
-
-                {/* Maintenance Schedule Guide */}
-                <Card className="mb-12">
-                  <CardHeader>
-                    <Calendar className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle className="text-2xl">
-                      Typical Maintenance Schedule
-                    </CardTitle>
-                    <CardDescription>
-                      Recommended service intervals for commercial vehicles
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="overflow-x-auto">
-                      <table className="w-full">
-                        <thead>
-                          <tr className="border-b">
-                            <th className="text-left p-2">Component</th>
-                            <th className="text-left p-2">Service Interval</th>
-                            <th className="text-center p-2">Priority</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {maintenanceSchedule.map((item) => (
-                            <tr key={item.component} className="border-b">
-                              <td className="p-2 font-medium">
-                                {item.component}
-                              </td>
-                              <td className="p-2 text-muted-foreground">
-                                {item.interval}
-                              </td>
-                              <td className="p-2 text-center">
-                                {item.critical ? (
-                                  <Badge
-                                    variant="destructive"
-                                    className="text-xs"
-                                  >
-                                    Critical
-                                  </Badge>
-                                ) : (
-                                  <Badge
-                                    variant="secondary"
-                                    className="text-xs"
-                                  >
-                                    Recommended
-                                  </Badge>
-                                )}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                    <p className="text-sm text-muted-foreground mt-4">
-                      <AlertTriangle className="h-4 w-4 inline mr-1" />
-                      Note: Actual intervals may vary based on vehicle usage and
-                      operating conditions
-                    </p>
-                  </CardContent>
-                </Card>
 
                 {/* Process Timeline */}
                 <div className="mb-12">
