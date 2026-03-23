@@ -58,10 +58,9 @@ const highlights = [
 ];
 
 const opportunities = [
+  "Commercial transport mechanics",
   "Heavy-duty mechanics and apprentices",
-  "Service technicians",
   "Parts and support roles",
-  "Mobile service team members",
   "Shop and operations support",
   "Future opportunities as the company grows",
 ];
@@ -126,6 +125,31 @@ export default function CareersPage() {
                 craftsmanship, and keeping customers moving. If that sounds like you, we would love to hear from you.
               </p>
             </div>
+
+            <Card className="mb-12 border-primary/20 bg-primary/5">
+              <CardHeader>
+                <CardTitle className="text-2xl">Interested? Get in touch</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-6">
+                  If you are interested in joining the Munden team, fill out our contact form with a short introduction and let us know what kind of role you are looking for.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button asChild>
+                    <Link href="/about/contact">
+                      <Mail className="mr-2 h-4 w-4" />
+                      Fill Out Contact Form
+                    </Link>
+                  </Button>
+                  <Button variant="outline" asChild>
+                    <a href="tel:250-828-2268">
+                      <Phone className="mr-2 h-4 w-4" />
+                      Call 250-828-2268
+                    </a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
 
             <Card className="mb-12 overflow-hidden">
               <CardContent className="p-8 md:p-10">
@@ -238,36 +262,7 @@ export default function CareersPage() {
               </div>
             </div>
 
-            <Card className="mb-12">
-              <CardHeader>
-                <CardTitle className="text-2xl">Apply or ask about opportunities</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-6">
-                  If you are interested in joining the Munden team, send your resume or a short introduction and tell us what kind of opportunity you are looking for.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button asChild>
-                    <a href="mailto:admin@mundengroup.ca?subject=Careers%20Inquiry%20-%20Munden%20Truck%20%26%20Equipment">
-                      <Mail className="mr-2 h-4 w-4" />
-                      Email admin@mundengroup.ca
-                    </a>
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <a href="tel:250-828-2268">
-                      <Phone className="mr-2 h-4 w-4" />
-                      Call 250-828-2268
-                    </a>
-                  </Button>
-                  <Button variant="ghost" asChild>
-                    <Link href="/about/contact">
-                      Contact Page
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+
           </div>
         </div>
       </section>
