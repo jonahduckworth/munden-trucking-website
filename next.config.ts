@@ -104,11 +104,16 @@ const nextConfig: NextConfig = {
         destination: "/about/resources/:slug",
         permanent: true,
       },
-      // Careers redirect
+      // Careers redirects
       {
         source: "/careers",
-        destination: "/about",
+        destination: "/about/careers",
         permanent: true,
+      },
+      {
+        source: "/wildlife-park",
+        destination: "/about/careers",
+        permanent: false,
       },
     ];
   },

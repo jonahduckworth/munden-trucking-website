@@ -145,8 +145,8 @@ const Footer = () => {
             <Link href="/about/contact" className="text-sm hover:underline">
               Contact Us
             </Link>
-            <Link href="/about/history" className="text-sm hover:underline">
-              Our History
+            <Link href="/about/careers" className="text-sm hover:underline">
+              Careers
             </Link>
             <Link href="/about/resources" className="text-sm hover:underline">
               Resources
