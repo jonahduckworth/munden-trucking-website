@@ -37,7 +37,7 @@ const harvesters = {
     description:
       "The EcoLog 590G represents the pinnacle of harvester technology. With its powerful 6-wheel drive system and extended crane reach, it's designed for maximum productivity in demanding forestry operations.",
     image: "/images/equipment/590g-harvester.jpg",
-    brochure: "/brochures/ecolog-590g.pdf",
+    brochure: "/brochures/ecolog-500-series-harvesters.pdf",
     features: [
       "Stage V compliant engine with 210 kW power output",
       "6-wheel drive for superior traction and stability",
@@ -88,7 +88,7 @@ const harvesters = {
     description:
       "The EcoLog 580G is a versatile 6-wheel harvester that excels in various forest conditions. Its balanced design and advanced features make it perfect for both thinning and final felling operations.",
     image: "/images/equipment/580g-harvester.jpg",
-    brochure: "/brochures/ecolog-580g.pdf",
+    brochure: "/brochures/ecolog-500-series-harvesters.pdf",
     features: [
       "Stage V compliant engine with 190 kW power output",
       "Versatile 6-wheel configuration for all terrains",

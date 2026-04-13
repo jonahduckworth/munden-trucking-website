@@ -494,7 +494,7 @@ export default function ServiceDepartmentPage() {
                   </a>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <a href="mailto:kamloops.parts@mundengroup.ca">
+                  <a href="mailto:kamloops.shop@mundengroup.ca">
                     <Mail className="mr-2 h-4 w-4" />
                     Email
                   </a>
@@ -988,7 +988,7 @@ export default function ServiceDepartmentPage() {
                 },
                 {
                   label: "Email",
-                  href: "mailto:kamloops.parts@mundengroup.ca",
+                  href: "mailto:kamloops.shop@mundengroup.ca",
                   variant: "outline",
                   icon: Mail,
                 },

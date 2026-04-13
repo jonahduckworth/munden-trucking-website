@@ -37,7 +37,7 @@ const forwarders = {
     description:
       "The EcoLog 594F is our flagship forwarder, designed for maximum productivity in demanding forestry operations. With a 20-ton load capacity and advanced features, it delivers exceptional performance while maintaining low ground pressure.",
     image: "/images/equipment/594f-forwarder.jpg",
-    brochure: "/brochures/ecolog-594f.pdf",
+    brochure: "/brochures/ecolog-forwarders-brochure.pdf",
     features: [
       "Volvo TAD873VE engine with 195 kW power output",
       "20-ton load capacity for maximum productivity",
@@ -94,7 +94,7 @@ const forwarders = {
     description:
       "The EcoLog 584F combines high capacity with excellent maneuverability. Perfect for operations requiring flexibility, it offers 18-ton load capacity while maintaining low ground pressure for sensitive terrain.",
     image: "/images/equipment/584f-forwarder.jpg",
-    brochure: "/brochures/ecolog-584f.pdf",
+    brochure: "/brochures/ecolog-forwarders-brochure.pdf",
     features: [
       "Volvo TAD872VE engine with 175 kW power output",
       "18-ton load capacity for versatile operations",
