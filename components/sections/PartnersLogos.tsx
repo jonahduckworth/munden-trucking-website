@@ -49,6 +49,12 @@ const partners = [
 ];
 
 const PartnersLogos = () => {
+  const resumeCarouselAfterClick = (
+    event: React.MouseEvent<HTMLAnchorElement>
+  ) => {
+    event.currentTarget.blur();
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container">
@@ -95,6 +101,7 @@ const PartnersLogos = () => {
                       rel="noopener noreferrer"
                       tabIndex={groupIndex === 1 ? -1 : undefined}
                       aria-label={`Visit ${partner.name} website (opens in a new tab)`}
+                      onClick={resumeCarouselAfterClick}
                       className="group/logo relative flex h-32 w-56 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-border/60 bg-white p-6 shadow-sm transition-[border-color,box-shadow,transform] duration-300 ease-out hover:z-20 hover:-translate-y-1 hover:scale-105 hover:border-primary/35 hover:shadow-xl focus-visible:z-20 focus-visible:-translate-y-1 focus-visible:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50 motion-reduce:transition-none sm:w-64 lg:w-72"
                     >
                       <div className="relative h-20 w-full transition-transform duration-300 ease-out group-hover/logo:scale-110 group-focus-visible/logo:scale-110 motion-reduce:transition-none">
