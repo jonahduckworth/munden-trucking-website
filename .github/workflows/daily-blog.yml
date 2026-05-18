@@ -1,0 +1,78 @@
+name: Daily AI Blog
+
+on:
+  schedule:
+    - cron: "30 12 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Generate and validate a post without committing it"
+        required: false
+        default: false
+        type: boolean
+      date:
+        description: "Optional publish date in YYYY-MM-DD format"
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-ai-blog
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    name: Generate daily resource post
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-5.4-mini' }}
+      DRY_RUN: ${{ github.event.inputs.dry_run }}
+      RUN_DATE: ${{ github.event.inputs.date }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Generate blog post
+        run: |
+          DATE_ARG=""
+          if [ -n "$RUN_DATE" ]; then
+            DATE_ARG="--date=$RUN_DATE"
+          fi
+
+          if [ "$DRY_RUN" = "true" ]; then
+            npm run blog:generate -- --dry-run $DATE_ARG
+          else
+            npm run blog:generate -- $DATE_ARG
+          fi
+
+      - run: npm run blog:validate
+
+      - run: npm run lint
+
+      - run: npm run build
+
+      - name: Commit generated post
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          if [ -z "$(git status --porcelain content/resources)" ]; then
+            echo "No generated content changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/resources
+          git commit -m "Add daily AI resource post"
+          git push

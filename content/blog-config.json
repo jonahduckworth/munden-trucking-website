@@ -1,0 +1,115 @@
+{
+  "siteUrl": "https://mundentruckequipment.com",
+  "author": "Munden Truck & Equipment",
+  "defaultImage": "/images/equipment/blog1.jpeg",
+  "categories": [
+    "Industry Insights",
+    "Company Culture",
+    "Maintenance Tips",
+    "Equipment Guides",
+    "Parts and Service",
+    "Forestry Equipment"
+  ],
+  "serviceAreas": [
+    "Kamloops",
+    "BC Interior",
+    "British Columbia",
+    "Western Canada"
+  ],
+  "focusAreas": [
+    "commercial truck repair",
+    "trailer repair",
+    "CVIP inspections",
+    "preventive maintenance",
+    "mobile service",
+    "truck and trailer parts",
+    "welding and fabrication",
+    "hydraulics",
+    "refrigeration and reefer service",
+    "air conditioning repair",
+    "EcoLog harvesters",
+    "EcoLog forwarders",
+    "forestry equipment support"
+  ],
+  "targetKeywords": [
+    "Kamloops truck repair",
+    "Kamloops trailer repair",
+    "CVIP inspection Kamloops",
+    "mobile truck service Kamloops",
+    "commercial truck maintenance BC",
+    "forestry equipment Western Canada",
+    "EcoLog dealer Western Canada"
+  ],
+  "brandVoice": [
+    "practical",
+    "experienced",
+    "plainspoken",
+    "safety-aware",
+    "useful for fleet owners, operators, contractors, and equipment buyers"
+  ],
+  "competitors": [],
+  "industrySources": [
+    {
+      "name": "BC Trucking Association",
+      "url": "https://www.bctrucking.com/"
+    },
+    {
+      "name": "BC Commercial Vehicle Safety and Enforcement",
+      "url": "https://www2.gov.bc.ca/gov/content/transportation/vehicle-safety-enforcement"
+    },
+    {
+      "name": "BC Forest Safety Council",
+      "url": "https://www.bcforestsafe.org/"
+    },
+    {
+      "name": "Government of BC Forestry",
+      "url": "https://www2.gov.bc.ca/gov/content/industry/forestry"
+    },
+    {
+      "name": "EcoLog Forestry",
+      "url": "https://ecologforestry.com/"
+    }
+  ],
+  "requiredInternalLinks": [
+    {
+      "label": "Service Department",
+      "url": "/services/service-department"
+    },
+    {
+      "label": "Parts Department",
+      "url": "/services/parts-department"
+    },
+    {
+      "label": "Mobile Service",
+      "url": "/services/mobile-service"
+    },
+    {
+      "label": "EcoLog Forestry Equipment",
+      "url": "/equipment/ecolog"
+    },
+    {
+      "label": "Contact Munden",
+      "url": "/about/contact"
+    }
+  ],
+  "bannedClaims": [
+    "guaranteed lowest price",
+    "guaranteed ranking",
+    "official legal advice",
+    "certified by OpenAI",
+    "only provider",
+    "best in Canada"
+  ],
+  "ctaOptions": [
+    "Contact Munden Truck & Equipment to book service or ask about parts support.",
+    "Talk to the Munden team about preventive maintenance, inspections, and equipment support.",
+    "Reach out to Munden Truck & Equipment for help matching service, parts, or equipment to your operation."
+  ],
+  "imageOptions": [
+    "/images/equipment/blog1.jpeg",
+    "/images/news/steering-suspension.jpg",
+    "/images/news/freeze-prevention.jpg",
+    "/images/equipment/590g-harvester.jpg",
+    "/images/equipment/594f-forwarder.jpg"
+  ]
+}

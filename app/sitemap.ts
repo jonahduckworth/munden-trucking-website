@@ -1,7 +1,9 @@
 import { MetadataRoute } from "next";
+import { getAllResourcePosts } from "@/lib/resources";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://mundentruckequipment.com";
+  const resourcePosts = getAllResourcePosts();
 
   return [
     // Homepage
@@ -95,6 +97,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.7,
     },
+    ...resourcePosts.map((post) => ({
+      url: `${baseUrl}/about/resources/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
 
     // Other pages
     {

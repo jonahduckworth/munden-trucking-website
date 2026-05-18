@@ -9,7 +9,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "blog:generate": "node scripts/generate-blog.mjs",
+    "blog:validate": "node scripts/generate-blog.mjs --validate-only"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
