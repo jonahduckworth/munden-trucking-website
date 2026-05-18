@@ -3,18 +3,22 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import zlib from "node:zlib";
 
 const rootDir = process.cwd();
 const configPath = path.join(rootDir, "content", "blog-config.json");
 const resourcesDir = path.join(rootDir, "content", "resources");
+const blogImagesDir = path.join(rootDir, "public", "images", "blog");
 const timeZone = "America/Edmonton";
 
 const args = process.argv.slice(2);
 const isDryRun = args.includes("--dry-run");
 const validateOnly = args.includes("--validate-only");
+const ensureImagesOnly = args.includes("--ensure-images");
 const force = args.includes("--force");
 const targetDate =
   getArgValue("--date") ?? getDateInTimeZone(new Date(), timeZone);
+const ensureImagesSince = getArgValue("--since");
 
 loadLocalEnv(path.join(rootDir, ".env.local"));
 
@@ -33,6 +37,12 @@ async function main() {
     return;
   }
 
+  if (ensureImagesOnly) {
+    const updatedCount = await ensurePostImages(existingPosts, config, ensureImagesSince);
+    console.log(`Ensured unique blog images for ${updatedCount} resource posts.`);
+    return;
+  }
+
   if (!process.env.OPENAI_API_KEY) {
     throw new Error(
       "OPENAI_API_KEY is required. Add it as a GitHub Actions secret and to .env.local for local runs.",
@@ -47,10 +57,7 @@ async function main() {
     );
   }
 
-  const generatedPost = await generatePost(config, existingPosts, targetDate);
-  const normalizedPost = normalizePost(generatedPost, config, targetDate);
-
-  validateGeneratedPost(normalizedPost, existingPosts, config, targetDate);
+  const normalizedPost = await generateValidatedPost(config, existingPosts, targetDate);
 
   const fileName = `${targetDate}-${normalizedPost.slug}.md`;
   const outputPath = path.join(resourcesDir, fileName);
@@ -58,8 +65,6 @@ async function main() {
   if (fs.existsSync(outputPath) && !force) {
     throw new Error(`Refusing to overwrite existing post: ${outputPath}`);
   }
-
-  const serializedPost = serializePost(normalizedPost);
 
   if (isDryRun) {
     console.log(JSON.stringify({
@@ -74,15 +79,51 @@ async function main() {
     return;
   }
 
+  normalizedPost.image = await createBlogImage(normalizedPost, config);
+  validateGeneratedPost(normalizedPost, existingPosts, config, targetDate);
+
+  const serializedPost = serializePost(normalizedPost);
+
   fs.mkdirSync(resourcesDir, { recursive: true });
   fs.writeFileSync(outputPath, serializedPost);
   console.log(`Created ${path.relative(rootDir, outputPath)}`);
 }
 
-async function generatePost(config, existingPosts, date) {
+async function generateValidatedPost(config, existingPosts, date) {
+  const maxAttempts = Number.parseInt(process.env.BLOG_TOPIC_ATTEMPTS || "3", 10);
+  const rejectedTopics = [];
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    try {
+      const generatedPost = await generatePost(
+        config,
+        existingPosts,
+        date,
+        rejectedTopics,
+      );
+      const normalizedPost = normalizePost(generatedPost, config, date);
+      validateGeneratedPost(normalizedPost, existingPosts, config, date);
+      return normalizedPost;
+    } catch (error) {
+      lastError = error;
+      rejectedTopics.push(`Rejected attempt: ${error.message}`.slice(0, 260));
+
+      if (attempt < maxAttempts) {
+        console.warn(
+          `Generated post failed validation. Retrying with a different angle (${attempt}/${maxAttempts})...`,
+        );
+      }
+    }
+  }
+
+  throw lastError;
+}
+
+async function generatePost(config, existingPosts, date, rejectedTopics = []) {
   const model = process.env.OPENAI_MODEL || process.env.BLOG_OPENAI_MODEL || "gpt-5.4-mini";
   const maxOutputTokens = Number.parseInt(
-    process.env.BLOG_MAX_OUTPUT_TOKENS || "2500",
+    process.env.BLOG_MAX_OUTPUT_TOKENS || "3500",
     10,
   );
   const researchDigest = await collectResearch(config);
@@ -95,7 +136,13 @@ async function generatePost(config, existingPosts, date) {
     body: JSON.stringify({
       model,
       instructions: buildSystemPrompt(config),
-      input: buildUserPrompt(config, existingPosts, date, researchDigest),
+      input: buildUserPrompt(
+        config,
+        existingPosts,
+        date,
+        researchDigest,
+        rejectedTopics,
+      ),
       max_output_tokens: maxOutputTokens,
       text: {
         format: {
@@ -133,11 +180,20 @@ function buildSystemPrompt(config) {
   ].join("\n");
 }
 
-function buildUserPrompt(config, existingPosts, date, researchDigest) {
+function buildUserPrompt(
+  config,
+  existingPosts,
+  date,
+  researchDigest,
+  rejectedTopics,
+) {
   const existingSummaries = existingPosts
     .slice(0, 10)
-    .map((post) => `${post.date}: ${post.title}`)
-    .join("; ");
+    .map(
+      (post) =>
+        `${post.date}: ${post.title} [${post.category}] ${post.excerpt.slice(0, 150)}`,
+    )
+    .join("\n");
 
   return JSON.stringify(
     {
@@ -163,16 +219,18 @@ function buildUserPrompt(config, existingPosts, date, researchDigest) {
       bannedClaims: config.bannedClaims,
       imageOptions: config.imageOptions.slice(0, 4),
       existingPosts: existingSummaries,
+      rejectedTopics,
       researchDigest,
       outputFields:
         "title, slug, date, excerpt, category, author, readTime, image, keywords, sources, body",
       categories: config.categories.join(" | "),
       requirements: [
-        "Choose a topic that is meaningfully different from existing posts.",
+        "Choose a topic, seasonal angle, equipment system, and customer problem that are meaningfully different from every existing post listed.",
+        "Do not write another pre-season checklist, spring/summer readiness, fleet-owner prep, freeze-up prevention, steering/suspension, employee-retention, or forestry-uncertainty article if one appears in existingPosts.",
         "Use the research digest for competitor and industry topic gaps, but do not name competitors in the article.",
         "Use at least three credible source URLs in the sources array from the research digest or Munden site.",
         "Include 1 or 2 internal markdown links in the body using natural anchor text, not exact SEO keyword phrases.",
-        "Write 650 to 900 words.",
+        "Write 550 to 750 words.",
         "Avoid invented certifications, hours, prices, warranties, or service guarantees.",
       ],
     },
@@ -298,6 +356,278 @@ function cleanHtmlText(text) {
     .trim();
 }
 
+async function ensurePostImages(posts, config, since) {
+  let updatedCount = 0;
+
+  for (const post of posts) {
+    if (since && post.date < since) {
+      continue;
+    }
+
+    if (post.image.startsWith("/images/blog/")) {
+      continue;
+    }
+
+    post.image = await createBlogImage(post, config);
+    fs.writeFileSync(post.filePath, serializePost(post));
+    updatedCount += 1;
+  }
+
+  return updatedCount;
+}
+
+async function createBlogImage(post, config) {
+  const imageFileName = `${post.date}-${post.slug}.png`;
+  const publicPath = `/images/blog/${imageFileName}`;
+  const outputPath = path.join(blogImagesDir, imageFileName);
+
+  if (fs.existsSync(outputPath)) {
+    return publicPath;
+  }
+
+  fs.mkdirSync(blogImagesDir, { recursive: true });
+
+  const mode = process.env.BLOG_IMAGE_MODE || "generate";
+
+  if (mode !== "local") {
+    try {
+      const imageBuffer = await generateOpenAIImage(post, config);
+      fs.writeFileSync(outputPath, imageBuffer);
+      return publicPath;
+    } catch (error) {
+      console.warn(`OpenAI image generation failed; using local generated image. ${error.message}`);
+    }
+  }
+
+  fs.writeFileSync(outputPath, createLocalBlogImage(post));
+  return publicPath;
+}
+
+async function generateOpenAIImage(post, config) {
+  if (!process.env.OPENAI_API_KEY) {
+    throw new Error("OPENAI_API_KEY is not available.");
+  }
+
+  const model = process.env.BLOG_IMAGE_MODEL || "gpt-image-2";
+  const requestBody = {
+    model,
+    prompt: buildImagePrompt(post, config),
+  };
+
+  if (process.env.BLOG_IMAGE_SIZE) {
+    requestBody.size = process.env.BLOG_IMAGE_SIZE;
+  }
+
+  if (process.env.BLOG_IMAGE_QUALITY) {
+    requestBody.quality = process.env.BLOG_IMAGE_QUALITY;
+  }
+
+  const response = await fetch("https://api.openai.com/v1/images/generations", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+    },
+    body: JSON.stringify(requestBody),
+  });
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(`Image request failed (${response.status}): ${text}`);
+  }
+
+  const data = JSON.parse(text);
+  const imageBase64 = data?.data?.[0]?.b64_json;
+
+  if (!imageBase64) {
+    throw new Error("Image response did not include b64_json data.");
+  }
+
+  return Buffer.from(imageBase64, "base64");
+}
+
+function buildImagePrompt(post, config) {
+  return [
+    "Create an original editorial blog header image for Munden Truck & Equipment Ltd.",
+    `Article title: ${post.title}`,
+    `Article excerpt: ${post.excerpt}`,
+    `Service areas: ${config.serviceAreas.join(", ")}`,
+    "Style: realistic commercial photography, BC Interior industrial setting, practical and professional.",
+    "Show relevant trucks, trailers, heavy-duty service, forestry equipment, parts, tools, roads, shop bays, or equipment details based on the article topic.",
+    "No text, no logos, no brand marks, no license plates, no readable signs, no distorted people, no unsafe work practices.",
+    "Wide landscape composition suitable for a website blog hero image.",
+  ].join("\n");
+}
+
+function createLocalBlogImage(post) {
+  const width = 1200;
+  const height = 675;
+  const data = Buffer.alloc((width * 4 + 1) * height);
+  const seed = hashString(`${post.date}-${post.slug}-${post.title}`);
+  const palette = [
+    [125, 48, 56],
+    [31, 41, 55],
+    [67, 83, 52],
+    [210, 196, 166],
+  ];
+  const accent = palette[seed % palette.length];
+
+  for (let y = 0; y < height; y += 1) {
+    const rowStart = y * (width * 4 + 1);
+    data[rowStart] = 0;
+
+    for (let x = 0; x < width; x += 1) {
+      const offset = rowStart + 1 + x * 4;
+      const t = y / height;
+      const noise = ((x * 13 + y * 7 + seed) % 29) - 14;
+      let r = Math.round(28 + accent[0] * 0.25 + t * 34 + noise * 0.35);
+      let g = Math.round(34 + accent[1] * 0.18 + t * 30 + noise * 0.3);
+      let b = Math.round(39 + accent[2] * 0.14 + t * 26 + noise * 0.25);
+
+      const horizon = height * 0.57 + Math.sin((x + seed) / 90) * 18;
+      if (y > horizon) {
+        r = Math.round(r * 0.72);
+        g = Math.round(g * 0.78);
+        b = Math.round(b * 0.74);
+      }
+
+      const roadCenter = width * 0.48 + (y - height * 0.45) * 0.42;
+      const roadWidth = Math.max(28, (y - height * 0.35) * 0.56);
+      if (y > height * 0.43 && Math.abs(x - roadCenter) < roadWidth) {
+        r = 49;
+        g = 54;
+        b = 58;
+      }
+
+      if (
+        y > height * 0.48 &&
+        Math.abs(x - roadCenter) < 4 &&
+        Math.floor((y + seed) / 32) % 2 === 0
+      ) {
+        r = 222;
+        g = 205;
+        b = 156;
+      }
+
+      if (isInsideEquipmentShape(x, y, width, height, seed)) {
+        r = accent[0];
+        g = accent[1];
+        b = accent[2];
+      }
+
+      if (isInsideWheel(x, y, width, height, seed)) {
+        r = 20;
+        g = 24;
+        b = 29;
+      }
+
+      data[offset] = clampColor(r);
+      data[offset + 1] = clampColor(g);
+      data[offset + 2] = clampColor(b);
+      data[offset + 3] = 255;
+    }
+  }
+
+  return encodePng(width, height, data);
+}
+
+function isInsideEquipmentShape(x, y, width, height, seed) {
+  const baseX = width * (0.57 + ((seed % 9) - 4) * 0.01);
+  const baseY = height * 0.56;
+  const cab =
+    x > baseX - 120 &&
+    x < baseX - 30 &&
+    y > baseY - 82 &&
+    y < baseY - 18;
+  const body =
+    x > baseX - 40 &&
+    x < baseX + 190 &&
+    y > baseY - 58 &&
+    y < baseY - 18;
+  const boom =
+    y > baseY - 120 &&
+    y < baseY - 104 &&
+    x > baseX + 120 &&
+    x < baseX + 330 &&
+    Math.abs(y - (baseY - 108 - (x - baseX - 120) * 0.11)) < 12;
+
+  return cab || body || boom;
+}
+
+function isInsideWheel(x, y, width, height, seed) {
+  const baseX = width * (0.57 + ((seed % 9) - 4) * 0.01);
+  const baseY = height * 0.56;
+  const wheels = [
+    [baseX - 72, baseY - 16],
+    [baseX + 28, baseY - 16],
+    [baseX + 138, baseY - 16],
+  ];
+
+  return wheels.some(([wheelX, wheelY]) => {
+    const dx = x - wheelX;
+    const dy = y - wheelY;
+    return dx * dx + dy * dy < 24 * 24;
+  });
+}
+
+function encodePng(width, height, rawData) {
+  const signature = Buffer.from([
+    0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,
+  ]);
+  const ihdr = Buffer.alloc(13);
+  ihdr.writeUInt32BE(width, 0);
+  ihdr.writeUInt32BE(height, 4);
+  ihdr[8] = 8;
+  ihdr[9] = 6;
+  ihdr[10] = 0;
+  ihdr[11] = 0;
+  ihdr[12] = 0;
+
+  return Buffer.concat([
+    signature,
+    pngChunk("IHDR", ihdr),
+    pngChunk("IDAT", zlib.deflateSync(rawData)),
+    pngChunk("IEND", Buffer.alloc(0)),
+  ]);
+}
+
+function pngChunk(type, data) {
+  const typeBuffer = Buffer.from(type);
+  const length = Buffer.alloc(4);
+  length.writeUInt32BE(data.length, 0);
+  const crc = Buffer.alloc(4);
+  crc.writeUInt32BE(crc32(Buffer.concat([typeBuffer, data])), 0);
+  return Buffer.concat([length, typeBuffer, data, crc]);
+}
+
+function crc32(buffer) {
+  let crc = 0xffffffff;
+
+  for (const byte of buffer) {
+    crc ^= byte;
+    for (let bit = 0; bit < 8; bit += 1) {
+      crc = crc & 1 ? (crc >>> 1) ^ 0xedb88320 : crc >>> 1;
+    }
+  }
+
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
+function hashString(value) {
+  let hash = 2166136261;
+
+  for (const character of value) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+
+  return hash >>> 0;
+}
+
+function clampColor(value) {
+  return Math.max(0, Math.min(255, value));
+}
+
 async function createOpenAIResponse(options) {
   const maxAttempts = Number.parseInt(process.env.BLOG_OPENAI_RETRIES || "2", 10);
 
@@ -380,6 +710,14 @@ function validateGeneratedPost(post, existingPosts, config, date) {
 
   if (existingDuplicate) {
     errors.push(`Generated topic is too close to an existing post: ${existingDuplicate.title}`);
+  }
+
+  const overlappingPost = findOverlappingRecentPost(post, existingPosts, date);
+
+  if (overlappingPost) {
+    errors.push(
+      `Generated topic overlaps a recent post: ${overlappingPost.title}`,
+    );
   }
 
   if (errors.length > 0) {
@@ -512,6 +850,7 @@ function readExistingPosts() {
       const { frontmatter, body } = parseFrontmatter(raw, filePath);
 
       return {
+        filePath,
         title: String(frontmatter.title || ""),
         slug: String(frontmatter.slug || fileName.replace(/\.md$/, "")),
         date: String(frontmatter.date || ""),
@@ -740,6 +1079,43 @@ function isHttpUrl(value) {
   }
 }
 
+function findOverlappingRecentPost(post, existingPosts, date) {
+  const recentPosts = existingPosts
+    .filter((existingPost) => existingPost.date !== date)
+    .slice(0, 10);
+
+  return recentPosts.find((existingPost) => {
+    const titleScore = titleSimilarity(existingPost.title, post.title);
+    const topicScore = topicSimilarity(existingPost, post);
+    return titleScore > 0.38 || topicScore > 0.24;
+  });
+}
+
+function topicSimilarity(a, b) {
+  const aTokens = contentTokens(
+    `${a.title} ${a.excerpt} ${extractMarkdownHeadings(a.body)}`,
+  );
+  const bTokens = contentTokens(
+    `${b.title} ${b.excerpt} ${extractMarkdownHeadings(b.body)}`,
+  );
+
+  if (aTokens.size === 0 || bTokens.size === 0) {
+    return 0;
+  }
+
+  const intersection = [...aTokens].filter((token) => bTokens.has(token)).length;
+  const smallerSetSize = Math.min(aTokens.size, bTokens.size);
+
+  return intersection / smallerSetSize;
+}
+
+function extractMarkdownHeadings(markdown) {
+  return String(markdown || "")
+    .split("\n")
+    .filter((line) => line.startsWith("## "))
+    .join(" ");
+}
+
 function titleSimilarity(a, b) {
   const aTokens = titleTokens(a);
   const bTokens = titleTokens(b);
@@ -755,23 +1131,47 @@ function titleSimilarity(a, b) {
 }
 
 function titleTokens(value) {
+  return contentTokens(value);
+}
+
+function contentTokens(value) {
   const stopWords = new Set([
     "a",
     "an",
     "and",
     "are",
+    "as",
+    "at",
+    "before",
+    "busy",
+    "can",
+    "for",
     "for",
     "from",
+    "get",
     "how",
     "in",
     "into",
     "is",
+    "it",
+    "its",
+    "know",
+    "more",
+    "should",
     "of",
     "on",
+    "or",
+    "our",
+    "this",
     "the",
+    "their",
+    "they",
     "to",
     "what",
+    "what",
     "when",
+    "where",
+    "who",
     "why",
     "with",
     "your",

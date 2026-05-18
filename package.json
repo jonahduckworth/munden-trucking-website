@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "eslint .",
     "blog:generate": "node scripts/generate-blog.mjs",
-    "blog:validate": "node scripts/generate-blog.mjs --validate-only"
+    "blog:validate": "node scripts/generate-blog.mjs --validate-only",
+    "blog:ensure-images": "node scripts/generate-blog.mjs --ensure-images"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
