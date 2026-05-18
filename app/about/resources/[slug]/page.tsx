@@ -130,6 +130,18 @@ export default async function ResourceArticlePage({ params }: Props) {
                 priority
               />
             </div>
+            {article.imageCredit && article.imageSource && (
+              <p className="-mt-6 mb-8 text-xs text-muted-foreground">
+                <a
+                  href={article.imageSource}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4"
+                >
+                  {article.imageCredit}
+                </a>
+              </p>
+            )}
 
             <div
               className="mb-12"

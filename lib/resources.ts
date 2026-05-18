@@ -15,6 +15,8 @@ export type ResourcePost = {
   author: string;
   readTime: string;
   image: string;
+  imageCredit?: string;
+  imageSource?: string;
   keywords: string[];
   sources: ResourceSource[];
   body: string;
@@ -180,6 +182,8 @@ function parseResourcePost(raw: string, filePath: string): ResourcePost {
     author: requireString(frontmatter.author, "author", filePath),
     readTime: requireString(frontmatter.readTime, "readTime", filePath),
     image: readString(frontmatter.image) || defaultImage,
+    imageCredit: readString(frontmatter.imageCredit),
+    imageSource: readString(frontmatter.imageSource),
     keywords: readStringArray(frontmatter.keywords),
     sources: readSources(frontmatter.sources),
     body,

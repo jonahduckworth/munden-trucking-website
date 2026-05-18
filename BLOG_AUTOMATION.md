@@ -6,6 +6,8 @@ This project publishes one resource article per day from generated markdown file
 
 Set the OpenAI key as a GitHub Actions secret named `OPENAI_API_KEY`.
 
+Optional but recommended: set a Pexels API key as a GitHub Actions secret named `PEXELS_API_KEY`. Pexels is free and gives the workflow access to real stock photography. Without it, the workflow falls back to existing real photos already in the site.
+
 Optional repository variable:
 
 ```text
@@ -13,13 +15,12 @@ OPENAI_MODEL=gpt-5.4-mini
 BLOG_MAX_OUTPUT_TOKENS=3500
 BLOG_OPENAI_RETRIES=2
 BLOG_TOPIC_ATTEMPTS=3
-BLOG_IMAGE_MODE=generate
-BLOG_IMAGE_MODEL=gpt-image-2
+BLOG_IMAGE_MODE=stock
 ```
 
 The default model is `gpt-5.4-mini` to keep daily API usage modest. Use `gpt-5.4` if the generated drafts need stronger writing or reasoning. Keep `BLOG_MAX_OUTPUT_TOKENS` near `3500` on new/low-limit API accounts so each daily request stays under common tokens-per-minute limits.
 
-Blog images are generated into `public/images/blog`. With `BLOG_IMAGE_MODE=generate`, the script tries OpenAI image generation first and falls back to a unique local bitmap if image generation is unavailable. Use `BLOG_IMAGE_MODE=local` to skip paid image generation while still creating a unique image file for each post.
+Blog images are pulled into `public/images/blog` from Pexels when `PEXELS_API_KEY` is available. Use `BLOG_IMAGE_MODE=local` to skip Pexels and use the existing real site photos from `content/blog-config.json`.
 
 Do not commit API keys to the repo. For local testing, add the key to `.env.local` or export it in your shell before running the script. The generator loads `.env.local` automatically when it exists.
 
@@ -34,7 +35,7 @@ Each run:
 3. Fetches short summaries from configured competitor and industry URLs.
 4. Sends that compact research digest to OpenAI and generates one markdown post.
 5. Rejects topics that overlap the last 10 posts and retries with a different angle.
-6. Generates a unique blog image in `public/images/blog`.
+6. Fetches a relevant stock photo into `public/images/blog`, or uses an existing real site photo as a fallback.
 7. Validates the post for safety, duplicate topics, required sources, internal links, and markdown-only content.
 8. Builds the site.
 9. Commits the new markdown file and generated image back to the repository.

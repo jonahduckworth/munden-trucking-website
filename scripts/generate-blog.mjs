@@ -3,7 +3,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
-import zlib from "node:zlib";
 
 const rootDir = process.cwd();
 const configPath = path.join(rootDir, "content", "blog-config.json");
@@ -364,7 +363,10 @@ async function ensurePostImages(posts, config, since) {
       continue;
     }
 
-    if (post.image.startsWith("/images/blog/")) {
+    if (
+      post.image.startsWith("/images/blog/") &&
+      fs.existsSync(path.join(rootDir, "public", post.image.replace(/^\//, "")))
+    ) {
       continue;
     }
 
@@ -377,240 +379,132 @@ async function ensurePostImages(posts, config, since) {
 }
 
 async function createBlogImage(post, config) {
-  const imageFileName = `${post.date}-${post.slug}.png`;
-  const publicPath = `/images/blog/${imageFileName}`;
-  const outputPath = path.join(blogImagesDir, imageFileName);
+  const mode = process.env.BLOG_IMAGE_MODE || "stock";
 
-  if (fs.existsSync(outputPath)) {
-    return publicPath;
+  if (mode !== "local" && process.env.PEXELS_API_KEY) {
+    try {
+      return await fetchPexelsImage(post, config);
+    } catch (error) {
+      console.warn(`Pexels image fetch failed; using existing site photo. ${error.message}`);
+    }
+  }
+
+  return selectExistingImage(post, config);
+}
+
+async function fetchPexelsImage(post, config) {
+  const query = buildPexelsQuery(post, config);
+  const searchUrl = new URL("https://api.pexels.com/v1/search");
+  searchUrl.searchParams.set("query", query);
+  searchUrl.searchParams.set("orientation", "landscape");
+  searchUrl.searchParams.set("size", "large");
+  searchUrl.searchParams.set("per_page", "10");
+
+  const searchResponse = await fetch(searchUrl, {
+    headers: {
+      Authorization: process.env.PEXELS_API_KEY,
+    },
+  });
+  const searchText = await searchResponse.text();
+
+  if (!searchResponse.ok) {
+    throw new Error(`Pexels search failed (${searchResponse.status}): ${searchText}`);
+  }
+
+  const data = JSON.parse(searchText);
+  const photos = Array.isArray(data.photos) ? data.photos : [];
+
+  if (photos.length === 0) {
+    throw new Error(`No Pexels photos found for query: ${query}`);
+  }
+
+  const selectedPhoto = photos[Math.abs(hashString(post.slug)) % photos.length];
+  const imageUrl =
+    selectedPhoto?.src?.large2x ||
+    selectedPhoto?.src?.large ||
+    selectedPhoto?.src?.original;
+
+  if (!imageUrl) {
+    throw new Error("Selected Pexels photo did not include a usable image URL.");
+  }
+
+  const imageResponse = await fetch(imageUrl);
+
+  if (!imageResponse.ok) {
+    throw new Error(`Pexels image download failed (${imageResponse.status}).`);
+  }
+
+  const contentType = imageResponse.headers.get("content-type") || "";
+
+  if (!contentType.startsWith("image/")) {
+    throw new Error(`Pexels download was not an image: ${contentType}`);
   }
 
   fs.mkdirSync(blogImagesDir, { recursive: true });
+  const extension = contentType.includes("png") ? "png" : "jpg";
+  const imageFileName = `${post.date}-${post.slug}.${extension}`;
+  const publicPath = `/images/blog/${imageFileName}`;
+  const outputPath = path.join(blogImagesDir, imageFileName);
+  const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+  fs.writeFileSync(outputPath, imageBuffer);
 
-  const mode = process.env.BLOG_IMAGE_MODE || "generate";
+  post.imageCredit = selectedPhoto.photographer
+    ? `Photo by ${selectedPhoto.photographer} on Pexels`
+    : "Photo provided by Pexels";
+  post.imageSource = selectedPhoto.url || "https://www.pexels.com/";
 
-  if (mode !== "local") {
-    try {
-      const imageBuffer = await generateOpenAIImage(post, config);
-      fs.writeFileSync(outputPath, imageBuffer);
-      return publicPath;
-    } catch (error) {
-      console.warn(`OpenAI image generation failed; using local generated image. ${error.message}`);
-    }
-  }
-
-  fs.writeFileSync(outputPath, createLocalBlogImage(post));
   return publicPath;
 }
 
-async function generateOpenAIImage(post, config) {
-  if (!process.env.OPENAI_API_KEY) {
-    throw new Error("OPENAI_API_KEY is not available.");
+function buildPexelsQuery(post, config) {
+  const text = `${post.title} ${post.excerpt} ${post.keywords.join(" ")}`.toLowerCase();
+
+  if (text.includes("forestry") || text.includes("harvester") || text.includes("forwarder")) {
+    return "logging truck forestry equipment";
   }
 
-  const model = process.env.BLOG_IMAGE_MODEL || "gpt-image-2";
-  const requestBody = {
-    model,
-    prompt: buildImagePrompt(post, config),
-  };
-
-  if (process.env.BLOG_IMAGE_SIZE) {
-    requestBody.size = process.env.BLOG_IMAGE_SIZE;
+  if (text.includes("parts") || text.includes("service") || text.includes("repair")) {
+    return "truck mechanic repair shop";
   }
 
-  if (process.env.BLOG_IMAGE_QUALITY) {
-    requestBody.quality = process.env.BLOG_IMAGE_QUALITY;
+  if (text.includes("inspection") || text.includes("safety") || text.includes("cvip")) {
+    return "commercial truck inspection";
   }
 
-  const response = await fetch("https://api.openai.com/v1/images/generations", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify(requestBody),
-  });
-  const text = await response.text();
-
-  if (!response.ok) {
-    throw new Error(`Image request failed (${response.status}): ${text}`);
+  if (text.includes("mobile") || text.includes("roadside")) {
+    return "semi truck roadside service";
   }
 
-  const data = JSON.parse(text);
-  const imageBase64 = data?.data?.[0]?.b64_json;
+  return config.imageSearchQueries?.[0] || "semi truck highway";
+}
 
-  if (!imageBase64) {
-    throw new Error("Image response did not include b64_json data.");
+function selectExistingImage(post, config) {
+  const images = config.imageOptions?.length
+    ? config.imageOptions
+    : [config.defaultImage];
+  const text = `${post.title} ${post.excerpt} ${post.keywords.join(" ")}`.toLowerCase();
+
+  if (text.includes("forestry") || text.includes("ecolog") || text.includes("harvester")) {
+    return findImage(images, "harvester") || findImage(images, "forwarder") || config.defaultImage;
   }
 
-  return Buffer.from(imageBase64, "base64");
-}
-
-function buildImagePrompt(post, config) {
-  return [
-    "Create an original editorial blog header image for Munden Truck & Equipment Ltd.",
-    `Article title: ${post.title}`,
-    `Article excerpt: ${post.excerpt}`,
-    `Service areas: ${config.serviceAreas.join(", ")}`,
-    "Style: realistic commercial photography, BC Interior industrial setting, practical and professional.",
-    "Show relevant trucks, trailers, heavy-duty service, forestry equipment, parts, tools, roads, shop bays, or equipment details based on the article topic.",
-    "No text, no logos, no brand marks, no license plates, no readable signs, no distorted people, no unsafe work practices.",
-    "Wide landscape composition suitable for a website blog hero image.",
-  ].join("\n");
-}
-
-function createLocalBlogImage(post) {
-  const width = 1200;
-  const height = 675;
-  const data = Buffer.alloc((width * 4 + 1) * height);
-  const seed = hashString(`${post.date}-${post.slug}-${post.title}`);
-  const palette = [
-    [125, 48, 56],
-    [31, 41, 55],
-    [67, 83, 52],
-    [210, 196, 166],
-  ];
-  const accent = palette[seed % palette.length];
-
-  for (let y = 0; y < height; y += 1) {
-    const rowStart = y * (width * 4 + 1);
-    data[rowStart] = 0;
-
-    for (let x = 0; x < width; x += 1) {
-      const offset = rowStart + 1 + x * 4;
-      const t = y / height;
-      const noise = ((x * 13 + y * 7 + seed) % 29) - 14;
-      let r = Math.round(28 + accent[0] * 0.25 + t * 34 + noise * 0.35);
-      let g = Math.round(34 + accent[1] * 0.18 + t * 30 + noise * 0.3);
-      let b = Math.round(39 + accent[2] * 0.14 + t * 26 + noise * 0.25);
-
-      const horizon = height * 0.57 + Math.sin((x + seed) / 90) * 18;
-      if (y > horizon) {
-        r = Math.round(r * 0.72);
-        g = Math.round(g * 0.78);
-        b = Math.round(b * 0.74);
-      }
-
-      const roadCenter = width * 0.48 + (y - height * 0.45) * 0.42;
-      const roadWidth = Math.max(28, (y - height * 0.35) * 0.56);
-      if (y > height * 0.43 && Math.abs(x - roadCenter) < roadWidth) {
-        r = 49;
-        g = 54;
-        b = 58;
-      }
-
-      if (
-        y > height * 0.48 &&
-        Math.abs(x - roadCenter) < 4 &&
-        Math.floor((y + seed) / 32) % 2 === 0
-      ) {
-        r = 222;
-        g = 205;
-        b = 156;
-      }
-
-      if (isInsideEquipmentShape(x, y, width, height, seed)) {
-        r = accent[0];
-        g = accent[1];
-        b = accent[2];
-      }
-
-      if (isInsideWheel(x, y, width, height, seed)) {
-        r = 20;
-        g = 24;
-        b = 29;
-      }
-
-      data[offset] = clampColor(r);
-      data[offset + 1] = clampColor(g);
-      data[offset + 2] = clampColor(b);
-      data[offset + 3] = 255;
-    }
+  if (text.includes("forwarder")) {
+    return findImage(images, "forwarder") || config.defaultImage;
   }
 
-  return encodePng(width, height, data);
-}
-
-function isInsideEquipmentShape(x, y, width, height, seed) {
-  const baseX = width * (0.57 + ((seed % 9) - 4) * 0.01);
-  const baseY = height * 0.56;
-  const cab =
-    x > baseX - 120 &&
-    x < baseX - 30 &&
-    y > baseY - 82 &&
-    y < baseY - 18;
-  const body =
-    x > baseX - 40 &&
-    x < baseX + 190 &&
-    y > baseY - 58 &&
-    y < baseY - 18;
-  const boom =
-    y > baseY - 120 &&
-    y < baseY - 104 &&
-    x > baseX + 120 &&
-    x < baseX + 330 &&
-    Math.abs(y - (baseY - 108 - (x - baseX - 120) * 0.11)) < 12;
-
-  return cab || body || boom;
-}
-
-function isInsideWheel(x, y, width, height, seed) {
-  const baseX = width * (0.57 + ((seed % 9) - 4) * 0.01);
-  const baseY = height * 0.56;
-  const wheels = [
-    [baseX - 72, baseY - 16],
-    [baseX + 28, baseY - 16],
-    [baseX + 138, baseY - 16],
-  ];
-
-  return wheels.some(([wheelX, wheelY]) => {
-    const dx = x - wheelX;
-    const dy = y - wheelY;
-    return dx * dx + dy * dy < 24 * 24;
-  });
-}
-
-function encodePng(width, height, rawData) {
-  const signature = Buffer.from([
-    0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,
-  ]);
-  const ihdr = Buffer.alloc(13);
-  ihdr.writeUInt32BE(width, 0);
-  ihdr.writeUInt32BE(height, 4);
-  ihdr[8] = 8;
-  ihdr[9] = 6;
-  ihdr[10] = 0;
-  ihdr[11] = 0;
-  ihdr[12] = 0;
-
-  return Buffer.concat([
-    signature,
-    pngChunk("IHDR", ihdr),
-    pngChunk("IDAT", zlib.deflateSync(rawData)),
-    pngChunk("IEND", Buffer.alloc(0)),
-  ]);
-}
-
-function pngChunk(type, data) {
-  const typeBuffer = Buffer.from(type);
-  const length = Buffer.alloc(4);
-  length.writeUInt32BE(data.length, 0);
-  const crc = Buffer.alloc(4);
-  crc.writeUInt32BE(crc32(Buffer.concat([typeBuffer, data])), 0);
-  return Buffer.concat([length, typeBuffer, data, crc]);
-}
-
-function crc32(buffer) {
-  let crc = 0xffffffff;
-
-  for (const byte of buffer) {
-    crc ^= byte;
-    for (let bit = 0; bit < 8; bit += 1) {
-      crc = crc & 1 ? (crc >>> 1) ^ 0xedb88320 : crc >>> 1;
-    }
+  if (text.includes("freeze") || text.includes("winter") || text.includes("air system")) {
+    return findImage(images, "freeze") || config.defaultImage;
   }
 
-  return (crc ^ 0xffffffff) >>> 0;
+  if (text.includes("steering") || text.includes("suspension") || text.includes("inspection") || text.includes("repair")) {
+    return findImage(images, "steering") || config.defaultImage;
+  }
+
+  return images[Math.abs(hashString(post.slug)) % images.length] || config.defaultImage;
+}
+
+function findImage(images, match) {
+  return images.find((image) => image.toLowerCase().includes(match));
 }
 
 function hashString(value) {
@@ -622,10 +516,6 @@ function hashString(value) {
   }
 
   return hash >>> 0;
-}
-
-function clampColor(value) {
-  return Math.max(0, Math.min(255, value));
 }
 
 async function createOpenAIResponse(options) {
@@ -688,6 +578,8 @@ function normalizePost(post, config, date) {
     author: cleanOneLine(post.author) || config.author,
     readTime: `${readMinutes} min read`,
     image,
+    imageCredit: cleanOneLine(post.imageCredit),
+    imageSource: cleanOneLine(post.imageSource),
     keywords: normalizeStringArray(post.keywords).slice(0, 10),
     sources,
     body,
@@ -818,7 +710,7 @@ function validatePostShape(post, config) {
 }
 
 function serializePost(post) {
-  const frontmatter = [
+  const frontmatterEntries = [
     ["title", post.title],
     ["slug", post.slug],
     ["date", post.date],
@@ -827,9 +719,12 @@ function serializePost(post) {
     ["author", post.author],
     ["readTime", post.readTime],
     ["image", post.image],
+    ...(post.imageCredit ? [["imageCredit", post.imageCredit]] : []),
+    ...(post.imageSource ? [["imageSource", post.imageSource]] : []),
     ["keywords", post.keywords],
     ["sources", post.sources],
-  ]
+  ];
+  const frontmatter = frontmatterEntries
     .map(([key, value]) => `${key}: ${JSON.stringify(value)}`)
     .join("\n");
 
@@ -859,6 +754,8 @@ function readExistingPosts() {
         author: String(frontmatter.author || ""),
         readTime: String(frontmatter.readTime || ""),
         image: String(frontmatter.image || ""),
+        imageCredit: String(frontmatter.imageCredit || ""),
+        imageSource: String(frontmatter.imageSource || ""),
         keywords: Array.isArray(frontmatter.keywords) ? frontmatter.keywords : [],
         sources: Array.isArray(frontmatter.sources) ? frontmatter.sources : [],
         body,
