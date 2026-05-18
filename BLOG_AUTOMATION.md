@@ -14,7 +14,7 @@ Optional repository variable:
 OPENAI_MODEL=gpt-5.4-mini
 BLOG_MAX_OUTPUT_TOKENS=3500
 BLOG_OPENAI_RETRIES=2
-BLOG_TOPIC_ATTEMPTS=3
+BLOG_TOPIC_ATTEMPTS=5
 BLOG_IMAGE_MODE=stock
 ```
 
@@ -34,7 +34,7 @@ Each run:
 2. Reviews existing posts in `content/resources`.
 3. Fetches short summaries from configured competitor and industry URLs.
 4. Sends that compact research digest to OpenAI and generates one markdown post.
-5. Rejects topics that overlap the last 10 posts and retries with a different angle.
+5. Gives the model a rotating set of allowed topic angles, rejects topics that overlap the last 10 posts, and retries with a different angle.
 6. Fetches a relevant stock photo into `public/images/blog`, or uses an existing real site photo as a fallback.
 7. Validates the post for safety, duplicate topics, required sources, internal links, and markdown-only content.
 8. Builds the site.

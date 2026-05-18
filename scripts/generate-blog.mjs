@@ -89,11 +89,13 @@ async function main() {
 }
 
 async function generateValidatedPost(config, existingPosts, date) {
-  const maxAttempts = Number.parseInt(process.env.BLOG_TOPIC_ATTEMPTS || "3", 10);
+  const maxAttempts = Number.parseInt(process.env.BLOG_TOPIC_ATTEMPTS || "5", 10);
   const rejectedTopics = [];
   let lastError = null;
 
   for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    let normalizedPost = null;
+
     try {
       const generatedPost = await generatePost(
         config,
@@ -101,12 +103,16 @@ async function generateValidatedPost(config, existingPosts, date) {
         date,
         rejectedTopics,
       );
-      const normalizedPost = normalizePost(generatedPost, config, date);
+      normalizedPost = normalizePost(generatedPost, config, date);
       validateGeneratedPost(normalizedPost, existingPosts, config, date);
       return normalizedPost;
     } catch (error) {
       lastError = error;
-      rejectedTopics.push(`Rejected attempt: ${error.message}`.slice(0, 260));
+      rejectedTopics.push(
+        normalizedPost
+          ? `Rejected "${normalizedPost.title}" because ${error.message}`.slice(0, 360)
+          : `Rejected attempt because ${error.message}`.slice(0, 360),
+      );
 
       if (attempt < maxAttempts) {
         console.warn(
@@ -193,6 +199,7 @@ function buildUserPrompt(
         `${post.date}: ${post.title} [${post.category}] ${post.excerpt.slice(0, 150)}`,
     )
     .join("\n");
+  const allowedTopicAngles = buildAllowedTopicAngles(existingPosts);
 
   return JSON.stringify(
     {
@@ -219,13 +226,16 @@ function buildUserPrompt(
       imageOptions: config.imageOptions.slice(0, 4),
       existingPosts: existingSummaries,
       rejectedTopics,
+      allowedTopicAngles,
       researchDigest,
       outputFields:
         "title, slug, date, excerpt, category, author, readTime, image, keywords, sources, body",
       categories: config.categories.join(" | "),
       requirements: [
+        "Choose exactly one allowedTopicAngles item and make the article about that specific angle.",
         "Choose a topic, seasonal angle, equipment system, and customer problem that are meaningfully different from every existing post listed.",
         "Do not write another pre-season checklist, spring/summer readiness, fleet-owner prep, freeze-up prevention, steering/suspension, employee-retention, or forestry-uncertainty article if one appears in existingPosts.",
+        "Do not reuse rejectedTopics. If a topic was rejected, move to a different equipment system or customer problem.",
         "Use the research digest for competitor and industry topic gaps, but do not name competitors in the article.",
         "Use at least three credible source URLs in the sources array from the research digest or Munden site.",
         "Include 1 or 2 internal markdown links in the body using natural anchor text, not exact SEO keyword phrases.",
@@ -234,6 +244,88 @@ function buildUserPrompt(
       ],
     },
   );
+}
+
+function buildAllowedTopicAngles(existingPosts) {
+  const candidateAngles = [
+    {
+      angle: "Hydraulic hose warning signs before a small leak becomes downtime",
+      category: "Maintenance Tips",
+      mustCover: "hose abrasion, seepage, fittings, contamination, when to stop using equipment",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "How to identify truck and trailer parts before calling the parts counter",
+      category: "Parts and Service",
+      mustCover: "unit number, VIN, photos, measurements, old part numbers, symptoms",
+      internalLink: "/services/parts-department",
+    },
+    {
+      angle: "Reefer and refrigeration trailer checks before warm weather freight",
+      category: "Maintenance Tips",
+      mustCover: "belts, filters, airflow, doors, seals, electrical checks, service timing",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Trailer lighting and wiring faults that cause avoidable downtime",
+      category: "Maintenance Tips",
+      mustCover: "connectors, corrosion, grounds, marker lights, vibration, inspection readiness",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "When a roadside issue belongs to mobile service and when it belongs in the shop",
+      category: "Parts and Service",
+      mustCover: "triage, safety, diagnostic limits, towing decisions, what information to provide",
+      internalLink: "/services/mobile-service",
+    },
+    {
+      angle: "Why maintenance records make CVIP inspections and fleet planning easier",
+      category: "Equipment Guides",
+      mustCover: "service history, repeat defects, inspection dates, downtime planning, documentation",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Air conditioning and cab comfort checks for operators working long summer days",
+      category: "Maintenance Tips",
+      mustCover: "filters, leaks, belts, airflow, operator fatigue, seasonal service",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Welding and fabrication repair planning for trucks, trailers, and equipment",
+      category: "Parts and Service",
+      mustCover: "cracks, mounts, brackets, safety, inspection, repair timing",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Forwarder and harvester uptime habits for forestry contractors",
+      category: "Forestry Equipment",
+      mustCover: "daily checks, hoses, tracks or tires, heads, parts planning, operator notes",
+      internalLink: "/equipment/ecolog",
+    },
+    {
+      angle: "What fleet managers should keep in a practical roadside information kit",
+      category: "Equipment Guides",
+      mustCover: "unit details, contacts, service history, photos, location details, driver notes",
+      internalLink: "/services/mobile-service",
+    },
+  ];
+  const filteredAngles = candidateAngles.filter((candidate) => {
+    const candidatePost = {
+      title: candidate.angle,
+      excerpt: candidate.mustCover,
+      body: candidate.angle,
+    };
+
+    return !existingPosts.slice(0, 10).some((post) => {
+      return (
+        titleSimilarity(post.title, candidate.angle) > 0.34 ||
+        topicSimilarity(post, candidatePost) > 0.22
+      );
+    });
+  });
+  const angles = filteredAngles.length >= 4 ? filteredAngles : candidateAngles;
+
+  return angles.slice(0, 6);
 }
 
 async function collectResearch(config) {
