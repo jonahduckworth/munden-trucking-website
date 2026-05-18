@@ -471,12 +471,33 @@ async function ensurePostImages(posts, config, since) {
 }
 
 async function createBlogImage(post, config) {
-  const mode = process.env.BLOG_IMAGE_MODE || "stock";
+  const mode = process.env.BLOG_IMAGE_MODE || "stock-required";
+  const requiresStockImage = mode === "stock-required";
 
-  if (mode !== "local" && process.env.PEXELS_API_KEY) {
+  if (mode === "local") {
+    console.warn("BLOG_IMAGE_MODE=local; using an existing site photo.");
+    return selectExistingImage(post, config);
+  }
+
+  if (!process.env.PEXELS_API_KEY) {
+    if (requiresStockImage) {
+      throw new Error(
+        "PEXELS_API_KEY is required for BLOG_IMAGE_MODE=stock-required. Add it as a GitHub Actions repository secret.",
+      );
+    }
+
+    console.warn("PEXELS_API_KEY is missing; using an existing site photo.");
+    return selectExistingImage(post, config);
+  }
+
+  if (mode === "stock" || mode === "stock-required") {
     try {
       return await fetchPexelsImage(post, config);
     } catch (error) {
+      if (requiresStockImage) {
+        throw error;
+      }
+
       console.warn(`Pexels image fetch failed; using existing site photo. ${error.message}`);
     }
   }
@@ -486,6 +507,7 @@ async function createBlogImage(post, config) {
 
 async function fetchPexelsImage(post, config) {
   const query = buildPexelsQuery(post, config);
+  console.log(`Searching Pexels for blog image: "${query}"`);
   const searchUrl = new URL("https://api.pexels.com/v1/search");
   searchUrl.searchParams.set("query", query);
   searchUrl.searchParams.set("orientation", "landscape");
@@ -539,6 +561,7 @@ async function fetchPexelsImage(post, config) {
   const outputPath = path.join(blogImagesDir, imageFileName);
   const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
   fs.writeFileSync(outputPath, imageBuffer);
+  console.log(`Downloaded Pexels blog image: ${path.relative(rootDir, outputPath)}`);
 
   post.imageCredit = selectedPhoto.photographer
     ? `Photo by ${selectedPhoto.photographer} on Pexels`

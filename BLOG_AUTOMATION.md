@@ -15,12 +15,12 @@ OPENAI_MODEL=gpt-5.4-mini
 BLOG_MAX_OUTPUT_TOKENS=3500
 BLOG_OPENAI_RETRIES=2
 BLOG_TOPIC_ATTEMPTS=5
-BLOG_IMAGE_MODE=stock
+BLOG_IMAGE_MODE=stock-required
 ```
 
 The default model is `gpt-5.4-mini` to keep daily API usage modest. Use `gpt-5.4` if the generated drafts need stronger writing or reasoning. Keep `BLOG_MAX_OUTPUT_TOKENS` near `3500` on new/low-limit API accounts so each daily request stays under common tokens-per-minute limits.
 
-Blog images are pulled into `public/images/blog` from Pexels when `PEXELS_API_KEY` is available. Use `BLOG_IMAGE_MODE=local` to skip Pexels and use the existing real site photos from `content/blog-config.json`.
+Blog images are pulled into `public/images/blog` from Pexels. With `BLOG_IMAGE_MODE=stock-required`, the workflow fails if `PEXELS_API_KEY` is missing or Pexels cannot return an image, which prevents quiet fallback images. Use `BLOG_IMAGE_MODE=local` only when you intentionally want to use the existing real site photos from `content/blog-config.json`.
 
 Do not commit API keys to the repo. For local testing, add the key to `.env.local` or export it in your shell before running the script. The generator loads `.env.local` automatically when it exists.
 
