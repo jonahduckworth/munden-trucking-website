@@ -11,12 +11,15 @@ export const metadata: Metadata = {
   title: "Privacy Policy | Munden Truck & Equipment Ltd.",
   description:
     "Privacy policy for Munden Truck & Equipment Ltd. Learn how we collect, use, and protect your personal information.",
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 export default function PrivacyPage() {
   const breadcrumbs = [
-    { name: "Home", url: "https://mundentruckequipment.com" },
-    { name: "Privacy Policy", url: "https://mundentruckequipment.com/privacy" },
+    { name: "Home", url: "https://mundengroup.ca" },
+    { name: "Privacy Policy", url: "https://mundengroup.ca/privacy" },
   ];
 
   return (
@@ -187,7 +190,7 @@ export default function PrivacyPage() {
                   <br />
                   Kamloops, BC V2C 1A1
                   <br />
-                  Email: privacy@mundentruckequipment.com
+                  Email: privacy@mundengroup.ca
                   <br />
                   Phone: 1-800-XXX-XXXX
                 </address>

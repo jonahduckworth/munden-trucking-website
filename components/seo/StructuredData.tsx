@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { absoluteUrl, siteUrl } from "@/lib/site";
 
 interface StructuredDataProps {
   data: Record<string, unknown> | Record<string, unknown>[];
@@ -25,6 +26,7 @@ export const StructuredData: FC<StructuredDataProps> = ({ data }) => {
 export const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
+  "@id": `${siteUrl}/#localbusiness`,
   name: "Munden Truck & Equipment",
   alternateName: [
     "Munden",
@@ -32,9 +34,9 @@ export const localBusinessSchema = {
     "Munden Trucking",
     "Munden Truck & Equipment Ltd.",
   ],
-  image: "https://mundentruckequipment.com/images/logo.png",
-  url: "https://mundentruckequipment.com",
-  telephone: "250-828-2268",
+  image: absoluteUrl("/images/logo.png"),
+  url: siteUrl,
+  telephone: "+1-250-828-2268",
   address: {
     "@type": "PostalAddress",
     streetAddress: "725 Carrier Street",
@@ -51,20 +53,22 @@ export const localBusinessSchema = {
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "07:00",
-      closes: "17:00",
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Saturday",
-      opens: "08:00",
-      closes: "14:00",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      opens: "00:00",
+      closes: "23:59",
     },
   ],
   sameAs: [
-    "https://www.facebook.com/mundentruckequipment",
-    "https://www.linkedin.com/company/munden-truck-equipment",
+    "https://www.facebook.com/MundenGroup/",
+    "https://ca.linkedin.com/company/mundengroup",
   ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
@@ -229,18 +233,19 @@ export const faqSchema = (
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
   name: "Munden Truck & Equipment",
   alternateName: ["Munden", "Munden Truck", "Munden Trucking"],
-  url: "https://mundentruckequipment.com",
-  logo: "https://mundentruckequipment.com/images/logo.png",
+  url: siteUrl,
+  logo: absoluteUrl("/images/logo.png"),
   description:
     "Munden Truck & Equipment - Kamloops truck repair, trailer repair, equipment repair. Truck shop, trailer shop, automotive shop. CVIP inspections, mobile service truck, emergency roadside service. Welding, fabrication, hydraulics. Refrigeration, A/C repair. Carrier, Thermo King, Webasto service. Truck parts and trailer parts.",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "123 Industrial Way",
+    streetAddress: "725 Carrier Street",
     addressLocality: "Kamloops",
     addressRegion: "BC",
-    postalCode: "V2C 1A1",
+    postalCode: "V2H 1G1",
     addressCountry: "CA",
   },
   contactPoint: [
@@ -249,14 +254,12 @@ export const organizationSchema = {
       telephone: "+1-250-828-2268",
       contactType: "customer service",
       areaServed: "CA",
-      contactOption: "TollFree",
       availableLanguage: ["en"],
     },
     {
       "@type": "ContactPoint",
       telephone: "+1-250-828-2268",
       contactType: "emergency",
-      contactOption: "24/7",
       availableLanguage: ["en"],
       areaServed: "CA",
     },

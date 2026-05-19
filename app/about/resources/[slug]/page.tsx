@@ -13,12 +13,13 @@ import {
   markdownToHtml,
   ResourcePost,
 } from "@/lib/resources";
+import { absoluteUrl, siteUrl } from "@/lib/site";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-const baseUrl = "https://mundentruckequipment.com";
+const baseUrl = siteUrl;
 
 export function generateStaticParams() {
   return getAllResourcePosts().map((post) => ({
@@ -40,10 +41,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${article.title} | Munden Truck & Equipment Resources`,
     description: article.excerpt,
     keywords: article.keywords,
+    alternates: {
+      canonical: `/about/resources/${article.slug}`,
+    },
     openGraph: {
       title: article.title,
       description: article.excerpt,
       type: "article",
+      url: `/about/resources/${article.slug}`,
       publishedTime: article.date,
       authors: [article.author],
       images: [
@@ -52,6 +57,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           alt: article.title,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [getAbsoluteUrl(article.image)],
     },
   };
 }
@@ -201,7 +212,7 @@ function blogPostingSchema(article: ResourcePost) {
     datePublished: article.date,
     dateModified: article.date,
     author: {
-      "@type": article.author.includes("Munden") ? "Organization" : "Person",
+      "@type": isOrganizationAuthor(article.author) ? "Organization" : "Person",
       name: article.author,
     },
     publisher: {
@@ -213,14 +224,15 @@ function blogPostingSchema(article: ResourcePost) {
       },
     },
     mainEntityOfPage: `${baseUrl}/about/resources/${article.slug}`,
+    articleSection: article.category,
     keywords: article.keywords,
   };
 }
 
 function getAbsoluteUrl(url: string) {
-  if (url.startsWith("http://") || url.startsWith("https://")) {
-    return url;
-  }
+  return absoluteUrl(url);
+}
 
-  return `${baseUrl}${url}`;
+function isOrganizationAuthor(author: string) {
+  return /Munden Truck|Munden Group|Equipment/i.test(author);
 }

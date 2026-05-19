@@ -8,7 +8,7 @@ author: "Munden Truck & Equipment"
 readTime: "5 min read"
 image: "/images/news/freeze-prevention.jpg"
 keywords: ["truck air system freeze up", "commercial truck winter maintenance", "air brake maintenance", "Kamloops truck service", "trailer repair"]
-sources: [{"title":"Munden Service Department","url":"https://mundentruckequipment.com/services/service-department"},{"title":"Munden Parts Department","url":"https://mundentruckequipment.com/services/parts-department"}]
+sources: [{"title":"Munden Service Department","url":"https://mundengroup.ca/services/service-department"},{"title":"Munden Parts Department","url":"https://mundengroup.ca/services/parts-department"}]
 ---
 
 For over five decades, Munden Truck & Equipment has been providing a wide range of commercial truck and trailer maintenance services to customers and clients in Kamloops and the BC Interior.

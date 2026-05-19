@@ -45,10 +45,14 @@ export const metadata: Metadata = {
   title: "Service Department | Truck & Equipment Repair | Munden Truck",
   description:
     "Full-service truck and heavy equipment repair in Kamloops. CVIP inspections, preventive maintenance. Certified technicians, 24/7 emergency support.",
+  alternates: {
+    canonical: "/services/service-department",
+  },
   openGraph: {
     title: "Service Department | Munden Truck & Equipment Ltd.",
     description:
       "Professional truck and heavy equipment repair services in Kamloops, BC. CVIP certified, preventive maintenance, fleet programs.",
+    url: "/services/service-department",
   },
 };
 
@@ -426,11 +430,11 @@ export default function ServiceDepartmentPage() {
   });
 
   const breadcrumbs = [
-    { name: "Home", url: "https://mundentruckequipment.com" },
-    { name: "Services", url: "https://mundentruckequipment.com/services" },
+    { name: "Home", url: "https://mundengroup.ca" },
+    { name: "Services", url: "https://mundengroup.ca/services" },
     {
       name: "Service Department",
-      url: "https://mundentruckequipment.com/services/service-department",
+      url: "https://mundengroup.ca/services/service-department",
     },
   ];
 

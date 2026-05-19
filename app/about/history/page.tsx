@@ -12,10 +12,14 @@ export const metadata: Metadata = {
   title: "Our History | 30 Years of Excellence | Munden Truck & Equipment",
   description:
     "Learn about the history, values, and commitments that have made Munden Truck & Equipment Ltd. a trusted name in truck repair and forestry equipment since 1994.",
+  alternates: {
+    canonical: "/about/history",
+  },
   openGraph: {
     title: "Our History | Munden Truck & Equipment Ltd.",
     description:
       "Discover our 30-year journey of excellence in commercial vehicle services.",
+    url: "/about/history",
   },
 };
 
@@ -93,11 +97,11 @@ const values = [
 
 export default function HistoryPage() {
   const breadcrumbs = [
-    { name: "Home", url: "https://mundentruckequipment.com" },
-    { name: "About", url: "https://mundentruckequipment.com/about" },
+    { name: "Home", url: "https://mundengroup.ca" },
+    { name: "About", url: "https://mundengroup.ca/about" },
     {
       name: "Our History",
-      url: "https://mundentruckequipment.com/about/history",
+      url: "https://mundengroup.ca/about/history",
     },
   ];
 

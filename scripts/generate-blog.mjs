@@ -363,7 +363,7 @@ async function fetchSourceSummary(source) {
       signal: controller.signal,
       headers: {
         "User-Agent":
-          "MundenBlogGenerator/1.0 (+https://mundentruckequipment.com)",
+          "MundenBlogGenerator/1.0 (+https://mundengroup.ca)",
         Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
       },
     });

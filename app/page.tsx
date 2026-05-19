@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/sections/Hero";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import TestimonialsCarousel from "@/components/sections/TestimonialsCarousel";
@@ -7,6 +8,12 @@ import PartnersLogos from "@/components/sections/PartnersLogos";
 import StructuredData, {
   localBusinessSchema,
 } from "@/components/seo/StructuredData";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function Home() {
   return (

@@ -35,10 +35,14 @@ export const metadata: Metadata = {
   title: "24/7 Mobile Service | Roadside Truck Repair | Munden Truck",
   description:
     "24/7 mobile truck repair service in Kamloops and BC Interior. Fully equipped service trucks, fast response times, and expert technicians available anytime.",
+  alternates: {
+    canonical: "/services/mobile-service",
+  },
   openGraph: {
     title: "24/7 Mobile Service | Munden Truck & Equipment Ltd.",
     description:
       "24/7 mobile breakdown service for commercial trucks. Service trucks available throughout the BC Interior.",
+    url: "/services/mobile-service",
   },
 };
 
@@ -172,11 +176,11 @@ export default function MobileServicePage() {
   });
 
   const breadcrumbs = [
-    { name: "Home", url: "https://mundentruckequipment.com" },
-    { name: "Services", url: "https://mundentruckequipment.com/services" },
+    { name: "Home", url: "https://mundengroup.ca" },
+    { name: "Services", url: "https://mundengroup.ca/services" },
     {
       name: "Mobile Service",
-      url: "https://mundentruckequipment.com/services/mobile-service",
+      url: "https://mundengroup.ca/services/mobile-service",
     },
   ];
 

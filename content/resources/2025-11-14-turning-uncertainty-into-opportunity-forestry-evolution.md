@@ -8,7 +8,7 @@ author: "Nolan Munden"
 readTime: "6 min read"
 image: "/images/equipment/blog1.jpeg"
 keywords: ["forestry equipment", "Western Canada forestry", "EcoLog harvesters", "selective harvesting", "BC forestry"]
-sources: [{"title":"Munden Truck & Equipment Resources","url":"https://mundentruckequipment.com/about/resources"},{"title":"EcoLog Forestry Equipment","url":"https://mundentruckequipment.com/equipment/ecolog"}]
+sources: [{"title":"Munden Truck & Equipment Resources","url":"https://mundengroup.ca/about/resources"},{"title":"EcoLog Forestry Equipment","url":"https://mundengroup.ca/equipment/ecolog"}]
 ---
 
 The forestry sector in British Columbia and across much of Canada is navigating a period of deep uncertainty. From ongoing softwood lumber tariffs to complex First Nations consultation processes and an increasingly demanding regulatory environment, it is no secret that our industry is under pressure. Harvesting levels continue to decline, and many contractors and manufacturers are asking the same question: where do we go from here?

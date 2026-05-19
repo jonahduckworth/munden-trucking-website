@@ -23,10 +23,14 @@ export const metadata: Metadata = {
   title: "Careers | Join Our Team | Munden Truck & Equipment",
   description:
     "Explore career opportunities at Munden Truck & Equipment in Kamloops, BC. Join a team focused on safety, craftsmanship, growth, and long-term careers in trucking and heavy equipment.",
+  alternates: {
+    canonical: "/about/careers",
+  },
   openGraph: {
     title: "Careers | Munden Truck & Equipment Ltd.",
     description:
       "Build a long-term career with Munden Truck & Equipment in Kamloops, BC.",
+    url: "/about/careers",
   },
 };
 

@@ -34,10 +34,14 @@ export const metadata: Metadata = {
   title: "Parts Department | OEM & Aftermarket Parts | Munden Truck",
   description:
     "Quality OEM and aftermarket parts for trucks and heavy equipment in Kamloops. EcoLog forestry equipment parts, hydraulic components, and emergency parts service.",
+  alternates: {
+    canonical: "/services/parts-department",
+  },
   openGraph: {
     title: "Parts Department | Munden Truck & Equipment Ltd.",
     description:
       "Quality parts for trucks and heavy equipment. OEM and aftermarket options with expert advice and fast delivery.",
+    url: "/services/parts-department",
   },
 };
 
@@ -178,11 +182,11 @@ export default function PartsDepartmentPage() {
   });
 
   const breadcrumbs = [
-    { name: "Home", url: "https://mundentruckequipment.com" },
-    { name: "Services", url: "https://mundentruckequipment.com/services" },
+    { name: "Home", url: "https://mundengroup.ca" },
+    { name: "Services", url: "https://mundengroup.ca/services" },
     {
       name: "Parts Department",
-      url: "https://mundentruckequipment.com/services/parts-department",
+      url: "https://mundengroup.ca/services/parts-department",
     },
   ];
 
