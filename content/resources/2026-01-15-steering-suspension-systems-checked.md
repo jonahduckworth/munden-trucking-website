@@ -8,7 +8,7 @@ author: "Munden Truck & Equipment"
 readTime: "4 min read"
 image: "/images/news/steering-suspension.jpg"
 keywords: ["truck steering repair", "truck suspension repair", "commercial truck maintenance", "Kamloops truck repair", "heavy duty alignment"]
-sources: [{"title":"Munden Service Department","url":"https://mundentruckequipment.com/services/service-department"},{"title":"Munden Mobile Service","url":"https://mundentruckequipment.com/services/mobile-service"}]
+sources: [{"title":"Munden Service Department","url":"https://mundengroup.ca/services/service-department"},{"title":"Munden Mobile Service","url":"https://mundengroup.ca/services/mobile-service"}]
 ---
 
 At Munden Truck & Equipment Ltd., trucks are our business. We drive them, we service them, and we repair them. Our truck and trailer repair shop in Kamloops is committed to providing quality, cost-effective commercial vehicle maintenance and repairs.

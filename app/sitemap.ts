@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { getAllResourcePosts } from "@/lib/resources";
+import { siteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://mundentruckequipment.com";
+  const baseUrl = siteUrl;
   const resourcePosts = getAllResourcePosts();
 
   return [

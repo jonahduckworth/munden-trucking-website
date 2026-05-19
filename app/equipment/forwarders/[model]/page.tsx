@@ -167,6 +167,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `${forwarder.model} - ${
       forwarder.tagline
     }. ${forwarder.description.substring(0, 155)}...`,
+    alternates: {
+      canonical: `/equipment/forwarders/${model}`,
+    },
+    openGraph: {
+      title: `${forwarder.model} Forwarder | Munden Truck & Equipment Ltd.`,
+      description: forwarder.description,
+      url: `/equipment/forwarders/${model}`,
+      images: [
+        {
+          url: forwarder.image,
+          alt: forwarder.model,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${forwarder.model} Forwarder | Munden Truck & Equipment Ltd.`,
+      description: forwarder.description,
+      images: [forwarder.image],
+    },
   };
 }
 
@@ -212,25 +232,25 @@ export default async function ForwarderDetailPage({ params }: Props) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://mundentruckequipment.com",
+        item: "https://mundengroup.ca",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Equipment",
-        item: "https://mundentruckequipment.com/equipment",
+        item: "https://mundengroup.ca/equipment",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "Forwarders",
-        item: "https://mundentruckequipment.com/equipment/forwarders",
+        item: "https://mundengroup.ca/equipment/forwarders",
       },
       {
         "@type": "ListItem",
         position: 4,
         name: forwarder.model,
-        item: `https://mundentruckequipment.com/equipment/forwarders/${model}`,
+        item: `https://mundengroup.ca/equipment/forwarders/${model}`,
       },
     ],
   };

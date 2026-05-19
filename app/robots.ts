@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { siteUrl } from '@/lib/site'
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -6,23 +7,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: [
-          '/api/',
-          '/admin/',
-          '/_next/',
-          '/static/',
-          '/*.json$',
-          '/*?*', // URLs with query parameters
-          '/404',
-          '/500'
-        ],
-      },
-      {
-        userAgent: 'Googlebot',
-        allow: '/',
-        crawlDelay: 0,
+        disallow: ['/api/', '/admin/'],
       },
     ],
-    sitemap: 'https://mundentruckequipment.com/sitemap.xml',
+    sitemap: `${siteUrl}/sitemap.xml`,
   }
 }

@@ -32,10 +32,14 @@ export const metadata: Metadata = {
   title: "EcoLog Forestry Equipment | Authorized Dealer | Munden Truck",
   description:
     "Authorized EcoLog dealer in Western Canada. Swedish-engineered harvesters and forwarders with full parts and service support.",
+  alternates: {
+    canonical: "/equipment/ecolog",
+  },
   openGraph: {
     title: "EcoLog Forestry Equipment | Munden Truck & Equipment Ltd.",
     description:
       "Authorized EcoLog dealer offering premium forestry equipment with full local support in BC.",
+    url: "/equipment/ecolog",
   },
 };
 
@@ -150,11 +154,11 @@ const support = [
 
 export default function EcoLogPage() {
   const breadcrumbs = [
-    { name: "Home", url: "https://mundentruckequipment.com" },
-    { name: "Equipment", url: "https://mundentruckequipment.com/equipment" },
+    { name: "Home", url: "https://mundengroup.ca" },
+    { name: "Equipment", url: "https://mundengroup.ca/equipment" },
     {
       name: "EcoLog Forestry",
-      url: "https://mundentruckequipment.com/equipment/ecolog",
+      url: "https://mundengroup.ca/equipment/ecolog",
     },
   ];
 

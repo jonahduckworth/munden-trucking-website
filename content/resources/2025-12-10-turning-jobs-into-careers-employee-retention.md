@@ -8,7 +8,7 @@ author: "Nolan Munden"
 readTime: "8 min read"
 image: "/images/news/careers.jpg"
 keywords: ["trucking careers", "employee retention", "heavy duty mechanics", "professional drivers", "Munden careers"]
-sources: [{"title":"Munden Careers","url":"https://mundengroup.ca/"},{"title":"Munden Truck & Equipment Contact","url":"https://mundentruckequipment.com/about/contact"}]
+sources: [{"title":"Munden Careers","url":"https://mundengroup.ca/"},{"title":"Munden Truck & Equipment Contact","url":"https://mundengroup.ca/about/contact"}]
 ---
 
 As a fourth-generation company, we truly understand the importance of long-term satisfied employees. As we have welcomed the fifth generation into our lives, I wanted to share some insights into what we have found to be keys for success in our industry for employee retention. As a company, we have a core belief around creating careers rather than just jobs.

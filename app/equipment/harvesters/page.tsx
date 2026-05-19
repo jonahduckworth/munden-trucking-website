@@ -37,6 +37,15 @@ export const metadata: Metadata = {
     "EcoLog Harvesters | New Forestry Equipment | Munden Truck & Equipment",
   description:
     "Browse our selection of new EcoLog harvesters. Industry-leading forestry equipment in BC.",
+  alternates: {
+    canonical: "/equipment/harvesters",
+  },
+  openGraph: {
+    title: "EcoLog Harvesters | Munden Truck & Equipment Ltd.",
+    description:
+      "Browse new EcoLog harvesters for forestry operations in BC and Western Canada.",
+    url: "/equipment/harvesters",
+  },
 };
 
 // Harvester data - in production this would come from a database
@@ -143,19 +152,19 @@ export default function HarvestersPage() {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://mundentruckequipment.com",
+        item: "https://mundengroup.ca",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Equipment",
-        item: "https://mundentruckequipment.com/equipment",
+        item: "https://mundengroup.ca/equipment",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "Harvesters",
-        item: "https://mundentruckequipment.com/equipment/harvesters",
+        item: "https://mundengroup.ca/equipment/harvesters",
       },
     ],
   };

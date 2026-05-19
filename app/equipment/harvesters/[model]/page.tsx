@@ -228,6 +228,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `${harvester.model} - ${
       harvester.tagline
     }. ${harvester.description.substring(0, 155)}...`,
+    alternates: {
+      canonical: `/equipment/harvesters/${model}`,
+    },
+    openGraph: {
+      title: `${harvester.model} Harvester | Munden Truck & Equipment Ltd.`,
+      description: harvester.description,
+      url: `/equipment/harvesters/${model}`,
+      images: [
+        {
+          url: harvester.image,
+          alt: harvester.model,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${harvester.model} Harvester | Munden Truck & Equipment Ltd.`,
+      description: harvester.description,
+      images: [harvester.image],
+    },
   };
 }
 
@@ -273,25 +293,25 @@ export default async function HarvesterDetailPage({ params }: Props) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://mundentruckequipment.com",
+        item: "https://mundengroup.ca",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Equipment",
-        item: "https://mundentruckequipment.com/equipment",
+        item: "https://mundengroup.ca/equipment",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "Harvesters",
-        item: "https://mundentruckequipment.com/equipment/harvesters",
+        item: "https://mundengroup.ca/equipment/harvesters",
       },
       {
         "@type": "ListItem",
         position: 4,
         name: harvester.model,
-        item: `https://mundentruckequipment.com/equipment/harvesters/${model}`,
+        item: `https://mundengroup.ca/equipment/harvesters/${model}`,
       },
     ],
   };

@@ -19,10 +19,14 @@ export const metadata: Metadata = {
   title: "Resources | Industry Insights and Company News | Munden Truck",
   description:
     "Stay updated with the latest news from Munden Truck & Equipment Ltd. Read about industry trends, company updates, and trucking insights.",
+  alternates: {
+    canonical: "/about/resources",
+  },
   openGraph: {
     title: "Resources | Munden Truck & Equipment Ltd.",
     description:
       "Latest news, industry insights, and company updates from your trusted trucking partner.",
+    url: "/about/resources",
   },
 };
 
@@ -30,11 +34,11 @@ export default function ResourcesPage() {
   const posts = getAllResourcePosts();
   const [featuredArticle, ...moreArticles] = posts;
   const breadcrumbs = [
-    { name: "Home", url: "https://mundentruckequipment.com" },
-    { name: "About", url: "https://mundentruckequipment.com/about" },
+    { name: "Home", url: "https://mundengroup.ca" },
+    { name: "About", url: "https://mundengroup.ca/about" },
     {
       name: "Resources",
-      url: "https://mundentruckequipment.com/about/resources",
+      url: "https://mundengroup.ca/about/resources",
     },
   ];
 

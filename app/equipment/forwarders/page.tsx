@@ -37,6 +37,15 @@ export const metadata: Metadata = {
     "EcoLog Forwarders | New Forestry Equipment | Munden Truck & Equipment",
   description:
     "Browse our selection of new EcoLog forwarders. High-capacity log transport equipment in BC.",
+  alternates: {
+    canonical: "/equipment/forwarders",
+  },
+  openGraph: {
+    title: "EcoLog Forwarders | Munden Truck & Equipment Ltd.",
+    description:
+      "Browse new EcoLog forwarders for high-capacity forestry log transport in BC.",
+    url: "/equipment/forwarders",
+  },
 };
 
 // Forwarder data - in production this would come from a database
@@ -123,19 +132,19 @@ export default function ForwardersPage() {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://mundentruckequipment.com",
+        item: "https://mundengroup.ca",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Equipment",
-        item: "https://mundentruckequipment.com/equipment",
+        item: "https://mundengroup.ca/equipment",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "Forwarders",
-        item: "https://mundentruckequipment.com/equipment/forwarders",
+        item: "https://mundengroup.ca/equipment/forwarders",
       },
     ],
   };

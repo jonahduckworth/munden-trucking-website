@@ -11,12 +11,15 @@ export const metadata: Metadata = {
   title: "Terms of Service | Munden Truck & Equipment Ltd.",
   description:
     "Terms of service for Munden Truck & Equipment Ltd. Read our terms and conditions for using our website and services.",
+  alternates: {
+    canonical: "/terms",
+  },
 };
 
 export default function TermsPage() {
   const breadcrumbs = [
-    { name: "Home", url: "https://mundentruckequipment.com" },
-    { name: "Terms of Service", url: "https://mundentruckequipment.com/terms" },
+    { name: "Home", url: "https://mundengroup.ca" },
+    { name: "Terms of Service", url: "https://mundengroup.ca/terms" },
   ];
 
   return (
@@ -196,7 +199,7 @@ export default function TermsPage() {
                   <br />
                   Kamloops, BC V2C 1A1
                   <br />
-                  Email: legal@mundentruckequipment.com
+                  Email: legal@mundengroup.ca
                   <br />
                   Phone: 1-800-XXX-XXXX
                 </address>
