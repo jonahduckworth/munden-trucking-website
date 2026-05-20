@@ -134,7 +134,7 @@ export const localBusinessSchema = {
         description: "RV repair and maintenance services in Kamloops",
       },
       {
-        "@type": "Product",
+        "@type": "Service",
         name: "Truck Parts",
         description:
           "Truck parts, trailer parts, equipment parts, lubricants, hydraulic hose supply in Kamloops",
@@ -177,30 +177,35 @@ export const productSchema = (product: {
   category: string;
   image?: string;
   price?: string;
-}) => ({
-  "@context": "https://schema.org",
-  "@type": "Product",
-  name: product.name,
-  description: product.description,
-  brand: {
-    "@type": "Brand",
-    name: product.brand,
-  },
-  category: product.category,
-  image: product.image,
-  offers: product.price
-    ? {
-        "@type": "Offer",
-        price: product.price,
-        priceCurrency: "CAD",
-        availability: "https://schema.org/InStock",
-        seller: {
-          "@type": "LocalBusiness",
-          name: "Munden Truck & Equipment Ltd.",
-        },
-      }
-    : undefined,
-});
+}) => {
+  const price = product.price ? Number(product.price) : undefined;
+  const hasNumericPrice = Number.isFinite(price);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": hasNumericPrice ? "Product" : "Thing",
+    name: product.name,
+    description: product.description,
+    brand: {
+      "@type": "Brand",
+      name: product.brand,
+    },
+    category: product.category,
+    image: product.image,
+    offers: hasNumericPrice
+      ? {
+          "@type": "Offer",
+          price,
+          priceCurrency: "CAD",
+          availability: "https://schema.org/InStock",
+          seller: {
+            "@type": "LocalBusiness",
+            name: "Munden Truck & Equipment Ltd.",
+          },
+        }
+      : undefined,
+  };
+};
 
 export const breadcrumbSchema = (
   items: Array<{ name: string; url: string }>,

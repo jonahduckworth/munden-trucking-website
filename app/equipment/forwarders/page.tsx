@@ -92,7 +92,7 @@ const forwarders = [
 ];
 
 export default function ForwardersPage() {
-  const productListSchema = {
+  const equipmentListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "EcoLog Forwarders",
@@ -103,23 +103,10 @@ export default function ForwardersPage() {
       "@type": "ListItem",
       position: index + 1,
       item: {
-        "@type": "Product",
+        "@type": "WebPage",
         name: forwarder.model,
+        url: `https://mundengroup.ca/equipment/forwarders/${forwarder.id}`,
         description: `${forwarder.type} with ${forwarder.features[0]}`,
-        brand: {
-          "@type": "Brand",
-          name: "EcoLog",
-        },
-        offers: {
-          "@type": "Offer",
-          price: forwarder.price,
-          priceCurrency: "CAD",
-          availability: "https://schema.org/InStock",
-          seller: {
-            "@type": "Organization",
-            name: "Munden Truck & Equipment Ltd.",
-          },
-        },
       },
     })),
   };
@@ -151,7 +138,7 @@ export default function ForwardersPage() {
 
   return (
     <>
-      <StructuredData data={productListSchema} />
+      <StructuredData data={equipmentListSchema} />
       <StructuredData data={breadcrumbSchema} />
 
       {/* Hero Section */}

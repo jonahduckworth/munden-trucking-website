@@ -15,6 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { SpecificationTable } from "@/components/equipment/SpecificationTable";
 import { StructuredData } from "@/components/seo/StructuredData";
+import { absoluteUrl, siteUrl } from "@/lib/site";
 import {
   ChevronLeft,
   Download,
@@ -198,28 +199,24 @@ export default async function ForwarderDetailPage({ params }: Props) {
     notFound();
   }
 
-  const productSchema = {
+  const equipmentPageSchema = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    name: forwarder.model,
+    "@type": "ItemPage",
+    name: `${forwarder.model} Forwarder`,
     description: forwarder.description,
-    brand: {
-      "@type": "Brand",
-      name: "EcoLog",
+    url: `${siteUrl}/equipment/forwarders/${model}`,
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: absoluteUrl(forwarder.image),
     },
-    manufacturer: {
-      "@type": "Organization",
-      name: "EcoLog",
-    },
-    model: forwarder.model,
-    category: "Forestry Equipment > Forwarders",
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/InStock",
-      seller: {
+    mainEntity: {
+      "@type": "Thing",
+      name: forwarder.model,
+      description: forwarder.description,
+      image: absoluteUrl(forwarder.image),
+      manufacturer: {
         "@type": "Organization",
-        name: "Munden Truck & Equipment Ltd.",
-        telephone: "+1-250-828-2268",
+        name: "EcoLog",
       },
     },
   };
@@ -257,7 +254,7 @@ export default async function ForwarderDetailPage({ params }: Props) {
 
   return (
     <>
-      <StructuredData data={productSchema} />
+      <StructuredData data={equipmentPageSchema} />
       <StructuredData data={breadcrumbSchema} />
 
       {/* Hero Section */}
