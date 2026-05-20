@@ -112,7 +112,7 @@ const harvesters = [
 ];
 
 export default function HarvestersPage() {
-  const productListSchema = {
+  const equipmentListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "EcoLog Harvesters",
@@ -123,23 +123,10 @@ export default function HarvestersPage() {
       "@type": "ListItem",
       position: index + 1,
       item: {
-        "@type": "Product",
+        "@type": "WebPage",
         name: harvester.model,
+        url: `https://mundengroup.ca/equipment/harvesters/${harvester.id}`,
         description: `${harvester.type} with ${harvester.features[0]}`,
-        brand: {
-          "@type": "Brand",
-          name: "EcoLog",
-        },
-        offers: {
-          "@type": "Offer",
-          price: harvester.price,
-          priceCurrency: "CAD",
-          availability: "https://schema.org/InStock",
-          seller: {
-            "@type": "Organization",
-            name: "Munden Truck & Equipment Ltd.",
-          },
-        },
       },
     })),
   };
@@ -171,7 +158,7 @@ export default function HarvestersPage() {
 
   return (
     <>
-      <StructuredData data={productListSchema} />
+      <StructuredData data={equipmentListSchema} />
       <StructuredData data={breadcrumbSchema} />
 
       {/* Hero Section */}
