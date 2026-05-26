@@ -7,8 +7,8 @@ category: "Parts and Service"
 author: "Munden Truck & Equipment Ltd."
 readTime: "4 min read"
 image: "/images/blog/2026-05-21-when-roadside-issue-belongs-mobile-service-and-when-it-belongs-in-the-shop.jpg"
-imageCredit: "Photo by cottonbro studio on Pexels"
-imageSource: "https://www.pexels.com/photo/man-repairing-a-truck-in-a-car-service-shop-7564858/"
+imageCredit: "Photo by Lumiere Studio MX on Pexels"
+imageSource: "https://www.pexels.com/photo/a-mechanic-working-on-a-car-4116173/"
 keywords: ["mobile truck service Kamloops","Kamloops truck repair","Kamloops trailer repair","commercial truck maintenance BC","roadside diagnostics","fleet downtime"]
 sources: [{"title":"BC Trucking Association","url":"https://www.bctrucking.com/"},{"title":"BC Commercial Vehicle Safety and Enforcement","url":"https://www2.gov.bc.ca/gov/content/transportation/vehicle-safety-enforcement"},{"title":"BC Forest Safety Council","url":"https://www.bcforestsafe.org/"},{"title":"Government of BC Forestry","url":"https://www2.gov.bc.ca/gov/content/industry/forestry"},{"title":"EcoLog Forestry","url":"https://ecologforestry.com/"}]
 ---

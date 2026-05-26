@@ -78,7 +78,7 @@ async function main() {
     return;
   }
 
-  normalizedPost.image = await createBlogImage(normalizedPost, config);
+  normalizedPost.image = await createBlogImage(normalizedPost, config, existingPosts);
   validateGeneratedPost(normalizedPost, existingPosts, config, targetDate);
 
   const serializedPost = serializePost(normalizedPost);
@@ -132,6 +132,8 @@ async function generatePost(config, existingPosts, date, rejectedTopics = []) {
     10,
   );
   const researchDigest = await collectResearch(config);
+  const topicPlan = chooseTopicPlan(existingPosts, date, rejectedTopics);
+  console.log(`Selected blog topic: ${topicPlan.angle}`);
   const response = await createOpenAIResponse({
     method: "POST",
     headers: {
@@ -147,6 +149,7 @@ async function generatePost(config, existingPosts, date, rejectedTopics = []) {
         date,
         researchDigest,
         rejectedTopics,
+        topicPlan,
       ),
       max_output_tokens: maxOutputTokens,
       text: {
@@ -191,6 +194,7 @@ function buildUserPrompt(
   date,
   researchDigest,
   rejectedTopics,
+  topicPlan,
 ) {
   const existingSummaries = existingPosts
     .slice(0, 10)
@@ -227,12 +231,14 @@ function buildUserPrompt(
       existingPosts: existingSummaries,
       rejectedTopics,
       allowedTopicAngles,
+      selectedTopicAngle: topicPlan,
       researchDigest,
       outputFields:
         "title, slug, date, excerpt, category, author, readTime, image, keywords, sources, body",
       categories: config.categories.join(" | "),
       requirements: [
-        "Choose exactly one allowedTopicAngles item and make the article about that specific angle.",
+        "Write about selectedTopicAngle exactly. Do not pivot to another allowedTopicAngles item unless this exact attempt is rejected and retried.",
+        "Use selectedTopicAngle.category for the category and cover selectedTopicAngle.mustCover in a natural way.",
         "Choose a topic, seasonal angle, equipment system, and customer problem that are meaningfully different from every existing post listed.",
         "Do not write another pre-season checklist, spring/summer readiness, fleet-owner prep, freeze-up prevention, steering/suspension, employee-retention, or forestry-uncertainty article if one appears in existingPosts.",
         "Do not reuse rejectedTopics. If a topic was rejected, move to a different equipment system or customer problem.",
@@ -244,6 +250,22 @@ function buildUserPrompt(
       ],
     },
   );
+}
+
+function chooseTopicPlan(existingPosts, date, rejectedTopics = []) {
+  const allowedTopicAngles = buildAllowedTopicAngles(existingPosts);
+  const rejectedText = rejectedTopics.join(" ").toLowerCase();
+  const availableAngles = allowedTopicAngles.filter((candidate) => {
+    const keyPhrase = candidate.angle.toLowerCase().slice(0, 44);
+    return !rejectedText.includes(keyPhrase);
+  });
+  const angles = availableAngles.length > 0 ? availableAngles : allowedTopicAngles;
+
+  if (angles.length === 0) {
+    throw new Error("No unused blog topic angles are available. Add more candidate angles before generating another post.");
+  }
+
+  return angles[(hashString(date) + rejectedTopics.length) % angles.length];
 }
 
 function buildAllowedTopicAngles(existingPosts) {
@@ -308,8 +330,76 @@ function buildAllowedTopicAngles(existingPosts) {
       mustCover: "unit details, contacts, service history, photos, location details, driver notes",
       internalLink: "/services/mobile-service",
     },
+    {
+      angle: "Wheel-end warning signs that deserve attention before a long haul",
+      category: "Maintenance Tips",
+      mustCover: "heat, noise, seals, hub oil, tire wear, bearing concerns, inspection timing",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Battery, alternator, and starter checks before a truck becomes a no-start",
+      category: "Maintenance Tips",
+      mustCover: "battery age, terminals, charging output, parasitic draw clues, driver notes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Trailer door, latch, and landing gear problems that slow down freight",
+      category: "Parts and Service",
+      mustCover: "hinges, rollers, seals, handles, landing gear, corrosion, parts planning",
+      internalLink: "/services/parts-department",
+    },
+    {
+      angle: "Driveline vibration clues that should not be ignored",
+      category: "Maintenance Tips",
+      mustCover: "u-joints, carrier bearings, imbalance, load changes, road test notes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Cooling system checks before heavy summer pulls in the Interior",
+      category: "Maintenance Tips",
+      mustCover: "radiators, coolant condition, fan operation, hoses, belts, debris, grades",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "How tire wear patterns help diagnose larger truck and trailer issues",
+      category: "Equipment Guides",
+      mustCover: "alignment, suspension, pressure, cupping, edge wear, documentation",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Forestry equipment parts planning before remote work creates downtime",
+      category: "Forestry Equipment",
+      mustCover: "critical spares, filters, hoses, wear parts, serial numbers, operator notes",
+      internalLink: "/equipment/ecolog",
+    },
+    {
+      angle: "Dust, heat, and rough-road maintenance habits for Interior fleets",
+      category: "Maintenance Tips",
+      mustCover: "filters, cooling packages, wiring, brakes, daily inspections, cleaning routines",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "How to prepare a truck or trailer for a productive shop visit",
+      category: "Parts and Service",
+      mustCover: "symptom notes, photos, service history, parts availability, scheduling expectations",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Air brake leak clues drivers should report before the next dispatch",
+      category: "Maintenance Tips",
+      mustCover: "pressure loss, compressor cycling, audible leaks, fittings, safety decisions",
+      internalLink: "/services/service-department",
+    },
   ];
-  const filteredAngles = candidateAngles.filter((candidate) => {
+  const unusedAngles = candidateAngles.filter((candidate) => {
+    return !existingPosts.slice(0, 25).some((post) => {
+      return (
+        post.slug === slugify(candidate.angle) ||
+        titleSimilarity(post.title, candidate.angle) > 0.58
+      );
+    });
+  });
+  const filteredAngles = unusedAngles.filter((candidate) => {
     const candidatePost = {
       title: candidate.angle,
       excerpt: candidate.mustCover,
@@ -318,14 +408,14 @@ function buildAllowedTopicAngles(existingPosts) {
 
     return !existingPosts.slice(0, 10).some((post) => {
       return (
-        titleSimilarity(post.title, candidate.angle) > 0.34 ||
-        topicSimilarity(post, candidatePost) > 0.22
+        titleSimilarity(post.title, candidate.angle) > 0.42 ||
+        topicSimilarity(post, candidatePost) > 0.32
       );
     });
   });
-  const angles = filteredAngles.length >= 4 ? filteredAngles : candidateAngles;
+  const angles = filteredAngles.length > 0 ? filteredAngles : unusedAngles;
 
-  return angles.slice(0, 6);
+  return angles.slice(0, 8);
 }
 
 async function collectResearch(config) {
@@ -462,7 +552,11 @@ async function ensurePostImages(posts, config, since) {
       continue;
     }
 
-    post.image = await createBlogImage(post, config);
+    post.image = await createBlogImage(
+      post,
+      config,
+      posts.filter((existingPost) => existingPost.slug !== post.slug),
+    );
     fs.writeFileSync(post.filePath, serializePost(post));
     updatedCount += 1;
   }
@@ -470,7 +564,7 @@ async function ensurePostImages(posts, config, since) {
   return updatedCount;
 }
 
-async function createBlogImage(post, config) {
+async function createBlogImage(post, config, existingPosts = []) {
   const mode = process.env.BLOG_IMAGE_MODE || "stock-required";
   const requiresStockImage = mode === "stock-required";
 
@@ -492,7 +586,7 @@ async function createBlogImage(post, config) {
 
   if (mode === "stock" || mode === "stock-required") {
     try {
-      return await fetchPexelsImage(post, config);
+      return await fetchPexelsImage(post, config, existingPosts);
     } catch (error) {
       if (requiresStockImage) {
         throw error;
@@ -505,14 +599,14 @@ async function createBlogImage(post, config) {
   return selectExistingImage(post, config);
 }
 
-async function fetchPexelsImage(post, config) {
+async function fetchPexelsImage(post, config, existingPosts = []) {
   const query = buildPexelsQuery(post, config);
   console.log(`Searching Pexels for blog image: "${query}"`);
   const searchUrl = new URL("https://api.pexels.com/v1/search");
   searchUrl.searchParams.set("query", query);
   searchUrl.searchParams.set("orientation", "landscape");
   searchUrl.searchParams.set("size", "large");
-  searchUrl.searchParams.set("per_page", "10");
+  searchUrl.searchParams.set("per_page", "20");
 
   const searchResponse = await fetch(searchUrl, {
     headers: {
@@ -532,7 +626,20 @@ async function fetchPexelsImage(post, config) {
     throw new Error(`No Pexels photos found for query: ${query}`);
   }
 
-  const selectedPhoto = photos[Math.abs(hashString(post.slug)) % photos.length];
+  const usedSources = new Set(
+    existingPosts
+      .map((existingPost) => existingPost.imageSource)
+      .filter(Boolean),
+  );
+  const unusedPhotos = photos.filter((photo) => {
+    return photo?.url && !usedSources.has(photo.url);
+  });
+
+  if (unusedPhotos.length === 0) {
+    throw new Error(`Pexels returned only previously used photos for query: ${query}`);
+  }
+
+  const selectedPhoto = unusedPhotos[Math.abs(hashString(post.slug)) % unusedPhotos.length];
   const imageUrl =
     selectedPhoto?.src?.large2x ||
     selectedPhoto?.src?.large ||
@@ -735,6 +842,7 @@ function validateGeneratedPost(post, existingPosts, config, date) {
 function validateStoredPosts(posts, config) {
   const errors = [];
   const seenSlugs = new Set();
+  const seenStockImageSources = new Map();
 
   for (const post of posts) {
     for (const error of validatePostShape(post, config)) {
@@ -746,6 +854,16 @@ function validateStoredPosts(posts, config) {
     }
 
     seenSlugs.add(post.slug);
+
+    if (post.imageSource && isHttpUrl(post.imageSource)) {
+      const previousSlug = seenStockImageSources.get(post.imageSource);
+
+      if (previousSlug) {
+        errors.push(`${post.slug}: Reuses stock image source already used by ${previousSlug}.`);
+      }
+
+      seenStockImageSources.set(post.imageSource, post.slug);
+    }
   }
 
   if (errors.length > 0) {
