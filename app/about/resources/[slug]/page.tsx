@@ -4,8 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ChevronLeft, Calendar, Clock, User, Share2 } from "lucide-react";
+import { ChevronLeft, Calendar, Clock, User } from "lucide-react";
 import StructuredData, { breadcrumbSchema } from "@/components/seo/StructuredData";
+import BlogShareButtons from "@/components/resources/BlogShareButtons";
 import {
   formatResourceDate,
   getAllResourcePosts,
@@ -87,6 +88,7 @@ export default async function ResourceArticlePage({ params }: Props) {
       url: `${baseUrl}/about/resources/${slug}`,
     },
   ];
+  const articleUrl = `${baseUrl}/about/resources/${article.slug}`;
 
   return (
     <>
@@ -123,12 +125,11 @@ export default async function ResourceArticlePage({ params }: Props) {
                 </div>
               </div>
 
-              <Button variant="outline" size="sm" asChild>
-                <a href={`mailto:?subject=${encodeURIComponent(article.title)}&body=${encodeURIComponent(`${baseUrl}/about/resources/${article.slug}`)}`}>
-                  <Share2 className="mr-2 h-4 w-4" />
-                  Share Article
-                </a>
-              </Button>
+              <BlogShareButtons
+                title={article.title}
+                excerpt={article.excerpt}
+                url={articleUrl}
+              />
             </header>
 
             <div className="relative mb-8 aspect-video overflow-hidden rounded-lg bg-muted">

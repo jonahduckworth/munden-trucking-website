@@ -247,6 +247,7 @@ function buildUserPrompt(
         "Include 1 or 2 internal markdown links in the body using natural anchor text, not exact SEO keyword phrases.",
         "Write 550 to 750 words.",
         "Avoid invented certifications, hours, prices, warranties, or service guarantees.",
+        "For image guidance, prefer commercial trucks, trailers, repair shops, parts counters, forestry roads, logging trucks, or EcoLog forestry equipment. Do not request farm tractors, farm fields, crop agriculture, or unrelated agricultural machinery.",
       ],
     },
   );
@@ -632,7 +633,11 @@ async function fetchPexelsImage(post, config, existingPosts = []) {
       .filter(Boolean),
   );
   const unusedPhotos = photos.filter((photo) => {
-    return photo?.url && !usedSources.has(photo.url);
+    return (
+      photo?.url &&
+      !usedSources.has(photo.url) &&
+      !isBannedBlogImage(photo)
+    );
   });
 
   if (unusedPhotos.length === 0) {
@@ -682,15 +687,15 @@ function buildPexelsQuery(post, config) {
   const text = `${post.title} ${post.excerpt} ${post.keywords.join(" ")}`.toLowerCase();
 
   if (text.includes("forestry") || text.includes("harvester") || text.includes("forwarder")) {
-    return "logging truck forestry equipment";
+    return "logging truck forest road";
   }
 
   if (text.includes("parts") || text.includes("service") || text.includes("repair")) {
-    return "truck mechanic repair shop";
+    return "commercial truck mechanic repair shop";
   }
 
   if (text.includes("inspection") || text.includes("safety") || text.includes("cvip")) {
-    return "commercial truck inspection";
+    return "commercial truck inspection garage";
   }
 
   if (text.includes("mobile") || text.includes("roadside")) {
@@ -698,6 +703,22 @@ function buildPexelsQuery(post, config) {
   }
 
   return config.imageSearchQueries?.[0] || "semi truck highway";
+}
+
+function isBannedBlogImage(photo) {
+  const text = `${photo?.alt || ""} ${photo?.url || ""}`.toLowerCase();
+  const bannedTerms = [
+    "agriculture",
+    "combine harvester",
+    "crop",
+    "farm",
+    "farmer",
+    "farming",
+    "field",
+    "tractor",
+  ];
+
+  return bannedTerms.some((term) => text.includes(term));
 }
 
 function selectExistingImage(post, config) {
