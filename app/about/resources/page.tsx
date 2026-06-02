@@ -11,28 +11,67 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, ArrowRight, User } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  ArrowRight,
+  User,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import StructuredData, { breadcrumbSchema } from "@/components/seo/StructuredData";
+import BlogSubscribeForm from "@/components/resources/BlogSubscribeForm";
 import { formatResourceDate, getAllResourcePosts } from "@/lib/resources";
 
-export const metadata: Metadata = {
-  title: "Resources | Industry Insights and Company News | Munden Truck",
-  description:
-    "Stay updated with the latest news from Munden Truck & Equipment Ltd. Read about industry trends, company updates, and trucking insights.",
-  alternates: {
-    canonical: "/about/resources",
-  },
-  openGraph: {
-    title: "Resources | Munden Truck & Equipment Ltd.",
-    description:
-      "Latest news, industry insights, and company updates from your trusted trucking partner.",
-    url: "/about/resources",
-  },
+const articlesPerPage = 6;
+
+type ResourcesPageProps = {
+  searchParams?: Promise<{
+    page?: string | string[];
+  }>;
 };
 
-export default function ResourcesPage() {
+export async function generateMetadata({
+  searchParams,
+}: ResourcesPageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const currentPage = getCurrentPage(params?.page);
+  const canonicalPath = getPageHref(currentPage);
+  const title =
+    currentPage === 1
+      ? "Resources | Industry Insights and Company News | Munden Truck"
+      : `Resources Page ${currentPage} | Munden Truck & Equipment`;
+
+  return {
+    title,
+    description:
+      "Stay updated with the latest news from Munden Truck & Equipment Ltd. Read about industry trends, company updates, and trucking insights.",
+    alternates: {
+      canonical: canonicalPath,
+    },
+    openGraph: {
+      title:
+        currentPage === 1
+          ? "Resources | Munden Truck & Equipment Ltd."
+          : `Resources Page ${currentPage} | Munden Truck & Equipment Ltd.`,
+      description:
+        "Latest news, industry insights, and company updates from your trusted trucking partner.",
+      url: canonicalPath,
+    },
+  };
+}
+
+export default async function ResourcesPage({ searchParams }: ResourcesPageProps) {
   const posts = getAllResourcePosts();
-  const [featuredArticle, ...moreArticles] = posts;
+  const params = await searchParams;
+  const currentPage = getCurrentPage(params?.page);
+  const [featuredArticle, ...articleList] = posts;
+  const totalPages = Math.max(1, Math.ceil(articleList.length / articlesPerPage));
+  const safePage = Math.min(currentPage, totalPages);
+  const moreArticles = articleList.slice(
+    (safePage - 1) * articlesPerPage,
+    safePage * articlesPerPage,
+  );
   const breadcrumbs = [
     { name: "Home", url: "https://mundengroup.ca" },
     { name: "About", url: "https://mundengroup.ca/about" },
@@ -118,8 +157,17 @@ export default function ResourcesPage() {
           )}
 
           {moreArticles.length > 0 && (
-            <div className="mx-auto max-w-5xl">
-              <h2 className="mb-8 text-2xl font-bold">More Articles</h2>
+            <div className="mx-auto mb-12 max-w-5xl">
+              <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold">More Articles</h2>
+                  {totalPages > 1 && (
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Page {safePage} of {totalPages}
+                    </p>
+                  )}
+                </div>
+              </div>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {moreArticles.map((article) => (
                   <Card
@@ -164,10 +212,88 @@ export default function ResourcesPage() {
                   </Card>
                 ))}
               </div>
+
+              {totalPages > 1 && (
+                <nav
+                  className="mt-8 flex flex-col items-center justify-between gap-4 border-t pt-6 sm:flex-row"
+                  aria-label="Resource article pages"
+                >
+                  {safePage > 1 ? (
+                    <Button variant="outline" asChild>
+                      <Link href={getPageHref(safePage - 1)}>
+                        <ChevronLeft className="h-4 w-4" />
+                        Newer Articles
+                      </Link>
+                    </Button>
+                  ) : (
+                    <Button variant="outline" disabled>
+                      <ChevronLeft className="h-4 w-4" />
+                      Newer Articles
+                    </Button>
+                  )}
+                  <div className="flex items-center gap-2">
+                    {Array.from({ length: totalPages }, (_, index) => {
+                      const pageNumber = index + 1;
+
+                      return (
+                        <Button
+                          key={pageNumber}
+                          variant={pageNumber === safePage ? "default" : "outline"}
+                          size="icon"
+                          asChild
+                        >
+                          <Link href={getPageHref(pageNumber)}>
+                            <span className="sr-only">Go to page </span>
+                            {pageNumber}
+                          </Link>
+                        </Button>
+                      );
+                    })}
+                  </div>
+                  {safePage < totalPages ? (
+                    <Button variant="outline" asChild>
+                      <Link href={getPageHref(safePage + 1)}>
+                        Older Articles
+                        <ChevronRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  ) : (
+                    <Button variant="outline" disabled>
+                      Older Articles
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  )}
+                </nav>
+              )}
             </div>
           )}
+
+          <section className="mx-auto max-w-5xl rounded-lg border bg-muted/40 p-6 md:p-8">
+            <div className="mb-5 max-w-3xl">
+              <h2 className="mb-2 text-2xl font-bold">Get New Articles by Email</h2>
+              <p className="text-muted-foreground">
+                Sign up for practical service, parts, equipment, and maintenance updates from Munden Truck & Equipment.
+              </p>
+            </div>
+            <BlogSubscribeForm />
+          </section>
         </div>
       </section>
     </>
   );
+}
+
+function getCurrentPage(page: string | string[] | undefined) {
+  const value = Array.isArray(page) ? page[0] : page;
+  const pageNumber = Number.parseInt(value || "1", 10);
+
+  if (!Number.isFinite(pageNumber) || pageNumber < 1) {
+    return 1;
+  }
+
+  return pageNumber;
+}
+
+function getPageHref(page: number) {
+  return page === 1 ? "/about/resources" : `/about/resources?page=${page}`;
 }
