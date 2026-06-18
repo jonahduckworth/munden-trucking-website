@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "eslint .",
     "blog:generate": "node scripts/generate-blog.mjs",
+    "blog:backfill": "node scripts/generate-blog.mjs --backfill",
     "blog:validate": "node scripts/generate-blog.mjs --validate-only",
     "blog:ensure-images": "node scripts/generate-blog.mjs --ensure-images"
   },
