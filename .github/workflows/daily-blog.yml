@@ -15,6 +15,16 @@ on:
         required: false
         default: ""
         type: string
+      backfill_from:
+        description: "Optional first missing publish date to backfill in YYYY-MM-DD format"
+        required: false
+        default: ""
+        type: string
+      backfill_to:
+        description: "Optional final publish date to backfill in YYYY-MM-DD format"
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: write
@@ -31,10 +41,12 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
       OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-5.4-mini' }}
-      BLOG_TOPIC_ATTEMPTS: ${{ vars.BLOG_TOPIC_ATTEMPTS || '5' }}
+      BLOG_TOPIC_ATTEMPTS: ${{ vars.BLOG_TOPIC_ATTEMPTS || '4' }}
       BLOG_IMAGE_MODE: ${{ vars.BLOG_IMAGE_MODE || 'stock-required' }}
       DRY_RUN: ${{ github.event.inputs.dry_run }}
       RUN_DATE: ${{ github.event.inputs.date }}
+      BACKFILL_FROM: ${{ github.event.inputs.backfill_from }}
+      BACKFILL_TO: ${{ github.event.inputs.backfill_to }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -49,15 +61,29 @@ jobs:
 
       - name: Generate blog post
         run: |
-          DATE_ARG=""
+          DATE_ARGS=()
           if [ -n "$RUN_DATE" ]; then
-            DATE_ARG="--date=$RUN_DATE"
+            DATE_ARGS+=("--date=$RUN_DATE")
+          fi
+
+          BACKFILL_ARGS=()
+          if [ -n "$BACKFILL_FROM" ]; then
+            BACKFILL_ARGS+=("--from=$BACKFILL_FROM")
+          fi
+          if [ -n "$BACKFILL_TO" ]; then
+            BACKFILL_ARGS+=("--to=$BACKFILL_TO")
           fi
 
           if [ "$DRY_RUN" = "true" ]; then
-            npm run blog:generate -- --dry-run $DATE_ARG
+            if [ -n "$BACKFILL_FROM" ] || [ -n "$BACKFILL_TO" ]; then
+              npm run blog:backfill -- --dry-run "${BACKFILL_ARGS[@]}"
+            else
+              npm run blog:generate -- --dry-run "${DATE_ARGS[@]}"
+            fi
+          elif [ -n "$RUN_DATE" ]; then
+            npm run blog:generate -- "${DATE_ARGS[@]}"
           else
-            npm run blog:generate -- $DATE_ARG
+            npm run blog:backfill -- "${BACKFILL_ARGS[@]}"
           fi
 
       - run: npm run blog:validate

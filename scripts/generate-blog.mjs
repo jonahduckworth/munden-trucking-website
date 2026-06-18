@@ -14,9 +14,12 @@ const args = process.argv.slice(2);
 const isDryRun = args.includes("--dry-run");
 const validateOnly = args.includes("--validate-only");
 const ensureImagesOnly = args.includes("--ensure-images");
+const backfill = args.includes("--backfill");
 const force = args.includes("--force");
 const targetDate =
   getArgValue("--date") ?? getDateInTimeZone(new Date(), timeZone);
+const backfillFrom = getArgValue("--from");
+const backfillTo = getArgValue("--to") ?? targetDate;
 const ensureImagesSince = getArgValue("--since");
 
 loadLocalEnv(path.join(rootDir, ".env.local"));
@@ -48,17 +51,46 @@ async function main() {
     );
   }
 
-  const existingForDate = existingPosts.find((post) => post.date === targetDate);
+  if (backfill) {
+    const dates = getBackfillDates(existingPosts, backfillFrom, backfillTo);
+
+    if (dates.length === 0) {
+      console.log(`No missing resource post dates through ${backfillTo}.`);
+      return;
+    }
+
+    console.log(`Backfilling ${dates.length} missing resource post date(s): ${dates.join(", ")}`);
+
+    let posts = existingPosts;
+
+    for (const date of dates) {
+      const generatedPost = await generatePostForDate(config, posts, date);
+
+      if (isDryRun && generatedPost) {
+        posts = [generatedPost, ...posts].sort((a, b) => b.date.localeCompare(a.date));
+      } else {
+        posts = readExistingPosts();
+      }
+    }
+
+    return;
+  }
+
+  await generatePostForDate(config, existingPosts, targetDate);
+}
+
+async function generatePostForDate(config, existingPosts, date) {
+  const existingForDate = existingPosts.find((post) => post.date === date);
 
   if (existingForDate && !force) {
     throw new Error(
-      `A resource post already exists for ${targetDate}: ${existingForDate.slug}. Use --force to override this guard.`,
+      `A resource post already exists for ${date}: ${existingForDate.slug}. Use --force to override this guard.`,
     );
   }
 
-  const normalizedPost = await generateValidatedPost(config, existingPosts, targetDate);
+  const normalizedPost = await generateValidatedPost(config, existingPosts, date);
 
-  const fileName = `${targetDate}-${normalizedPost.slug}.md`;
+  const fileName = `${date}-${normalizedPost.slug}.md`;
   const outputPath = path.join(resourcesDir, fileName);
 
   if (fs.existsSync(outputPath) && !force) {
@@ -75,21 +107,23 @@ async function main() {
       sources: normalizedPost.sources,
       excerpt: normalizedPost.excerpt,
     }, null, 2));
-    return;
+    return normalizedPost;
   }
 
   normalizedPost.image = await createBlogImage(normalizedPost, config, existingPosts);
-  validateGeneratedPost(normalizedPost, existingPosts, config, targetDate);
+  validateGeneratedPost(normalizedPost, existingPosts, config, date);
 
   const serializedPost = serializePost(normalizedPost);
 
   fs.mkdirSync(resourcesDir, { recursive: true });
   fs.writeFileSync(outputPath, serializedPost);
   console.log(`Created ${path.relative(rootDir, outputPath)}`);
+  return normalizedPost;
 }
 
 async function generateValidatedPost(config, existingPosts, date) {
-  const maxAttempts = Number.parseInt(process.env.BLOG_TOPIC_ATTEMPTS || "5", 10);
+  const maxAttempts = Number.parseInt(process.env.BLOG_TOPIC_ATTEMPTS || "4", 10);
+  const researchDigest = await collectResearch(config);
   const rejectedTopics = [];
   let lastError = null;
 
@@ -101,6 +135,7 @@ async function generateValidatedPost(config, existingPosts, date) {
         config,
         existingPosts,
         date,
+        researchDigest,
         rejectedTopics,
       );
       normalizedPost = normalizePost(generatedPost, config, date);
@@ -108,6 +143,11 @@ async function generateValidatedPost(config, existingPosts, date) {
       return normalizedPost;
     } catch (error) {
       lastError = error;
+
+      if (isLongRateLimitError(error)) {
+        throw error;
+      }
+
       rejectedTopics.push(
         normalizedPost
           ? `Rejected "${normalizedPost.title}" because ${error.message}`.slice(0, 360)
@@ -118,6 +158,7 @@ async function generateValidatedPost(config, existingPosts, date) {
         console.warn(
           `Generated post failed validation. Retrying with a different angle (${attempt}/${maxAttempts})...`,
         );
+        console.warn(`Rejection reason: ${error.message}`);
       }
     }
   }
@@ -125,13 +166,12 @@ async function generateValidatedPost(config, existingPosts, date) {
   throw lastError;
 }
 
-async function generatePost(config, existingPosts, date, rejectedTopics = []) {
+async function generatePost(config, existingPosts, date, researchDigest, rejectedTopics = []) {
   const model = process.env.OPENAI_MODEL || process.env.BLOG_OPENAI_MODEL || "gpt-5.4-mini";
   const maxOutputTokens = Number.parseInt(
-    process.env.BLOG_MAX_OUTPUT_TOKENS || "3500",
+    process.env.BLOG_MAX_OUTPUT_TOKENS || "2800",
     10,
   );
-  const researchDigest = await collectResearch(config);
   const topicPlan = chooseTopicPlan(existingPosts, date, rejectedTopics);
   console.log(`Selected blog topic: ${topicPlan.angle}`);
   const response = await createOpenAIResponse({
@@ -173,7 +213,10 @@ async function generatePost(config, existingPosts, date, rejectedTopics = []) {
     throw new Error("OpenAI response did not include output text.");
   }
 
-  return parseModelJson(outputText);
+  return {
+    ...parseModelJson(outputText),
+    __topicPlan: topicPlan,
+  };
 }
 
 function buildSystemPrompt(config) {
@@ -197,7 +240,7 @@ function buildUserPrompt(
   topicPlan,
 ) {
   const existingSummaries = existingPosts
-    .slice(0, 10)
+    .slice(0, 8)
     .map(
       (post) =>
         `${post.date}: ${post.title} [${post.category}] ${post.excerpt.slice(0, 150)}`,
@@ -245,7 +288,7 @@ function buildUserPrompt(
         "Use the research digest for competitor and industry topic gaps, but do not name competitors in the article.",
         "Use at least three credible source URLs in the sources array from the research digest or Munden site.",
         "Include 1 or 2 internal markdown links in the body using natural anchor text, not exact SEO keyword phrases.",
-        "Write 550 to 750 words.",
+        "Write 475 to 625 words.",
         "Avoid invented certifications, hours, prices, warranties, or service guarantees.",
         "For image guidance, prefer commercial trucks, trailers, repair shops, parts counters, forestry roads, logging trucks, or EcoLog forestry equipment. Do not request farm tractors, farm fields, crop agriculture, or unrelated agricultural machinery.",
       ],
@@ -391,6 +434,186 @@ function buildAllowedTopicAngles(existingPosts) {
       mustCover: "pressure loss, compressor cycling, audible leaks, fittings, safety decisions",
       internalLink: "/services/service-department",
     },
+    {
+      angle: "Fifth wheel inspection points that help prevent coupling problems",
+      category: "Maintenance Tips",
+      mustCover: "jaw wear, plate grease, mounting bolts, release handle movement, driver reports",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "ABS warning light basics for truck and trailer operators",
+      category: "Maintenance Tips",
+      mustCover: "wheel sensors, wiring, tone rings, fault notes, inspection timing",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Frame and crossmember cracks that should be checked before hauling heavy",
+      category: "Equipment Guides",
+      mustCover: "visual checks, rust, weld history, mounting points, when to stop and book service",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "PTO and wet kit maintenance questions to ask before a busy job",
+      category: "Maintenance Tips",
+      mustCover: "fluid leaks, engagement issues, hoses, fittings, driver notes, service timing",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Kingpin and suspension wear clues that show up during everyday driving",
+      category: "Maintenance Tips",
+      mustCover: "wander, uneven tire wear, clunks, steering feel, inspection planning",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Brake shoe and drum wear signs fleets should document between services",
+      category: "Maintenance Tips",
+      mustCover: "pulling, vibration, heat, lining condition, driver writeups, CVIP readiness",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Trailer floor and decking damage that can become a bigger repair",
+      category: "Parts and Service",
+      mustCover: "soft spots, fasteners, moisture, loading damage, photos, repair planning",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Liftgate warning signs that deserve service before freight gets stuck",
+      category: "Parts and Service",
+      mustCover: "slow movement, hydraulic leaks, switches, wiring, platform wear, parts planning",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Diagnostic notes that help the shop solve intermittent electrical faults",
+      category: "Parts and Service",
+      mustCover: "when the fault appears, weather, load, dash messages, photos, fault codes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "DEF and aftertreatment warning lights drivers should not ignore",
+      category: "Maintenance Tips",
+      mustCover: "dash messages, derate risk, fluid handling, sensor clues, early service calls",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Exhaust leaks and mounting problems that can sideline a working truck",
+      category: "Maintenance Tips",
+      mustCover: "noise, smell, clamps, brackets, flex pipe, heat shields, safety decisions",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Fuel system symptoms to note before a truck comes into the shop",
+      category: "Maintenance Tips",
+      mustCover: "hard starts, power loss, filters, contamination, cold starts, service history",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Parts ordering details that reduce repeat calls and wrong-fit delays",
+      category: "Parts and Service",
+      mustCover: "VIN, serial numbers, photos, measurements, old part markings, application details",
+      internalLink: "/services/parts-department",
+    },
+    {
+      angle: "How operators can describe noises so technicians can find problems faster",
+      category: "Equipment Guides",
+      mustCover: "location, speed, load, temperature, vibration, recordings, road test notes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Logging truck maintenance notes that matter after rough bush roads",
+      category: "Forestry Equipment",
+      mustCover: "suspension, wiring, lights, tires, brakes, hoses, daily operator notes",
+      internalLink: "/equipment/ecolog",
+    },
+    {
+      angle: "Harvester head wear items forestry crews should track between services",
+      category: "Forestry Equipment",
+      mustCover: "feed rollers, knives, measuring systems, hoses, operator notes, parts planning",
+      internalLink: "/equipment/ecolog",
+    },
+    {
+      angle: "Forwarder crane and grapple checks that support uptime in remote work",
+      category: "Forestry Equipment",
+      mustCover: "pins, bushings, hoses, leaks, controls, operator walkaround notes",
+      internalLink: "/equipment/ecolog",
+    },
+    {
+      angle: "What to gather before booking a CVIP inspection",
+      category: "Equipment Guides",
+      mustCover: "unit records, known defects, previous repairs, timing, driver notes, scheduling",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Small coolant leaks that deserve attention before grades and heat expose them",
+      category: "Maintenance Tips",
+      mustCover: "hose ends, clamps, radiator seams, coolant smell, pressure testing, driver notes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Air line and gladhand problems that cause avoidable trailer delays",
+      category: "Maintenance Tips",
+      mustCover: "rubber seals, cracked lines, corrosion, connection habits, leak checks",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Shop visit photos that help service advisors understand the problem",
+      category: "Parts and Service",
+      mustCover: "wide shots, closeups, labels, leaks, dash messages, unit numbers",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Preventing small oil leaks from turning into larger downtime events",
+      category: "Maintenance Tips",
+      mustCover: "drips, residue, seals, level checks, contamination, service timing",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Trailer suspension air bag issues fleets should catch early",
+      category: "Maintenance Tips",
+      mustCover: "ride height, leaks, cracked bags, valves, tire wear, inspection notes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "When a truck vibration points to tires and when it may be driveline related",
+      category: "Equipment Guides",
+      mustCover: "speed range, load changes, recent tire work, driveline clues, road test notes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Equipment serial numbers and why they matter for forestry parts support",
+      category: "Forestry Equipment",
+      mustCover: "model details, attachments, photos, parts books, remote planning, wrong-fit prevention",
+      internalLink: "/equipment/ecolog",
+    },
+    {
+      angle: "Mobile service call details that help technicians arrive prepared",
+      category: "Parts and Service",
+      mustCover: "location, unit type, symptoms, safety, access, photos, contact information",
+      internalLink: "/services/mobile-service",
+    },
+    {
+      angle: "Daily walkaround notes that make preventive maintenance easier to schedule",
+      category: "Equipment Guides",
+      mustCover: "driver observations, leaks, lights, tire condition, brakes, repeat patterns",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "What rough idle and power complaints can tell a service team",
+      category: "Maintenance Tips",
+      mustCover: "fuel, air, sensors, filters, load, temperature, driver notes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Cab entry steps, mirrors, and safety hardware that deserve routine checks",
+      category: "Maintenance Tips",
+      mustCover: "loose steps, grab handles, mirrors, visibility, corrosion, driver reports",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "How fleet owners can prioritize repairs when several units need attention",
+      category: "Equipment Guides",
+      mustCover: "safety, inspections, revenue work, parts lead time, downtime windows, records",
+      internalLink: "/services/service-department",
+    },
   ];
   const unusedAngles = candidateAngles.filter((candidate) => {
     return !existingPosts.slice(0, 25).some((post) => {
@@ -416,7 +639,7 @@ function buildAllowedTopicAngles(existingPosts) {
   });
   const angles = filteredAngles.length > 0 ? filteredAngles : unusedAngles;
 
-  return angles.slice(0, 8);
+  return angles.slice(0, 16);
 }
 
 async function collectResearch(config) {
@@ -432,7 +655,7 @@ async function collectResearch(config) {
   return summaries
     .map((summary) => `${summary.name}: ${summary.url}\n${summary.summary}`)
     .join("\n\n")
-    .slice(0, 5000);
+    .slice(0, 2600);
 }
 
 async function fetchSourceSummary(source) {
@@ -782,6 +1005,13 @@ async function createOpenAIResponse(options) {
       !text.includes("Request too large")
     ) {
       const waitSeconds = extractRetrySeconds(text) ?? 35;
+      if (waitSeconds > 90) {
+        return {
+          ok: false,
+          status: response.status,
+          text: async () => text,
+        };
+      }
       console.warn(`OpenAI rate limit hit. Retrying in ${waitSeconds}s...`);
       await sleep(waitSeconds * 1000);
       continue;
@@ -799,7 +1029,8 @@ async function createOpenAIResponse(options) {
 
 function normalizePost(post, config, date) {
   const slug = slugify(post.slug || post.title);
-  const body = String(post.body || "").trim();
+  let body = String(post.body || "").trim();
+  body = ensureInternalLink(body, post.__topicPlan);
   const wordCount = body.split(/\s+/).filter(Boolean).length;
   const readMinutes = Math.max(3, Math.ceil(wordCount / 220));
   const image = config.imageOptions.includes(post.image)
@@ -827,6 +1058,23 @@ function normalizePost(post, config, date) {
     sources,
     body,
   };
+}
+
+function ensureInternalLink(body, topicPlan) {
+  if (/\]\(\/(?:services|equipment|about)\//.test(body) || !topicPlan?.internalLink) {
+    return body;
+  }
+
+  const linkLabels = {
+    "/services/service-department": "service department",
+    "/services/parts-department": "parts department",
+    "/services/mobile-service": "mobile service team",
+    "/equipment/ecolog": "EcoLog forestry equipment support",
+    "/about/contact": "Munden team",
+  };
+  const label = linkLabels[topicPlan.internalLink] || "Munden team";
+
+  return `${body}\n\nFor related support, connect with Munden's [${label}](${topicPlan.internalLink}).`;
 }
 
 function validateGeneratedPost(post, existingPosts, config, date) {
@@ -1092,8 +1340,36 @@ function parseModelJson(text) {
 }
 
 function extractRetrySeconds(text) {
-  const match = text.match(/try again in ([0-9.]+)s/i);
-  return match ? Math.ceil(Number.parseFloat(match[1]) + 2) : null;
+  const secondMatch = text.match(/try again in ([0-9.]+)s/i);
+
+  if (secondMatch) {
+    return Math.ceil(Number.parseFloat(secondMatch[1]) + 2);
+  }
+
+  const minuteMatch = text.match(/try again in ([0-9.]+)m/i);
+
+  if (minuteMatch) {
+    return Math.ceil(Number.parseFloat(minuteMatch[1]) * 60);
+  }
+
+  const hourMatch = text.match(/try again in ([0-9.]+)h/i);
+
+  if (hourMatch) {
+    return Math.ceil(Number.parseFloat(hourMatch[1]) * 60 * 60);
+  }
+
+  return null;
+}
+
+function isLongRateLimitError(error) {
+  const message = String(error?.message || "");
+
+  if (!message.includes("rate_limit_exceeded")) {
+    return false;
+  }
+
+  const waitSeconds = extractRetrySeconds(message);
+  return waitSeconds === null || waitSeconds > 90;
 }
 
 function sleep(ms) {
@@ -1153,6 +1429,53 @@ function getDateInTimeZone(date, zone) {
 
   const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
   return `${values.year}-${values.month}-${values.day}`;
+}
+
+function getBackfillDates(existingPosts, from, to) {
+  const latestPostDate = existingPosts[0]?.date;
+  const startDate = from ?? addDays(latestPostDate ?? to, latestPostDate ? 1 : 0);
+  const endDate = to;
+
+  assertDateString(startDate, "--from");
+  assertDateString(endDate, "--to");
+
+  const existingDates = new Set(existingPosts.map((post) => post.date));
+  const dates = [];
+  let cursor = parseDateString(startDate);
+  const end = parseDateString(endDate);
+
+  while (cursor <= end) {
+    const date = formatDateString(cursor);
+
+    if (!existingDates.has(date)) {
+      dates.push(date);
+    }
+
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+
+  return dates;
+}
+
+function assertDateString(value, name) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(value || ""))) {
+    throw new Error(`${name} must use YYYY-MM-DD format.`);
+  }
+}
+
+function parseDateString(value) {
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(Date.UTC(year, month - 1, day));
+}
+
+function formatDateString(date) {
+  return date.toISOString().slice(0, 10);
+}
+
+function addDays(value, days) {
+  const date = value instanceof Date ? new Date(value) : parseDateString(value);
+  date.setUTCDate(date.getUTCDate() + days);
+  return formatDateString(date);
 }
 
 function cleanOneLine(value) {
@@ -1238,7 +1561,7 @@ function findOverlappingRecentPost(post, existingPosts, date) {
   return recentPosts.find((existingPost) => {
     const titleScore = titleSimilarity(existingPost.title, post.title);
     const topicScore = topicSimilarity(existingPost, post);
-    return titleScore > 0.38 || topicScore > 0.24;
+    return titleScore > 0.46 || topicScore > 0.4;
   });
 }
 
