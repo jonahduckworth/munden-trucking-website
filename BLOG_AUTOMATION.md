@@ -53,7 +53,7 @@ npm run blog:ensure-images -- --since=2026-05-01
 ```
 
 Use `--dry-run` to preview metadata without writing a file. Use `--date=YYYY-MM-DD` to generate for a specific date.
-Use `blog:backfill` to fill missing publish dates in order. If `--from` is omitted, the script starts with the day after the latest existing post. If `--to` is omitted, it uses today's date in `America/Edmonton`.
+Use `blog:backfill` to fill missing publish dates in order. If `--from` is omitted, the script starts with the day after the latest existing post. If `--to` is omitted, it uses today's date in `America/Edmonton`. If OpenAI returns a long rate-limit reset after one or more posts have been generated, the script stops cleanly so the workflow can validate, build, and commit the partial progress.
 Use `blog:ensure-images` to create unique local/generated images for existing posts from a chosen date onward.
 
 ## Blog Config

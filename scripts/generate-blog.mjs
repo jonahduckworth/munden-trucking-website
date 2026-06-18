@@ -62,9 +62,26 @@ async function main() {
     console.log(`Backfilling ${dates.length} missing resource post date(s): ${dates.join(", ")}`);
 
     let posts = existingPosts;
+    let generatedCount = 0;
 
     for (const date of dates) {
-      const generatedPost = await generatePostForDate(config, posts, date);
+      let generatedPost = null;
+
+      try {
+        generatedPost = await generatePostForDate(config, posts, date);
+      } catch (error) {
+        if (isLongRateLimitError(error) && generatedCount > 0) {
+          console.warn(
+            `Stopping backfill after ${generatedCount} generated post(s) because OpenAI returned a long rate-limit reset.`,
+          );
+          console.warn(error.message);
+          return;
+        }
+
+        throw error;
+      }
+
+      generatedCount += 1;
 
       if (isDryRun && generatedPost) {
         posts = [generatedPost, ...posts].sort((a, b) => b.date.localeCompare(a.date));
