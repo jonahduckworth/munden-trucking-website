@@ -20,6 +20,7 @@ const targetDate =
   getArgValue("--date") ?? getDateInTimeZone(new Date(), timeZone);
 const backfillFrom = getArgValue("--from");
 const backfillTo = getArgValue("--to") ?? targetDate;
+const backfillLimitValue = getArgValue("--limit");
 const ensureImagesSince = getArgValue("--since");
 
 loadLocalEnv(path.join(rootDir, ".env.local"));
@@ -52,7 +53,9 @@ async function main() {
   }
 
   if (backfill) {
-    const dates = getBackfillDates(existingPosts, backfillFrom, backfillTo);
+    const backfillLimit = parsePositiveIntegerArg("--limit", backfillLimitValue);
+    const dates = getBackfillDates(existingPosts, backfillFrom, backfillTo)
+      .slice(0, backfillLimit ?? undefined);
 
     if (dates.length === 0) {
       console.log(`No missing resource post dates through ${backfillTo}.`);
@@ -1434,6 +1437,20 @@ function loadLocalEnv(filePath) {
 function getArgValue(name) {
   const arg = args.find((item) => item.startsWith(`${name}=`));
   return arg ? arg.slice(name.length + 1) : null;
+}
+
+function parsePositiveIntegerArg(name, value) {
+  if (value === null) {
+    return null;
+  }
+
+  const parsed = Number.parseInt(value, 10);
+
+  if (!Number.isInteger(parsed) || parsed < 1) {
+    throw new Error(`${name} must be a positive integer.`);
+  }
+
+  return parsed;
 }
 
 function getDateInTimeZone(date, zone) {
