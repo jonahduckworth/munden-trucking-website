@@ -3,6 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import crypto from "node:crypto";
 
 const rootDir = process.cwd();
 const configPath = path.join(rootDir, "content", "blog-config.json");
@@ -780,6 +781,7 @@ function cleanHtmlText(text) {
 
 async function ensurePostImages(posts, config, since) {
   let updatedCount = 0;
+  const duplicateImageSlugs = findDuplicateImageSlugs(posts);
 
   for (const post of posts) {
     if (since && post.date < since) {
@@ -787,6 +789,7 @@ async function ensurePostImages(posts, config, since) {
     }
 
     if (
+      !duplicateImageSlugs.has(post.slug) &&
       post.image.startsWith("/images/blog/") &&
       fs.existsSync(path.join(rootDir, "public", post.image.replace(/^\//, "")))
     ) {
@@ -1128,6 +1131,8 @@ function validateGeneratedPost(post, existingPosts, config, date) {
 function validateStoredPosts(posts, config) {
   const errors = [];
   const seenSlugs = new Set();
+  const seenImagePaths = new Map();
+  const seenLocalImageHashes = new Map();
   const seenStockImageSources = new Map();
 
   for (const post of posts) {
@@ -1140,6 +1145,32 @@ function validateStoredPosts(posts, config) {
     }
 
     seenSlugs.add(post.slug);
+
+    if (post.image) {
+      const previousSlug = seenImagePaths.get(post.image);
+
+      if (previousSlug) {
+        errors.push(`${post.slug}: Reuses image path already used by ${previousSlug}: ${post.image}.`);
+      }
+
+      seenImagePaths.set(post.image, post.slug);
+
+      const imageHash = getLocalImageHash(post.image);
+      const previousImageHash = imageHash ? seenLocalImageHashes.get(imageHash) : null;
+
+      if (previousImageHash && previousImageHash.image !== post.image) {
+        errors.push(
+          `${post.slug}: Reuses identical local image bytes already used by ${previousImageHash.slug}: ${post.image}.`,
+        );
+      }
+
+      if (imageHash) {
+        seenLocalImageHashes.set(imageHash, {
+          slug: post.slug,
+          image: post.image,
+        });
+      }
+    }
 
     if (post.imageSource && isHttpUrl(post.imageSource)) {
       const previousSlug = seenStockImageSources.get(post.imageSource);
@@ -1155,6 +1186,60 @@ function validateStoredPosts(posts, config) {
   if (errors.length > 0) {
     throw new Error(`Blog validation failed:\n- ${errors.join("\n- ")}`);
   }
+}
+
+function findDuplicateImageSlugs(posts) {
+  const duplicateSlugs = new Set();
+  const seenImagePaths = new Map();
+  const seenLocalImageHashes = new Map();
+
+  for (const post of posts) {
+    const previousPathPost = seenImagePaths.get(post.image);
+
+    if (previousPathPost) {
+      duplicateSlugs.add(post.slug);
+    } else {
+      seenImagePaths.set(post.image, post);
+    }
+
+    const imageHash = getLocalImageHash(post.image);
+    const previousHashPost = imageHash ? seenLocalImageHashes.get(imageHash) : null;
+
+    if (previousHashPost && previousHashPost.image !== post.image) {
+      duplicateSlugs.add(post.slug);
+    } else if (imageHash) {
+      seenLocalImageHashes.set(imageHash, post);
+    }
+  }
+
+  return duplicateSlugs;
+}
+
+function getLocalImageHash(imagePath) {
+  const filePath = getLocalImagePath(imagePath);
+
+  if (!filePath || !fs.existsSync(filePath)) {
+    return "";
+  }
+
+  return crypto
+    .createHash("sha256")
+    .update(fs.readFileSync(filePath))
+    .digest("hex");
+}
+
+function getLocalImagePath(imagePath) {
+  if (!imagePath || !imagePath.startsWith("/")) {
+    return "";
+  }
+
+  const relativePath = imagePath.replace(/^\//, "");
+
+  if (relativePath.includes("..")) {
+    return "";
+  }
+
+  return path.join(rootDir, "public", relativePath);
 }
 
 function validatePostShape(post, config) {

@@ -6,7 +6,7 @@ excerpt: "Exhaust noise, fumes, loose clamps, and broken hangers are easy to dis
 category: "Maintenance Tips"
 author: "Munden Truck & Equipment Ltd."
 readTime: "3 min read"
-image: "/images/equipment/blog1.jpeg"
+image: "/images/blog/2026-06-08-exhaust-leaks-mounting-problems-working-truck.jpg"
 keywords: ["Kamloops truck repair","commercial truck maintenance BC","truck exhaust repair","CVIP inspection Kamloops","mobile truck service Kamloops"]
 sources: [{"title":"BC Trucking Association","url":"https://www.bctrucking.com/"},{"title":"BC Commercial Vehicle Safety and Enforcement","url":"https://www2.gov.bc.ca/gov/content/transportation/vehicle-safety-enforcement"},{"title":"BC Forest Safety Council","url":"https://www.bcforestsafe.org/"},{"title":"Government of BC Forestry","url":"https://www2.gov.bc.ca/gov/content/industry/forestry"},{"title":"EcoLog Forestry","url":"https://ecologforestry.com/"}]
 ---

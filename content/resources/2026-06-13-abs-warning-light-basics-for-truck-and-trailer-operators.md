@@ -6,7 +6,7 @@ excerpt: "An ABS light does not explain the whole problem, but it is a useful cl
 category: "Maintenance Tips"
 author: "Munden Truck & Equipment Ltd."
 readTime: "3 min read"
-image: "/images/news/steering-suspension.jpg"
+image: "/images/blog/2026-06-13-abs-warning-light-basics-for-truck-and-trailer-operators.jpg"
 keywords: ["Kamloops trailer repair","CVIP inspection Kamloops","commercial truck maintenance BC","ABS warning light","truck repair Kamloops"]
 sources: [{"title":"BC Trucking Association","url":"https://www.bctrucking.com/"},{"title":"BC Commercial Vehicle Safety and Enforcement","url":"https://www2.gov.bc.ca/gov/content/transportation/vehicle-safety-enforcement"},{"title":"BC Forest Safety Council","url":"https://www.bcforestsafe.org/"},{"title":"Government of BC Forestry","url":"https://www2.gov.bc.ca/gov/content/industry/forestry"},{"title":"EcoLog Forestry","url":"https://ecologforestry.com/"}]
 ---

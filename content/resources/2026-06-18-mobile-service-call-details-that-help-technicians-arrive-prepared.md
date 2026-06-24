@@ -6,7 +6,7 @@ excerpt: "A mobile service call goes better when the first conversation includes
 category: "Parts and Service"
 author: "Munden Truck & Equipment Ltd."
 readTime: "3 min read"
-image: "/images/equipment/blog1.jpeg"
+image: "/images/blog/2026-06-18-mobile-service-call-details-that-help-technicians-arrive-prepared.jpg"
 keywords: ["mobile truck service Kamloops","Kamloops truck repair","commercial truck maintenance BC","truck and trailer parts","fleet maintenance"]
 sources: [{"title":"BC Trucking Association","url":"https://www.bctrucking.com/"},{"title":"BC Commercial Vehicle Safety and Enforcement","url":"https://www2.gov.bc.ca/gov/content/transportation/vehicle-safety-enforcement"},{"title":"BC Forest Safety Council","url":"https://www.bcforestsafe.org/"},{"title":"Government of BC Forestry","url":"https://www2.gov.bc.ca/gov/content/industry/forestry"},{"title":"EcoLog Forestry","url":"https://ecologforestry.com/"}]
 ---

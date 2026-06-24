@@ -6,7 +6,7 @@ excerpt: "Coupling issues can create serious delays and safety concerns. These f
 category: "Maintenance Tips"
 author: "Munden Truck & Equipment Ltd."
 readTime: "3 min read"
-image: "/images/equipment/blog1.jpeg"
+image: "/images/blog/2026-06-12-fifth-wheel-inspection-points-that-help-prevent-coupling-problems.jpg"
 keywords: ["commercial truck maintenance BC","Kamloops truck repair","CVIP inspection Kamloops","fleet maintenance","truck inspection"]
 sources: [{"title":"BC Trucking Association","url":"https://www.bctrucking.com/"},{"title":"BC Commercial Vehicle Safety and Enforcement","url":"https://www2.gov.bc.ca/gov/content/transportation/vehicle-safety-enforcement"},{"title":"BC Forest Safety Council","url":"https://www.bcforestsafe.org/"},{"title":"Government of BC Forestry","url":"https://www2.gov.bc.ca/gov/content/industry/forestry"},{"title":"EcoLog Forestry","url":"https://ecologforestry.com/"}]
 ---

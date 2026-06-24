@@ -6,7 +6,7 @@ excerpt: "The right part is easier to find when the first call includes the righ
 category: "Parts and Service"
 author: "Munden Truck & Equipment Ltd."
 readTime: "3 min read"
-image: "/images/equipment/blog1.jpeg"
+image: "/images/blog/2026-06-16-parts-ordering-details-that-reduce-repeat-calls-and-wrong-fit-delays.jpg"
 keywords: ["truck and trailer parts","Kamloops truck repair","Kamloops trailer repair","commercial truck maintenance BC","parts department"]
 sources: [{"title":"BC Trucking Association","url":"https://www.bctrucking.com/"},{"title":"BC Commercial Vehicle Safety and Enforcement","url":"https://www2.gov.bc.ca/gov/content/transportation/vehicle-safety-enforcement"},{"title":"BC Forest Safety Council","url":"https://www.bcforestsafe.org/"},{"title":"Government of BC Forestry","url":"https://www2.gov.bc.ca/gov/content/industry/forestry"},{"title":"EcoLog Forestry","url":"https://ecologforestry.com/"}]
 ---

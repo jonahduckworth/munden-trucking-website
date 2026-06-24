@@ -6,7 +6,7 @@ excerpt: "Heat, noise, seals, hub oil, and tire wear can all point to wheel-end 
 category: "Maintenance Tips"
 author: "Munden Truck & Equipment Ltd."
 readTime: "3 min read"
-image: "/images/news/steering-suspension.jpg"
+image: "/images/blog/2026-06-11-wheel-end-warning-signs-that-deserve-attention-before-a-long-haul.jpg"
 keywords: ["CVIP inspection Kamloops","commercial truck maintenance BC","Kamloops trailer repair","wheel end inspection","fleet maintenance"]
 sources: [{"title":"BC Trucking Association","url":"https://www.bctrucking.com/"},{"title":"BC Commercial Vehicle Safety and Enforcement","url":"https://www2.gov.bc.ca/gov/content/transportation/vehicle-safety-enforcement"},{"title":"BC Forest Safety Council","url":"https://www.bcforestsafe.org/"},{"title":"Government of BC Forestry","url":"https://www2.gov.bc.ca/gov/content/industry/forestry"},{"title":"EcoLog Forestry","url":"https://ecologforestry.com/"}]
 ---

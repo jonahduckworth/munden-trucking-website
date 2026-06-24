@@ -6,7 +6,7 @@ excerpt: "Spring is a good time to get ahead of repairs, inspections, and downti
 category: "Industry Insights"
 author: "Munden Truck & Equipment Ltd."
 readTime: "5 min read"
-image: "/images/news/steering-suspension.jpg"
+image: "/images/blog/2026-05-18-what-fleet-owners-in-kamloops-should-know-before-the-busy-spring-service-push.jpg"
 keywords: ["Kamloops truck repair","Kamloops trailer repair","CVIP inspection Kamloops","mobile truck service Kamloops","commercial truck maintenance BC","forestry equipment Western Canada"]
 sources: [{"title":"BC Trucking Association","url":"https://www.bctrucking.com/"},{"title":"BC Commercial Vehicle Safety and Enforcement","url":"https://www2.gov.bc.ca/gov/content/transportation/vehicle-safety-enforcement"},{"title":"BC Forest Safety Council","url":"https://www.bcforestsafe.org/"},{"title":"Government of BC Forestry","url":"https://www2.gov.bc.ca/gov/content/industry/forestry"},{"title":"EcoLog Forestry","url":"https://ecologforestry.com/"}]
 ---

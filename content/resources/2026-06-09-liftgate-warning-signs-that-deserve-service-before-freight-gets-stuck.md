@@ -6,7 +6,7 @@ excerpt: "A slow, noisy, or unreliable liftgate can turn a normal delivery into 
 category: "Parts and Service"
 author: "Munden Truck & Equipment Ltd."
 readTime: "3 min read"
-image: "/images/news/steering-suspension.jpg"
+image: "/images/blog/2026-06-09-liftgate-warning-signs-that-deserve-service-before-freight-gets-stuck.jpg"
 keywords: ["Kamloops trailer repair","truck and trailer parts","commercial truck maintenance BC","mobile truck service Kamloops","fleet maintenance"]
 sources: [{"title":"BC Trucking Association","url":"https://www.bctrucking.com/"},{"title":"BC Commercial Vehicle Safety and Enforcement","url":"https://www2.gov.bc.ca/gov/content/transportation/vehicle-safety-enforcement"},{"title":"BC Forest Safety Council","url":"https://www.bcforestsafe.org/"},{"title":"Government of BC Forestry","url":"https://www2.gov.bc.ca/gov/content/industry/forestry"},{"title":"EcoLog Forestry","url":"https://ecologforestry.com/"}]
 ---
