@@ -25,6 +25,11 @@ on:
         required: false
         default: ""
         type: string
+      backfill_limit:
+        description: "Maximum missing dates to generate in one run"
+        required: false
+        default: "1"
+        type: string
 
 permissions:
   contents: write
@@ -38,15 +43,17 @@ jobs:
     name: Generate daily resource post
     runs-on: ubuntu-latest
     env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.BLOG_OPENAI_API_KEY || secrets.OPENAI_API_KEY }}
       PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
       OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-5.4-mini' }}
-      BLOG_TOPIC_ATTEMPTS: ${{ vars.BLOG_TOPIC_ATTEMPTS || '4' }}
+      BLOG_MAX_OUTPUT_TOKENS: ${{ vars.BLOG_MAX_OUTPUT_TOKENS || '2400' }}
+      BLOG_TOPIC_ATTEMPTS: ${{ vars.BLOG_TOPIC_ATTEMPTS || '2' }}
       BLOG_IMAGE_MODE: ${{ vars.BLOG_IMAGE_MODE || 'stock-required' }}
       DRY_RUN: ${{ github.event.inputs.dry_run }}
       RUN_DATE: ${{ github.event.inputs.date }}
       BACKFILL_FROM: ${{ github.event.inputs.backfill_from }}
       BACKFILL_TO: ${{ github.event.inputs.backfill_to }}
+      BACKFILL_LIMIT: ${{ github.event.inputs.backfill_limit || '1' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -72,6 +79,9 @@ jobs:
           fi
           if [ -n "$BACKFILL_TO" ]; then
             BACKFILL_ARGS+=("--to=$BACKFILL_TO")
+          fi
+          if [ -n "$BACKFILL_LIMIT" ]; then
+            BACKFILL_ARGS+=("--limit=$BACKFILL_LIMIT")
           fi
 
           if [ "$DRY_RUN" = "true" ]; then
