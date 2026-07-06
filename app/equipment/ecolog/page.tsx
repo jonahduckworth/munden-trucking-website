@@ -155,7 +155,6 @@ const support = [
 export default function EcoLogPage() {
   const breadcrumbs = [
     { name: "Home", url: "https://mundengroup.ca" },
-    { name: "Equipment", url: "https://mundengroup.ca/equipment" },
     {
       name: "EcoLog Forestry",
       url: "https://mundengroup.ca/equipment/ecolog",

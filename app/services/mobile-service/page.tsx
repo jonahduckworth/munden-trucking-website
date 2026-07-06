@@ -177,7 +177,6 @@ export default function MobileServicePage() {
 
   const breadcrumbs = [
     { name: "Home", url: "https://mundengroup.ca" },
-    { name: "Services", url: "https://mundengroup.ca/services" },
     {
       name: "Mobile Service",
       url: "https://mundengroup.ca/services/mobile-service",

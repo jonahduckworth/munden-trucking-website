@@ -98,7 +98,6 @@ const values = [
 export default function HistoryPage() {
   const breadcrumbs = [
     { name: "Home", url: "https://mundengroup.ca" },
-    { name: "About", url: "https://mundengroup.ca/about" },
     {
       name: "Our History",
       url: "https://mundengroup.ca/about/history",

@@ -1,5 +1,12 @@
 import type { NextConfig } from "next";
 
+const canonicalHost = "mundengroup.ca";
+const redirectHosts = [
+  "www.mundengroup.ca",
+  "mundentruckequipment.com",
+  "www.mundentruckequipment.com",
+];
+
 const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
@@ -14,6 +21,27 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      ...redirectHosts.map((host) => ({
+        source: "/:path*",
+        has: [{ type: "host" as const, value: host }],
+        destination: `https://${canonicalHost}/:path*`,
+        permanent: true,
+      })),
+      {
+        source: "/services",
+        destination: "/services/service-department",
+        permanent: true,
+      },
+      {
+        source: "/equipment",
+        destination: "/equipment/ecolog",
+        permanent: true,
+      },
+      {
+        source: "/about",
+        destination: "/about/history",
+        permanent: true,
+      },
       // Service page redirects
       {
         source: "/services/repair-shop",
@@ -84,12 +112,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/about/team",
-        destination: "/about",
+        destination: "/about/history",
         permanent: true,
       },
       {
         source: "/about/partners",
-        destination: "/about",
+        destination: "/about/history",
         permanent: true,
       },
       // News redirects

@@ -183,7 +183,6 @@ export default function PartsDepartmentPage() {
 
   const breadcrumbs = [
     { name: "Home", url: "https://mundengroup.ca" },
-    { name: "Services", url: "https://mundengroup.ca/services" },
     {
       name: "Parts Department",
       url: "https://mundengroup.ca/services/parts-department",

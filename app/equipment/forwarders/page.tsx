@@ -124,8 +124,8 @@ export default function ForwardersPage() {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Equipment",
-        item: "https://mundengroup.ca/equipment",
+        name: "EcoLog Forestry",
+        item: "https://mundengroup.ca/equipment/ecolog",
       },
       {
         "@type": "ListItem",
