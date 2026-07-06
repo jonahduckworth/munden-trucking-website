@@ -103,7 +103,6 @@ const processSteps = [
 export default function CareersPage() {
   const breadcrumbs = [
     { name: "Home", url: "https://mundengroup.ca" },
-    { name: "About", url: "https://mundengroup.ca/about" },
     { name: "Careers", url: "https://mundengroup.ca/about/careers" },
   ];
 

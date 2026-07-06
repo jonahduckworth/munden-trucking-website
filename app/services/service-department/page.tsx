@@ -431,7 +431,6 @@ export default function ServiceDepartmentPage() {
 
   const breadcrumbs = [
     { name: "Home", url: "https://mundengroup.ca" },
-    { name: "Services", url: "https://mundengroup.ca/services" },
     {
       name: "Service Department",
       url: "https://mundengroup.ca/services/service-department",

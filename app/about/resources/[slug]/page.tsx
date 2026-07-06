@@ -78,7 +78,6 @@ export default async function ResourceArticlePage({ params }: Props) {
 
   const breadcrumbs = [
     { name: "Home", url: baseUrl },
-    { name: "About", url: `${baseUrl}/about` },
     {
       name: "Resources",
       url: `${baseUrl}/about/resources`,

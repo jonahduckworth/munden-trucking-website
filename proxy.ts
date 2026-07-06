@@ -15,7 +15,7 @@ export function proxy(request: NextRequest) {
     url.protocol = "https";
     url.hostname = canonicalHost;
     url.port = "";
-    return NextResponse.redirect(url, 308);
+    return NextResponse.redirect(url, { status: 308 });
   }
 
   const response = NextResponse.next();

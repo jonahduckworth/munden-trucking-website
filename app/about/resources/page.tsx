@@ -74,7 +74,6 @@ export default async function ResourcesPage({ searchParams }: ResourcesPageProps
   );
   const breadcrumbs = [
     { name: "Home", url: "https://mundengroup.ca" },
-    { name: "About", url: "https://mundengroup.ca/about" },
     {
       name: "Resources",
       url: "https://mundengroup.ca/about/resources",
