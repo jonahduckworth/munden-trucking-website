@@ -28,7 +28,7 @@ on:
       backfill_limit:
         description: "Maximum missing dates to generate in one run"
         required: false
-        default: "1"
+        default: "3"
         type: string
 
 permissions:
@@ -53,7 +53,7 @@ jobs:
       RUN_DATE: ${{ github.event.inputs.date }}
       BACKFILL_FROM: ${{ github.event.inputs.backfill_from }}
       BACKFILL_TO: ${{ github.event.inputs.backfill_to }}
-      BACKFILL_LIMIT: ${{ github.event.inputs.backfill_limit || '1' }}
+      BACKFILL_LIMIT: ${{ github.event.inputs.backfill_limit || '3' }}
     steps:
       - uses: actions/checkout@v4
         with:
