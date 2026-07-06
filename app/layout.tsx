@@ -8,6 +8,8 @@ import { ThemeProvider } from './providers';
 import Script from 'next/script';
 import { siteUrl } from '@/lib/site';
 
+const logoPreviewImage = '/images/logo-preview.png';
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -26,9 +28,9 @@ export const metadata: Metadata = {
     template: '%s | Munden Truck & Equipment',
   },
   icons: {
-    icon: '/icon.png',
+    icon: [{ url: '/icon.png', sizes: '512x512', type: 'image/png' }],
     shortcut: '/icon.png',
-    apple: '/icon.png',
+    apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
   },
   description:
     'Munden Truck & Equipment - Kamloops truck repair, trailer repair, CVIP inspections, mobile service, emergency repairs. Welding, fabrication, hydraulics, A/C repair. Carrier, Thermo King, Webasto service. 24/7 emergency roadside service.',
@@ -50,10 +52,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/opengraph-image',
+        url: logoPreviewImage,
         width: 1200,
         height: 630,
-        alt: 'Munden Truck & Equipment - Truck Repair & Service in Kamloops',
+        alt: 'Munden Truck & Equipment logo',
       },
     ],
   },
@@ -62,7 +64,7 @@ export const metadata: Metadata = {
     description:
       'Munden trucking - Kamloops truck repair, trailer repair, equipment repair. CVIP, MVI inspections. Mobile service truck, emergency roadside repair. Welding, hydraulics, A/C repair.',
     card: 'summary_large_image',
-    images: ['/opengraph-image'],
+    images: [logoPreviewImage],
   },
 };
 

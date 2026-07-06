@@ -23,6 +23,8 @@ export const StructuredData: FC<StructuredDataProps> = ({ data }) => {
   );
 };
 
+const logoImageUrl = absoluteUrl("/images/logo-square.png");
+
 export const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -34,7 +36,8 @@ export const localBusinessSchema = {
     "Munden Trucking",
     "Munden Truck & Equipment Ltd.",
   ],
-  image: absoluteUrl("/images/logo.png"),
+  image: logoImageUrl,
+  logo: logoImageUrl,
   url: siteUrl,
   telephone: "+1-250-828-2268",
   address: {
@@ -242,7 +245,7 @@ export const organizationSchema = {
   name: "Munden Truck & Equipment",
   alternateName: ["Munden", "Munden Truck", "Munden Trucking"],
   url: siteUrl,
-  logo: absoluteUrl("/images/logo.png"),
+  logo: logoImageUrl,
   description:
     "Munden Truck & Equipment - Kamloops truck repair, trailer repair, equipment repair. Truck shop, trailer shop, automotive shop. CVIP inspections, mobile service truck, emergency roadside service. Welding, fabrication, hydraulics. Refrigeration, A/C repair. Carrier, Thermo King, Webasto service. Truck parts and trailer parts.",
   address: {
