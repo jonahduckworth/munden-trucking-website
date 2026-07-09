@@ -28,8 +28,11 @@ export const metadata: Metadata = {
     template: '%s | Munden Truck & Equipment',
   },
   icons: {
-    icon: [{ url: '/icon.png', sizes: '512x512', type: 'image/png' }],
-    shortcut: '/icon.png',
+    icon: [
+      { url: '/favicon.ico', sizes: '64x64', type: 'image/x-icon' },
+      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
     apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
   },
   description:
