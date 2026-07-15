@@ -3,6 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 
 const rootDir = process.cwd();
 const configPath = path.join(rootDir, "content", "blog-config.json");
@@ -23,12 +24,17 @@ const backfillTo = getArgValue("--to") ?? targetDate;
 const backfillLimitValue = getArgValue("--limit");
 const ensureImagesSince = getArgValue("--since");
 
-loadLocalEnv(path.join(rootDir, ".env.local"));
+const isDirectExecution =
+  process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 
-main().catch((error) => {
-  console.error(error.message);
-  process.exitCode = 1;
-});
+if (isDirectExecution) {
+  loadLocalEnv(path.join(rootDir, ".env.local"));
+
+  main().catch((error) => {
+    console.error(error.message);
+    process.exitCode = 1;
+  });
+}
 
 async function main() {
   const config = readJson(configPath);
@@ -64,39 +70,54 @@ async function main() {
 
     console.log(`Backfilling ${dates.length} missing resource post date(s): ${dates.join(", ")}`);
 
-    let posts = existingPosts;
-    let generatedCount = 0;
-
-    for (const date of dates) {
-      let generatedPost = null;
-
-      try {
-        generatedPost = await generatePostForDate(config, posts, date);
-      } catch (error) {
-        if (isLongRateLimitError(error) && generatedCount > 0) {
-          console.warn(
-            `Stopping backfill after ${generatedCount} generated post(s) because OpenAI returned a long rate-limit reset.`,
-          );
-          console.warn(error.message);
-          return;
-        }
-
-        throw error;
-      }
-
-      generatedCount += 1;
-
-      if (isDryRun && generatedPost) {
-        posts = [generatedPost, ...posts].sort((a, b) => b.date.localeCompare(a.date));
-      } else {
-        posts = readExistingPosts();
-      }
-    }
-
+    await runBackfillDates(config, existingPosts, dates);
     return;
   }
 
   await generatePostForDate(config, existingPosts, targetDate);
+}
+
+export async function runBackfillDates(
+  config,
+  initialPosts,
+  dates,
+  {
+    generateForDate = generatePostForDate,
+    readPosts = readExistingPosts,
+    dryRun = isDryRun,
+    logger = console,
+  } = {},
+) {
+  let posts = initialPosts;
+  let generatedCount = 0;
+
+  for (const date of dates) {
+    let generatedPost = null;
+
+    try {
+      generatedPost = await generateForDate(config, posts, date);
+    } catch (error) {
+      if (generatedCount === 0) {
+        throw error;
+      }
+
+      logger.warn(
+        `Stopping backfill after ${generatedCount} generated post(s) because ${date} failed. Valid generated posts will still be validated and committed.`,
+      );
+      logger.warn(error.message);
+      return generatedCount;
+    }
+
+    generatedCount += 1;
+
+    if (dryRun && generatedPost) {
+      posts = [generatedPost, ...posts].sort((a, b) => b.date.localeCompare(a.date));
+    } else {
+      posts = readPosts();
+    }
+  }
+
+  return generatedCount;
 }
 
 async function generatePostForDate(config, existingPosts, date) {
@@ -316,23 +337,21 @@ function buildUserPrompt(
   );
 }
 
-function chooseTopicPlan(existingPosts, date, rejectedTopics = []) {
+export function chooseTopicPlan(existingPosts, date, rejectedTopics = []) {
   const allowedTopicAngles = buildAllowedTopicAngles(existingPosts);
   const rejectedText = rejectedTopics.join(" ").toLowerCase();
   const availableAngles = allowedTopicAngles.filter((candidate) => {
     const keyPhrase = candidate.angle.toLowerCase().slice(0, 44);
     return !rejectedText.includes(keyPhrase);
   });
-  const angles = availableAngles.length > 0 ? availableAngles : allowedTopicAngles;
-
-  if (angles.length === 0) {
+  if (availableAngles.length === 0) {
     throw new Error("No unused blog topic angles are available. Add more candidate angles before generating another post.");
   }
 
-  return angles[(hashString(date) + rejectedTopics.length) % angles.length];
+  return availableAngles[(hashString(date) + rejectedTopics.length) % availableAngles.length];
 }
 
-function buildAllowedTopicAngles(existingPosts) {
+export function buildAllowedTopicAngles(existingPosts) {
   const candidateAngles = [
     {
       angle: "Hydraulic hose warning signs before a small leak becomes downtime",
@@ -634,32 +653,110 @@ function buildAllowedTopicAngles(existingPosts) {
       mustCover: "safety, inspections, revenue work, parts lead time, downtime windows, records",
       internalLink: "/services/service-department",
     },
+    {
+      angle: "Air dryer purge symptoms that can reveal an air system problem",
+      category: "Maintenance Tips",
+      mustCover: "purge frequency, moisture, compressor cycling, unusual sounds, driver observations",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Engine fan and fan clutch warning signs before an overheating event",
+      category: "Maintenance Tips",
+      mustCover: "temperature changes, fan engagement, noise, airflow, inspection timing",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Radiator and charge air cooler cleaning for trucks working in dust and debris",
+      category: "Maintenance Tips",
+      mustCover: "restricted airflow, safe cleaning, bent fins, temperature trends, service intervals",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Trailer roof and body water intrusion clues worth repairing early",
+      category: "Maintenance Tips",
+      mustCover: "stains, damaged seams, roof panels, door seals, cargo protection, repair planning",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Wheel fastener checks after wheel service and why retorque timing matters",
+      category: "Equipment Guides",
+      mustCover: "service records, manufacturer procedures, inspection clues, driver reporting, safety",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Grease point problems that can hide behind a completed maintenance checklist",
+      category: "Maintenance Tips",
+      mustCover: "blocked fittings, damaged lines, contamination, movement, documenting missed points",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Transmission and differential leak clues to document before a shop visit",
+      category: "Maintenance Tips",
+      mustCover: "fluid location, colour, odour, operating conditions, photos, safe shutdown decisions",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Forestry equipment belly pan cleaning and debris checks between service visits",
+      category: "Forestry Equipment",
+      mustCover: "debris buildup, heat, access panels, leaks, safe cleaning, inspection records",
+      internalLink: "/equipment/ecolog",
+    },
+    {
+      angle: "Forestry machine transport checks before moving between job sites",
+      category: "Forestry Equipment",
+      mustCover: "attachments, loose items, dimensions, securement planning, walkaround, route conditions",
+      internalLink: "/equipment/ecolog",
+    },
+    {
+      angle: "Fuel water separator observations that help diagnose contamination concerns",
+      category: "Maintenance Tips",
+      mustCover: "water, debris, warning lights, fuel source notes, filter history, sample documentation",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Parking brake complaints that should be described before adjustment or repair",
+      category: "Maintenance Tips",
+      mustCover: "holding ability, slope, release behaviour, warning indicators, linkage, driver notes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Truck and trailer corrosion spots that deserve attention before they spread",
+      category: "Maintenance Tips",
+      mustCover: "mounting points, seams, wiring supports, air tanks, cleaning, repair documentation",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "What repeated blown fuses can tell technicians about an electrical fault",
+      category: "Maintenance Tips",
+      mustCover: "circuit identification, operating conditions, added accessories, fuse rating, safe diagnosis",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Seat condition and cab controls that affect a driver's working day",
+      category: "Equipment Guides",
+      mustCover: "seat mounting, adjustment, belts, switches, visibility, reporting defects",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "How seasonal fleet parking changes battery and fluid maintenance needs",
+      category: "Equipment Guides",
+      mustCover: "storage duration, battery care, leaks, fluid condition, tire support, return-to-service checks",
+      internalLink: "/services/service-department",
+    },
   ];
-  const unusedAngles = candidateAngles.filter((candidate) => {
-    return !existingPosts.slice(0, 25).some((post) => {
-      return (
-        post.slug === slugify(candidate.angle) ||
-        titleSimilarity(post.title, candidate.angle) > 0.58
-      );
-    });
-  });
-  const filteredAngles = unusedAngles.filter((candidate) => {
+  return candidateAngles.filter((candidate) => {
     const candidatePost = {
       title: candidate.angle,
+      slug: slugify(candidate.angle),
       excerpt: candidate.mustCover,
       body: candidate.angle,
     };
 
-    return !existingPosts.slice(0, 10).some((post) => {
-      return (
-        titleSimilarity(post.title, candidate.angle) > 0.42 ||
-        topicSimilarity(post, candidatePost) > 0.32
-      );
-    });
+    return (
+      !findExistingDuplicate(candidatePost, existingPosts) &&
+      !findOverlappingRecentPost(candidatePost, existingPosts)
+    );
   });
-  const angles = filteredAngles.length > 0 ? filteredAngles : unusedAngles;
-
-  return angles.slice(0, 16);
 }
 
 async function collectResearch(config) {
@@ -1104,12 +1201,7 @@ function validateGeneratedPost(post, existingPosts, config, date) {
     errors.push(`Post date must be ${date}.`);
   }
 
-  const existingDuplicate = existingPosts.find(
-    (existingPost) =>
-      existingPost.date === date ||
-      existingPost.slug === post.slug ||
-      titleSimilarity(existingPost.title, post.title) > 0.62,
-  );
+  const existingDuplicate = findExistingDuplicate(post, existingPosts, date);
 
   if (existingDuplicate) {
     errors.push(`Generated topic is too close to an existing post: ${existingDuplicate.title}`);
@@ -1253,7 +1345,7 @@ function serializePost(post) {
   return `---\n${frontmatter}\n---\n\n${post.body.trim()}\n`;
 }
 
-function readExistingPosts() {
+export function readExistingPosts() {
   if (!fs.existsSync(resourcesDir)) {
     return [];
   }
@@ -1597,6 +1689,15 @@ function findOverlappingRecentPost(post, existingPosts, date) {
     const topicScore = topicSimilarity(existingPost, post);
     return titleScore > 0.46 || topicScore > 0.4;
   });
+}
+
+export function findExistingDuplicate(post, existingPosts, date) {
+  return existingPosts.find(
+    (existingPost) =>
+      (date && existingPost.date === date) ||
+      existingPost.slug === post.slug ||
+      titleSimilarity(existingPost.title, post.title) > 0.62,
+  );
 }
 
 function topicSimilarity(a, b) {
