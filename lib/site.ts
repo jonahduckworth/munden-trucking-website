@@ -11,6 +11,12 @@ export const businessLocation = {
   longitude: -120.318686,
 } as const;
 
+export const businessContact = {
+  phoneDisplay: "250-828-2268",
+  phoneHref: "tel:+12508282268",
+  email: "kamloops.shop@mundengroup.ca",
+} as const;
+
 export const googleMapsPlaceUrl =
   "https://www.google.com/maps?cid=2171221372270048230";
 
