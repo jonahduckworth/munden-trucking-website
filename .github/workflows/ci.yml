@@ -21,6 +21,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm run blog:test
       - run: npm run blog:validate
       - run: npm run lint
       - run: npm run build

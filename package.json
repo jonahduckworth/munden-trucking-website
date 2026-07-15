@@ -12,6 +12,7 @@
     "lint": "eslint .",
     "blog:generate": "node scripts/generate-blog.mjs",
     "blog:backfill": "node scripts/generate-blog.mjs --backfill",
+    "blog:test": "node --test scripts/generate-blog.test.mjs",
     "blog:validate": "node scripts/generate-blog.mjs --validate-only",
     "blog:ensure-images": "node scripts/generate-blog.mjs --ensure-images"
   },
