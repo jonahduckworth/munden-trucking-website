@@ -6,6 +6,7 @@ import { ChevronLeft } from "lucide-react";
 import StructuredData, {
   breadcrumbSchema,
 } from "@/components/seo/StructuredData";
+import { businessContact, businessLocation } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms of Service | Munden Truck & Equipment Ltd.",
@@ -195,13 +196,20 @@ export default function TermsPage() {
                 <address className="not-italic">
                   Munden Truck & Equipment Ltd.
                   <br />
-                  123 Industrial Way
+                  {businessLocation.streetAddress}
                   <br />
-                  Kamloops, BC V2C 1A1
+                  {businessLocation.addressLocality},{" "}
+                  {businessLocation.addressRegion} {businessLocation.postalCode}
                   <br />
-                  Email: legal@mundengroup.ca
+                  Email:{" "}
+                  <a href={`mailto:${businessContact.email}`}>
+                    {businessContact.email}
+                  </a>
                   <br />
-                  Phone: 1-800-XXX-XXXX
+                  Phone:{" "}
+                  <a href={businessContact.phoneHref}>
+                    {businessContact.phoneDisplay}
+                  </a>
                 </address>
               </CardContent>
             </Card>
