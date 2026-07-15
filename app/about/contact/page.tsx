@@ -31,6 +31,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { googleMapsEmbedUrl } from "@/lib/site";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -357,13 +358,13 @@ export default function ContactPage() {
         <Card className="mt-12 max-w-6xl mx-auto">
           <CardContent className="p-0 overflow-hidden rounded-lg">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2540.1839889687844!2d-120.32891602337467!3d50.67009607167635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537e2c8b8b8b8b8b%3A0x8b8b8b8b8b8b8b8b!2s725%20Carrier%20St%2C%20Kamloops%2C%20BC%20V2H%201G1!5e0!3m2!1sen!2sca!4v1700000000000!5m2!1sen!2sca"
+              src={googleMapsEmbedUrl}
               width="100%"
               height="400"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
+              referrerPolicy="strict-origin-when-cross-origin"
               title="Munden Truck & Equipment Location"
             />
           </CardContent>

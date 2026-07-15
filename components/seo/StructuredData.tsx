@@ -1,5 +1,10 @@
 import { FC } from "react";
-import { absoluteUrl, siteUrl } from "@/lib/site";
+import {
+  absoluteUrl,
+  businessLocation,
+  googleMapsPlaceUrl,
+  siteUrl,
+} from "@/lib/site";
 
 interface StructuredDataProps {
   data: Record<string, unknown> | Record<string, unknown>[];
@@ -42,17 +47,18 @@ export const localBusinessSchema = {
   telephone: "+1-250-828-2268",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "725 Carrier Street",
-    addressLocality: "Kamloops",
-    addressRegion: "BC",
-    postalCode: "V2H 1G1",
-    addressCountry: "CA",
+    streetAddress: businessLocation.streetAddress,
+    addressLocality: businessLocation.addressLocality,
+    addressRegion: businessLocation.addressRegion,
+    postalCode: businessLocation.postalCode,
+    addressCountry: businessLocation.addressCountry,
   },
   geo: {
     "@type": "GeoCoordinates",
-    latitude: 50.674522,
-    longitude: -120.32785,
+    latitude: businessLocation.latitude,
+    longitude: businessLocation.longitude,
   },
+  hasMap: googleMapsPlaceUrl,
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -70,6 +76,7 @@ export const localBusinessSchema = {
     },
   ],
   sameAs: [
+    googleMapsPlaceUrl,
     "https://www.facebook.com/MundenGroup/",
     "https://ca.linkedin.com/company/mundengroup",
   ],
@@ -166,8 +173,8 @@ export const serviceSchema = (service: {
     "@type": "GeoCircle",
     geoMidpoint: {
       "@type": "GeoCoordinates",
-      latitude: 50.674522,
-      longitude: -120.32785,
+      latitude: businessLocation.latitude,
+      longitude: businessLocation.longitude,
     },
     geoRadius: service.areaServed || "250km",
   },
@@ -250,11 +257,11 @@ export const organizationSchema = {
     "Munden Truck & Equipment - Kamloops truck repair, trailer repair, equipment repair. Truck shop, trailer shop, automotive shop. CVIP inspections, mobile service truck, emergency roadside service. Welding, fabrication, hydraulics. Refrigeration, A/C repair. Carrier, Thermo King, Webasto service. Truck parts and trailer parts.",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "725 Carrier Street",
-    addressLocality: "Kamloops",
-    addressRegion: "BC",
-    postalCode: "V2H 1G1",
-    addressCountry: "CA",
+    streetAddress: businessLocation.streetAddress,
+    addressLocality: businessLocation.addressLocality,
+    addressRegion: businessLocation.addressRegion,
+    postalCode: businessLocation.postalCode,
+    addressCountry: businessLocation.addressCountry,
   },
   contactPoint: [
     {
