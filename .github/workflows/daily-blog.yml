@@ -49,7 +49,7 @@ jobs:
       BLOG_MAX_OUTPUT_TOKENS: ${{ vars.BLOG_MAX_OUTPUT_TOKENS || '2400' }}
       BLOG_OPENAI_RETRIES: ${{ vars.BLOG_OPENAI_RETRIES || '2' }}
       BLOG_TOPIC_ATTEMPTS: ${{ vars.BLOG_TOPIC_ATTEMPTS || '4' }}
-      BLOG_IMAGE_MODE: ${{ vars.BLOG_IMAGE_MODE || 'stock-required' }}
+      BLOG_IMAGE_MODE: ${{ vars.BLOG_IMAGE_MODE || 'stock-preferred' }}
       DRY_RUN: ${{ github.event.inputs.dry_run }}
       RUN_DATE: ${{ github.event.inputs.date }}
       BACKFILL_FROM: ${{ github.event.inputs.backfill_from }}

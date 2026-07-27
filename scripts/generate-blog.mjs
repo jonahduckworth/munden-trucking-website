@@ -905,86 +905,106 @@ async function ensurePostImages(posts, config, since) {
   return updatedCount;
 }
 
-async function createBlogImage(post, config, existingPosts = []) {
-  const mode = process.env.BLOG_IMAGE_MODE || "stock-required";
+export async function createBlogImage(
+  post,
+  config,
+  existingPosts = [],
+  {
+    env = process.env,
+    fetchStockImage = fetchPexelsImage,
+    createFallbackImage = createBrandedBlogImage,
+    logger = console,
+  } = {},
+) {
+  const mode = env.BLOG_IMAGE_MODE || "stock-preferred";
   const requiresStockImage = mode === "stock-required";
 
   if (mode === "local") {
-    console.warn("BLOG_IMAGE_MODE=local; using an existing site photo.");
+    logger.warn("BLOG_IMAGE_MODE=local; using an existing site photo.");
     return selectExistingImage(post, config);
   }
 
-  if (!process.env.PEXELS_API_KEY) {
+  if (!env.PEXELS_API_KEY) {
     if (requiresStockImage) {
       throw new Error(
         "PEXELS_API_KEY is required for BLOG_IMAGE_MODE=stock-required. Add it as a GitHub Actions repository secret.",
       );
     }
 
-    console.warn("PEXELS_API_KEY is missing; using an existing site photo.");
-    return selectExistingImage(post, config);
+    logger.warn("PEXELS_API_KEY is missing; generating a branded blog cover.");
+    return createFallbackImage(post, config, existingPosts);
   }
 
-  if (mode === "stock" || mode === "stock-required") {
+  if (mode === "stock" || mode === "stock-preferred" || mode === "stock-required") {
     try {
-      return await fetchPexelsImage(post, config, existingPosts);
+      return await fetchStockImage(post, config, existingPosts, env.PEXELS_API_KEY);
     } catch (error) {
       if (requiresStockImage) {
         throw error;
       }
 
-      console.warn(`Pexels image fetch failed; using existing site photo. ${error.message}`);
+      logger.warn(`Pexels image fetch failed; generating a branded blog cover. ${error.message}`);
     }
   }
 
-  return selectExistingImage(post, config);
+  return createFallbackImage(post, config, existingPosts);
 }
 
-async function fetchPexelsImage(post, config, existingPosts = []) {
-  const query = buildPexelsQuery(post, config);
-  console.log(`Searching Pexels for blog image: "${query}"`);
-  const searchUrl = new URL("https://api.pexels.com/v1/search");
-  searchUrl.searchParams.set("query", query);
-  searchUrl.searchParams.set("orientation", "landscape");
-  searchUrl.searchParams.set("size", "large");
-  searchUrl.searchParams.set("per_page", "20");
-
-  const searchResponse = await fetch(searchUrl, {
-    headers: {
-      Authorization: process.env.PEXELS_API_KEY,
-    },
-  });
-  const searchText = await searchResponse.text();
-
-  if (!searchResponse.ok) {
-    throw new Error(`Pexels search failed (${searchResponse.status}): ${searchText}`);
-  }
-
-  const data = JSON.parse(searchText);
-  const photos = Array.isArray(data.photos) ? data.photos : [];
-
-  if (photos.length === 0) {
-    throw new Error(`No Pexels photos found for query: ${query}`);
-  }
-
+async function fetchPexelsImage(post, config, existingPosts = [], apiKey = process.env.PEXELS_API_KEY) {
   const usedSources = new Set(
     existingPosts
       .map((existingPost) => existingPost.imageSource)
       .filter(Boolean),
   );
-  const unusedPhotos = photos.filter((photo) => {
-    return (
-      photo?.url &&
-      !usedSources.has(photo.url) &&
-      !isBannedBlogImage(photo)
-    );
-  });
+  const queries = buildPexelsQueries(post, config);
+  let selectedPhoto = null;
+  let selectedQuery = "";
 
-  if (unusedPhotos.length === 0) {
-    throw new Error(`Pexels returned only previously used photos for query: ${query}`);
+  for (const query of queries) {
+    console.log(`Searching Pexels for blog image: "${query}"`);
+    const searchUrl = new URL("https://api.pexels.com/v1/search");
+    searchUrl.searchParams.set("query", query);
+    searchUrl.searchParams.set("orientation", "landscape");
+    searchUrl.searchParams.set("size", "large");
+    searchUrl.searchParams.set("per_page", "80");
+
+    const searchResponse = await fetch(searchUrl, {
+      headers: {
+        Authorization: apiKey,
+      },
+    });
+    const searchText = await searchResponse.text();
+
+    if (!searchResponse.ok) {
+      throw new Error(`Pexels search failed (${searchResponse.status}): ${searchText}`);
+    }
+
+    const data = JSON.parse(searchText);
+    const photos = Array.isArray(data.photos) ? data.photos : [];
+    const unusedPhotos = photos.filter((photo) => {
+      return (
+        photo?.url &&
+        !usedSources.has(photo.url) &&
+        !isBannedBlogImage(photo)
+      );
+    });
+
+    if (unusedPhotos.length > 0) {
+      selectedPhoto = unusedPhotos[Math.abs(hashString(post.slug)) % unusedPhotos.length];
+      selectedQuery = query;
+      break;
+    }
+
+    console.warn(`No unused Pexels photos found for query: "${query}"`);
   }
 
-  const selectedPhoto = unusedPhotos[Math.abs(hashString(post.slug)) % unusedPhotos.length];
+  if (!selectedPhoto) {
+    throw new Error(
+      `Pexels returned no unused photos across ${queries.length} search queries.`,
+    );
+  }
+
+  console.log(`Selected an unused Pexels photo from query: "${selectedQuery}"`);
   const imageUrl =
     selectedPhoto?.src?.large2x ||
     selectedPhoto?.src?.large ||
@@ -1023,26 +1043,144 @@ async function fetchPexelsImage(post, config, existingPosts = []) {
   return publicPath;
 }
 
-function buildPexelsQuery(post, config) {
+export function buildPexelsQueries(post, config) {
   const text = `${post.title} ${post.excerpt} ${post.keywords.join(" ")}`.toLowerCase();
+  const queries = [];
 
   if (text.includes("forestry") || text.includes("harvester") || text.includes("forwarder")) {
-    return "logging truck forest road";
+    queries.push("forestry equipment logging road", "logging truck forest road");
   }
 
-  if (text.includes("parts") || text.includes("service") || text.includes("repair")) {
-    return "commercial truck mechanic repair shop";
+  if (text.includes("brake")) {
+    queries.push("semi truck brake mechanic");
   }
 
-  if (text.includes("inspection") || text.includes("safety") || text.includes("cvip")) {
-    return "commercial truck inspection garage";
+  if (text.includes("electrical") || text.includes("battery") || text.includes("wiring")) {
+    queries.push("truck electrical repair mechanic");
   }
 
   if (text.includes("mobile") || text.includes("roadside")) {
-    return "semi truck roadside service";
+    queries.push("semi truck roadside service");
   }
 
-  return config.imageSearchQueries?.[0] || "semi truck highway";
+  if (text.includes("trailer")) {
+    queries.push("commercial semi trailer repair");
+  }
+
+  if (text.includes("inspection") || text.includes("safety") || text.includes("cvip")) {
+    queries.push("commercial truck inspection garage");
+  }
+
+  if (text.includes("parts")) {
+    queries.push("heavy truck parts workshop");
+  }
+
+  if (text.includes("service") || text.includes("repair") || text.includes("maintenance")) {
+    queries.push("commercial truck mechanic workshop");
+  }
+
+  queries.push(...(config.imageSearchQueries || []), "semi truck highway");
+  return [...new Set(queries)].slice(0, 5);
+}
+
+async function createBrandedBlogImage(post) {
+  const { default: sharp } = await import("sharp");
+  const imageFileName = `${post.date}-${post.slug}.jpg`;
+  const publicPath = `/images/blog/${imageFileName}`;
+  const outputPath = path.join(blogImagesDir, imageFileName);
+  const svg = renderBrandedCoverSvg(post);
+
+  fs.mkdirSync(blogImagesDir, { recursive: true });
+  await sharp(Buffer.from(svg))
+    .jpeg({ quality: 88, chromaSubsampling: "4:4:4" })
+    .toFile(outputPath);
+
+  post.imageCredit = "Munden Truck & Equipment";
+  post.imageSource = "";
+  console.log(`Generated branded blog image: ${path.relative(rootDir, outputPath)}`);
+  return publicPath;
+}
+
+export function renderBrandedCoverSvg(post) {
+  const titleLines = wrapCoverTitle(post.title, 34, 3);
+  const titleMarkup = titleLines
+    .map(
+      (line, index) =>
+        `<tspan x="112" dy="${index === 0 ? 0 : 82}">${escapeXml(line)}</tspan>`,
+    )
+    .join("");
+  const category = escapeXml(
+    String(post.category || "Munden Resources").toUpperCase(),
+  );
+  const date = escapeXml(post.date || "");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="65%" stop-color="#172554"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M 56 0 L 0 0 0 56" fill="none" stroke="#ffffff" stroke-opacity="0.055" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#background)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <circle cx="1440" cy="110" r="330" fill="#f59e0b" fill-opacity="0.13"/>
+  <circle cx="1500" cy="820" r="430" fill="#14b8a6" fill-opacity="0.12"/>
+  <rect x="112" y="106" width="176" height="14" rx="7" fill="#f59e0b"/>
+  <text x="112" y="184" fill="#fbbf24" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" letter-spacing="3">${category}</text>
+  <text x="112" y="328" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="700">${titleMarkup}</text>
+  <line x1="112" y1="728" x2="1488" y2="728" stroke="#ffffff" stroke-opacity="0.28" stroke-width="2"/>
+  <text x="112" y="800" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">MUNDEN TRUCK &amp; EQUIPMENT</text>
+  <text x="1488" y="800" text-anchor="end" fill="#d1d5db" font-family="Arial, Helvetica, sans-serif" font-size="28">Kamloops, BC  •  ${date}</text>
+</svg>`;
+}
+
+function wrapCoverTitle(value, maxCharacters, maxLines) {
+  const words = cleanOneLine(value).split(" ").filter(Boolean);
+  const lines = [];
+
+  for (const word of words) {
+    const current = lines.at(-1) || "";
+    const candidate = current ? `${current} ${word}` : word;
+
+    if (!current || candidate.length <= maxCharacters) {
+      if (lines.length === 0) {
+        lines.push(candidate);
+      } else {
+        lines[lines.length - 1] = candidate;
+      }
+      continue;
+    }
+
+    if (lines.length === maxLines) {
+      lines[maxLines - 1] = `${lines[maxLines - 1].replace(/…$/, "")}…`;
+      break;
+    }
+
+    lines.push(word);
+  }
+
+  if (lines.length > maxLines) {
+    lines.length = maxLines;
+  }
+
+  if (words.join(" ").length > lines.join(" ").replace(/…$/, "").length) {
+    lines[maxLines - 1] = `${lines[maxLines - 1].replace(/[.,;:!?…]+$/, "")}…`;
+  }
+
+  return lines;
+}
+
+function escapeXml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
 }
 
 function isBannedBlogImage(photo) {

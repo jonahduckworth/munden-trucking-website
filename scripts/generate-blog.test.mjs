@@ -3,9 +3,12 @@ import test from "node:test";
 
 import {
   buildAllowedTopicAngles,
+  buildPexelsQueries,
   chooseTopicPlan,
+  createBlogImage,
   findExistingDuplicate,
   readExistingPosts,
+  renderBrandedCoverSvg,
   runBackfillDates,
 } from "./generate-blog.mjs";
 
@@ -103,4 +106,73 @@ test("backfill still fails when no post was completed", async () => {
     }),
     /first date failed/,
   );
+});
+
+test("stock-preferred image mode cannot block a valid post", async () => {
+  const warnings = [];
+  const image = await createBlogImage(
+    { title: "Brake service notes", slug: "brake-service-notes", keywords: [] },
+    { imageOptions: ["/images/equipment/blog1.jpeg"], defaultImage: "/images/equipment/blog1.jpeg" },
+    [],
+    {
+      env: { BLOG_IMAGE_MODE: "stock-preferred", PEXELS_API_KEY: "test-key" },
+      fetchStockImage: async () => {
+        throw new Error("Pexels returned no unused photos");
+      },
+      createFallbackImage: async () => "/images/blog/generated-fallback.jpg",
+      logger: { warn: (message) => warnings.push(message) },
+    },
+  );
+
+  assert.equal(image, "/images/blog/generated-fallback.jpg");
+  assert.match(warnings[0], /generating a branded blog cover/);
+});
+
+test("stock-required image mode remains available as an explicit strict option", async () => {
+  await assert.rejects(
+    createBlogImage(
+      { title: "Brake service notes", slug: "brake-service-notes", keywords: [] },
+      { imageOptions: [], defaultImage: "/images/equipment/blog1.jpeg" },
+      [],
+      {
+        env: { BLOG_IMAGE_MODE: "stock-required", PEXELS_API_KEY: "test-key" },
+        fetchStockImage: async () => {
+          throw new Error("stock provider unavailable");
+        },
+      },
+    ),
+    /stock provider unavailable/,
+  );
+});
+
+test("Pexels search expands beyond one exhausted generic query", () => {
+  const queries = buildPexelsQueries(
+    {
+      title: "Parking brake complaints before repair",
+      excerpt: "Help a service team diagnose a truck parking brake concern.",
+      keywords: ["truck repair"],
+    },
+    {
+      imageSearchQueries: [
+        "commercial truck mechanic repair shop",
+        "semi truck roadside service",
+      ],
+    },
+  );
+
+  assert.equal(queries[0], "semi truck brake mechanic");
+  assert.ok(queries.length >= 3);
+  assert.equal(new Set(queries).size, queries.length);
+});
+
+test("branded fallback cover escapes generated copy", () => {
+  const svg = renderBrandedCoverSvg({
+    title: "Brakes & wiring <checks>",
+    category: "Parts & Service",
+    date: "2026-07-17",
+  });
+
+  assert.match(svg, /Brakes &amp; wiring &lt;checks&gt;/);
+  assert.match(svg, /PARTS &amp; SERVICE/);
+  assert.match(svg, /2026-07-17/);
 });
