@@ -36,11 +36,11 @@ test("topic selection rejects a duplicate anywhere in the full post library", ()
   );
 });
 
-test("the current library has distinct topic runway beyond the missed backfill", () => {
+test("the current library maintains at least one month of distinct topic runway", () => {
   const posts = readExistingPosts();
   const allowedAngles = buildAllowedTopicAngles(posts);
 
-  assert.ok(allowedAngles.length >= 12, `Expected at least 12 topics, found ${allowedAngles.length}.`);
+  assert.ok(allowedAngles.length >= 30, `Expected at least 30 topics, found ${allowedAngles.length}.`);
 
   for (const candidate of allowedAngles) {
     const duplicate = findExistingDuplicate(
