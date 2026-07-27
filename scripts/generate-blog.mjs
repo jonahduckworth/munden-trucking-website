@@ -10,6 +10,7 @@ const configPath = path.join(rootDir, "content", "blog-config.json");
 const resourcesDir = path.join(rootDir, "content", "resources");
 const blogImagesDir = path.join(rootDir, "public", "images", "blog");
 const timeZone = "America/Edmonton";
+const topicRunwayWarningThreshold = 12;
 
 const args = process.argv.slice(2);
 const isDryRun = args.includes("--dry-run");
@@ -339,6 +340,11 @@ function buildUserPrompt(
 
 export function chooseTopicPlan(existingPosts, date, rejectedTopics = []) {
   const allowedTopicAngles = buildAllowedTopicAngles(existingPosts);
+  if (allowedTopicAngles.length <= topicRunwayWarningThreshold) {
+    console.warn(
+      `Blog topic runway is low (${allowedTopicAngles.length} remaining). Add new candidate angles soon; generation will continue while valid topics remain.`,
+    );
+  }
   const rejectedText = rejectedTopics.join(" ").toLowerCase();
   const availableAngles = allowedTopicAngles.filter((candidate) => {
     const keyPhrase = candidate.angle.toLowerCase().slice(0, 44);
