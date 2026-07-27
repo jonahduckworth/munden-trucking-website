@@ -10,6 +10,7 @@ const configPath = path.join(rootDir, "content", "blog-config.json");
 const resourcesDir = path.join(rootDir, "content", "resources");
 const blogImagesDir = path.join(rootDir, "public", "images", "blog");
 const timeZone = "America/Edmonton";
+const topicRunwayWarningThreshold = 12;
 
 const args = process.argv.slice(2);
 const isDryRun = args.includes("--dry-run");
@@ -339,6 +340,11 @@ function buildUserPrompt(
 
 export function chooseTopicPlan(existingPosts, date, rejectedTopics = []) {
   const allowedTopicAngles = buildAllowedTopicAngles(existingPosts);
+  if (allowedTopicAngles.length <= topicRunwayWarningThreshold) {
+    console.warn(
+      `Blog topic runway is low (${allowedTopicAngles.length} remaining). Add new candidate angles soon; generation will continue while valid topics remain.`,
+    );
+  }
   const rejectedText = rejectedTopics.join(" ").toLowerCase();
   const availableAngles = allowedTopicAngles.filter((candidate) => {
     const keyPhrase = candidate.angle.toLowerCase().slice(0, 44);
@@ -743,6 +749,222 @@ export function buildAllowedTopicAngles(existingPosts) {
       mustCover: "storage duration, battery care, leaks, fluid condition, tire support, return-to-service checks",
       internalLink: "/services/service-department",
     },
+    {
+      angle: "Torque rod and suspension bushing wear clues fleets can catch early",
+      category: "Maintenance Tips",
+      mustCover: "axle movement, clunks, uneven tire wear, cracked rubber, alignment clues, inspection notes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Steering gear, drag link, and tie rod symptoms worth documenting",
+      category: "Maintenance Tips",
+      mustCover: "free play, wander, binding, leaks, uneven steering effort, driver observations",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Engine mount wear signs that can feel like a driveline problem",
+      category: "Maintenance Tips",
+      mustCover: "cab vibration, movement under load, damaged rubber, fan clearance, exhaust stress",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Belt, tensioner, and pulley warning signs before an accessory drive failure",
+      category: "Maintenance Tips",
+      mustCover: "squeal, belt dust, cracks, wobble, bearing noise, inspection timing",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Charge air hose and clamp clues that can explain a loss of boost",
+      category: "Maintenance Tips",
+      mustCover: "oil mist, split boots, loose clamps, whistle sounds, power loss, driver notes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Wiper, washer, and defroster problems that reduce working visibility",
+      category: "Maintenance Tips",
+      mustCover: "blade condition, washer flow, linkage, blower operation, glass condition, repair planning",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Mudflap, fender, and splash guard damage that should not wait",
+      category: "Parts and Service",
+      mustCover: "loose mounts, tire contact, sharp edges, road spray, corrosion, replacement details",
+      internalLink: "/services/parts-department",
+    },
+    {
+      angle: "Air tank moisture observations that help spot air system trouble",
+      category: "Maintenance Tips",
+      mustCover: "drain observations, oil or water, dryer performance, compressor cycling, service records",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Ride height valve symptoms that affect air suspension and tire wear",
+      category: "Maintenance Tips",
+      mustCover: "uneven stance, delayed response, air leaks, linkage damage, tire clearance",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Shock absorber wear clues on trucks and trailers working rough roads",
+      category: "Maintenance Tips",
+      mustCover: "leaks, bounce, cupping, loose mounts, heat, driver feedback",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Spring hanger and shackle wear signs that deserve a closer look",
+      category: "Maintenance Tips",
+      mustCover: "bushing wear, shifted components, rust trails, noise, ride height, inspection planning",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Hub oil and wheel seal observations to record between services",
+      category: "Maintenance Tips",
+      mustCover: "level, colour, leakage, contamination, heat, wheel-end service history",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Tire valve stem and inflation problems that create misleading wear patterns",
+      category: "Equipment Guides",
+      mustCover: "slow leaks, damaged caps, pressure records, dual tires, temperature, inspection routines",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "What to document after a pothole or curb strike before alignment service",
+      category: "Equipment Guides",
+      mustCover: "impact location, steering change, tire damage, wheel condition, photos, driver notes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Brake chamber and slack adjuster clues drivers can report accurately",
+      category: "Maintenance Tips",
+      mustCover: "air leaks, pull, stroke concerns, release behaviour, heat, safe inspection boundaries",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Slow air pressure build symptoms that deserve diagnosis before dispatch",
+      category: "Maintenance Tips",
+      mustCover: "build time, compressor cycling, warning indicators, leaks, dryer symptoms, driver reports",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Power steering leak and steering effort changes worth reporting early",
+      category: "Maintenance Tips",
+      mustCover: "fluid location, pump noise, effort by speed, hose condition, safe shutdown decisions",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Clutch engagement complaints that need more detail than it shifts badly",
+      category: "Equipment Guides",
+      mustCover: "engagement point, slip, chatter, temperature, load, linkage, driver description",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Automatic transmission shift notes that help separate a pattern from a one-time event",
+      category: "Equipment Guides",
+      mustCover: "gear, load, temperature, warning messages, fluid observations, repeat conditions",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Engine oil pressure warnings and observations to record before service",
+      category: "Maintenance Tips",
+      mustCover: "warning timing, gauge behaviour, oil level, leaks, temperature, safe shutdown",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Fuel tank strap, cap, and mounting problems that can grow quietly",
+      category: "Maintenance Tips",
+      mustCover: "loose straps, damaged isolators, seepage, cap seals, corrosion, inspection records",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Door hinge, latch, and weather seal wear that affects daily truck use",
+      category: "Parts and Service",
+      mustCover: "sag, closing effort, water entry, wind noise, hardware wear, replacement details",
+      internalLink: "/services/parts-department",
+    },
+    {
+      angle: "Work light and auxiliary lighting faults on trucks and forestry equipment",
+      category: "Parts and Service",
+      mustCover: "connectors, grounds, switches, vibration, mounting, safe troubleshooting",
+      internalLink: "/services/parts-department",
+    },
+    {
+      angle: "Lift axle control and air leak symptoms fleets should write down",
+      category: "Maintenance Tips",
+      mustCover: "response time, control behaviour, air leaks, load conditions, tire contact, service notes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Dump body hoist and pivot checks before repeated cycling exposes wear",
+      category: "Equipment Guides",
+      mustCover: "pins, bushings, hydraulic leaks, cylinder mounts, controls, safe inspection",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Trailer slider pin and rail problems that complicate axle adjustment",
+      category: "Parts and Service",
+      mustCover: "pin engagement, air controls, debris, rail damage, lubrication, driver reporting",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Cargo anchor and rub rail damage to flag before the next loading cycle",
+      category: "Equipment Guides",
+      mustCover: "cracks, distortion, corrosion, loose fasteners, photos, repair planning",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Logging trailer bunk and stake wear checks for rough-road operations",
+      category: "Forestry Equipment",
+      mustCover: "mounts, cracks, pins, wear surfaces, load handling, operator notes",
+      internalLink: "/services/service-department",
+    },
+    {
+      angle: "Harvester measuring wheel and sensor clues that can affect production records",
+      category: "Forestry Equipment",
+      mustCover: "wear, debris, wiring, calibration symptoms, operator observations, service planning",
+      internalLink: "/equipment/ecolog",
+    },
+    {
+      angle: "Harvester saw unit wear signs crews should record between shifts",
+      category: "Forestry Equipment",
+      mustCover: "bar condition, chain behaviour, lubrication, mounts, cutting changes, parts planning",
+      internalLink: "/equipment/ecolog",
+    },
+    {
+      angle: "Forwarder bogie and articulation checks that support stable travel",
+      category: "Forestry Equipment",
+      mustCover: "pins, bushings, leaks, tire wear, movement, operator walkaround notes",
+      internalLink: "/equipment/ecolog",
+    },
+    {
+      angle: "Fluid sampling notes that make forestry equipment trend reports more useful",
+      category: "Forestry Equipment",
+      mustCover: "hours, sample point, top-ups, operating conditions, contamination, record consistency",
+      internalLink: "/equipment/ecolog",
+    },
+    {
+      angle: "Forestry cab glass, guarding, and access panel checks between jobs",
+      category: "Forestry Equipment",
+      mustCover: "damage, loose hardware, visibility, sealing, latches, operator reports",
+      internalLink: "/equipment/ecolog",
+    },
+    {
+      angle: "How to label and store critical spare parts for a working fleet",
+      category: "Parts and Service",
+      mustCover: "unit fitment, part numbers, shelf condition, reorder points, photos, inventory notes",
+      internalLink: "/services/parts-department",
+    },
+    {
+      angle: "Core return details that help a parts order close out cleanly",
+      category: "Parts and Service",
+      mustCover: "packaging, identification, condition, paperwork, timing, parts counter communication",
+      internalLink: "/services/parts-department",
+    },
+    {
+      angle: "How planned downtime windows help fleets combine related repairs",
+      category: "Equipment Guides",
+      mustCover: "inspection findings, parts lead time, shared labour, unit priority, records, scheduling",
+      internalLink: "/services/service-department",
+    },
   ];
   return candidateAngles.filter((candidate) => {
     const candidatePost = {
@@ -905,86 +1127,106 @@ async function ensurePostImages(posts, config, since) {
   return updatedCount;
 }
 
-async function createBlogImage(post, config, existingPosts = []) {
-  const mode = process.env.BLOG_IMAGE_MODE || "stock-required";
+export async function createBlogImage(
+  post,
+  config,
+  existingPosts = [],
+  {
+    env = process.env,
+    fetchStockImage = fetchPexelsImage,
+    createFallbackImage = createBrandedBlogImage,
+    logger = console,
+  } = {},
+) {
+  const mode = env.BLOG_IMAGE_MODE || "stock-preferred";
   const requiresStockImage = mode === "stock-required";
 
   if (mode === "local") {
-    console.warn("BLOG_IMAGE_MODE=local; using an existing site photo.");
+    logger.warn("BLOG_IMAGE_MODE=local; using an existing site photo.");
     return selectExistingImage(post, config);
   }
 
-  if (!process.env.PEXELS_API_KEY) {
+  if (!env.PEXELS_API_KEY) {
     if (requiresStockImage) {
       throw new Error(
         "PEXELS_API_KEY is required for BLOG_IMAGE_MODE=stock-required. Add it as a GitHub Actions repository secret.",
       );
     }
 
-    console.warn("PEXELS_API_KEY is missing; using an existing site photo.");
-    return selectExistingImage(post, config);
+    logger.warn("PEXELS_API_KEY is missing; generating a branded blog cover.");
+    return createFallbackImage(post, config, existingPosts);
   }
 
-  if (mode === "stock" || mode === "stock-required") {
+  if (mode === "stock" || mode === "stock-preferred" || mode === "stock-required") {
     try {
-      return await fetchPexelsImage(post, config, existingPosts);
+      return await fetchStockImage(post, config, existingPosts, env.PEXELS_API_KEY);
     } catch (error) {
       if (requiresStockImage) {
         throw error;
       }
 
-      console.warn(`Pexels image fetch failed; using existing site photo. ${error.message}`);
+      logger.warn(`Pexels image fetch failed; generating a branded blog cover. ${error.message}`);
     }
   }
 
-  return selectExistingImage(post, config);
+  return createFallbackImage(post, config, existingPosts);
 }
 
-async function fetchPexelsImage(post, config, existingPosts = []) {
-  const query = buildPexelsQuery(post, config);
-  console.log(`Searching Pexels for blog image: "${query}"`);
-  const searchUrl = new URL("https://api.pexels.com/v1/search");
-  searchUrl.searchParams.set("query", query);
-  searchUrl.searchParams.set("orientation", "landscape");
-  searchUrl.searchParams.set("size", "large");
-  searchUrl.searchParams.set("per_page", "20");
-
-  const searchResponse = await fetch(searchUrl, {
-    headers: {
-      Authorization: process.env.PEXELS_API_KEY,
-    },
-  });
-  const searchText = await searchResponse.text();
-
-  if (!searchResponse.ok) {
-    throw new Error(`Pexels search failed (${searchResponse.status}): ${searchText}`);
-  }
-
-  const data = JSON.parse(searchText);
-  const photos = Array.isArray(data.photos) ? data.photos : [];
-
-  if (photos.length === 0) {
-    throw new Error(`No Pexels photos found for query: ${query}`);
-  }
-
+async function fetchPexelsImage(post, config, existingPosts = [], apiKey = process.env.PEXELS_API_KEY) {
   const usedSources = new Set(
     existingPosts
       .map((existingPost) => existingPost.imageSource)
       .filter(Boolean),
   );
-  const unusedPhotos = photos.filter((photo) => {
-    return (
-      photo?.url &&
-      !usedSources.has(photo.url) &&
-      !isBannedBlogImage(photo)
-    );
-  });
+  const queries = buildPexelsQueries(post, config);
+  let selectedPhoto = null;
+  let selectedQuery = "";
 
-  if (unusedPhotos.length === 0) {
-    throw new Error(`Pexels returned only previously used photos for query: ${query}`);
+  for (const query of queries) {
+    console.log(`Searching Pexels for blog image: "${query}"`);
+    const searchUrl = new URL("https://api.pexels.com/v1/search");
+    searchUrl.searchParams.set("query", query);
+    searchUrl.searchParams.set("orientation", "landscape");
+    searchUrl.searchParams.set("size", "large");
+    searchUrl.searchParams.set("per_page", "80");
+
+    const searchResponse = await fetch(searchUrl, {
+      headers: {
+        Authorization: apiKey,
+      },
+    });
+    const searchText = await searchResponse.text();
+
+    if (!searchResponse.ok) {
+      throw new Error(`Pexels search failed (${searchResponse.status}): ${searchText}`);
+    }
+
+    const data = JSON.parse(searchText);
+    const photos = Array.isArray(data.photos) ? data.photos : [];
+    const unusedPhotos = photos.filter((photo) => {
+      return (
+        photo?.url &&
+        !usedSources.has(photo.url) &&
+        !isBannedBlogImage(photo)
+      );
+    });
+
+    if (unusedPhotos.length > 0) {
+      selectedPhoto = unusedPhotos[Math.abs(hashString(post.slug)) % unusedPhotos.length];
+      selectedQuery = query;
+      break;
+    }
+
+    console.warn(`No unused Pexels photos found for query: "${query}"`);
   }
 
-  const selectedPhoto = unusedPhotos[Math.abs(hashString(post.slug)) % unusedPhotos.length];
+  if (!selectedPhoto) {
+    throw new Error(
+      `Pexels returned no unused photos across ${queries.length} search queries.`,
+    );
+  }
+
+  console.log(`Selected an unused Pexels photo from query: "${selectedQuery}"`);
   const imageUrl =
     selectedPhoto?.src?.large2x ||
     selectedPhoto?.src?.large ||
@@ -1023,26 +1265,144 @@ async function fetchPexelsImage(post, config, existingPosts = []) {
   return publicPath;
 }
 
-function buildPexelsQuery(post, config) {
+export function buildPexelsQueries(post, config) {
   const text = `${post.title} ${post.excerpt} ${post.keywords.join(" ")}`.toLowerCase();
+  const queries = [];
 
   if (text.includes("forestry") || text.includes("harvester") || text.includes("forwarder")) {
-    return "logging truck forest road";
+    queries.push("forestry equipment logging road", "logging truck forest road");
   }
 
-  if (text.includes("parts") || text.includes("service") || text.includes("repair")) {
-    return "commercial truck mechanic repair shop";
+  if (text.includes("brake")) {
+    queries.push("semi truck brake mechanic");
   }
 
-  if (text.includes("inspection") || text.includes("safety") || text.includes("cvip")) {
-    return "commercial truck inspection garage";
+  if (text.includes("electrical") || text.includes("battery") || text.includes("wiring")) {
+    queries.push("truck electrical repair mechanic");
   }
 
   if (text.includes("mobile") || text.includes("roadside")) {
-    return "semi truck roadside service";
+    queries.push("semi truck roadside service");
   }
 
-  return config.imageSearchQueries?.[0] || "semi truck highway";
+  if (text.includes("trailer")) {
+    queries.push("commercial semi trailer repair");
+  }
+
+  if (text.includes("inspection") || text.includes("safety") || text.includes("cvip")) {
+    queries.push("commercial truck inspection garage");
+  }
+
+  if (text.includes("parts")) {
+    queries.push("heavy truck parts workshop");
+  }
+
+  if (text.includes("service") || text.includes("repair") || text.includes("maintenance")) {
+    queries.push("commercial truck mechanic workshop");
+  }
+
+  queries.push(...(config.imageSearchQueries || []), "semi truck highway");
+  return [...new Set(queries)].slice(0, 5);
+}
+
+async function createBrandedBlogImage(post) {
+  const { default: sharp } = await import("sharp");
+  const imageFileName = `${post.date}-${post.slug}.jpg`;
+  const publicPath = `/images/blog/${imageFileName}`;
+  const outputPath = path.join(blogImagesDir, imageFileName);
+  const svg = renderBrandedCoverSvg(post);
+
+  fs.mkdirSync(blogImagesDir, { recursive: true });
+  await sharp(Buffer.from(svg))
+    .jpeg({ quality: 88, chromaSubsampling: "4:4:4" })
+    .toFile(outputPath);
+
+  post.imageCredit = "Munden Truck & Equipment";
+  post.imageSource = "";
+  console.log(`Generated branded blog image: ${path.relative(rootDir, outputPath)}`);
+  return publicPath;
+}
+
+export function renderBrandedCoverSvg(post) {
+  const titleLines = wrapCoverTitle(post.title, 34, 3);
+  const titleMarkup = titleLines
+    .map(
+      (line, index) =>
+        `<tspan x="112" dy="${index === 0 ? 0 : 82}">${escapeXml(line)}</tspan>`,
+    )
+    .join("");
+  const category = escapeXml(
+    String(post.category || "Munden Resources").toUpperCase(),
+  );
+  const date = escapeXml(post.date || "");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="65%" stop-color="#172554"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M 56 0 L 0 0 0 56" fill="none" stroke="#ffffff" stroke-opacity="0.055" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#background)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <circle cx="1440" cy="110" r="330" fill="#f59e0b" fill-opacity="0.13"/>
+  <circle cx="1500" cy="820" r="430" fill="#14b8a6" fill-opacity="0.12"/>
+  <rect x="112" y="106" width="176" height="14" rx="7" fill="#f59e0b"/>
+  <text x="112" y="184" fill="#fbbf24" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" letter-spacing="3">${category}</text>
+  <text x="112" y="328" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="700">${titleMarkup}</text>
+  <line x1="112" y1="728" x2="1488" y2="728" stroke="#ffffff" stroke-opacity="0.28" stroke-width="2"/>
+  <text x="112" y="800" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">MUNDEN TRUCK &amp; EQUIPMENT</text>
+  <text x="1488" y="800" text-anchor="end" fill="#d1d5db" font-family="Arial, Helvetica, sans-serif" font-size="28">Kamloops, BC  •  ${date}</text>
+</svg>`;
+}
+
+function wrapCoverTitle(value, maxCharacters, maxLines) {
+  const words = cleanOneLine(value).split(" ").filter(Boolean);
+  const lines = [];
+
+  for (const word of words) {
+    const current = lines.at(-1) || "";
+    const candidate = current ? `${current} ${word}` : word;
+
+    if (!current || candidate.length <= maxCharacters) {
+      if (lines.length === 0) {
+        lines.push(candidate);
+      } else {
+        lines[lines.length - 1] = candidate;
+      }
+      continue;
+    }
+
+    if (lines.length === maxLines) {
+      lines[maxLines - 1] = `${lines[maxLines - 1].replace(/…$/, "")}…`;
+      break;
+    }
+
+    lines.push(word);
+  }
+
+  if (lines.length > maxLines) {
+    lines.length = maxLines;
+  }
+
+  if (words.join(" ").length > lines.join(" ").replace(/…$/, "").length) {
+    lines[maxLines - 1] = `${lines[maxLines - 1].replace(/[.,;:!?…]+$/, "")}…`;
+  }
+
+  return lines;
+}
+
+function escapeXml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
 }
 
 function isBannedBlogImage(photo) {
