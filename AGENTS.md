@@ -15,9 +15,10 @@ Codex guidance for the Munden Truck & Equipment website.
 - Use npm; CI installs with npm.
 - Preserve SEO metadata, structured data, sitemap behavior, and local-business content.
 - For generated blog work, use the existing `blog:*` scripts.
-- The daily blog workflow may generate content and open a pull request. Treat
-  publishing, external AI calls, and stock-image selection as explicit actions;
-  never invent local-business facts.
+- The scheduled daily blog workflow generates content and pushes its commit
+  directly to `main`; it does not open a pull request. Treat manual dispatch,
+  publishing, external AI calls, and stock-image selection as explicit actions,
+  and never invent local-business facts.
 - For UI changes, verify responsive layout visually when practical.
 
 ## Commands
