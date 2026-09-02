@@ -92,6 +92,122 @@
       "url": "/about/contact"
     }
   ],
+  "topicLinkTargets": [
+    {
+      "department": "service",
+      "label": "CVIP inspections",
+      "url": "/services/service-department/cvip-inspections",
+      "matchTerms": ["cvip", "commercial vehicle inspection", "inspection readiness", "inspection date"]
+    },
+    {
+      "department": "service",
+      "label": "preventive maintenance and fleet programs",
+      "url": "/services/service-department/preventive-maintenance-fleet-programs",
+      "matchTerms": ["preventive maintenance", "maintenance records", "fleet", "planned downtime", "service history", "walkaround", "maintenance schedule", "shop visit"]
+    },
+    {
+      "department": "service",
+      "label": "diesel engine diagnostics and repair",
+      "url": "/services/service-department/diesel-engine-repair",
+      "matchTerms": ["engine", "turbo", "fuel system", "fuel water", "cooling", "coolant", "radiator", "oil pressure", "aftertreatment", "exhaust"]
+    },
+    {
+      "department": "service",
+      "label": "transmission and drivetrain repair",
+      "url": "/services/service-department/transmission-drivetrain-repair",
+      "matchTerms": ["transmission", "drivetrain", "driveline", "clutch", "differential", "driveshaft", "u-joint", "carrier bearing", "transfer case"]
+    },
+    {
+      "department": "service",
+      "label": "commercial brake and ABS repair",
+      "url": "/services/service-department/commercial-brake-abs-repair",
+      "matchTerms": ["brake", "abs", "air pressure", "air dryer", "air tank", "brake chamber", "slack adjuster", "parking brake", "compressor cycling"]
+    },
+    {
+      "department": "service",
+      "label": "electrical diagnostics and repair",
+      "url": "/services/service-department/electrical-diagnostics-repair",
+      "matchTerms": ["electrical", "wiring", "battery", "alternator", "starter", "fuse", "lighting", "work light", "wiper", "washer", "defroster"]
+    },
+    {
+      "department": "service",
+      "label": "steering, suspension, and alignment service",
+      "url": "/services/service-department/steering-suspension-alignment",
+      "matchTerms": ["steering", "suspension", "alignment", "tire wear", "kingpin", "shock absorber", "spring hanger", "ride height", "torque rod", "pothole"]
+    },
+    {
+      "department": "service",
+      "label": "hydraulic repair and hose service",
+      "url": "/services/service-department/hydraulic-repair-hose-service",
+      "matchTerms": ["hydraulic", "hose", "cylinder", "control valve", "pump"]
+    },
+    {
+      "department": "service",
+      "label": "crane inspections and repair",
+      "url": "/services/service-department/crane-inspections-repair",
+      "matchTerms": ["crane", "boom", "wire rope", "load test"]
+    },
+    {
+      "department": "service",
+      "label": "reefer and transport refrigeration service",
+      "url": "/services/service-department/reefer-refrigeration-service",
+      "matchTerms": ["reefer", "refrigeration", "temperature control", "refrigerated trailer"]
+    },
+    {
+      "department": "service",
+      "label": "welding, fabrication, and frame repair",
+      "url": "/services/service-department/welding-fabrication-frame-repair",
+      "matchTerms": ["welding", "fabrication", "frame", "crossmember", "corrosion", "structural", "crack", "trailer floor", "trailer roof", "cargo anchor", "rub rail", "bunk", "stake"]
+    },
+    {
+      "department": "service",
+      "label": "Webasto engine and cab heater service",
+      "url": "/services/service-department/webasto-engine-cab-heaters",
+      "matchTerms": ["webasto", "engine heater", "cab heater", "heater", "cold-weather heater"]
+    },
+    {
+      "department": "service",
+      "label": "truck rigouts, PTOs, and wet kits",
+      "url": "/services/service-department/truck-rigouts-pto-wet-kits",
+      "matchTerms": ["rigout", "wet kit", "pto", "fifth wheel", "lowbed", "dump body", "liftgate", "lift axle", "trailer slider"]
+    },
+    {
+      "department": "parts",
+      "label": "engine and drivetrain parts",
+      "url": "/services/parts-department/engine-drivetrain-parts",
+      "matchTerms": ["engine", "turbocharger", "fuel injector", "transmission", "clutch", "differential", "driveshaft", "core return"]
+    },
+    {
+      "department": "parts",
+      "label": "brake and safety parts",
+      "url": "/services/parts-department/brake-safety-parts",
+      "matchTerms": ["brake", "abs", "air system", "chamber", "slack adjuster", "drum", "rotor", "safety hardware"]
+    },
+    {
+      "department": "parts",
+      "label": "electrical parts and components",
+      "url": "/services/parts-department/electrical-parts-components",
+      "matchTerms": ["electrical", "battery", "alternator", "starter", "wiring", "lighting", "fuse", "work light", "auxiliary lighting"]
+    },
+    {
+      "department": "parts",
+      "label": "hydraulic parts, hoses, and fittings",
+      "url": "/services/parts-department/hydraulic-parts-hoses",
+      "matchTerms": ["hydraulic", "hose", "fitting", "pump", "cylinder", "valve", "seal"]
+    },
+    {
+      "department": "parts",
+      "label": "suspension and steering parts",
+      "url": "/services/parts-department/suspension-steering-parts",
+      "matchTerms": ["suspension", "steering", "spring", "shock", "kingpin", "u-bolt", "ride height"]
+    },
+    {
+      "department": "parts",
+      "label": "filters, fluids, and maintenance parts",
+      "url": "/services/parts-department/filters-fluids-maintenance-parts",
+      "matchTerms": ["filter", "fluid", "lubricant", "belt", "gasket", "maintenance item", "spare parts", "inventory", "door hinge", "latch", "weather seal"]
+    }
+  ],
   "bannedClaims": [
     "guaranteed lowest price",
     "guaranteed ranking",

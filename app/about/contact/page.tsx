@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -55,6 +55,28 @@ export default function ContactPage() {
       message: "",
     },
   });
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const subject = params.get("subject");
+    const topic = params.get("topic");
+    const allowedSubjects = new Set([
+      "service",
+      "parts",
+      "cvip",
+      "equipment",
+      "emergency",
+      "other",
+    ]);
+
+    if (subject && allowedSubjects.has(subject)) {
+      form.setValue("subject", subject);
+    }
+
+    if (topic) {
+      form.setValue("message", `I'm contacting you about ${topic}. `);
+    }
+  }, [form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);

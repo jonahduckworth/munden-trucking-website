@@ -22,7 +22,7 @@ When a truck comes in with vibration, the usual places to inspect are the u-join
 
 Imbalance is another common issue. A shaft that has lost balance, taken an impact, or been reinstalled incorrectly can transmit a vibration that feels like it is coming through the floor, seat, or cab. That kind of problem may not be obvious until the truck is driven under the right load.
 
-If you want a shop to trace the concern efficiently, bring it in with notes from the road. A short description of speed range, load condition, recent service, and whether the vibration changes on acceleration or coast-down can save time during diagnosis. If needed, our [service department](/services/service-department) can help sort out what should be inspected first.
+If you want a shop to trace the concern efficiently, bring it in with notes from the road. A short description of speed range, load condition, recent service, and whether the vibration changes on acceleration or coast-down can save time during diagnosis. If needed, our [transmission and drivetrain service](/services/service-department/transmission-drivetrain-repair) can help sort out what should be inspected first.
 
 ## How load changes help narrow the cause
 A driveline complaint that appears only when loaded is different from one that shows up empty. Load can change how the suspension settles, how the driveline sits at ride height, and how much stress is placed on joints and support bearings. A problem that gets worse on a grade, during a pull, or after a trailer is coupled may deserve a driveline inspection before more wear shows up elsewhere.

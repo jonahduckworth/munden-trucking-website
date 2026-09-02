@@ -35,7 +35,7 @@ Each run:
 3. Fetches short summaries from configured competitor and industry URLs.
 4. Sends that compact research digest to OpenAI and generates markdown posts for missing dates in order.
 5. Gives the model a rotating set of allowed topic angles, rejects topics that overlap recent posts, and retries with a different angle.
-6. Adds a relevant internal link automatically if the generated body omits one.
+6. Routes service and parts topics to the most relevant dedicated department page and adds that exact internal link if the generated body omits it.
 7. Fetches a relevant stock photo into `public/images/blog`, or uses an existing real site photo when `BLOG_IMAGE_MODE=local`.
 8. Validates the post for safety, duplicate topics, required sources, internal links, and markdown-only content.
 9. Builds the site.
@@ -66,6 +66,9 @@ Edit `content/blog-config.json` to tune the system:
 - `targetKeywords`: add local SEO phrases to prioritize.
 - `bannedClaims`: add phrases or claim types the model must avoid.
 - `requiredInternalLinks`: add site pages the model can link to from posts.
+- `topicLinkTargets`: map service and parts search terms to their most relevant dedicated pages. Each entry needs a `label`, `url`, `department`, and a focused list of `matchTerms`. Explicit topic angles can also point directly to one of these URLs.
 - `imageOptions`: add existing local image paths that can be used as featured images.
 
 Competitor URLs are for topic-gap research only. The published posts should not name competitors or copy their language.
+
+Generic Service Department and Parts Department topic angles are scored against `topicLinkTargets` before generation. The selected dedicated page becomes the post's primary internal-link destination, while the department hub and contact page remain supporting options. Mobile Service and EcoLog topic angles are intentionally left on their existing destinations.

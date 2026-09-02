@@ -33,7 +33,7 @@ The best notes are specific and tied to the unit. Drivers should include:
 ## How notes help with service scheduling
 Preventive maintenance is easier when the shop can see patterns. If several drivers report the same trailer air loss, the unit can be scheduled before it fails during a load. If one truck keeps showing coolant residue, the shop can inspect it before a grade exposes the problem. If the same light or wiring concern returns after every rough route, the repair can target the cause rather than the symptom.
 
-Share those notes when booking with the [service department](/services/service-department). The more context the shop has, the easier it is to plan inspection time, parts, and downtime.
+Share those notes when booking [preventive maintenance or fleet service](/services/service-department/preventive-maintenance-fleet-programs). The more context the shop has, the easier it is to plan inspection time, parts, and downtime.
 
 ## Records also support inspection readiness
 Good walkaround records help fleets prepare for inspections and service intervals. They show which defects were noticed, when they were addressed, and whether they repeated. That matters for CVIP planning, internal maintenance accountability, and day-to-day confidence in the equipment.

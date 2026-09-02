@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import test from "node:test";
 
 import {
@@ -6,11 +7,17 @@ import {
   buildPexelsQueries,
   chooseTopicPlan,
   createBlogImage,
+  ensureInternalLink,
   findExistingDuplicate,
   readExistingPosts,
   renderBrandedCoverSvg,
+  routeTopicPlan,
   runBackfillDates,
 } from "./generate-blog.mjs";
+
+const blogConfig = JSON.parse(
+  fs.readFileSync(new URL("../content/blog-config.json", import.meta.url), "utf8"),
+);
 
 test("topic selection rejects a duplicate anywhere in the full post library", () => {
   const posts = Array.from({ length: 30 }, (_, index) => ({
@@ -69,6 +76,88 @@ test("a rejected topic is not selected again on the next attempt", () => {
   );
 
   assert.notEqual(second.angle, first.angle);
+});
+
+test("service topics route to the most relevant dedicated landing page", () => {
+  const routed = routeTopicPlan(
+    {
+      angle: "Air brake leak clues drivers should report",
+      mustCover: "brake chamber, air pressure, compressor cycling",
+      internalLink: "/services/service-department",
+    },
+    blogConfig,
+  );
+
+  assert.equal(
+    routed.internalLink,
+    "/services/service-department/commercial-brake-abs-repair",
+  );
+  assert.equal(routed.linkLabel, "commercial brake and ABS repair");
+});
+
+test("parts topics route to a dedicated parts category", () => {
+  const routed = routeTopicPlan(
+    {
+      angle: "Work light and auxiliary lighting faults",
+      mustCover: "wiring, connectors, switches, mounting",
+      internalLink: "/services/parts-department",
+    },
+    blogConfig,
+  );
+
+  assert.equal(
+    routed.internalLink,
+    "/services/parts-department/electrical-parts-components",
+  );
+});
+
+test("mobile and EcoLog topic destinations remain unchanged", () => {
+  const mobile = routeTopicPlan(
+    {
+      angle: "Roadside repair planning",
+      mustCover: "location and driver notes",
+      internalLink: "/services/mobile-service",
+    },
+    blogConfig,
+  );
+  const ecolog = routeTopicPlan(
+    {
+      angle: "Forwarder service planning",
+      mustCover: "operator notes",
+      internalLink: "/equipment/ecolog",
+    },
+    blogConfig,
+  );
+
+  assert.equal(mobile.internalLink, "/services/mobile-service");
+  assert.equal(ecolog.internalLink, "/equipment/ecolog");
+});
+
+test("the selected primary destination is added even when another internal link exists", () => {
+  const body =
+    "See the [Service Department](/services/service-department) for general help.";
+  const updated = ensureInternalLink(body, {
+    internalLink: "/services/service-department/commercial-brake-abs-repair",
+    linkLabel: "commercial brake and ABS repair",
+  });
+
+  assert.match(
+    updated,
+    /\[commercial brake and ABS repair\]\(\/services\/service-department\/commercial-brake-abs-repair\)/,
+  );
+});
+
+test("topic link catalog includes unique routes for all new pages", () => {
+  const targets = blogConfig.topicLinkTargets;
+  const urls = targets.map((target) => target.url);
+
+  assert.equal(targets.length, 19);
+  assert.equal(new Set(urls).size, targets.length);
+  assert.ok(
+    urls.every((url) =>
+      /^\/services\/(?:service-department|parts-department)\/[a-z0-9-]+$/.test(url),
+    ),
+  );
 });
 
 test("backfill preserves completed posts when a later date fails", async () => {
