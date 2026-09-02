@@ -73,7 +73,7 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
           </span>
         </Link>
 
-        <nav className="hidden min-w-0 items-center gap-3 lg:flex" aria-label="Main navigation">
+        <nav className="hidden min-w-0 items-center gap-3 xl:flex" aria-label="Main navigation">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -220,12 +220,12 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
 
           <a
             href="tel:+12508282268"
-            className="hidden min-h-11 items-center gap-2 rounded-md px-2 text-sm text-white outline-none hover:text-white/80 focus-visible:ring-2 focus-visible:ring-white xl:flex dark:text-foreground"
+            className="hidden min-h-11 items-center gap-2 rounded-md px-2 text-sm text-white outline-none hover:text-white/80 focus-visible:ring-2 focus-visible:ring-white 2xl:flex dark:text-foreground"
           >
             <Phone className="h-4 w-4" />
             <span>250-828-2268</span>
           </a>
-          <div className="hidden lg:block">
+          <div className="hidden xl:block">
             <SocialLinks size={20} />
           </div>
           <div className="hidden 2xl:block">
@@ -233,7 +233,7 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
           </div>
         </nav>
 
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-2 xl:hidden">
           <ThemeToggle />
           <button
             type="button"
@@ -251,7 +251,7 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
       {isMenuOpen && (
         <div
           id="mobile-navigation"
-          className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-white/20 bg-munden-burgundy lg:hidden dark:bg-background"
+          className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-white/20 bg-munden-burgundy xl:hidden dark:bg-background"
         >
           <nav className="container space-y-2 py-4" aria-label="Mobile navigation">
             <MobileDisclosure
