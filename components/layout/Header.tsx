@@ -228,7 +228,7 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
           <div className="hidden xl:block">
             <SocialLinks size={20} />
           </div>
-          <div className="hidden 2xl:block">
+          <div className="hidden xl:block">
             <ThemeToggle />
           </div>
         </nav>
