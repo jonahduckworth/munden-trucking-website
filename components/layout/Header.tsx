@@ -225,7 +225,7 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
             <Phone className="h-4 w-4" />
             <span>250-828-2268</span>
           </a>
-          <div className="hidden xl:block">
+          <div className="hidden lg:block">
             <SocialLinks size={20} />
           </div>
           <div className="hidden 2xl:block">
