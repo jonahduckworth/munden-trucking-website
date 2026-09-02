@@ -115,15 +115,19 @@ export function DepartmentHub({ kind }: DepartmentHubProps) {
               {groups.map((group) => {
                 const Icon =
                   groupIcons[group.name as keyof typeof groupIcons] ?? Wrench;
+                const sectionId = `${kind}-${group.name
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]+/g, "-")
+                  .replace(/^-+|-+$/g, "")}`;
 
                 return (
-                  <section key={group.name} aria-labelledby={`${kind}-${group.name}`}>
+                  <section key={group.name} aria-labelledby={sectionId}>
                     <div className="mb-5 flex items-center gap-3">
                       <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                         <Icon className="h-5 w-5" aria-hidden="true" />
                       </span>
                       <h2
-                        id={`${kind}-${group.name}`}
+                        id={sectionId}
                         className="text-2xl font-semibold"
                       >
                         {group.name}

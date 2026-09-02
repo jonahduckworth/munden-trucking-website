@@ -225,6 +225,9 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
             <Phone className="h-4 w-4" />
             <span>250-828-2268</span>
           </a>
+          <div className="hidden xl:block">
+            <SocialLinks size={20} />
+          </div>
           <div className="hidden 2xl:block">
             <ThemeToggle />
           </div>
@@ -362,11 +365,62 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
                   Call 250-828-2268
                 </a>
               </Button>
+              <div className="mt-3">
+                <SocialLinks size={24} />
+              </div>
             </div>
           </nav>
         </div>
       )}
     </header>
+  );
+}
+
+const socialLinks = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/MundenGroup/",
+    image: "/images/social/fb.png",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/p/CiSq0mELIXD/",
+    image: "/images/social/ig.svg",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://ca.linkedin.com/company/mundengroup",
+    image: "/images/social/linked.png",
+  },
+  {
+    label: "Google Reviews",
+    href: "https://www.google.com/search?q=Munden+Truck+%26+Equipment+Ltd.+Reviews",
+    image: "/images/social/google.png",
+  },
+];
+
+function SocialLinks({ size }: { size: number }) {
+  return (
+    <div className="flex items-center justify-center gap-1" aria-label="Social and review links">
+      {socialLinks.map((link) => (
+        <a
+          key={link.label}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-md outline-none transition-opacity hover:bg-white/10 hover:opacity-80 focus-visible:ring-2 focus-visible:ring-white"
+          aria-label={link.label}
+        >
+          <Image
+            src={link.image}
+            alt=""
+            width={size}
+            height={size}
+            className={size === 24 ? "h-6 w-6" : "h-5 w-5"}
+          />
+        </a>
+      ))}
+    </div>
   );
 }
 

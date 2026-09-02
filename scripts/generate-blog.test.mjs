@@ -18,6 +18,10 @@ import {
 const blogConfig = JSON.parse(
   fs.readFileSync(new URL("../content/blog-config.json", import.meta.url), "utf8"),
 );
+const departmentPageSource = fs.readFileSync(
+  new URL("../lib/department-pages.ts", import.meta.url),
+  "utf8",
+);
 
 test("topic selection rejects a duplicate anywhere in the full post library", () => {
   const posts = Array.from({ length: 30 }, (_, index) => ({
@@ -158,6 +162,28 @@ test("topic link catalog includes unique routes for all new pages", () => {
       /^\/services\/(?:service-department|parts-department)\/[a-z0-9-]+$/.test(url),
     ),
   );
+});
+
+test("topic link targets stay synchronized with the department page catalog", () => {
+  const [serviceSource, partsAndFollowing] = departmentPageSource
+    .split("export const serviceDepartmentPages")[1]
+    .split("export const partsDepartmentPages");
+  const partsSource = partsAndFollowing.split("export const allDepartmentPages")[0];
+  const pageSlugs = (source) =>
+    [...source.matchAll(/^    slug: "([^"]+)",$/gm)].map((match) => match[1]);
+  const pageUrls = [
+    ...pageSlugs(serviceSource).map(
+      (slug) => `/services/service-department/${slug}`,
+    ),
+    ...pageSlugs(partsSource).map(
+      (slug) => `/services/parts-department/${slug}`,
+    ),
+  ].sort();
+  const targetUrls = blogConfig.topicLinkTargets
+    .map((target) => target.url)
+    .sort();
+
+  assert.deepEqual(targetUrls, pageUrls);
 });
 
 test("backfill preserves completed posts when a later date fails", async () => {
