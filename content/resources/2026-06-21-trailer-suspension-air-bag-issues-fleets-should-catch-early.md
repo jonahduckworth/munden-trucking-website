@@ -36,9 +36,9 @@ Ride height is not just about appearance. If a trailer is not sitting correctly,
 That is why a service visit should look at the air bag, related plumbing, valves, suspension components, and any tire-wear clues together. A single failed part may be obvious, but the reason it failed is also worth checking.
 
 ## Parts planning can reduce downtime
-Air suspension repairs may involve bags, fittings, lines, valves, hardware, or related components. Photos of the affected area and the trailer details help the [parts department](/services/parts-department) confirm what may be needed before the trailer arrives.
+Air suspension repairs may involve bags, fittings, lines, valves, hardware, or related components. Photos of the affected area and the trailer details help the [suspension and steering parts team](/services/parts-department/suspension-steering-parts) confirm what may be needed before the trailer arrives.
 
-If the trailer is part of a busy rotation, say so when booking. The [service department](/services/service-department) can plan the inspection and repair more effectively when they know whether the trailer has a hard dispatch deadline.
+If the trailer is part of a busy rotation, say so when booking. The [steering and suspension service team](/services/service-department/steering-suspension-alignment) can plan the inspection and repair more effectively when they know whether the trailer has a hard dispatch deadline.
 
 ## Keep repeat issues visible
 If the same trailer repeatedly has air leaks, ride-height complaints, or tire wear, keep those notes together. Repeat issues can point to rubbing, alignment, loading patterns, damaged brackets, or operating conditions that need a broader look.

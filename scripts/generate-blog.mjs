@@ -214,7 +214,10 @@ async function generatePost(config, existingPosts, date, researchDigest, rejecte
     process.env.BLOG_MAX_OUTPUT_TOKENS || "2800",
     10,
   );
-  const topicPlan = chooseTopicPlan(existingPosts, date, rejectedTopics);
+  const topicPlan = routeTopicPlan(
+    chooseTopicPlan(existingPosts, date, rejectedTopics),
+    config,
+  );
   console.log(`Selected blog topic: ${topicPlan.angle}`);
   const response = await createOpenAIResponse({
     method: "POST",
@@ -288,7 +291,23 @@ function buildUserPrompt(
         `${post.date}: ${post.title} [${post.category}] ${post.excerpt.slice(0, 150)}`,
     )
     .join("\n");
-  const allowedTopicAngles = buildAllowedTopicAngles(existingPosts);
+  const allowedTopicAngles = buildAllowedTopicAngles(existingPosts).map((angle) =>
+    routeTopicPlan(angle, config),
+  );
+  const primaryInternalLink = {
+    label: topicPlan.linkLabel || "Munden service and parts support",
+    url: topicPlan.internalLink,
+  };
+  const supportingInternalLinks = [
+    primaryInternalLink,
+    ...config.requiredInternalLinks.filter(
+      (link) =>
+        link.url !== primaryInternalLink.url &&
+        (link.url === "/about/contact" ||
+          link.url === "/services/service-department" ||
+          link.url === "/services/parts-department"),
+    ),
+  ].slice(0, 3);
 
   return JSON.stringify(
     {
@@ -307,8 +326,7 @@ function buildUserPrompt(
         .slice(0, 3)
         .map((source) => `${source.name}: ${source.url}`)
         .join("; "),
-      internalLinks: config.requiredInternalLinks
-        .slice(0, 4)
+      internalLinks: supportingInternalLinks
         .map((link) => `${link.label}: ${link.url}`)
         .join("; "),
       bannedClaims: config.bannedClaims,
@@ -330,6 +348,7 @@ function buildUserPrompt(
         "Use the research digest for competitor and industry topic gaps, but do not name competitors in the article.",
         "Use at least three credible source URLs in the sources array from the research digest or Munden site.",
         "Include 1 or 2 internal markdown links in the body using natural anchor text, not exact SEO keyword phrases.",
+        `The body must link to the selected topic's primary destination: ${topicPlan.internalLink}`,
         "Write 475 to 625 words.",
         "Avoid invented certifications, hours, prices, warranties, or service guarantees.",
         "For image guidance, prefer commercial trucks, trailers, repair shops, parts counters, forestry roads, logging trucks, or EcoLog forestry equipment. Do not request farm tractors, farm fields, crop agriculture, or unrelated agricultural machinery.",
@@ -355,6 +374,69 @@ export function chooseTopicPlan(existingPosts, date, rejectedTopics = []) {
   }
 
   return availableAngles[(hashString(date) + rejectedTopics.length) % availableAngles.length];
+}
+
+export function routeTopicPlan(topicPlan, config) {
+  if (!topicPlan?.internalLink) {
+    return topicPlan;
+  }
+
+  const existingTarget = (config.topicLinkTargets || []).find(
+    (target) => target.url === topicPlan.internalLink,
+  );
+
+  if (existingTarget) {
+    return { ...topicPlan, linkLabel: existingTarget.label };
+  }
+
+  const department =
+    topicPlan.internalLink === "/services/service-department"
+      ? "service"
+      : topicPlan.internalLink === "/services/parts-department"
+        ? "parts"
+        : null;
+
+  if (!department) {
+    const fallbackTarget = (config.requiredInternalLinks || []).find(
+      (target) => target.url === topicPlan.internalLink,
+    );
+    return {
+      ...topicPlan,
+      linkLabel: fallbackTarget?.label || "Munden team",
+    };
+  }
+
+  const topicText = `${topicPlan.angle || ""} ${topicPlan.mustCover || ""}`.toLowerCase();
+  const rankedTargets = (config.topicLinkTargets || [])
+    .filter((target) => target.department === department)
+    .map((target, index) => ({
+      target,
+      index,
+      score: (target.matchTerms || []).reduce(
+        (score, term) =>
+          score + (topicText.includes(String(term).toLowerCase()) ? 1 : 0),
+        0,
+      ),
+    }))
+    .filter((result) => result.score > 0)
+    .sort((a, b) => b.score - a.score || a.index - b.index);
+  const selectedTarget = rankedTargets[0]?.target;
+
+  if (!selectedTarget) {
+    const fallbackTarget = (config.requiredInternalLinks || []).find(
+      (target) => target.url === topicPlan.internalLink,
+    );
+    return {
+      ...topicPlan,
+      linkLabel: fallbackTarget?.label || "Munden team",
+    };
+  }
+
+  return {
+    ...topicPlan,
+    internalLink: selectedTarget.url,
+    linkLabel: selectedTarget.label,
+  };
 }
 
 export function buildAllowedTopicAngles(existingPosts) {
@@ -965,6 +1047,120 @@ export function buildAllowedTopicAngles(existingPosts) {
       mustCover: "inspection findings, parts lead time, shared labour, unit priority, records, scheduling",
       internalLink: "/services/service-department",
     },
+    {
+      angle: "How fleets can build a practical calendar around upcoming CVIP dates",
+      category: "Equipment Guides",
+      mustCover: "unit list, due dates, inspection records, repair lead time, driver reports, scheduling",
+      internalLink: "/services/service-department/cvip-inspections",
+    },
+    {
+      angle: "When a change in duty cycle should trigger a preventive maintenance review",
+      category: "Maintenance Tips",
+      mustCover: "loads, routes, idle time, dust, service intervals, maintenance records",
+      internalLink: "/services/service-department/preventive-maintenance-fleet-programs",
+    },
+    {
+      angle: "Diesel engine blow-by observations operators should describe before service",
+      category: "Maintenance Tips",
+      mustCover: "visible vapour, oil use, pressure signs, load, temperature, safe inspection boundaries",
+      internalLink: "/services/service-department/diesel-engine-repair",
+    },
+    {
+      angle: "U-joint and carrier bearing clues that can narrow down a driveline complaint",
+      category: "Maintenance Tips",
+      mustCover: "speed, load, vibration, grease, movement, recent driveline work",
+      internalLink: "/services/service-department/transmission-drivetrain-repair",
+    },
+    {
+      angle: "Air compressor cycling notes that help diagnose commercial brake system concerns",
+      category: "Maintenance Tips",
+      mustCover: "cycle frequency, build time, audible leaks, warning indicators, air use, driver notes",
+      internalLink: "/services/service-department/commercial-brake-abs-repair",
+    },
+    {
+      angle: "Connector pin corrosion clues behind intermittent truck electrical faults",
+      category: "Parts and Service",
+      mustCover: "moisture, pin condition, terminal fit, voltage drop, vibration, repair history",
+      internalLink: "/services/service-department/electrical-diagnostics-repair",
+    },
+    {
+      angle: "What a changing steering wheel position can tell a service team",
+      category: "Maintenance Tips",
+      mustCover: "alignment, tire wear, steering linkage, suspension movement, road impacts, driver notes",
+      internalLink: "/services/service-department/steering-suspension-alignment",
+    },
+    {
+      angle: "Hydraulic cylinder drift observations that make diagnosis more productive",
+      category: "Equipment Guides",
+      mustCover: "load, temperature, movement rate, external leaks, controls, safe blocking",
+      internalLink: "/services/service-department/hydraulic-repair-hose-service",
+    },
+    {
+      angle: "Truck-mounted crane control symptoms operators should document before repair",
+      category: "Equipment Guides",
+      mustCover: "affected function, boom position, load, hydraulic temperature, controls, safety devices",
+      internalLink: "/services/service-department/crane-inspections-repair",
+    },
+    {
+      angle: "Why reefer alarm history matters when a temperature fault disappears",
+      category: "Maintenance Tips",
+      mustCover: "set point, displayed temperature, alarm codes, ambient conditions, load, operating hours",
+      internalLink: "/services/service-department/reefer-refrigeration-service",
+    },
+    {
+      angle: "Why cracked truck brackets need the surrounding mounts inspected too",
+      category: "Parts and Service",
+      mustCover: "load path, fasteners, movement, corrosion, previous welds, repair planning",
+      internalLink: "/services/service-department/welding-fabrication-frame-repair",
+    },
+    {
+      angle: "Starting a Webasto heater before cold season exposes problems early",
+      category: "Maintenance Tips",
+      mustCover: "start cycle, controller faults, battery condition, coolant circulation, fuel, exhaust",
+      internalLink: "/services/service-department/webasto-engine-cab-heaters",
+    },
+    {
+      angle: "Information a shop needs before planning a PTO and wet kit installation",
+      category: "Equipment Guides",
+      mustCover: "truck specifications, driven equipment, flow, pressure, tank, controls, component fit",
+      internalLink: "/services/service-department/truck-rigouts-pto-wet-kits",
+    },
+    {
+      angle: "Engine and transmission tag photos that prevent wrong-fit parts orders",
+      category: "Parts and Service",
+      mustCover: "VIN limits, serial tags, model numbers, build codes, clear photos, modifications",
+      internalLink: "/services/parts-department/engine-drivetrain-parts",
+    },
+    {
+      angle: "Brake chamber markings and measurements to collect before calling for parts",
+      category: "Parts and Service",
+      mustCover: "type, size, stroke, mounting, ports, markings, safe measurement",
+      internalLink: "/services/parts-department/brake-safety-parts",
+    },
+    {
+      angle: "Electrical ratings and connector details that matter when ordering truck parts",
+      category: "Parts and Service",
+      mustCover: "voltage, amperage, connector face, terminals, mounting, part numbers",
+      internalLink: "/services/parts-department/electrical-parts-components",
+    },
+    {
+      angle: "How to document hydraulic hose length and fitting orientation for a parts request",
+      category: "Parts and Service",
+      mustCover: "hose markings, overall length, fitting type, orientation, routing, pressure safety",
+      internalLink: "/services/parts-department/hydraulic-parts-hoses",
+    },
+    {
+      angle: "Air spring markings and mounting details that help parts teams find a match",
+      category: "Parts and Service",
+      mustCover: "bellows markings, top and bottom mounts, air port, dimensions, axle, photos",
+      internalLink: "/services/parts-department/suspension-steering-parts",
+    },
+    {
+      angle: "How a unit-based filter list simplifies recurring fleet maintenance orders",
+      category: "Parts and Service",
+      mustCover: "VIN, engine model, filter numbers, service interval, substitutions, inventory records",
+      internalLink: "/services/parts-department/filters-fluids-maintenance-parts",
+    },
   ];
   return candidateAngles.filter((candidate) => {
     const candidatePost = {
@@ -1537,19 +1733,19 @@ function normalizePost(post, config, date) {
   };
 }
 
-function ensureInternalLink(body, topicPlan) {
-  if (/\]\(\/(?:services|equipment|about)\//.test(body) || !topicPlan?.internalLink) {
+export function ensureInternalLink(body, topicPlan) {
+  if (!topicPlan?.internalLink) {
     return body;
   }
 
-  const linkLabels = {
-    "/services/service-department": "service department",
-    "/services/parts-department": "parts department",
-    "/services/mobile-service": "mobile service team",
-    "/equipment/ecolog": "EcoLog forestry equipment support",
-    "/about/contact": "Munden team",
-  };
-  const label = linkLabels[topicPlan.internalLink] || "Munden team";
+  const escapedTarget = topicPlan.internalLink.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const targetPattern = new RegExp(`\\]\\(${escapedTarget}(?:[?#][^)]*)?\\)`);
+
+  if (targetPattern.test(body)) {
+    return body;
+  }
+
+  const label = topicPlan.linkLabel || "Munden team";
 
   return `${body}\n\nFor related support, connect with Munden's [${label}](${topicPlan.internalLink}).`;
 }

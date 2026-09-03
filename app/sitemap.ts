@@ -1,6 +1,10 @@
 import { MetadataRoute } from "next";
 import { getAllResourcePosts } from "@/lib/resources";
 import { siteUrl } from "@/lib/site";
+import {
+  allDepartmentPages,
+  getDepartmentPagePath,
+} from "@/lib/department-pages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteUrl;
@@ -34,6 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    ...allDepartmentPages.map((page) => ({
+      url: `${baseUrl}${getDepartmentPagePath(page)}`,
+      lastModified: new Date(page.updatedAt),
+      changeFrequency: "monthly" as const,
+      priority: page.department === "service" ? 0.8 : 0.7,
+    })),
 
     // Equipment Sales
     {
