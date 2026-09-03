@@ -109,11 +109,11 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
                             ))}
                           </ul>
                           {group.name === "Inspections & Maintenance" && (
-                            <NavigationMenuLink asChild>
-                              <Link
-                                href="/services/service-department"
-                                className="mt-3 inline-flex min-h-10 items-center rounded-md px-2 text-sm font-semibold text-primary outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring"
-                              >
+                            <NavigationMenuLink
+                              asChild
+                              className="mt-3 flex min-h-10 w-full flex-row items-center justify-start rounded-md px-2 text-left text-sm font-semibold text-primary outline-none hover:bg-transparent hover:text-primary hover:underline focus:bg-transparent focus:text-primary focus-visible:ring-2 focus-visible:ring-ring"
+                            >
+                              <Link href="/services/service-department">
                                 View all services
                               </Link>
                             </NavigationMenuLink>
@@ -130,11 +130,11 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
                             <CompactMenuItem key={page.href} {...page} />
                           ))}
                         </ul>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/services/parts-department"
-                            className="mt-3 inline-flex min-h-10 items-center rounded-md px-2 text-sm font-semibold text-primary outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring"
-                          >
+                        <NavigationMenuLink
+                          asChild
+                          className="mt-3 flex min-h-10 w-full flex-row items-center justify-start rounded-md px-2 text-left text-sm font-semibold text-primary outline-none hover:bg-transparent hover:text-primary hover:underline focus:bg-transparent focus:text-primary focus-visible:ring-2 focus-visible:ring-ring"
+                        >
+                          <Link href="/services/parts-department">
                             View all parts
                           </Link>
                         </NavigationMenuLink>
@@ -153,11 +153,11 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
                           </p>
                         </div>
                       </div>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          href="/services/mobile-service"
-                          className="inline-flex min-h-11 shrink-0 items-center rounded-md bg-background px-4 text-sm font-semibold outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
-                        >
+                      <NavigationMenuLink
+                        asChild
+                        className="flex h-11 shrink-0 flex-row items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-center text-sm font-semibold leading-none text-foreground outline-none hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                      >
+                        <Link href="/services/mobile-service">
                           Mobile Service
                         </Link>
                       </NavigationMenuLink>
@@ -427,11 +427,11 @@ function SocialLinks({ size }: { size: number }) {
 function CompactMenuItem({ title, href }: { title: string; href: string }) {
   return (
     <li>
-      <NavigationMenuLink asChild>
-        <Link
-          href={href}
-          className="flex min-h-10 items-center rounded-md px-2 py-1.5 text-sm font-medium leading-5 outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring"
-        >
+      <NavigationMenuLink
+        asChild
+        className="flex min-h-10 w-full flex-row items-center justify-start rounded-md px-2 py-1.5 text-left text-sm font-medium leading-5 outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        <Link href={href}>
           {title}
         </Link>
       </NavigationMenuLink>
