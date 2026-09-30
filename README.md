@@ -6,13 +6,13 @@ A modern, SEO-optimized website for Munden Truck & Equipment Ltd., featuring tru
 
 - **SEO Optimized**: Comprehensive meta tags, structured data, and sitemap generation
 - **Responsive Design**: Mobile-first approach with adaptive layouts
-- **Modern Tech Stack**: Next.js 15, TypeScript, Tailwind CSS, and shadcn/ui
+- **Modern Tech Stack**: Next.js 16, TypeScript, Tailwind CSS, and shadcn/ui
 - **Performance Focused**: Optimized images, lazy loading, and efficient code splitting
 - **Accessibility**: WCAG compliant with semantic HTML and ARIA labels
 
 ## 🛠️ Tech Stack
 
-- **Framework**: [Next.js 15](https://nextjs.org/) with App Router
+- **Framework**: [Next.js 16](https://nextjs.org/) with App Router
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
@@ -27,11 +27,12 @@ A modern, SEO-optimized website for Munden Truck & Equipment Ltd., featuring tru
 git clone https://github.com/jonahduckworth/munden-trucking-website.git
 cd munden-trucking-website
 
+# Use Node 24.19.0 from .nvmrc (nvm use, if available)
 # Install dependencies
-npm install
+npm ci
 
-# Run development server
-npm run dev
+# Run development server with email disabled
+npm run dev:safe
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
@@ -87,12 +88,15 @@ Edit the CSS variables in `app/globals.css` to match your brand colors.
 
 ## 📝 Environment Variables
 
-Create a `.env.local` file for any API keys or environment-specific variables:
+The frontend needs no credentials. Use `npm run dev:safe` to disable email.
+`EMAIL_DISABLED=1` makes both email endpoints return HTTP 503 before sending.
+`RESEND_API_KEY` and optional `FROM_EMAIL` are only needed for explicitly authorized
+email integration work; do not use production delivery for local tests.
+Optional analytics variables: `NEXT_PUBLIC_GA_MEASUREMENT_ID`,
+`NEXT_PUBLIC_GOOGLE_ADS_ID`. Blog variables are documented in `BLOG_AUTOMATION.md`.
 
-```env
-# Example (not currently required)
-NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_api_key_here
-```
+For reproducible cloud setup, checks, screenshots, and video, see
+[Cloud development](docs/cloud-development.md).
 
 ## 🤝 Contributing
 

@@ -309,7 +309,7 @@ const maintenancePackages = [
       "Predictive maintenance analysis",
     ],
   },
-];
+] as const;
 
 const maintenanceBenefits = [
   {
