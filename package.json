@@ -14,7 +14,12 @@
     "blog:backfill": "node scripts/generate-blog.mjs --backfill",
     "blog:test": "node --test scripts/generate-blog.test.mjs",
     "blog:validate": "node scripts/generate-blog.mjs --validate-only",
-    "blog:ensure-images": "node scripts/generate-blog.mjs --ensure-images"
+    "blog:ensure-images": "node scripts/generate-blog.mjs --ensure-images",
+    "typecheck": "next typegen && tsc --noEmit --incremental false",
+    "setup:cloud": "bash scripts/setup-cloud.sh",
+    "browser:install": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright playwright install chromium ffmpeg",
+    "test:browser": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright playwright test",
+    "dev:safe": "EMAIL_DISABLED=1 NEXT_TELEMETRY_DISABLED=1 next dev --hostname 127.0.0.1"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -44,6 +49,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
+    "@playwright/test": "1.63.0",
     "@types/node": "^20.19.37",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
