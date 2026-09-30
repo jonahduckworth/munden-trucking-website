@@ -53,7 +53,10 @@ Type checking runs independently and during production builds. Browser tests
 require a completed build and own their local server on port 3100; they refuse
 to reuse an existing server. They disable email, clear the server's Resend key,
 block external browser requests/analytics, and test all three maintenance tabs
-plus both disabled email endpoints. Desktop/mobile PNG screenshots and WebM
+plus both disabled email endpoints. Contact validation, mocked contact/subscription
+success, disabled subscription error display, article navigation, and equipment
+detail/quote navigation use synthetic data only. This marketing site has no
+login or role system. Mocked success does not verify provider delivery. Desktop/mobile PNG screenshots and WebM
 recordings are in ignored `test-results/`. Playwright closes its server afterward.
 Screenshots omit external maps and analytics because those requests are blocked.
 
