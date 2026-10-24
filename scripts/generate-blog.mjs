@@ -392,9 +392,11 @@ export function routeTopicPlan(topicPlan, config) {
   const department =
     topicPlan.internalLink === "/services/service-department"
       ? "service"
-      : topicPlan.internalLink === "/services/parts-department"
-        ? "parts"
-        : null;
+      : topicPlan.internalLink === "/services/mobile-service"
+        ? "mobile"
+        : topicPlan.internalLink === "/services/parts-department"
+          ? "parts"
+          : null;
 
   if (!department) {
     const fallbackTarget = (config.requiredInternalLinks || []).find(
@@ -499,6 +501,30 @@ export function buildAllowedTopicAngles(existingPosts) {
       angle: "What fleet managers should keep in a practical roadside information kit",
       category: "Equipment Guides",
       mustCover: "unit details, contacts, service history, photos, location details, driver notes",
+      internalLink: "/services/mobile-service",
+    },
+    {
+      angle: "What to report when a commercial truck becomes a roadside no-start",
+      category: "Parts and Service",
+      mustCover: "battery condition, crank or click symptoms, dash lights, recent boosts, location, driver notes",
+      internalLink: "/services/mobile-service",
+    },
+    {
+      angle: "Air-system details to report during a roadside mobile service call",
+      category: "Parts and Service",
+      mustCover: "air pressure, build time, warning lights, audible leaks, brake release, safe parking",
+      internalLink: "/services/mobile-service",
+    },
+    {
+      angle: "Overheating details that help prepare a mobile truck service call",
+      category: "Maintenance Tips",
+      mustCover: "gauge readings, warning messages, load, grade, coolant clues, safe shutdown",
+      internalLink: "/services/mobile-service",
+    },
+    {
+      angle: "How to describe a hydraulic leak before mobile service arrives",
+      category: "Equipment Guides",
+      mustCover: "safe shutdown, affected function, visible source, hose markings, fitting orientation, photos",
       internalLink: "/services/mobile-service",
     },
     {

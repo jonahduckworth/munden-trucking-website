@@ -42,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}${getDepartmentPagePath(page)}`,
       lastModified: new Date(page.updatedAt),
       changeFrequency: "monthly" as const,
-      priority: page.department === "service" ? 0.8 : 0.7,
+      priority: page.department === "parts" ? 0.7 : 0.8,
     })),
 
     // Equipment Sales

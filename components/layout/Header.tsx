@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ChevronDown, Menu, Phone, Wrench, X } from "lucide-react";
+import { ChevronDown, Menu, Phone, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -27,6 +27,7 @@ export type HeaderNavigationGroup = {
 
 type HeaderProps = {
   serviceGroups: HeaderNavigationGroup[];
+  mobileGroups: HeaderNavigationGroup[];
   partsGroups: HeaderNavigationGroup[];
 };
 
@@ -42,12 +43,15 @@ const aboutLinks = [
   { title: "Resources", href: "/about/resources" },
 ];
 
-export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
+export default function Header({
+  serviceGroups,
+  mobileGroups,
+  partsGroups,
+}: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(
     "service",
   );
-  const partsLinks = partsGroups.flatMap((group) => group.pages);
   const closeMobileMenu = () => setIsMenuOpen(false);
 
   const toggleMobileSection = (section: string) => {
@@ -76,95 +80,38 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
         <nav className="hidden min-w-0 items-center gap-3 xl:flex" aria-label="Main navigation">
           <NavigationMenu>
             <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-white hover:bg-white/10 hover:text-white data-[state=open]:bg-white/10 data-[state=open]:text-white dark:text-foreground dark:hover:bg-accent dark:data-[state=open]:bg-accent">
-                  Shop Services
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="p-0">
-                  <div className="max-h-[calc(100vh-5rem)] w-[calc(100vw-2rem)] max-w-[940px] overflow-y-auto overscroll-contain p-5 lg:w-[920px]">
-                    <div className="mb-5 flex items-start justify-between gap-6 border-b pb-5">
-                      <div>
-                        <p className="text-lg font-semibold">Shop services and parts</p>
-                        <p className="mt-1 max-w-xl text-sm leading-6 text-muted-foreground">
-                          Find the right repair, inspection, specialty service, or parts category for your truck, trailer, or equipment.
-                        </p>
-                      </div>
-                      <Button size="sm" variant="outline" asChild>
-                        <a href="tel:+12508282268">
-                          <Phone className="mr-2 h-4 w-4" />
-                          250-828-2268
-                        </a>
-                      </Button>
-                    </div>
+              <DepartmentNavigationItem
+                triggerLabel="Service Department"
+                title="Service Department"
+                description="Inspections, maintenance, diagnostics, repair, and specialty shop services."
+                groups={serviceGroups}
+                hubHref="/services/service-department"
+                hubLabel="View all shop services"
+                panelClassName="lg:w-[860px]"
+                gridClassName="lg:grid-cols-3"
+              />
 
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                      {serviceGroups.map((group) => (
-                        <div key={group.name}>
-                          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-primary">
-                            {group.name}
-                          </p>
-                          <ul className="space-y-1">
-                            {group.pages.map((page) => (
-                              <CompactMenuItem key={page.href} {...page} />
-                            ))}
-                          </ul>
-                          {group.name === "Inspections & Maintenance" && (
-                            <NavigationMenuLink
-                              asChild
-                              className="mt-3 flex min-h-10 w-full flex-row items-center justify-start rounded-md px-2 text-left text-sm font-semibold text-primary outline-none hover:bg-transparent hover:text-primary hover:underline focus:bg-transparent focus:text-primary focus-visible:ring-2 focus-visible:ring-ring"
-                            >
-                              <Link href="/services/service-department">
-                                View all services
-                              </Link>
-                            </NavigationMenuLink>
-                          )}
-                        </div>
-                      ))}
+              <DepartmentNavigationItem
+                triggerLabel="Mobile Service"
+                title="24/7 Mobile Service"
+                description="Roadside response and on-site repair support for trucks, trailers, and equipment."
+                groups={mobileGroups}
+                hubHref="/services/mobile-service"
+                hubLabel="View all mobile services"
+                panelClassName="lg:w-[640px]"
+                gridClassName="lg:grid-cols-2"
+              />
 
-                      <div>
-                        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-primary">
-                          Parts Department
-                        </p>
-                        <ul className="space-y-1">
-                          {partsLinks.map((page) => (
-                            <CompactMenuItem key={page.href} {...page} />
-                          ))}
-                        </ul>
-                        <NavigationMenuLink
-                          asChild
-                          className="mt-3 flex min-h-10 w-full flex-row items-center justify-start rounded-md px-2 text-left text-sm font-semibold text-primary outline-none hover:bg-transparent hover:text-primary hover:underline focus:bg-transparent focus:text-primary focus-visible:ring-2 focus-visible:ring-ring"
-                        >
-                          <Link href="/services/parts-department">
-                            View all parts
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
-                    </div>
-
-                    <div className="mt-5 flex items-center justify-between gap-5 rounded-lg bg-secondary p-4">
-                      <div className="flex items-center gap-3">
-                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                          <Wrench className="h-5 w-5" aria-hidden="true" />
-                        </span>
-                        <div>
-                          <p className="font-semibold">Need roadside help?</p>
-                          <p className="text-sm text-muted-foreground">
-                            Mobile Service remains available as a separate service.
-                          </p>
-                        </div>
-                      </div>
-                      <NavigationMenuLink
-                        asChild
-                        className="flex h-11 shrink-0 flex-row items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-center text-sm font-semibold leading-none text-foreground outline-none hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground focus-visible:ring-2 focus-visible:ring-ring"
-                      >
-                        <Link href="/services/mobile-service">
-                          Mobile Service
-                        </Link>
-                      </NavigationMenuLink>
-                    </div>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+              <DepartmentNavigationItem
+                triggerLabel="Parts Department"
+                title="Parts Department"
+                description="Parts categories for commercial trucks, trailers, and equipment."
+                groups={partsGroups}
+                hubHref="/services/parts-department"
+                hubLabel="View all parts categories"
+                panelClassName="lg:w-[720px]"
+                gridClassName="lg:grid-cols-3"
+              />
 
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent text-white hover:bg-white/10 hover:text-white data-[state=open]:bg-white/10 data-[state=open]:text-white dark:text-foreground dark:hover:bg-accent dark:data-[state=open]:bg-accent">
@@ -287,6 +234,38 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
             </MobileDisclosure>
 
             <MobileDisclosure
+              id="mobile"
+              title="Mobile Service"
+              isOpen={openMobileSection === "mobile"}
+              onToggle={() => toggleMobileSection("mobile")}
+            >
+              <MobileHubLink
+                href="/services/mobile-service"
+                onNavigate={closeMobileMenu}
+              >
+                View all mobile services
+              </MobileHubLink>
+              {mobileGroups.map((group) => (
+                <div key={group.name} className="mt-4">
+                  <p className="px-3 text-xs font-semibold uppercase tracking-wider text-white/60">
+                    {group.name}
+                  </p>
+                  <div className="mt-1 space-y-1">
+                    {group.pages.map((page) => (
+                      <MobileLink
+                        key={page.href}
+                        href={page.href}
+                        onNavigate={closeMobileMenu}
+                      >
+                        {page.title}
+                      </MobileLink>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </MobileDisclosure>
+
+            <MobileDisclosure
               id="parts"
               title="Parts Department"
               isOpen={openMobileSection === "parts"}
@@ -298,27 +277,25 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
               >
                 View all parts categories
               </MobileHubLink>
-              <div className="mt-2 space-y-1">
-                {partsLinks.map((page) => (
-                  <MobileLink
-                    key={page.href}
-                    href={page.href}
-                    onNavigate={closeMobileMenu}
-                  >
-                    {page.title}
-                  </MobileLink>
-                ))}
-              </div>
+              {partsGroups.map((group) => (
+                <div key={group.name} className="mt-4">
+                  <p className="px-3 text-xs font-semibold uppercase tracking-wider text-white/60">
+                    {group.name}
+                  </p>
+                  <div className="mt-1 space-y-1">
+                    {group.pages.map((page) => (
+                      <MobileLink
+                        key={page.href}
+                        href={page.href}
+                        onNavigate={closeMobileMenu}
+                      >
+                        {page.title}
+                      </MobileLink>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </MobileDisclosure>
-
-            <Link
-              href="/services/mobile-service"
-              className="flex min-h-12 items-center justify-between rounded-md px-3 font-semibold text-white outline-none hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white dark:text-foreground"
-              onClick={closeMobileMenu}
-            >
-              Mobile Service
-              <span className="rounded-full bg-white/10 px-2 py-1 text-xs">24/7</span>
-            </Link>
 
             <MobileDisclosure
               id="equipment"
@@ -373,6 +350,81 @@ export default function Header({ serviceGroups, partsGroups }: HeaderProps) {
         </div>
       )}
     </header>
+  );
+}
+
+function DepartmentNavigationItem({
+  triggerLabel,
+  title,
+  description,
+  groups,
+  hubHref,
+  hubLabel,
+  panelClassName,
+  gridClassName,
+}: {
+  triggerLabel: string;
+  title: string;
+  description: string;
+  groups: HeaderNavigationGroup[];
+  hubHref: string;
+  hubLabel: string;
+  panelClassName: string;
+  gridClassName: string;
+}) {
+  return (
+    <NavigationMenuItem>
+      <NavigationMenuTrigger className="bg-transparent px-3 text-white hover:bg-white/10 hover:text-white data-[state=open]:bg-white/10 data-[state=open]:text-white dark:text-foreground dark:hover:bg-accent dark:data-[state=open]:bg-accent">
+        {triggerLabel}
+      </NavigationMenuTrigger>
+      <NavigationMenuContent className="p-0">
+        <div
+          className={cn(
+            "max-h-[calc(100vh-5rem)] w-[calc(100vw-2rem)] overflow-y-auto overscroll-contain p-5",
+            panelClassName,
+          )}
+        >
+          <div className="mb-5 flex items-start justify-between gap-6 border-b pb-5">
+            <div>
+              <p className="text-lg font-semibold">{title}</p>
+              <p className="mt-1 max-w-xl text-sm leading-6 text-muted-foreground">
+                {description}
+              </p>
+            </div>
+            <Button size="sm" variant="outline" asChild>
+              <a href="tel:+12508282268">
+                <Phone className="mr-2 h-4 w-4" />
+                250-828-2268
+              </a>
+            </Button>
+          </div>
+
+          <div className={cn("grid gap-6 md:grid-cols-2", gridClassName)}>
+            {groups.map((group) => (
+              <div key={group.name}>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-primary">
+                  {group.name}
+                </p>
+                <ul className="space-y-1">
+                  {group.pages.map((page) => (
+                    <CompactMenuItem key={page.href} {...page} />
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 border-t pt-4">
+            <NavigationMenuLink
+              asChild
+              className="flex min-h-11 w-full flex-row items-center justify-center rounded-md bg-primary px-4 py-2 text-center text-sm font-semibold text-primary-foreground outline-none hover:bg-primary/90 hover:text-primary-foreground focus:bg-primary/90 focus:text-primary-foreground focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <Link href={hubHref}>{hubLabel}</Link>
+            </NavigationMenuLink>
+          </div>
+        </div>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
   );
 }
 

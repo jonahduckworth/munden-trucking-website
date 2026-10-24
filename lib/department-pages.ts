@@ -1,4 +1,4 @@
-export type DepartmentKind = "service" | "parts";
+export type DepartmentKind = "service" | "mobile" | "parts";
 
 export type DepartmentPage = {
   department: DepartmentKind;
@@ -29,6 +29,7 @@ export type DepartmentPage = {
 };
 
 const updatedAt = "2026-09-02";
+const mobileUpdatedAt = "2026-10-24";
 
 export const serviceDepartmentPages: DepartmentPage[] = [
   {
@@ -1044,6 +1045,418 @@ export const serviceDepartmentPages: DepartmentPage[] = [
   },
 ];
 
+export const mobileServicePages: DepartmentPage[] = [
+  {
+    department: "mobile",
+    group: "Roadside Response",
+    slug: "emergency-roadside-truck-repair",
+    navTitle: "Emergency Roadside Repair",
+    title: "24/7 Emergency Roadside Truck Repair",
+    eyebrow: "Mobile breakdown support in the BC Interior",
+    description:
+      "Call Munden for 24/7 mobile truck, trailer, and equipment breakdown support in Kamloops and the BC Interior.",
+    intro:
+      "When a commercial unit is disabled away from the shop, the first step is a safe location and an accurate description of the problem. Munden's mobile service team can assess the concern, prepare for the call, and determine whether an on-site repair or a shop-based next step is appropriate.",
+    keywords: [
+      "emergency roadside truck repair Kamloops",
+      "24/7 mobile truck service BC Interior",
+      "commercial truck breakdown service Kamloops",
+    ],
+    offeringsTitle: "Roadside response support",
+    offerings: [
+      "Commercial truck and trailer breakdown assessment",
+      "No-start and starting-system concerns",
+      "Air and brake-system concerns",
+      "Cooling-system and fluid-leak concerns",
+      "Basic drivability diagnosis at the breakdown location",
+      "Coordination of a shop or towing next step when needed",
+    ],
+    preparationTitle: "Information to have ready when you call",
+    preparationIntro:
+      "Clear location and unit details help the mobile team understand the situation and prepare for the safest practical response.",
+    preparationItems: [
+      "Your exact location, direction of travel, and a nearby landmark or kilometre marker",
+      "Truck, trailer, or equipment year, make, model, and unit number",
+      "Warning lights, symptoms, noises, leaks, or recent repair history",
+      "Whether the unit is loaded and whether it is safely off the road",
+      "Photos of the concern when they can be taken safely",
+      "A callback number for the driver or site contact",
+    ],
+    process: [
+      {
+        title: "Call and describe the breakdown",
+        description:
+          "Share the location, unit details, safety conditions, and the clearest description available.",
+      },
+      {
+        title: "Prepare and assess",
+        description:
+          "The mobile team uses those details to prepare for the call and assess the unit on site.",
+      },
+      {
+        title: "Repair or plan the next step",
+        description:
+          "Complete suitable field work or coordinate shop service or towing when the repair needs more equipment or a controlled environment.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Is Munden's mobile service available after regular business hours?",
+        answer:
+          "Munden advertises 24/7 mobile service. Call 250-828-2268 with your location and unit details so the team can review the situation.",
+      },
+      {
+        question: "Can every breakdown be repaired at the roadside?",
+        answer:
+          "No. The right next step depends on the fault, location, safety conditions, parts, and equipment required. Some units need towing or follow-up work at the shop.",
+      },
+      {
+        question: "What location details are most useful?",
+        answer:
+          "Provide the highway or road, direction of travel, nearest community or landmark, kilometre marker when available, and a GPS pin if it can be shared safely.",
+      },
+    ],
+    relatedSlugs: [
+      "mobile-electrical-starting-repair",
+      "mobile-air-brake-wheel-end-repair",
+      "mobile-engine-cooling-repair",
+    ],
+    relatedResources: [
+      "when-roadside-issue-belongs-mobile-service-and-when-it-belongs-in-the-shop",
+      "what-fleet-managers-should-keep-in-a-practical-roadside-information-kit",
+      "how-fleet-owners-can-prioritize-repairs-when-several-units-need-attention",
+    ],
+    updatedAt: mobileUpdatedAt,
+  },
+  {
+    department: "mobile",
+    group: "Mobile Repairs",
+    slug: "mobile-engine-cooling-repair",
+    navTitle: "Engine & Cooling Repair",
+    title: "Mobile Engine and Cooling-System Repair",
+    eyebrow: "Field support for engine and cooling concerns",
+    description:
+      "Mobile assessment and repair support for commercial truck engine, cooling, power-loss, overheating, and fluid-leak concerns around Kamloops.",
+    intro:
+      "Engine and cooling symptoms can change quickly under load, on grades, or at remote jobsites. Munden's mobile service can begin the diagnosis where the unit is located, address suitable field repairs, and help determine when the unit needs shop equipment or towing.",
+    keywords: [
+      "mobile diesel repair Kamloops",
+      "roadside truck overheating repair",
+      "mobile cooling system repair BC Interior",
+    ],
+    offeringsTitle: "Mobile engine and cooling support",
+    offerings: [
+      "Engine no-start and rough-running assessment",
+      "Loss-of-power and drivability checks",
+      "Overheating and high-temperature concerns",
+      "Coolant, oil, fuel, and visible fluid-leak assessment",
+      "Accessible belt, hose, clamp, and connection checks",
+      "Shop or towing recommendations when field repair is not appropriate",
+    ],
+    preparationTitle: "Details that help narrow the concern",
+    preparationIntro:
+      "Describe what changed, when it happens, and what the driver observed before stopping the unit.",
+    preparationItems: [
+      "Unit year, make, model, engine information, and unit number",
+      "Warning lights, fault messages, and gauge readings",
+      "Whether the symptom appeared at idle, under load, or on a grade",
+      "Fluid type, leak location, odour, smoke, or visible residue",
+      "Recent maintenance, repairs, or fluid additions",
+      "Photos of the dash and affected area when safe",
+    ],
+    process: [
+      {
+        title: "Describe the operating condition",
+        description:
+          "Explain when the symptom appeared, how the unit was working, and why it was stopped.",
+      },
+      {
+        title: "Assess the engine and cooling system",
+        description:
+          "Review the reported symptoms and inspect accessible systems at the unit's location.",
+      },
+      {
+        title: "Complete suitable work",
+        description:
+          "Address field-serviceable concerns or plan the safest route to deeper shop diagnosis and repair.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Should I keep driving if the truck is overheating?",
+        answer:
+          "Continuing to operate an overheating unit can increase damage and safety risk. Stop in a safe location and call with the gauge readings, warning messages, and visible symptoms.",
+      },
+      {
+        question: "Can a mobile technician diagnose a loss-of-power complaint?",
+        answer:
+          "A mobile visit can provide an initial assessment and may identify a field-serviceable cause. Some intermittent, internal, or load-dependent faults still require shop testing.",
+      },
+      {
+        question: "What photos are useful for a fluid leak?",
+        answer:
+          "When safe, photograph the ground pattern, the highest visible wet area, the dash, and any warning message. Do not reach into hot or moving equipment to take a photo.",
+      },
+    ],
+    relatedSlugs: [
+      "emergency-roadside-truck-repair",
+      "mobile-electrical-starting-repair",
+      "mobile-hydraulic-leak-hose-service",
+    ],
+    relatedResources: [
+      "small-coolant-leaks-that-deserve-attention-before-grades-and-heat-expose-them",
+      "what-rough-idle-and-power-complaints-can-tell-a-service-team",
+      "preventing-small-oil-leaks-from-turning-into-larger-downtime-events",
+    ],
+    updatedAt: mobileUpdatedAt,
+  },
+  {
+    department: "mobile",
+    group: "Mobile Repairs",
+    slug: "mobile-electrical-starting-repair",
+    navTitle: "Electrical & Starting Repair",
+    title: "Mobile Electrical and Starting-System Repair",
+    eyebrow: "On-site help for no-start and electrical faults",
+    description:
+      "Mobile diagnostics and repair support for commercial truck batteries, starters, alternators, wiring, lighting, and no-start concerns around Kamloops.",
+    intro:
+      "A no-start or intermittent electrical problem is easier to diagnose when the driver can explain exactly what the unit did before it stopped. Munden's mobile service can inspect accessible starting and electrical systems on site and plan follow-up testing when the fault needs shop equipment.",
+    keywords: [
+      "mobile truck electrical repair Kamloops",
+      "roadside truck no-start service",
+      "mobile battery starter alternator repair BC Interior",
+    ],
+    offeringsTitle: "Mobile electrical and starting support",
+    offerings: [
+      "Battery and connection checks",
+      "Starter and no-crank assessment",
+      "Alternator and charging-system checks",
+      "Accessible wiring, fuse, connector, and ground inspection",
+      "Truck and trailer lighting fault assessment",
+      "Intermittent-fault notes for deeper shop diagnosis",
+    ],
+    preparationTitle: "What to report before the service call",
+    preparationIntro:
+      "Small details about sounds, lights, weather, and recent work can separate a battery concern from a starter, charging, wiring, or control issue.",
+    preparationItems: [
+      "Whether the engine cranks, clicks, turns slowly, or does nothing",
+      "Dash lights, warning messages, and affected circuits",
+      "Battery age when known and any recent boost or replacement",
+      "Whether the problem changes with temperature or vibration",
+      "Recent wiring, lighting, accessory, or charging-system work",
+      "Unit and engine information plus the exact location",
+    ],
+    process: [
+      {
+        title: "Record the symptom",
+        description:
+          "Describe what happens at the key or start control and what changed before the failure.",
+      },
+      {
+        title: "Test accessible systems",
+        description:
+          "Inspect and test the available battery, starting, charging, wiring, or lighting circuits on site.",
+      },
+      {
+        title: "Repair or document the next test",
+        description:
+          "Complete suitable field work or carry clear findings into a follow-up shop diagnosis.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Is a no-start always a battery problem?",
+        answer:
+          "No. Batteries, connections, grounds, starters, charging faults, wiring, controls, and other conditions can produce similar symptoms. The exact behaviour matters.",
+      },
+      {
+        question: "Can an intermittent electrical fault be found on site?",
+        answer:
+          "Sometimes, especially when the fault is active. If it disappears, detailed driver notes and any captured warning messages help plan the next diagnostic step.",
+      },
+      {
+        question: "Should I keep replacing a fuse that repeatedly blows?",
+        answer:
+          "A repeat fuse failure points to a fault that needs diagnosis. Replacing the fuse without finding the cause can damage components or create a safety concern.",
+      },
+    ],
+    relatedSlugs: [
+      "emergency-roadside-truck-repair",
+      "mobile-engine-cooling-repair",
+      "mobile-air-brake-wheel-end-repair",
+    ],
+    relatedResources: [
+      "battery-alternator-starter-checks-before-a-truck-becomes-a-no-start",
+      "diagnostic-notes-help-solve-intermittent-electrical-faults-faster",
+      "what-repeated-blown-fuses-can-tell-you-about-an-electrical-fault",
+    ],
+    updatedAt: mobileUpdatedAt,
+  },
+  {
+    department: "mobile",
+    group: "Mobile Repairs",
+    slug: "mobile-air-brake-wheel-end-repair",
+    navTitle: "Air Brake & Wheel-End Repair",
+    title: "Mobile Air Brake and Wheel-End Repair",
+    eyebrow: "Roadside support for air, brake, hub, and wheel-end concerns",
+    description:
+      "Mobile assessment and repair support for commercial truck and trailer air-system, brake, hub, bearing, and wheel-end concerns around Kamloops.",
+    intro:
+      "Air-pressure, brake, and wheel-end symptoms can affect whether a commercial unit is safe to move. Munden's mobile service can begin the assessment on site, address suitable repairs, and identify when the unit should remain parked for towing or shop work.",
+    keywords: [
+      "mobile air brake repair Kamloops",
+      "roadside commercial truck brake service",
+      "mobile wheel end repair BC Interior",
+    ],
+    offeringsTitle: "Mobile air, brake, and wheel-end support",
+    offerings: [
+      "Air-leak and pressure-build assessment",
+      "Accessible air line and fitting checks",
+      "Brake chamber and release concerns",
+      "Compressor, warning, and air-system symptom review",
+      "Wheel-end heat, noise, seal, hub, and bearing assessment",
+      "Safety-based planning for towing or shop repair",
+    ],
+    preparationTitle: "Symptoms to report clearly",
+    preparationIntro:
+      "Brake and wheel-end calls need precise information so the team can understand the safety concern before anyone approaches or moves the unit.",
+    preparationItems: [
+      "Air-pressure readings, warning lights, and build or drop behaviour",
+      "Where an air leak can be heard and when it changes",
+      "Whether brakes release, drag, pull, smell hot, or behave differently",
+      "Wheel position plus any heat, noise, smoke, oil, or visible damage",
+      "Truck or trailer VIN, unit number, axle position, and load status",
+      "A safe parking location with brakes secured as appropriate",
+    ],
+    process: [
+      {
+        title: "Secure the unit and report the concern",
+        description:
+          "Keep the unit parked when safe operation is uncertain and share the air, brake, or wheel-end symptoms.",
+      },
+      {
+        title: "Inspect the affected system",
+        description:
+          "Assess accessible air, brake, hub, and wheel-end components at the unit's location.",
+      },
+      {
+        title: "Choose the safe next step",
+        description:
+          "Complete suitable field work or keep the unit out of service for towing or controlled shop repair.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Can I drive with an air leak or brake warning?",
+        answer:
+          "Do not assume the unit is safe to move. Park in a safe location and call with the pressure readings, warnings, and symptoms so the concern can be assessed.",
+      },
+      {
+        question: "What wheel-end signs should be treated as urgent?",
+        answer:
+          "Heat, smoke, grinding, looseness, a strong odour, visible damage, or leaking lubricant can indicate a serious concern. Stop safely and avoid touching a hot wheel end.",
+      },
+      {
+        question: "Can every brake repair be completed roadside?",
+        answer:
+          "No. Safety conditions, damage, parts, adjustment requirements, and the need for controlled inspection can make towing or shop repair the correct option.",
+      },
+    ],
+    relatedSlugs: [
+      "emergency-roadside-truck-repair",
+      "mobile-electrical-starting-repair",
+      "mobile-hydraulic-leak-hose-service",
+    ],
+    relatedResources: [
+      "air-brake-leak-clues-drivers-should-report-before-the-next-dispatch",
+      "wheel-end-warning-signs-that-deserve-attention-before-a-long-haul",
+      "air-dryer-purge-symptoms-bigger-air-system-problem",
+    ],
+    updatedAt: mobileUpdatedAt,
+  },
+  {
+    department: "mobile",
+    group: "Mobile Repairs",
+    slug: "mobile-hydraulic-leak-hose-service",
+    navTitle: "Hydraulic Leak & Hose Service",
+    title: "Mobile Hydraulic Leak and Hose Service",
+    eyebrow: "Field support for hydraulic leaks and hose concerns",
+    description:
+      "Mobile assessment and repair planning for accessible hydraulic leaks, hoses, fittings, and related equipment concerns around Kamloops.",
+    intro:
+      "A hydraulic leak can stop a truck or piece of equipment and can create pressure, contamination, fire, and slip hazards. Munden's mobile service can assess accessible hoses and fittings, identify the information needed for repair, and complete suitable field work when conditions allow.",
+    keywords: [
+      "mobile hydraulic hose service Kamloops",
+      "on-site hydraulic leak repair BC Interior",
+      "mobile equipment hose service Kamloops",
+    ],
+    offeringsTitle: "Mobile hydraulic support",
+    offerings: [
+      "Accessible hose and fitting leak assessment",
+      "Hose routing, length, marking, and fitting identification",
+      "Visible pump, valve, cylinder, and connection checks",
+      "Leak-source and contamination observations",
+      "Replacement planning using photos and component details",
+      "Shop coordination when the repair needs controlled equipment or teardown",
+    ],
+    preparationTitle: "Information that helps prepare the repair",
+    preparationIntro:
+      "Hydraulic components can look similar while using different pressure ratings, fittings, lengths, and orientations. Do not approach or touch a pressurized leak to collect details.",
+    preparationItems: [
+      "Equipment year, make, model, serial number, and unit number",
+      "The affected function and what the equipment was doing when the leak appeared",
+      "Fluid location, visible source, and approximate loss when safely observable",
+      "Hose markings, fitting style, routing, and orientation from a safe distance",
+      "Clear photos without using hands to locate a pressurized leak",
+      "Any recent hose, pump, valve, cylinder, or attachment work",
+    ],
+    process: [
+      {
+        title: "Shut down and describe the leak",
+        description:
+          "Secure the equipment, release stored energy according to the applicable procedure, and share the visible symptoms.",
+      },
+      {
+        title: "Identify the source and requirements",
+        description:
+          "Assess accessible components and collect the specifications needed for the appropriate repair.",
+      },
+      {
+        title: "Repair or coordinate follow-up",
+        description:
+          "Complete suitable field work or plan shop service when access, contamination, damage, or testing requires a controlled setting.",
+      },
+    ],
+    faqs: [
+      {
+        question: "How should I look for a hydraulic leak?",
+        answer:
+          "Never use your hand to find a pressurized leak. Shut the equipment down safely, keep clear of stored energy, and use visual observations from a safe distance.",
+      },
+      {
+        question: "What hose details are useful before the mobile call?",
+        answer:
+          "Useful details include equipment and component identification, visible hose markings, routing, overall length, fitting style, and fitting orientation when they can be observed safely.",
+      },
+      {
+        question: "Can every hydraulic repair be completed in the field?",
+        answer:
+          "No. Access, cleanliness, pressure testing, component damage, and the need for teardown can make shop service the better option.",
+      },
+    ],
+    relatedSlugs: [
+      "emergency-roadside-truck-repair",
+      "mobile-engine-cooling-repair",
+      "mobile-air-brake-wheel-end-repair",
+    ],
+    relatedResources: [
+      "hydraulic-hose-warning-signs-small-leak-becomes-downtime",
+      "power-steering-leaks-on-trucks-what-to-notice-before-the-problem-gets-worse",
+    ],
+    updatedAt: mobileUpdatedAt,
+  },
+];
+
 export const partsDepartmentPages: DepartmentPage[] = [
   {
     department: "parts",
@@ -1439,11 +1852,13 @@ export const partsDepartmentPages: DepartmentPage[] = [
 
 export const allDepartmentPages = [
   ...serviceDepartmentPages,
+  ...mobileServicePages,
   ...partsDepartmentPages,
 ];
 
 export const departmentBasePaths: Record<DepartmentKind, string> = {
   service: "/services/service-department",
+  mobile: "/services/mobile-service",
   parts: "/services/parts-department",
 };
 
@@ -1458,7 +1873,15 @@ export function getDepartmentPagePath(page: DepartmentPage) {
 }
 
 export function getDepartmentPages(kind: DepartmentKind) {
-  return kind === "service" ? serviceDepartmentPages : partsDepartmentPages;
+  if (kind === "service") {
+    return serviceDepartmentPages;
+  }
+
+  if (kind === "mobile") {
+    return mobileServicePages;
+  }
+
+  return partsDepartmentPages;
 }
 
 export function getDepartmentGroups(kind: DepartmentKind) {
@@ -1479,6 +1902,13 @@ export function getRelatedDepartmentPages(page: DepartmentPage) {
 export function getDepartmentNavigation() {
   return {
     serviceGroups: getDepartmentGroups("service").map((group) => ({
+      name: group.name,
+      pages: group.pages.map((page) => ({
+        title: page.navTitle,
+        href: getDepartmentPagePath(page),
+      })),
+    })),
+    mobileGroups: getDepartmentGroups("mobile").map((group) => ({
       name: group.name,
       pages: group.pages.map((page) => ({
         title: page.navTitle,

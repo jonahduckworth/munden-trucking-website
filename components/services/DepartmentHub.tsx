@@ -6,6 +6,7 @@ import {
   Package,
   Phone,
   ShieldCheck,
+  Truck,
   Wrench,
 } from "lucide-react";
 
@@ -36,6 +37,21 @@ const hubContent = {
     ctaDescription:
       "Call the shop with your unit details and a clear description of the concern. The team can help identify the right starting point.",
     contactSubject: "service",
+    callLabel: "Call the shop",
+  },
+  mobile: {
+    badge: "24/7 Mobile Service",
+    title: "Mobile Truck, Trailer and Equipment Repair",
+    description:
+      "Choose the mobile service that best matches the breakdown or on-site concern. Munden supports commercial operators around Kamloops and the BC Interior with roadside assessment, suitable field repairs, and clear next-step planning.",
+    sectionTitle: "Explore mobile services",
+    sectionDescription:
+      "Each page explains the kinds of concerns mobile service can assess and the information to have ready before calling.",
+    ctaTitle: "Need mobile service now?",
+    ctaDescription:
+      "Call with your exact location, unit details, safety conditions, and a clear description of the problem so the team can prepare for the call.",
+    contactSubject: "service",
+    callLabel: "Call mobile service",
   },
   parts: {
     badge: "Parts Department",
@@ -49,6 +65,7 @@ const hubContent = {
     ctaDescription:
       "Have your VIN, unit information, existing part numbers, and clear photos ready. Those details make the lookup faster and more accurate.",
     contactSubject: "parts",
+    callLabel: "Call the parts team",
   },
 } as const;
 
@@ -56,6 +73,8 @@ const groupIcons = {
   "Inspections & Maintenance": ClipboardCheck,
   "Repair & Diagnostics": Wrench,
   "Specialty Shop Services": Cog,
+  "Roadside Response": Truck,
+  "Mobile Repairs": Wrench,
   "Mechanical Parts": Package,
   "Electrical & Hydraulic": Cog,
   "Maintenance Supplies": ShieldCheck,
@@ -190,7 +209,7 @@ export function DepartmentHub({ kind }: DepartmentHubProps) {
                 <Button asChild>
                   <a href="tel:+12508282268">
                     <Phone className="mr-2 h-4 w-4" />
-                    Call the shop
+                    {content.callLabel}
                   </a>
                 </Button>
                 <Button variant="outline" asChild>

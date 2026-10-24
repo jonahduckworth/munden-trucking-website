@@ -7,6 +7,7 @@ import {
   ClipboardList,
   Package,
   Phone,
+  Truck,
   Wrench,
 } from "lucide-react";
 
@@ -36,9 +37,30 @@ export function DepartmentDetailPage({ page }: DepartmentDetailPageProps) {
   const basePath = departmentBasePaths[page.department];
   const pagePath = getDepartmentPagePath(page);
   const hubLabel =
-    page.department === "service" ? "Service Department" : "Parts Department";
-  const Icon = page.department === "service" ? Wrench : Package;
-  const contactSubject = page.department === "service" ? "service" : "parts";
+    page.department === "service"
+      ? "Service Department"
+      : page.department === "mobile"
+        ? "Mobile Service"
+        : "Parts Department";
+  const Icon =
+    page.department === "service"
+      ? Wrench
+      : page.department === "mobile"
+        ? Truck
+        : Package;
+  const contactSubject = page.department === "parts" ? "parts" : "service";
+  const relatedLabel =
+    page.department === "parts"
+      ? "parts categories"
+      : page.department === "mobile"
+        ? "mobile services"
+        : "services";
+  const closingCtaDescription =
+    page.department === "mobile"
+      ? "Have your exact location, unit details, safety conditions, and a clear description ready. We can help determine the right mobile-service next step."
+      : page.department === "parts"
+        ? "Have your unit details, photos, part numbers, and a clear description ready. We can help determine the right parts next step."
+        : "Have your unit details, photos, recent service information, and a clear description ready. We can help determine the right service next step.";
   const relatedPages = getRelatedDepartmentPages(page);
   const resources = page.relatedResources
     .map((slug) => getResourcePost(slug))
@@ -51,7 +73,7 @@ export function DepartmentDetailPage({ page }: DepartmentDetailPageProps) {
     { name: page.navTitle, url: `${siteUrl}${pagePath}` },
   ];
   const primarySchema =
-    page.department === "service"
+    page.department !== "parts"
       ? serviceSchema({
           name: page.title,
           description: page.description,
@@ -240,7 +262,7 @@ export function DepartmentDetailPage({ page }: DepartmentDetailPageProps) {
               {relatedPages.length > 0 && (
                 <div>
                   <h2 className="text-3xl font-bold tracking-tight">
-                    Related {page.department === "service" ? "services" : "parts categories"}
+                    Related {relatedLabel}
                   </h2>
                   <div className="mt-6 grid gap-4 md:grid-cols-3">
                     {relatedPages.map((related) => (
@@ -303,7 +325,7 @@ export function DepartmentDetailPage({ page }: DepartmentDetailPageProps) {
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold">Talk with the Munden team</h2>
               <p className="mt-3 text-lg leading-8 text-primary-foreground/85">
-                Have your unit details, photos, part numbers, and a clear description ready. We can help determine the right next step.
+                {closingCtaDescription}
               </p>
             </div>
             <div className="flex shrink-0 flex-col gap-3 sm:flex-row">

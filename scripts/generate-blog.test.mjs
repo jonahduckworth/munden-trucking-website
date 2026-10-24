@@ -115,11 +115,11 @@ test("parts topics route to a dedicated parts category", () => {
   );
 });
 
-test("mobile and EcoLog topic destinations remain unchanged", () => {
+test("mobile topics route to a dedicated page while EcoLog stays unchanged", () => {
   const mobile = routeTopicPlan(
     {
-      angle: "Roadside repair planning",
-      mustCover: "location and driver notes",
+      angle: "Roadside no-start repair planning",
+      mustCover: "battery, starter, location, and driver notes",
       internalLink: "/services/mobile-service",
     },
     blogConfig,
@@ -133,7 +133,10 @@ test("mobile and EcoLog topic destinations remain unchanged", () => {
     blogConfig,
   );
 
-  assert.equal(mobile.internalLink, "/services/mobile-service");
+  assert.equal(
+    mobile.internalLink,
+    "/services/mobile-service/mobile-electrical-starting-repair",
+  );
   assert.equal(ecolog.internalLink, "/equipment/ecolog");
 });
 
@@ -155,25 +158,31 @@ test("topic link catalog includes unique routes for all new pages", () => {
   const targets = blogConfig.topicLinkTargets;
   const urls = targets.map((target) => target.url);
 
-  assert.equal(targets.length, 19);
+  assert.equal(targets.length, 24);
   assert.equal(new Set(urls).size, targets.length);
   assert.ok(
     urls.every((url) =>
-      /^\/services\/(?:service-department|parts-department)\/[a-z0-9-]+$/.test(url),
+      /^\/services\/(?:service-department|mobile-service|parts-department)\/[a-z0-9-]+$/.test(url),
     ),
   );
 });
 
 test("topic link targets stay synchronized with the department page catalog", () => {
-  const [serviceSource, partsAndFollowing] = departmentPageSource
+  const [serviceSource, mobileAndFollowing] = departmentPageSource
     .split("export const serviceDepartmentPages")[1]
-    .split("export const partsDepartmentPages");
+    .split("export const mobileServicePages");
+  const [mobileSource, partsAndFollowing] = mobileAndFollowing.split(
+    "export const partsDepartmentPages",
+  );
   const partsSource = partsAndFollowing.split("export const allDepartmentPages")[0];
   const pageSlugs = (source) =>
     [...source.matchAll(/^    slug: "([^"]+)",$/gm)].map((match) => match[1]);
   const pageUrls = [
     ...pageSlugs(serviceSource).map(
       (slug) => `/services/service-department/${slug}`,
+    ),
+    ...pageSlugs(mobileSource).map(
+      (slug) => `/services/mobile-service/${slug}`,
     ),
     ...pageSlugs(partsSource).map(
       (slug) => `/services/parts-department/${slug}`,

@@ -172,6 +172,36 @@
       "matchTerms": ["rigout", "wet kit", "pto", "fifth wheel", "lowbed", "dump body", "liftgate", "lift axle", "trailer slider"]
     },
     {
+      "department": "mobile",
+      "label": "24/7 emergency roadside truck repair",
+      "url": "/services/mobile-service/emergency-roadside-truck-repair",
+      "matchTerms": ["roadside", "breakdown", "disabled", "towing", "triage", "roadside information"]
+    },
+    {
+      "department": "mobile",
+      "label": "mobile engine and cooling-system repair",
+      "url": "/services/mobile-service/mobile-engine-cooling-repair",
+      "matchTerms": ["engine", "overheating", "coolant", "cooling", "radiator", "loss of power", "rough idle", "oil leak", "fuel leak"]
+    },
+    {
+      "department": "mobile",
+      "label": "mobile electrical and starting-system repair",
+      "url": "/services/mobile-service/mobile-electrical-starting-repair",
+      "matchTerms": ["no-start", "no start", "battery", "alternator", "starter", "electrical", "wiring", "fuse", "lighting"]
+    },
+    {
+      "department": "mobile",
+      "label": "mobile air brake and wheel-end repair",
+      "url": "/services/mobile-service/mobile-air-brake-wheel-end-repair",
+      "matchTerms": ["air brake", "air leak", "air pressure", "brake", "wheel end", "wheel-end", "wheel bearing", "hub", "air dryer"]
+    },
+    {
+      "department": "mobile",
+      "label": "mobile hydraulic leak and hose service",
+      "url": "/services/mobile-service/mobile-hydraulic-leak-hose-service",
+      "matchTerms": ["hydraulic", "hose", "fitting", "fluid leak", "cylinder", "pump", "valve"]
+    },
+    {
       "department": "parts",
       "label": "engine and drivetrain parts",
       "url": "/services/parts-department/engine-drivetrain-parts",

@@ -1,4 +1,4 @@
-# Service and Parts SEO Expansion: Content Confirmation
+# Service, Mobile and Parts SEO Expansion: Content Confirmation
 
 This branch uses conservative wording and does not add claims about pricing, turnaround times, warranties, inventory depth, certifications, brands, or guaranteed availability. Before approval, Nolan should confirm that the following categories accurately reflect work the Kamloops shop wants to promote.
 
@@ -27,12 +27,20 @@ This branch uses conservative wording and does not add claims about pricing, tur
 - Suspension and steering parts
 - Filters, fluids, and maintenance parts
 
+## Mobile Service
+
+- 24/7 emergency roadside truck repair
+- Mobile engine and cooling-system repair
+- Mobile electrical and starting-system repair
+- Mobile air brake and wheel-end repair
+- Mobile hydraulic leak and hose service
+
 ## Review Questions
 
 1. Are any categories above services or parts Munden does not want to advertise?
-2. Are there important categories missing from either department?
+2. Are there important categories missing from the Service, Mobile, or Parts areas?
 3. Should any page name use a different term that customers commonly use?
 4. Are there specific brands, certifications, or service-area details Nolan wants added later and can verify?
 5. Does Nolan want pricing, quote expectations, or availability language added after the initial launch?
 
-Mobile Service and EcoLog pages are outside this project. Their existing pages and blog topic destinations remain separate.
+EcoLog pages and the possible online store remain outside this project. The store requires separate decisions about inventory, payments, shipping, and fulfilment before implementation.
