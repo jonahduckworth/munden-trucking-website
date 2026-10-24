@@ -12,6 +12,13 @@ function getResend() {
 }
 
 export async function POST(request: Request) {
+  if (process.env.EMAIL_DISABLED === "1") {
+    return NextResponse.json(
+      { error: "Email is disabled in this environment." },
+      { status: 503 },
+    );
+  }
+
   try {
     const body = await request.json();
     const { name, email, phone, subject, message } = body;
