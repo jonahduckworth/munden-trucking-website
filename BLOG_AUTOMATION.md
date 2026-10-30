@@ -35,7 +35,7 @@ Each run:
 1. Reads `content/blog-config.json`.
 2. Reviews existing posts in `content/resources`.
 3. Fetches short summaries from configured competitor and industry URLs.
-4. Sends that compact research digest to OpenAI and generates markdown posts for missing dates in order.
+4. Sends that compact research digest to OpenAI and generates one markdown post for the current weekly run date. Historical gaps are generated only through an explicit manual backfill dispatch.
 5. Gives the model a rotating set of allowed topic angles, rejects topics that overlap recent posts, and retries with a different angle.
 6. Routes Service Department, Mobile Service, and Parts Department topics to the most relevant dedicated page and adds that exact internal link if the generated body omits it.
 7. Fetches a relevant stock photo into `public/images/blog`, or uses an existing real site photo when `BLOG_IMAGE_MODE=local`.
