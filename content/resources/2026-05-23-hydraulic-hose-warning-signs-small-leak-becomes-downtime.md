@@ -41,7 +41,7 @@ Not every damp line means the machine has to be parked immediately, but some con
 
 That is especially true when the equipment relies on hydraulics for steering, lift, braking functions, attachments, or load handling. A hose failure can become more than a cleanup issue if it leads to lost control, hot components getting sprayed, or a sudden drop in pressure.
 
-If you are dealing with a truck, trailer, or attachment and you are not sure how serious the problem is, document the symptoms, note where the fluid is appearing, and get the unit looked at before the next dispatch. For problems that can be handled in place, [mobile service](/services/mobile-service) may help with triage. If the leak is tied to a hose, fitting, cylinder, or manifold issue that needs a controlled repair, the [service department](/services/service-department) is usually the better place to sort it out.
+If you are dealing with a truck, trailer, or attachment and you are not sure how serious the problem is, document the symptoms, note where the fluid is appearing, and get the unit looked at before the next dispatch. For problems that can be handled in place, [mobile service](/services/mobile-service) may help with triage. If the leak is tied to a hose, fitting, cylinder, or manifold issue that needs a controlled repair, [hydraulic repair and hose service](/services/service-department/hydraulic-repair-hose-service) is usually the better place to sort it out.
 
 ## What to check before you call for repairs
 A good parts or service call starts with a few details. The unit number, VIN, or machine serial number helps identify the right equipment. Photos of the hose routing, the leak location, and the damaged area can save time when the technician is planning the repair.
@@ -50,7 +50,7 @@ Measurements also matter. Hose length, end style, thread type, and fitting orien
 
 That information helps the repair team decide whether the issue is a hose, a fitting, a seal, or a larger problem in the circuit. It also helps avoid a second delay if the replacement part needs to match the original setup closely.
 
-For fleets and contractors who keep their own stock on hand, the [parts department](/services/parts-department) can usually work faster when the call includes good measurements and photos instead of a general description alone.
+For fleets and contractors who keep their own stock on hand, the [hydraulic parts, hoses, and fittings team](/services/parts-department/hydraulic-parts-hoses) can usually work faster when the call includes good measurements and photos instead of a general description alone.
 
 ## A little attention now can prevent a bigger repair later
 Hydraulic problems often start small and get expensive when they are ignored. The goal is not to chase every stain on a machine. It is to notice the pattern: abrasion, seepage, contamination, damaged fittings, or a leak that changes with movement.

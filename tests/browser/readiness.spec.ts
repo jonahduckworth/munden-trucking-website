@@ -11,7 +11,7 @@ test.beforeEach(async ({ context }) => {
   });
 });
 
-test("homepage and maintenance packages render and can be captured", async ({ page }, testInfo) => {
+test("homepage and department hubs render and can be captured", async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   expect((await page.goto("/"))?.status()).toBe(200);
@@ -19,20 +19,44 @@ test("homepage and maintenance packages render and can be captured", async ({ pa
   await page.screenshot({ path: testInfo.outputPath("homepage.png"), fullPage: true });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 
-  expect((await page.goto("/services/service-department"))?.status()).toBe(200);
-  await page.getByRole("tab", { name: "Maintenance", exact: true }).click();
-  for (const [tab, heading] of [
-    ["Light-Duty", "Light-Duty Maintenance"],
-    ["Medium-Duty", "Medium-Duty Maintenance"],
-    ["Heavy-Duty", "Heavy-Duty Maintenance"],
+  for (const [path, heading] of [
+    ["/services/service-department", "Commercial Truck, Trailer and Equipment Service"],
+    ["/services/mobile-service", "Mobile Truck, Trailer and Equipment Repair"],
+    ["/services/parts-department", "Commercial Truck, Trailer and Equipment Parts"],
   ]) {
-    await page.getByRole("tab", { name: tab, exact: true }).click();
-    await expect(page.getByText(heading, { exact: true })).toBeVisible();
-    await expect(page.getByRole("table")).toBeVisible();
-    expect(await page.getByRole("row").count()).toBeGreaterThan(1);
+    expect((await page.goto(path))?.status()).toBe(200);
+    await expect(page.getByRole("heading", { level: 1, name: heading })).toBeVisible();
+    await expect(page.getByRole("link", { name: "View details" }).first()).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
-  await page.screenshot({ path: testInfo.outputPath("maintenance.png"), fullPage: true });
+  await page.screenshot({ path: testInfo.outputPath("parts-department.png"), fullPage: true });
   expect(errors).toEqual([]);
+});
+
+test("navigation separates service, mobile, and parts", async ({ page }, testInfo) => {
+  await page.goto("/");
+
+  if (testInfo.project.name.startsWith("desktop")) {
+    for (const [trigger, destination] of [
+      ["Service Department", "View all shop services"],
+      ["Mobile Service", "View all mobile services"],
+      ["Parts Department", "View all parts categories"],
+    ]) {
+      await page.goto("/");
+      await page.getByRole("button", { name: trigger, exact: true }).click();
+      await expect(page.getByRole("link", { name: destination, exact: true })).toBeVisible();
+      await expect(page.locator('[data-slot="navigation-menu-viewport"]')).toHaveCSS("opacity", "1");
+    }
+  } else {
+    await page.getByRole("button", { name: "Open menu", exact: true }).click();
+    await page.getByRole("button", { name: "Mobile Service", exact: true }).click();
+    await expect(page.getByRole("link", { name: "View all mobile services", exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Service Department", exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Parts Department", exact: true })).toBeVisible();
+  }
+
+  await page.screenshot({ path: testInfo.outputPath("department-navigation.png") });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
 test("local email endpoints refuse delivery", async ({ request }) => {

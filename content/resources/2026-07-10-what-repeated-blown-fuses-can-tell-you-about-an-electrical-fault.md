@@ -38,9 +38,9 @@ A short list of observations can make diagnosis faster:
 If the truck is still drivable, document the issue instead of guessing at the fix. If the fault affects safety-related lighting, braking support equipment, or another critical system, plan the visit sooner rather than later. That is especially true for commercial trucks and trailers working long miles across the Interior.
 
 ## How Munden helps narrow down the problem
-Electrical diagnosis is usually easier when the shop gets good background from the driver or fleet manager. At Munden, that kind of detail helps the service team decide whether the issue points to the harness, a component, a connector, or an added load that needs to be reviewed. If the truck needs hands-on attention, the [Service Department](/services/service-department) can take a systematic look at the circuit and related components.
+Electrical diagnosis is usually easier when the shop gets good background from the driver or fleet manager. At Munden, that kind of detail helps the service team decide whether the issue points to the harness, a component, a connector, or an added load that needs to be reviewed. If the truck needs hands-on attention, the [electrical diagnostics team](/services/service-department/electrical-diagnostics-repair) can take a systematic look at the circuit and related components.
 
-When the cause involves damaged terminals, pigtails, relays, or related parts, having the right replacements on hand can also keep the repair moving. For parts support, see the [Parts Department](/services/parts-department).
+When the cause involves damaged terminals, pigtails, relays, or related parts, having the right replacements on hand can also keep the repair moving. For parts support, see [electrical parts and components](/services/parts-department/electrical-parts-components).
 
 ## A few fuse failures can tell a bigger story
 Repeated blown fuses are often a warning that something is changing in the electrical system. On commercial trucks, trailers, and forestry equipment, that small warning can be the difference between a quick repair and a roadside breakdown. The sooner the circuit is identified and the operating conditions are documented, the easier it is to trace the fault with less wasted time.

@@ -7,6 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from './providers';
 import Script from 'next/script';
 import { siteUrl } from '@/lib/site';
+import { getDepartmentNavigation } from '@/lib/department-pages';
 
 const logoPreviewImage = '/images/logo-preview.png';
 
@@ -76,6 +77,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const departmentNavigation = getDepartmentNavigation();
+
   return (
     <html lang='en' suppressHydrationWarning>
       <head>
@@ -122,8 +125,16 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <Header />
-          <main className='flex-1'>{children}</main>
+          <a
+            href='#main-content'
+            className='sr-only z-[100] rounded-md bg-background px-4 py-3 font-semibold text-foreground shadow focus:not-sr-only focus:fixed focus:left-4 focus:top-4'
+          >
+            Skip to main content
+          </a>
+          <Header {...departmentNavigation} />
+          <main id='main-content' className='flex-1'>
+            {children}
+          </main>
           <Footer />
           <Analytics />
         </ThemeProvider>

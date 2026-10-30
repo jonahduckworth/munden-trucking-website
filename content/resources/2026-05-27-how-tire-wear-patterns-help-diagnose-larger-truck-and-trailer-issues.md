@@ -61,7 +61,7 @@ On forestry equipment, uneven tire wear may also hint at operating habits, trave
 
 For BC fleets, tire wear is also a safety and compliance conversation. Commercial vehicle checks in the province put a spotlight on roadworthiness, and worn or damaged tires can become a problem fast if they are ignored. That makes tire inspections a practical part of commercial truck maintenance BC rather than a once-in-a-while chore.
 
-If you are weighing whether to inspect in the yard or bring a unit in, Munden’s [service department](/services/service-department) can help sort out whether the wear looks like a simple tire issue or something deeper in the steering, suspension, or wheel end.
+If you are weighing whether to inspect in the yard or bring a unit in, Munden’s [steering, suspension, and alignment service](/services/service-department/steering-suspension-alignment) can help sort out whether the wear looks like a simple tire issue or something deeper in the steering, suspension, or wheel end.
 
 ## Build a better inspection habit
 
@@ -76,4 +76,4 @@ The best time to spot a bad wear pattern is before it becomes obvious to everyon
 
 That approach saves time, protects the rest of the vehicle, and gives your shop better information to work with. Whether you are managing a mixed fleet, hauling freight, or running forestry equipment in the Interior, tire wear is one of the simplest diagnostic tools you already have.
 
-If you need parts or replacement planning after an inspection, the [parts department](/services/parts-department) can help identify what is needed before the unit is back on the road.
+If you need parts or replacement planning after an inspection, the [suspension and steering parts team](/services/parts-department/suspension-steering-parts) can help identify what is needed before the unit is back on the road.

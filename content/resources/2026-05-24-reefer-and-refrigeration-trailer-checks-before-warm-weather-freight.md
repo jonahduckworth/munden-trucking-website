@@ -27,7 +27,7 @@ Airflow is one of the first things to check because refrigeration depends on mov
 
 Look for debris around air chutes, blocked return paths, loose panels, or freight damage that may have changed how air moves through the trailer. Inside the box, note anything that could restrict flow once the load is in place. A trailer can have a strong unit and still perform poorly if air cannot circulate.
 
-Filters and screens deserve attention too. Dust, pollen, yard dirt, and road grime can build up faster during the warmer months. If the unit has not been serviced recently, filter condition should be part of the conversation with your [service department](/services/service-department), especially before longer routes or temperature-sensitive loads.
+Filters and screens deserve attention too. Dust, pollen, yard dirt, and road grime can build up faster during the warmer months. If the unit has not been serviced recently, filter condition should be part of the conversation when booking [reefer and transport refrigeration service](/services/service-department/reefer-refrigeration-service), especially before longer routes or temperature-sensitive loads.
 
 ## Check belts, hoses, wiring, and door seals
 

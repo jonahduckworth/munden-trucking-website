@@ -17,7 +17,7 @@ A CVIP inspection is not the time to start hunting for missing paperwork or tryi
 
 For fleet owners, operators, and contractors working around Kamloops and the Interior, the goal is simple: give the service team enough background to find likely problems faster and plan the visit around the real work needed. That matters even more when the unit has been working on rough roads, in dust, on haul routes, or with heavy stop-and-go duty.
 
-If you want a shop visit to move smoothly, start by lining up the basics before booking with the [service department](/services/service-department).
+If you want a shop visit to move smoothly, start by lining up the basics before booking a [CVIP inspection](/services/service-department/cvip-inspections).
 
 ## Records that are worth having on hand
 Bring the unit information that helps tell the story of the truck or trailer, not just the VIN. A good file usually includes:

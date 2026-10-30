@@ -46,4 +46,4 @@ For Kamloops fleets, logging contractors, and equipment buyers, the key is to tr
 
 When the damage is more than cosmetic, the safest move is to get a proper look before the crack, bend, or broken bracket creates a bigger problem on the road or jobsite.
 
-For related support, connect with Munden's [service department](/services/service-department).
+For related support, connect with Munden's [welding, fabrication, and frame repair team](/services/service-department/welding-fabrication-frame-repair).

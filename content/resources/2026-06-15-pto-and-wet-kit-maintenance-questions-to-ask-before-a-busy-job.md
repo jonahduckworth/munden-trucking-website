@@ -33,7 +33,7 @@ If the answer to any question is unclear, inspect before the job becomes urgent.
 ## Why notes help the repair process
 PTO and wet kit issues can involve mechanical, hydraulic, electrical, and operator-control concerns. A symptom such as "slow operation" can have several causes. Details about when it happens, what the truck is powering, and whether the concern changes with temperature or load are useful.
 
-When booking with the [service department](/services/service-department), include photos of leaks, hose routing, labels, and the unit number. If parts may be needed, early information helps reduce wrong-fit delays and repeat calls.
+When booking [truck rigout, PTO, or wet kit service](/services/service-department/truck-rigouts-pto-wet-kits), include photos of leaks, hose routing, labels, and the unit number. If parts may be needed, early information helps reduce wrong-fit delays and repeat calls.
 
 ## A planning habit for working trucks
 Hydraulic support equipment should be part of preventive maintenance, especially before seasonal peaks or demanding jobs. Look for leaks, rubbing hoses, loose mounts, damaged guards, and controls that no longer feel normal.
