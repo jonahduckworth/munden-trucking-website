@@ -6,6 +6,7 @@ import {
   buildAllowedTopicAngles,
   buildPexelsQueries,
   chooseTopicPlan,
+  createOpenAIResponse,
   createBlogImage,
   ensureInternalLink,
   findExistingDuplicate,
@@ -22,6 +23,54 @@ const departmentPageSource = fs.readFileSync(
   new URL("../lib/department-pages.ts", import.meta.url),
   "utf8",
 );
+const blogWorkflowSource = fs.readFileSync(
+  new URL("../.github/workflows/daily-blog.yml", import.meta.url),
+  "utf8",
+);
+
+test("the scheduled workflow publishes one post each week", () => {
+  assert.match(blogWorkflowSource, /name: Weekly AI Blog/);
+  assert.match(blogWorkflowSource, /cron: "30 12 \* \* 1"/);
+  assert.match(blogWorkflowSource, /else\n\s+npm run blog:generate\n\s+fi/);
+});
+
+test("exhausted OpenAI credits fail without rate-limit retries", async () => {
+  let fetchCalls = 0;
+  let sleepCalls = 0;
+  const warnings = [];
+  const quotaResponse = JSON.stringify({
+    error: {
+      message: "You have no credits remaining.",
+      type: "insufficient_quota",
+      code: "credit_balance_exhausted",
+    },
+  });
+
+  const response = await createOpenAIResponse(
+    {},
+    {
+      env: { BLOG_OPENAI_RETRIES: "4" },
+      fetchImpl: async () => {
+        fetchCalls += 1;
+        return {
+          ok: false,
+          status: 429,
+          text: async () => quotaResponse,
+        };
+      },
+      sleepImpl: async () => {
+        sleepCalls += 1;
+      },
+      logger: { warn: (message) => warnings.push(message) },
+    },
+  );
+
+  assert.equal(response.ok, false);
+  assert.equal(response.status, 429);
+  assert.equal(fetchCalls, 1);
+  assert.equal(sleepCalls, 0);
+  assert.deepEqual(warnings, []);
+});
 
 test("topic selection rejects a duplicate anywhere in the full post library", () => {
   const posts = Array.from({ length: 30 }, (_, index) => ({

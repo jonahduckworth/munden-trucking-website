@@ -186,7 +186,7 @@ async function generateValidatedPost(config, existingPosts, date) {
     } catch (error) {
       lastError = error;
 
-      if (isLongRateLimitError(error)) {
+      if (isLongRateLimitError(error) || isPermanentOpenAIError(error)) {
         throw error;
       }
 
@@ -248,6 +248,12 @@ async function generatePost(config, existingPosts, date, researchDigest, rejecte
   const text = await response.text();
 
   if (!response.ok) {
+    if (isOpenAIQuotaErrorText(text)) {
+      throw new Error(
+        "OpenAI API credits are exhausted (429 insufficient_quota). Add credits to the API project used by BLOG_OPENAI_API_KEY or OPENAI_API_KEY before the next run.",
+      );
+    }
+
     throw new Error(`OpenAI request failed (${response.status}): ${text}`);
   }
 
@@ -1683,16 +1689,32 @@ function hashString(value) {
   return hash >>> 0;
 }
 
-async function createOpenAIResponse(options) {
-  const maxAttempts = Number.parseInt(process.env.BLOG_OPENAI_RETRIES || "2", 10);
+export async function createOpenAIResponse(
+  options,
+  {
+    env = process.env,
+    fetchImpl = fetch,
+    sleepImpl = sleep,
+    logger = console,
+  } = {},
+) {
+  const maxAttempts = Number.parseInt(env.BLOG_OPENAI_RETRIES || "2", 10);
 
   for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
-    const response = await fetch("https://api.openai.com/v1/responses", options);
+    const response = await fetchImpl("https://api.openai.com/v1/responses", options);
     const text = await response.text();
 
     if (response.ok) {
       return {
         ok: true,
+        status: response.status,
+        text: async () => text,
+      };
+    }
+
+    if (isOpenAIQuotaErrorText(text)) {
+      return {
+        ok: false,
         status: response.status,
         text: async () => text,
       };
@@ -1711,8 +1733,8 @@ async function createOpenAIResponse(options) {
           text: async () => text,
         };
       }
-      console.warn(`OpenAI rate limit hit. Retrying in ${waitSeconds}s...`);
-      await sleep(waitSeconds * 1000);
+      logger.warn(`OpenAI rate limit hit. Retrying in ${waitSeconds}s...`);
+      await sleepImpl(waitSeconds * 1000);
       continue;
     }
 
@@ -1724,6 +1746,19 @@ async function createOpenAIResponse(options) {
   }
 
   throw new Error("OpenAI request failed after retries.");
+}
+
+export function isOpenAIQuotaErrorText(value) {
+  const text = String(value || "").toLowerCase();
+  return [
+    "insufficient_quota",
+    "credit_balance_exhausted",
+    "no credits remaining",
+  ].some((marker) => text.includes(marker));
+}
+
+function isPermanentOpenAIError(error) {
+  return isOpenAIQuotaErrorText(error?.message || error);
 }
 
 function normalizePost(post, config, date) {
