@@ -1,8 +1,8 @@
-name: Daily AI Blog
+name: Weekly AI Blog
 
 on:
   schedule:
-    - cron: "30 12 * * *"
+    - cron: "30 12 * * 1"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -35,12 +35,12 @@ permissions:
   contents: write
 
 concurrency:
-  group: daily-ai-blog
+  group: weekly-ai-blog
   cancel-in-progress: false
 
 jobs:
   generate:
-    name: Generate daily resource post
+    name: Generate weekly resource post
     runs-on: ubuntu-latest
     env:
       OPENAI_API_KEY: ${{ secrets.BLOG_OPENAI_API_KEY || secrets.OPENAI_API_KEY }}
@@ -95,8 +95,10 @@ jobs:
             fi
           elif [ -n "$RUN_DATE" ]; then
             npm run blog:generate -- "${DATE_ARGS[@]}"
-          else
+          elif [ -n "$BACKFILL_FROM" ] || [ -n "$BACKFILL_TO" ]; then
             npm run blog:backfill -- "${BACKFILL_ARGS[@]}"
+          else
+            npm run blog:generate
           fi
 
       - run: npm run blog:validate
@@ -116,5 +118,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -- content/resources public/images/blog
-          git commit -m "Add daily AI resource post"
+          git commit -m "Add weekly AI resource post"
           git push

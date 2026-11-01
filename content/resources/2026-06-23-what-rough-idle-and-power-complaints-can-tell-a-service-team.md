@@ -36,7 +36,7 @@ Some performance complaints only appear when the truck is working. A unit may id
 Route context matters too. Dusty roads, heavy grades, stop-and-go work, cold starts, and long idle periods all affect how symptoms show up. For Interior fleets, the operating environment should be part of the service note.
 
 ## When to book service instead of waiting
-If the symptom is getting worse, includes warning lights, affects loaded pulls, or leaves the driver unsure whether the truck can complete the route, do not wait for the next scheduled service. Call the [service department](/services/service-department) with the details and ask whether the unit should come in sooner.
+If the symptom is getting worse, includes warning lights, affects loaded pulls, or leaves the driver unsure whether the truck can complete the route, do not wait for the next scheduled service. Contact the team about [diesel engine diagnostics and repair](/services/service-department/diesel-engine-repair) with the details and ask whether the unit should come in sooner.
 
 If the truck is away from the shop, a clear report also helps decide whether [mobile service](/services/mobile-service) can assess the issue or whether the unit needs a shop visit.
 

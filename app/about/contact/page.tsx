@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -41,9 +42,33 @@ const formSchema = z.object({
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
+const subjectLabels: Record<string, string> = {
+  service: "Service & Repairs",
+  parts: "Parts Inquiry",
+  cvip: "CVIP Inspection",
+  equipment: "Equipment Sales",
+  emergency: "Emergency Service",
+  other: "Other",
+};
+
 export default function ContactPage() {
+  return (
+    <Suspense fallback={<div className="container py-16">Loading contact form...</div>}>
+      <ContactPageContent />
+    </Suspense>
+  );
+}
+
+function ContactPageContent() {
+  const searchParams = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const requestedSubject = searchParams.get("subject");
+  const requestedTopic = searchParams.get("topic");
+  const selectedSubject =
+    requestedSubject && subjectLabels[requestedSubject]
+      ? requestedSubject
+      : "";
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,8 +76,10 @@ export default function ContactPage() {
       name: "",
       email: "",
       phone: "",
-      subject: "",
-      message: "",
+      subject: selectedSubject,
+      message: requestedTopic
+        ? `I'm contacting you about ${requestedTopic}. `
+        : "",
     },
   });
 
@@ -291,11 +318,13 @@ export default function ContactPage() {
                           <FormLabel>Subject</FormLabel>
                           <Select
                             onValueChange={field.onChange}
-                            defaultValue={field.value}
+                            value={field.value}
                           >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Select a subject" />
+                                <SelectValue placeholder="Select a subject">
+                                  {subjectLabels[field.value]}
+                                </SelectValue>
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>

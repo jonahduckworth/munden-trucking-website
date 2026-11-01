@@ -49,7 +49,7 @@ Here are the usual suspects:
 
 On units that see a lot of rough-road use, it is worth looking closely at the whole harness path, not just the lamp that stopped working. Sometimes the visible problem is only the symptom.
 
-If a fault keeps coming back, that is usually a sign the harness needs proper diagnosis rather than another quick bulb swap. Our [service department](/services/service-department) handles trailer electrical issues, diagnostics, and repair planning for working trucks and trailers.
+If a fault keeps coming back, that is usually a sign the harness needs proper diagnosis rather than another quick bulb swap. Our [electrical diagnostics and repair team](/services/service-department/electrical-diagnostics-repair) handles trailer electrical issues and repair planning for working trucks and trailers.
 
 ## When to stop running the trailer and get help
 Some lighting problems are minor enough to catch in the yard. Others are a real safety issue and should not be ignored.
