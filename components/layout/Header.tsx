@@ -63,7 +63,7 @@ export default function Header({
       <div className="container flex h-16 items-center justify-between gap-4">
         <Link
           href="/"
-          className="flex min-h-11 shrink-0 items-center gap-3 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-white"
+          className="flex min-h-11 shrink-0 items-center rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-white"
         >
           <Image
             src="/images/logo.png"
@@ -72,9 +72,6 @@ export default function Header({
             height={50}
             className="h-11 w-11"
           />
-          <span className="hidden text-lg font-bold text-white 2xl:inline dark:text-foreground">
-            Munden Truck & Equipment
-          </span>
         </Link>
 
         <nav className="hidden min-w-0 items-center gap-3 xl:flex" aria-label="Main navigation">
