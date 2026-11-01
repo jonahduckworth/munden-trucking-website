@@ -63,6 +63,7 @@ export default function Header({
       <div className="container flex h-16 items-center justify-between gap-4">
         <Link
           href="/"
+          aria-label="Munden Truck & Equipment home"
           className="flex min-h-11 shrink-0 items-center rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-white"
         >
           <Image
