@@ -54,7 +54,7 @@ This is especially helpful for mixed fleets and older units where components may
 
 If you are not sure whether a part is for the truck or the trailer, say so. It is better to admit uncertainty than to guess. The same goes for components that look simple but are easy to mix up, such as electrical connectors, air fittings, or hydraulic ends.
 
-If you need help tracking down a part, our [Parts Department](/services/parts-department) can work through the details with you and help sort out what you actually need.
+If you need help tracking down a part, start with the relevant [Parts Department category](/services/parts-department) so you can gather the details the team will need to sort out what you actually need.
 
 ## Common mistakes that slow down the order
 

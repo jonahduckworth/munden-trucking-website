@@ -17,13 +17,33 @@ export default defineConfig({
   },
   projects: [
     { name: "desktop", use: { viewport: { width: 1440, height: 1000 } } },
-    { name: "mobile", use: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } },
+    {
+      name: "desktop-compact",
+      use: { viewport: { width: 1280, height: 900 } },
+    },
+    {
+      name: "tablet",
+      use: { viewport: { width: 1024, height: 900 }, hasTouch: true },
+    },
+    {
+      name: "mobile",
+      use: {
+        viewport: { width: 390, height: 844 },
+        isMobile: true,
+        hasTouch: true,
+      },
+    },
   ],
   webServer: {
-    command: "node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3100",
+    command:
+      "node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3100",
     url: "http://127.0.0.1:3100",
     reuseExistingServer: false,
-    env: { EMAIL_DISABLED: "1", RESEND_API_KEY: "", NEXT_TELEMETRY_DISABLED: "1" },
+    env: {
+      EMAIL_DISABLED: "1",
+      RESEND_API_KEY: "",
+      NEXT_TELEMETRY_DISABLED: "1",
+    },
     timeout: 60_000,
   },
 });

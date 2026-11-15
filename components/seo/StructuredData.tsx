@@ -159,14 +159,18 @@ export const serviceSchema = (service: {
   provider?: string;
   areaServed?: string;
   serviceType?: string;
+  url?: string;
 }) => ({
   "@context": "https://schema.org",
   "@type": "Service",
+  ...(service.url ? { "@id": `${absoluteUrl(service.url)}#service` } : {}),
   serviceType: service.serviceType || service.name,
   name: service.name,
   description: service.description,
+  ...(service.url ? { url: absoluteUrl(service.url) } : {}),
   provider: {
     "@type": "LocalBusiness",
+    "@id": `${siteUrl}/#localbusiness`,
     name: service.provider || "Munden Truck & Equipment Ltd.",
   },
   areaServed: {
@@ -177,6 +181,35 @@ export const serviceSchema = (service: {
       longitude: businessLocation.longitude,
     },
     geoRadius: service.areaServed || "250km",
+  },
+});
+
+export const collectionPageSchema = (collection: {
+  name: string;
+  description: string;
+  url: string;
+  items: string[];
+}) => ({
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${absoluteUrl(collection.url)}#collection`,
+  name: collection.name,
+  description: collection.description,
+  url: absoluteUrl(collection.url),
+  mainEntity: {
+    "@type": "OfferCatalog",
+    name: collection.name,
+    itemListElement: collection.items.map((item, index) => ({
+      "@type": "Offer",
+      position: index + 1,
+      itemOffered: {
+        "@type": "Product",
+        name: item,
+      },
+    })),
+  },
+  isPartOf: {
+    "@id": `${siteUrl}/#localbusiness`,
   },
 });
 

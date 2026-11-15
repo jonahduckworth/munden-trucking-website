@@ -39,7 +39,7 @@ A careful air system inspection usually starts with the simplest possibilities a
 
 In a shop setting, technicians may use listening tools, soapy water checks, and a hands-on inspection to narrow the source. On some units, the issue is a fitting that has loosened. On others, it is a cracked line, a worn diaphragm, or a hidden leak that shows up only when the system is under pressure.
 
-That is why air complaints should not be written off as “probably nothing.” A leak that seems minor today can become a bigger reliability issue tomorrow, especially for units that spend long hours in service and then need to pass a [CVIP inspection Kamloops](/services/service-department) time window without surprises.
+That is why air complaints should not be written off as “probably nothing.” A leak that seems minor today can become a bigger reliability issue tomorrow, especially for units that spend long hours in service and then need to pass a [CVIP inspection](/services/service-department/cvip-inspections) without surprises.
 
 ## Practical Habits That Help Fleets Catch Problems Early
 The best time to find an air leak is before the truck leaves the yard. A few basic habits make that more likely:
@@ -55,6 +55,6 @@ Those habits are especially useful for mixed fleets, highway haulers, and forest
 ## When to Bring It In Before the Next Trip
 If a driver has heard a leak more than once, seen pressure loss, or noticed the compressor working harder than normal, it is time to schedule service. The goal is not to guess—it is to confirm the source and fix it before the unit is committed to a run.
 
-For Kamloops truck repair and trailer service, that may mean a bay visit, a targeted repair, or a quick inspection before a bigger problem develops. If you need parts planning alongside the repair, the [Parts Department](/services/parts-department) can help line up the usual wear items so the truck is not parked twice for the same issue.
+For Kamloops truck repair and trailer service, that may mean a bay visit, a targeted repair, or a quick inspection before a bigger problem develops. If you need parts planning alongside the repair, the [brake and safety parts team](/services/parts-department/brake-safety-parts) can help line up the usual wear items so the truck is not parked twice for the same issue.
 
 A clear report from the driver, a solid inspection from the shop, and a prompt repair decision usually saves time, protects uptime, and keeps the fleet moving with fewer surprises.
