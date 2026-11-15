@@ -179,6 +179,18 @@
     },
     {
       "department": "mobile",
+      "label": "mobile heavy equipment repair",
+      "url": "/services/mobile-service/mobile-heavy-equipment-repair",
+      "matchTerms": ["heavy equipment", "construction equipment", "forestry equipment", "mining equipment", "jobsite equipment", "equipment repair", "equipment downtime"]
+    },
+    {
+      "department": "mobile",
+      "label": "scheduled mobile fleet maintenance",
+      "url": "/services/mobile-service/scheduled-fleet-maintenance",
+      "matchTerms": ["scheduled fleet maintenance", "mobile fleet maintenance", "on-site fleet maintenance", "preventive fleet maintenance", "fleet service interval", "fleet maintenance visit"]
+    },
+    {
+      "department": "mobile",
       "label": "mobile engine and cooling-system repair",
       "url": "/services/mobile-service/mobile-engine-cooling-repair",
       "matchTerms": ["engine", "overheating", "coolant", "cooling", "radiator", "loss of power", "rough idle", "oil leak", "fuel leak"]

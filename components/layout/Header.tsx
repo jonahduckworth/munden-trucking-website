@@ -50,9 +50,17 @@ export default function Header({
 }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(
-    "service",
+    null,
   );
-  const closeMobileMenu = () => setIsMenuOpen(false);
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false);
+    setOpenMobileSection(null);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMenuOpen((current) => !current);
+    setOpenMobileSection(null);
+  };
 
   const toggleMobileSection = (section: string) => {
     setOpenMobileSection((current) => (current === section ? null : section));
@@ -75,7 +83,10 @@ export default function Header({
           />
         </Link>
 
-        <nav className="hidden min-w-0 items-center gap-3 xl:flex" aria-label="Main navigation">
+        <nav
+          className="hidden min-w-0 items-center gap-3 xl:flex"
+          aria-label="Main navigation"
+        >
           <NavigationMenu>
             <NavigationMenuList>
               <DepartmentNavigationItem
@@ -127,7 +138,8 @@ export default function Header({
                             EcoLog Forestry
                           </div>
                           <p className="text-sm leading-6 text-muted-foreground">
-                            Explore harvesters and forwarders with parts and service support.
+                            Explore harvesters and forwarders with parts and
+                            service support.
                           </p>
                         </Link>
                       </NavigationMenuLink>
@@ -149,7 +161,11 @@ export default function Header({
                 <NavigationMenuContent>
                   <ul className="grid w-[500px] grid-cols-2 gap-3 p-4">
                     {aboutLinks.map((link) => (
-                      <ListItem key={link.href} href={link.href} title={link.title}>
+                      <ListItem
+                        key={link.href}
+                        href={link.href}
+                        title={link.title}
+                      >
                         {link.title === "Contact"
                           ? "Get in touch with our team"
                           : link.title === "Careers"
@@ -165,7 +181,7 @@ export default function Header({
 
           <a
             href="tel:+12508282268"
-            className="hidden min-h-11 items-center gap-2 rounded-md px-2 text-sm text-white outline-none hover:text-white/80 focus-visible:ring-2 focus-visible:ring-white 2xl:flex dark:text-foreground"
+            className="hidden min-h-11 items-center gap-2 whitespace-nowrap rounded-md px-2 text-sm text-white outline-none hover:text-white/80 focus-visible:ring-2 focus-visible:ring-white 2xl:flex dark:text-foreground"
           >
             <Phone className="h-4 w-4" />
             <span>250-828-2268</span>
@@ -182,13 +198,20 @@ export default function Header({
           <ThemeToggle />
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-md text-white outline-none hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white dark:text-foreground"
-            onClick={() => setIsMenuOpen((current) => !current)}
+            className="inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-md px-2 text-white outline-none hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white sm:px-3 dark:text-foreground"
+            onClick={toggleMobileMenu}
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-navigation"
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+            <span className="hidden text-sm font-medium sm:inline">
+              {isMenuOpen ? "Close" : "Menu"}
+            </span>
           </button>
         </div>
       </div>
@@ -198,7 +221,10 @@ export default function Header({
           id="mobile-navigation"
           className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-white/20 bg-munden-burgundy xl:hidden dark:bg-background"
         >
-          <nav className="container space-y-2 py-4" aria-label="Mobile navigation">
+          <nav
+            className="container space-y-2 py-4"
+            aria-label="Mobile navigation"
+          >
             <MobileDisclosure
               id="service"
               title="Service Department"
@@ -335,7 +361,7 @@ export default function Header({
 
             <div className="pt-3">
               <Button asChild variant="secondary" className="min-h-12 w-full">
-                <a href="tel:+12508282268">
+                <a href="tel:+12508282268" className="whitespace-nowrap">
                   <Phone className="mr-2 h-4 w-4" />
                   Call 250-828-2268
                 </a>
@@ -390,7 +416,7 @@ function DepartmentNavigationItem({
               </p>
             </div>
             <Button size="sm" variant="outline" asChild>
-              <a href="tel:+12508282268">
+              <a href="tel:+12508282268" className="whitespace-nowrap">
                 <Phone className="mr-2 h-4 w-4" />
                 250-828-2268
               </a>
@@ -451,7 +477,10 @@ const socialLinks = [
 
 function SocialLinks({ size }: { size: number }) {
   return (
-    <div className="flex items-center justify-center gap-1" aria-label="Social and review links">
+    <div
+      className="flex items-center justify-center gap-1"
+      aria-label="Social and review links"
+    >
       {socialLinks.map((link) => (
         <a
           key={link.label}
@@ -481,9 +510,7 @@ function CompactMenuItem({ title, href }: { title: string; href: string }) {
         asChild
         className="flex min-h-10 w-full flex-row items-center justify-start rounded-md px-2 py-1.5 text-left text-sm font-medium leading-5 outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring"
       >
-        <Link href={href}>
-          {title}
-        </Link>
+        <Link href={href}>{title}</Link>
       </NavigationMenuLink>
     </li>
   );
@@ -513,7 +540,10 @@ function MobileDisclosure({
       >
         {title}
         <ChevronDown
-          className={cn("h-5 w-5 transition-transform duration-200", isOpen && "rotate-180")}
+          className={cn(
+            "h-5 w-5 transition-transform duration-200",
+            isOpen && "rotate-180",
+          )}
           aria-hidden="true"
         />
       </button>

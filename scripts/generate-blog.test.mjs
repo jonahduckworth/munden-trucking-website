@@ -17,7 +17,10 @@ import {
 } from "./generate-blog.mjs";
 
 const blogConfig = JSON.parse(
-  fs.readFileSync(new URL("../content/blog-config.json", import.meta.url), "utf8"),
+  fs.readFileSync(
+    new URL("../content/blog-config.json", import.meta.url),
+    "utf8",
+  ),
 );
 const departmentPageSource = fs.readFileSync(
   new URL("../lib/department-pages.ts", import.meta.url),
@@ -87,7 +90,9 @@ test("topic selection rejects a duplicate anywhere in the full post library", ()
     slug: "hydraulic-hose-warning-signs-before-a-small-leak-becomes-downtime",
   };
 
-  const allowedTitles = buildAllowedTopicAngles(posts).map(({ angle }) => angle);
+  const allowedTitles = buildAllowedTopicAngles(posts).map(
+    ({ angle }) => angle,
+  );
 
   assert.ok(
     !allowedTitles.includes(
@@ -100,7 +105,10 @@ test("the current library has a distinct topic available for the next run", () =
   const posts = readExistingPosts();
   const allowedAngles = buildAllowedTopicAngles(posts);
 
-  assert.ok(allowedAngles.length > 0, "Expected at least one unused topic angle.");
+  assert.ok(
+    allowedAngles.length > 0,
+    "Expected at least one unused topic angle.",
+  );
 
   for (const candidate of allowedAngles) {
     const duplicate = findExistingDuplicate(
@@ -115,18 +123,20 @@ test("the current library has a distinct topic available for the next run", () =
       posts,
     );
 
-    assert.equal(duplicate, undefined, `${candidate.angle} duplicates ${duplicate?.title}.`);
+    assert.equal(
+      duplicate,
+      undefined,
+      `${candidate.angle} duplicates ${duplicate?.title}.`,
+    );
   }
 });
 
 test("a rejected topic is not selected again on the next attempt", () => {
   const posts = readExistingPosts();
   const first = chooseTopicPlan(posts, "2026-07-08");
-  const second = chooseTopicPlan(
-    posts,
-    "2026-07-08",
-    [`Rejected "${first.angle}" because it overlapped an existing post.`],
-  );
+  const second = chooseTopicPlan(posts, "2026-07-08", [
+    `Rejected "${first.angle}" because it overlapped an existing post.`,
+  ]);
 
   assert.notEqual(second.angle, first.angle);
 });
@@ -189,6 +199,34 @@ test("mobile topics route to a dedicated page while EcoLog stays unchanged", () 
   assert.equal(ecolog.internalLink, "/equipment/ecolog");
 });
 
+test("new mobile topics route to the heavy-equipment and scheduled-maintenance pages", () => {
+  const heavyEquipment = routeTopicPlan(
+    {
+      angle: "Heavy equipment downtime at a remote jobsite",
+      mustCover: "construction equipment repair and jobsite equipment access",
+      internalLink: "/services/mobile-service",
+    },
+    blogConfig,
+  );
+  const scheduledMaintenance = routeTopicPlan(
+    {
+      angle: "Scheduled mobile fleet maintenance planning",
+      mustCover: "on-site fleet maintenance and fleet service intervals",
+      internalLink: "/services/mobile-service",
+    },
+    blogConfig,
+  );
+
+  assert.equal(
+    heavyEquipment.internalLink,
+    "/services/mobile-service/mobile-heavy-equipment-repair",
+  );
+  assert.equal(
+    scheduledMaintenance.internalLink,
+    "/services/mobile-service/scheduled-fleet-maintenance",
+  );
+});
+
 test("the selected primary destination is added even when another internal link exists", () => {
   const body =
     "See the [Service Department](/services/service-department) for general help.";
@@ -207,11 +245,13 @@ test("topic link catalog includes unique routes for all new pages", () => {
   const targets = blogConfig.topicLinkTargets;
   const urls = targets.map((target) => target.url);
 
-  assert.equal(targets.length, 24);
+  assert.equal(targets.length, 26);
   assert.equal(new Set(urls).size, targets.length);
   assert.ok(
     urls.every((url) =>
-      /^\/services\/(?:service-department|mobile-service|parts-department)\/[a-z0-9-]+$/.test(url),
+      /^\/services\/(?:service-department|mobile-service|parts-department)\/[a-z0-9-]+$/.test(
+        url,
+      ),
     ),
   );
 });
@@ -223,7 +263,9 @@ test("topic link targets stay synchronized with the department page catalog", ()
   const [mobileSource, partsAndFollowing] = mobileAndFollowing.split(
     "export const partsDepartmentPages",
   );
-  const partsSource = partsAndFollowing.split("export const allDepartmentPages")[0];
+  const partsSource = partsAndFollowing.split(
+    "export const allDepartmentPages",
+  )[0];
   const pageSlugs = (source) =>
     [...source.matchAll(/^    slug: "([^"]+)",$/gm)].map((match) => match[1]);
   const pageUrls = [
@@ -264,7 +306,10 @@ test("backfill preserves completed posts when a later date fails", async () => {
   );
 
   assert.equal(generatedCount, 1);
-  assert.match(warnings[0], /Valid generated posts will still be validated and committed/);
+  assert.match(
+    warnings[0],
+    /Valid generated posts will still be validated and committed/,
+  );
   assert.equal(warnings[1], "later validation failure");
 });
 
@@ -285,7 +330,10 @@ test("stock-preferred image mode cannot block a valid post", async () => {
   const warnings = [];
   const image = await createBlogImage(
     { title: "Brake service notes", slug: "brake-service-notes", keywords: [] },
-    { imageOptions: ["/images/equipment/blog1.jpeg"], defaultImage: "/images/equipment/blog1.jpeg" },
+    {
+      imageOptions: ["/images/equipment/blog1.jpeg"],
+      defaultImage: "/images/equipment/blog1.jpeg",
+    },
     [],
     {
       env: { BLOG_IMAGE_MODE: "stock-preferred", PEXELS_API_KEY: "test-key" },
@@ -304,7 +352,11 @@ test("stock-preferred image mode cannot block a valid post", async () => {
 test("stock-required image mode remains available as an explicit strict option", async () => {
   await assert.rejects(
     createBlogImage(
-      { title: "Brake service notes", slug: "brake-service-notes", keywords: [] },
+      {
+        title: "Brake service notes",
+        slug: "brake-service-notes",
+        keywords: [],
+      },
       { imageOptions: [], defaultImage: "/images/equipment/blog1.jpeg" },
       [],
       {

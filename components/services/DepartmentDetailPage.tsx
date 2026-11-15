@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -17,6 +18,7 @@ import StructuredData, {
   faqSchema,
   serviceSchema,
 } from "@/components/seo/StructuredData";
+import { DepartmentPartners } from "@/components/services/DepartmentPartners";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -90,7 +92,11 @@ export function DepartmentDetailPage({ page }: DepartmentDetailPageProps) {
   return (
     <>
       <StructuredData
-        data={[primarySchema, breadcrumbSchema(breadcrumbs), faqSchema(page.faqs)]}
+        data={[
+          primarySchema,
+          breadcrumbSchema(breadcrumbs),
+          faqSchema(page.faqs),
+        ]}
       />
 
       <section className="border-b bg-gradient-to-b from-secondary/70 to-background py-10 md:py-16">
@@ -117,7 +123,7 @@ export function DepartmentDetailPage({ page }: DepartmentDetailPageProps) {
               </div>
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
                 <Button size="lg" asChild>
-                  <a href="tel:+12508282268">
+                  <a href="tel:+12508282268" className="whitespace-nowrap">
                     <Phone className="mr-2 h-4 w-4" />
                     Call 250-828-2268
                   </a>
@@ -131,6 +137,19 @@ export function DepartmentDetailPage({ page }: DepartmentDetailPageProps) {
                 </Button>
               </div>
             </div>
+
+            {page.image && (
+              <figure className="relative mt-10 aspect-[16/7] min-h-64 overflow-hidden rounded-2xl border bg-muted shadow-sm">
+                <Image
+                  src={page.image.src}
+                  alt={page.image.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  priority
+                />
+              </figure>
+            )}
           </div>
         </div>
       </section>
@@ -162,6 +181,8 @@ export function DepartmentDetailPage({ page }: DepartmentDetailPageProps) {
           </div>
         </div>
       </section>
+
+      <DepartmentPartners />
 
       <section className="bg-secondary/50 py-14 md:py-20">
         <div className="container">
@@ -288,7 +309,10 @@ export function DepartmentDetailPage({ page }: DepartmentDetailPageProps) {
               {resources.length > 0 && (
                 <div>
                   <div className="flex items-center gap-3">
-                    <BookOpen className="h-6 w-6 text-primary" aria-hidden="true" />
+                    <BookOpen
+                      className="h-6 w-6 text-primary"
+                      aria-hidden="true"
+                    />
                     <h2 className="text-3xl font-bold tracking-tight">
                       Helpful resources
                     </h2>

@@ -25,11 +25,15 @@ export type DepartmentPage = {
   }>;
   relatedSlugs: string[];
   relatedResources: string[];
+  image?: {
+    src: string;
+    alt: string;
+  };
   updatedAt: string;
 };
 
 const updatedAt = "2026-09-02";
-const mobileUpdatedAt = "2026-10-24";
+const mobileUpdatedAt = "2026-11-15";
 
 export const serviceDepartmentPages: DepartmentPage[] = [
   {
@@ -70,7 +74,8 @@ export const serviceDepartmentPages: DepartmentPage[] = [
     process: [
       {
         title: "Book the unit",
-        description: "Share the unit details, inspection timing, and any known concerns.",
+        description:
+          "Share the unit details, inspection timing, and any known concerns.",
       },
       {
         title: "Complete the inspection",
@@ -78,12 +83,14 @@ export const serviceDepartmentPages: DepartmentPage[] = [
       },
       {
         title: "Plan the next step",
-        description: "Review any required repairs and coordinate re-inspection when applicable.",
+        description:
+          "Review any required repairs and coordinate re-inspection when applicable.",
       },
     ],
     faqs: [
       {
-        question: "What information should I provide when booking a CVIP inspection?",
+        question:
+          "What information should I provide when booking a CVIP inspection?",
         answer:
           "Provide the unit number, year, make, model, vehicle type, inspection due date, and any known defects or recent driver concerns.",
       },
@@ -93,7 +100,8 @@ export const serviceDepartmentPages: DepartmentPage[] = [
           "Yes. Tell the service team about known repair or maintenance needs when booking so the work can be planned with the inspection.",
       },
       {
-        question: "How do I know which inspection schedule applies to my vehicle?",
+        question:
+          "How do I know which inspection schedule applies to my vehicle?",
         answer:
           "Requirements depend on the vehicle and how it is used. Confirm the applicable schedule for your vehicle class and contact Munden when you are ready to book.",
       },
@@ -148,15 +156,18 @@ export const serviceDepartmentPages: DepartmentPage[] = [
     process: [
       {
         title: "Review the fleet",
-        description: "Identify the units, operating conditions, and current maintenance records.",
+        description:
+          "Identify the units, operating conditions, and current maintenance records.",
       },
       {
         title: "Prioritize the work",
-        description: "Separate immediate concerns from work that can be planned into future visits.",
+        description:
+          "Separate immediate concerns from work that can be planned into future visits.",
       },
       {
         title: "Keep records current",
-        description: "Use service findings and driver notes to make the next visit more productive.",
+        description:
+          "Use service findings and driver notes to make the next visit more productive.",
       },
     ],
     faqs: [
@@ -226,15 +237,18 @@ export const serviceDepartmentPages: DepartmentPage[] = [
     process: [
       {
         title: "Document the symptom",
-        description: "Share when the problem appears and what changed before it started.",
+        description:
+          "Share when the problem appears and what changed before it started.",
       },
       {
         title: "Inspect and diagnose",
-        description: "The service team checks the relevant engine and supporting systems.",
+        description:
+          "The service team checks the relevant engine and supporting systems.",
       },
       {
         title: "Review repair options",
-        description: "Discuss the findings, required parts, and next repair step.",
+        description:
+          "Discuss the findings, required parts, and next repair step.",
       },
     ],
     faqs: [
@@ -304,15 +318,18 @@ export const serviceDepartmentPages: DepartmentPage[] = [
     process: [
       {
         title: "Reproduce the concern",
-        description: "Use the driver's notes to narrow down the operating conditions involved.",
+        description:
+          "Use the driver's notes to narrow down the operating conditions involved.",
       },
       {
         title: "Inspect connected systems",
-        description: "Review the transmission and driveline components related to the symptom.",
+        description:
+          "Review the transmission and driveline components related to the symptom.",
       },
       {
         title: "Plan the repair",
-        description: "Identify the required work and coordinate the necessary parts.",
+        description:
+          "Identify the required work and coordinate the necessary parts.",
       },
     ],
     faqs: [
@@ -382,15 +399,18 @@ export const serviceDepartmentPages: DepartmentPage[] = [
     process: [
       {
         title: "Share the concern",
-        description: "Describe the brake or air-system behaviour and whether the unit is safe to move.",
+        description:
+          "Describe the brake or air-system behaviour and whether the unit is safe to move.",
       },
       {
         title: "Inspect the system",
-        description: "Check the components connected to the reported symptom or inspection finding.",
+        description:
+          "Check the components connected to the reported symptom or inspection finding.",
       },
       {
         title: "Complete and document work",
-        description: "Coordinate repair, parts, and any inspection follow-up that is required.",
+        description:
+          "Coordinate repair, parts, and any inspection follow-up that is required.",
       },
     ],
     faqs: [
@@ -460,15 +480,18 @@ export const serviceDepartmentPages: DepartmentPage[] = [
     process: [
       {
         title: "Capture the pattern",
-        description: "Document what is operating and when the electrical concern appears.",
+        description:
+          "Document what is operating and when the electrical concern appears.",
       },
       {
         title: "Test the circuit",
-        description: "Inspect the relevant power, ground, wiring, connector, and component paths.",
+        description:
+          "Inspect the relevant power, ground, wiring, connector, and component paths.",
       },
       {
         title: "Repair and verify",
-        description: "Address the identified fault and review any related parts or follow-up work.",
+        description:
+          "Address the identified fault and review any related parts or follow-up work.",
       },
     ],
     faqs: [
@@ -538,15 +561,18 @@ export const serviceDepartmentPages: DepartmentPage[] = [
     process: [
       {
         title: "Review the symptoms",
-        description: "Use driver feedback and tire condition to identify the areas to inspect.",
+        description:
+          "Use driver feedback and tire condition to identify the areas to inspect.",
       },
       {
         title: "Inspect components",
-        description: "Check the steering, suspension, mounting, and alignment-related systems.",
+        description:
+          "Check the steering, suspension, mounting, and alignment-related systems.",
       },
       {
         title: "Coordinate repairs",
-        description: "Address worn components before completing alignment-related work where needed.",
+        description:
+          "Address worn components before completing alignment-related work where needed.",
       },
     ],
     faqs: [
@@ -616,15 +642,18 @@ export const serviceDepartmentPages: DepartmentPage[] = [
     process: [
       {
         title: "Identify the affected function",
-        description: "Record the movement, load, temperature, and leak conditions involved.",
+        description:
+          "Record the movement, load, temperature, and leak conditions involved.",
       },
       {
         title: "Inspect the system",
-        description: "Review hoses, fittings, controls, pumps, cylinders, and related components.",
+        description:
+          "Review hoses, fittings, controls, pumps, cylinders, and related components.",
       },
       {
         title: "Repair and protect",
-        description: "Coordinate parts and address contamination or routing concerns where applicable.",
+        description:
+          "Coordinate parts and address contamination or routing concerns where applicable.",
       },
     ],
     faqs: [
@@ -698,11 +727,13 @@ export const serviceDepartmentPages: DepartmentPage[] = [
       },
       {
         title: "Review the concern",
-        description: "Inspect the structural, hydraulic, control, or safety systems involved.",
+        description:
+          "Inspect the structural, hydraulic, control, or safety systems involved.",
       },
       {
         title: "Coordinate the work",
-        description: "Plan repair, parts, testing, and documentation appropriate to the findings.",
+        description:
+          "Plan repair, parts, testing, and documentation appropriate to the findings.",
       },
     ],
     faqs: [
@@ -717,7 +748,8 @@ export const serviceDepartmentPages: DepartmentPage[] = [
           "Yes. Munden can investigate hydraulic leaks, movement concerns, controls, hoses, and related crane components.",
       },
       {
-        question: "Should a crane be used when a safety device is not behaving normally?",
+        question:
+          "Should a crane be used when a safety device is not behaving normally?",
         answer:
           "Do not bypass a safety system. Remove the equipment from service as appropriate and contact the shop with the warning or behaviour you observed.",
       },
@@ -771,15 +803,18 @@ export const serviceDepartmentPages: DepartmentPage[] = [
     process: [
       {
         title: "Capture the operating history",
-        description: "Share temperatures, alarms, load conditions, and recent service information.",
+        description:
+          "Share temperatures, alarms, load conditions, and recent service information.",
       },
       {
         title: "Diagnose the system",
-        description: "Review the mechanical, refrigerant, airflow, electrical, and control concerns involved.",
+        description:
+          "Review the mechanical, refrigerant, airflow, electrical, and control concerns involved.",
       },
       {
         title: "Plan service",
-        description: "Coordinate repair and follow-up based on the inspection findings.",
+        description:
+          "Coordinate repair and follow-up based on the inspection findings.",
       },
     ],
     faqs: [
@@ -848,15 +883,18 @@ export const serviceDepartmentPages: DepartmentPage[] = [
     process: [
       {
         title: "Review the damage or idea",
-        description: "Share photos, measurements, operating needs, and repair history.",
+        description:
+          "Share photos, measurements, operating needs, and repair history.",
       },
       {
         title: "Assess the structure",
-        description: "Inspect the material, surrounding components, load path, and access.",
+        description:
+          "Inspect the material, surrounding components, load path, and access.",
       },
       {
         title: "Fabricate or repair",
-        description: "Complete the agreed work and coordinate related mechanical items when needed.",
+        description:
+          "Complete the agreed work and coordinate related mechanical items when needed.",
       },
     ],
     faqs: [
@@ -926,15 +964,18 @@ export const serviceDepartmentPages: DepartmentPage[] = [
     process: [
       {
         title: "Identify the system",
-        description: "Confirm the vehicle, heater, controller, and reported fault behaviour.",
+        description:
+          "Confirm the vehicle, heater, controller, and reported fault behaviour.",
       },
       {
         title: "Inspect supporting systems",
-        description: "Review electrical, fuel, coolant, airflow, exhaust, and control concerns.",
+        description:
+          "Review electrical, fuel, coolant, airflow, exhaust, and control concerns.",
       },
       {
         title: "Service or install",
-        description: "Coordinate the required heater work and verify the completed system.",
+        description:
+          "Coordinate the required heater work and verify the completed system.",
       },
     ],
     faqs: [
@@ -944,7 +985,8 @@ export const serviceDepartmentPages: DepartmentPage[] = [
           "Provide the heater model, controller type, any fault code or flash pattern, ambient temperature, and a description of the start-up or shutdown behaviour.",
       },
       {
-        question: "Can heater service be combined with other truck maintenance?",
+        question:
+          "Can heater service be combined with other truck maintenance?",
         answer:
           "Yes. Mention other electrical, battery, coolant, or preventive-maintenance needs while booking so the visit can be planned efficiently.",
       },
@@ -1003,15 +1045,18 @@ export const serviceDepartmentPages: DepartmentPage[] = [
     process: [
       {
         title: "Define the application",
-        description: "Confirm what the truck needs to operate and how it will be used.",
+        description:
+          "Confirm what the truck needs to operate and how it will be used.",
       },
       {
         title: "Plan the system",
-        description: "Review component fit, hydraulics, controls, fabrication, and service access.",
+        description:
+          "Review component fit, hydraulics, controls, fabrication, and service access.",
       },
       {
         title: "Build and verify",
-        description: "Complete the approved installation and review system operation.",
+        description:
+          "Complete the approved installation and review system operation.",
       },
     ],
     faqs: [
@@ -1048,7 +1093,7 @@ export const serviceDepartmentPages: DepartmentPage[] = [
 export const mobileServicePages: DepartmentPage[] = [
   {
     department: "mobile",
-    group: "Roadside Response",
+    group: "Mobile Repairs",
     slug: "emergency-roadside-truck-repair",
     navTitle: "Emergency Roadside Repair",
     title: "24/7 Emergency Roadside Truck Repair",
@@ -1101,7 +1146,8 @@ export const mobileServicePages: DepartmentPage[] = [
     ],
     faqs: [
       {
-        question: "Is Munden's mobile service available after regular business hours?",
+        question:
+          "Is Munden's mobile service available after regular business hours?",
         answer:
           "Munden advertises 24/7 mobile service. Call 250-828-2268 with your location and unit details so the team can review the situation.",
       },
@@ -1131,6 +1177,180 @@ export const mobileServicePages: DepartmentPage[] = [
   {
     department: "mobile",
     group: "Mobile Repairs",
+    slug: "mobile-heavy-equipment-repair",
+    navTitle: "Heavy Equipment Repair",
+    title: "Mobile Heavy Equipment Repair",
+    eyebrow: "On-site repair support for working equipment",
+    description:
+      "Mobile assessment and repair support for construction, forestry, mining, and other heavy equipment around Kamloops and the BC Interior.",
+    intro:
+      "When heavy equipment stops at a jobsite, moving it before the concern is understood can add time and cost. Munden's mobile team can assess accessible systems where the equipment is located, complete suitable field work, and help plan shop service or transport when the repair needs a controlled environment.",
+    keywords: [
+      "mobile heavy equipment repair Kamloops",
+      "on-site equipment repair BC Interior",
+      "mobile construction and forestry equipment service",
+    ],
+    offeringsTitle: "Mobile heavy-equipment support",
+    offerings: [
+      "Engine, cooling, and visible fluid-leak assessment",
+      "Battery, starting, charging, and accessible electrical checks",
+      "Hydraulic hose, fitting, and accessible component assessment",
+      "Accessible driveline, control, and attachment concerns",
+      "Jobsite inspection notes and repair planning",
+      "Shop-service or transport recommendations when field work is not appropriate",
+    ],
+    preparationTitle: "Details that help prepare the service call",
+    preparationIntro:
+      "Accurate equipment, location, and safety information helps the mobile team understand the worksite and arrive prepared for the most likely concern.",
+    preparationItems: [
+      "Equipment year, make, model, serial number, and unit number",
+      "Exact jobsite location, access directions, and site contact",
+      "Operating hours and the affected function or attachment",
+      "Warning messages, fault codes, sounds, leaks, or recent symptoms",
+      "Photos or video taken from a safe position",
+      "Site-access, orientation, and safety requirements",
+    ],
+    process: [
+      {
+        title: "Describe the equipment and site",
+        description:
+          "Share the unit details, location, access conditions, safety requirements, and clearest available description of the fault.",
+      },
+      {
+        title: "Assess accessible systems",
+        description:
+          "The mobile team reviews the reported concern and inspects systems that can be reached and tested safely at the site.",
+      },
+      {
+        title: "Repair or plan follow-up",
+        description:
+          "Complete suitable field work or coordinate the shop, parts, transport, or deeper diagnosis needed for the next step.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What types of heavy equipment can Munden assess on site?",
+        answer:
+          "Munden provides mobile support for commercial trucks, trailers, and equipment. Call with the make, model, serial number, location, and concern so the team can confirm whether the unit and work are suitable for a mobile visit.",
+      },
+      {
+        question: "Can every heavy-equipment repair be completed in the field?",
+        answer:
+          "No. Access, site safety, weather, contamination control, parts, lifting needs, and the depth of diagnosis can make shop service or transport the better next step.",
+      },
+      {
+        question:
+          "What information is most useful before a mobile equipment call?",
+        answer:
+          "Provide equipment identification, operating hours, exact location, site-access details, the affected function, warning codes, recent work, and clear photos when they can be taken safely.",
+      },
+    ],
+    relatedSlugs: [
+      "scheduled-fleet-maintenance",
+      "mobile-hydraulic-leak-hose-service",
+      "mobile-engine-cooling-repair",
+    ],
+    relatedResources: [
+      "hydraulic-hose-warning-signs-small-leak-becomes-downtime",
+      "logging-truck-maintenance-notes-that-matter-after-rough-bush-roads",
+      "how-fleet-owners-can-prioritize-repairs-when-several-units-need-attention",
+    ],
+    image: {
+      src: "/images/equipment/590g-harvester.jpg",
+      alt: "EcoLog harvester working in a forest",
+    },
+    updatedAt: mobileUpdatedAt,
+  },
+  {
+    department: "mobile",
+    group: "Mobile Repairs",
+    slug: "scheduled-fleet-maintenance",
+    navTitle: "Scheduled Fleet Maintenance",
+    title: "Scheduled Mobile Fleet Maintenance",
+    eyebrow: "Planned on-site service for working fleets",
+    description:
+      "Coordinate scheduled mobile maintenance for commercial trucks, trailers, and equipment around Kamloops and the BC Interior.",
+    intro:
+      "Planned maintenance can help fleets group suitable work, use quieter operating windows, and identify shop repairs before they become urgent. Munden can review the units, site, maintenance needs, and downtime window to determine which work is appropriate to complete on site.",
+    keywords: [
+      "scheduled mobile fleet maintenance Kamloops",
+      "on-site commercial fleet service BC Interior",
+      "mobile preventive maintenance trucks and equipment",
+    ],
+    offeringsTitle: "Planned mobile maintenance support",
+    offerings: [
+      "Scheduled visual and operating-condition checks",
+      "Fluid, filter, and lubrication work where suitable",
+      "Battery, connection, lighting, and accessible electrical checks",
+      "Accessible air, brake, hose, and leak observations",
+      "Maintenance notes for each serviced unit",
+      "Planning for repairs that belong in the shop",
+    ],
+    preparationTitle: "What to organize before the appointment",
+    preparationIntro:
+      "A clear unit list, maintenance history, and worksite plan help the team group suitable work and identify anything that needs shop time or additional parts.",
+    preparationItems: [
+      "Fleet list with unit numbers, VINs or serial numbers, and current mileage or hours",
+      "Manufacturer maintenance schedules and requested service items",
+      "Recent inspection notes, driver reports, and known defects",
+      "Previous maintenance records and fluid or filter specifications",
+      "A safe, level work area with the required site access",
+      "Available downtime and the order in which units can be released",
+    ],
+    process: [
+      {
+        title: "Review the fleet and site",
+        description:
+          "Share the unit list, requested work, maintenance records, site conditions, and available service window.",
+      },
+      {
+        title: "Confirm the mobile work plan",
+        description:
+          "Identify which maintenance items are suitable on site and what parts, access, or follow-up may be required.",
+      },
+      {
+        title: "Service and document each unit",
+        description:
+          "Complete the planned mobile work and record concerns that should be scheduled for shop diagnosis or repair.",
+      },
+    ],
+    faqs: [
+      {
+        question:
+          "Can multiple fleet units be serviced during one mobile visit?",
+        answer:
+          "Potentially. The number of units and work completed depends on the service scope, site, parts, access, and available downtime. Provide a unit list so the team can help plan the visit.",
+      },
+      {
+        question: "Which maintenance work is suitable for mobile service?",
+        answer:
+          "Suitability depends on the unit, task, site safety, weather, access, waste handling, parts, and equipment required. Work that needs controlled inspection, lifting, or deeper diagnosis may be scheduled at the shop.",
+      },
+      {
+        question: "How often should fleet maintenance be scheduled?",
+        answer:
+          "Use the applicable manufacturer schedule, operating hours or mileage, duty cycle, inspection findings, and service history. Severe or remote operating conditions may require closer review.",
+      },
+    ],
+    relatedSlugs: [
+      "mobile-heavy-equipment-repair",
+      "emergency-roadside-truck-repair",
+      "mobile-engine-cooling-repair",
+    ],
+    relatedResources: [
+      "daily-walkaround-notes-that-make-preventive-maintenance-easier-to-schedule",
+      "how-fleet-owners-can-prioritize-repairs-when-several-units-need-attention",
+      "when-roadside-issue-belongs-mobile-service-and-when-it-belongs-in-the-shop",
+    ],
+    image: {
+      src: "/images/news/steering-suspension.jpg",
+      alt: "Close-up of a commercial engine accessory drive",
+    },
+    updatedAt: mobileUpdatedAt,
+  },
+  {
+    department: "mobile",
+    group: "Roadside Response",
     slug: "mobile-engine-cooling-repair",
     navTitle: "Engine & Cooling Repair",
     title: "Mobile Engine and Cooling-System Repair",
@@ -1212,7 +1432,7 @@ export const mobileServicePages: DepartmentPage[] = [
   },
   {
     department: "mobile",
-    group: "Mobile Repairs",
+    group: "Roadside Response",
     slug: "mobile-electrical-starting-repair",
     navTitle: "Electrical & Starting Repair",
     title: "Mobile Electrical and Starting-System Repair",
@@ -1294,7 +1514,7 @@ export const mobileServicePages: DepartmentPage[] = [
   },
   {
     department: "mobile",
-    group: "Mobile Repairs",
+    group: "Roadside Response",
     slug: "mobile-air-brake-wheel-end-repair",
     navTitle: "Air Brake & Wheel-End Repair",
     title: "Mobile Air Brake and Wheel-End Repair",
@@ -1376,7 +1596,7 @@ export const mobileServicePages: DepartmentPage[] = [
   },
   {
     department: "mobile",
-    group: "Mobile Repairs",
+    group: "Roadside Response",
     slug: "mobile-hydraulic-leak-hose-service",
     navTitle: "Hydraulic Leak & Hose Service",
     title: "Mobile Hydraulic Leak and Hose Service",
@@ -1494,9 +1714,21 @@ export const partsDepartmentPages: DepartmentPage[] = [
       "The truck application and symptom that led to the request",
     ],
     process: [
-      { title: "Gather identifiers", description: "Collect the VIN, serial tags, part numbers, and clear photos." },
-      { title: "Confirm the application", description: "Explain where the part is used and whether the unit has been modified." },
-      { title: "Review options", description: "Discuss available OEM or aftermarket options appropriate to the lookup." },
+      {
+        title: "Gather identifiers",
+        description:
+          "Collect the VIN, serial tags, part numbers, and clear photos.",
+      },
+      {
+        title: "Confirm the application",
+        description:
+          "Explain where the part is used and whether the unit has been modified.",
+      },
+      {
+        title: "Review options",
+        description:
+          "Discuss available OEM or aftermarket options appropriate to the lookup.",
+      },
     ],
     faqs: [
       {
@@ -1515,7 +1747,11 @@ export const partsDepartmentPages: DepartmentPage[] = [
           "Munden supplies OEM and aftermarket truck and equipment parts. Availability and suitable options depend on the specific application.",
       },
     ],
-    relatedSlugs: ["brake-safety-parts", "suspension-steering-parts", "filters-fluids-maintenance-parts"],
+    relatedSlugs: [
+      "brake-safety-parts",
+      "suspension-steering-parts",
+      "filters-fluids-maintenance-parts",
+    ],
     relatedResources: [
       "identify-truck-trailer-parts-before-calling-parts-counter",
       "parts-ordering-details-that-reduce-repeat-calls-and-wrong-fit-delays",
@@ -1559,9 +1795,19 @@ export const partsDepartmentPages: DepartmentPage[] = [
       "Photos of mounting, ports, connectors, and surrounding components",
     ],
     process: [
-      { title: "Identify the unit", description: "Provide the VIN, axle, and brake-system details available." },
-      { title: "Match the component", description: "Compare markings, dimensions, mounting, and application." },
-      { title: "Confirm the order", description: "Review the identified part and available supply options." },
+      {
+        title: "Identify the unit",
+        description:
+          "Provide the VIN, axle, and brake-system details available.",
+      },
+      {
+        title: "Match the component",
+        description: "Compare markings, dimensions, mounting, and application.",
+      },
+      {
+        title: "Confirm the order",
+        description: "Review the identified part and available supply options.",
+      },
     ],
     faqs: [
       {
@@ -1580,7 +1826,11 @@ export const partsDepartmentPages: DepartmentPage[] = [
           "Yes. If the unit needs diagnosis or installation, the Parts and Service departments can coordinate the next step.",
       },
     ],
-    relatedSlugs: ["engine-drivetrain-parts", "electrical-parts-components", "suspension-steering-parts"],
+    relatedSlugs: [
+      "engine-drivetrain-parts",
+      "electrical-parts-components",
+      "suspension-steering-parts",
+    ],
     relatedResources: [
       "air-brake-leak-clues-drivers-should-report-before-the-next-dispatch",
       "brake-shoe-and-drum-wear-signs-fleets-should-document-between-services",
@@ -1624,13 +1874,26 @@ export const partsDepartmentPages: DepartmentPage[] = [
       "Description of the circuit and diagnosed fault",
     ],
     process: [
-      { title: "Record the specification", description: "Collect ratings, connector details, labels, and unit information." },
-      { title: "Verify the match", description: "Compare application, mounting, electrical specification, and part number." },
-      { title: "Choose the next step", description: "Order the part or coordinate diagnostic help when the fault is not confirmed." },
+      {
+        title: "Record the specification",
+        description:
+          "Collect ratings, connector details, labels, and unit information.",
+      },
+      {
+        title: "Verify the match",
+        description:
+          "Compare application, mounting, electrical specification, and part number.",
+      },
+      {
+        title: "Choose the next step",
+        description:
+          "Order the part or coordinate diagnostic help when the fault is not confirmed.",
+      },
     ],
     faqs: [
       {
-        question: "Should I replace an electrical part based only on a fault code?",
+        question:
+          "Should I replace an electrical part based only on a fault code?",
         answer:
           "A fault code identifies an affected system but does not always prove that one component has failed. Diagnostic testing may be appropriate before ordering.",
       },
@@ -1645,7 +1908,11 @@ export const partsDepartmentPages: DepartmentPage[] = [
           "Yes. The Parts Department can review the information you have, and the Service Department can assist when diagnosis is required.",
       },
     ],
-    relatedSlugs: ["brake-safety-parts", "hydraulic-parts-hoses", "filters-fluids-maintenance-parts"],
+    relatedSlugs: [
+      "brake-safety-parts",
+      "hydraulic-parts-hoses",
+      "filters-fluids-maintenance-parts",
+    ],
     relatedResources: [
       "battery-alternator-starter-checks-before-a-truck-becomes-a-no-start",
       "what-repeated-blown-fuses-can-tell-you-about-an-electrical-fault",
@@ -1689,9 +1956,21 @@ export const partsDepartmentPages: DepartmentPage[] = [
       "Photos showing routing, mounting, and the full component",
     ],
     process: [
-      { title: "Identify the application", description: "Confirm the machine, function, pressure, fluid, and component involved." },
-      { title: "Compare specifications", description: "Review dimensions, threads, fittings, routing, and manufacturer markings." },
-      { title: "Coordinate supply or service", description: "Order the required item or involve the shop when diagnosis or installation is needed." },
+      {
+        title: "Identify the application",
+        description:
+          "Confirm the machine, function, pressure, fluid, and component involved.",
+      },
+      {
+        title: "Compare specifications",
+        description:
+          "Review dimensions, threads, fittings, routing, and manufacturer markings.",
+      },
+      {
+        title: "Coordinate supply or service",
+        description:
+          "Order the required item or involve the shop when diagnosis or installation is needed.",
+      },
     ],
     faqs: [
       {
@@ -1710,7 +1989,11 @@ export const partsDepartmentPages: DepartmentPage[] = [
           "Yes. If the failed component has not been identified, Munden's Service Department can investigate the hydraulic concern.",
       },
     ],
-    relatedSlugs: ["engine-drivetrain-parts", "electrical-parts-components", "filters-fluids-maintenance-parts"],
+    relatedSlugs: [
+      "engine-drivetrain-parts",
+      "electrical-parts-components",
+      "filters-fluids-maintenance-parts",
+    ],
     relatedResources: [
       "hydraulic-hose-warning-signs-small-leak-becomes-downtime",
       "parts-ordering-details-that-reduce-repeat-calls-and-wrong-fit-delays",
@@ -1754,13 +2037,26 @@ export const partsDepartmentPages: DepartmentPage[] = [
       "Description of wear, damage, ride height, or steering concern",
     ],
     process: [
-      { title: "Confirm the chassis", description: "Provide the VIN, axle, suspension, and component information available." },
-      { title: "Match dimensions", description: "Compare part numbers, measurements, mounting, and application." },
-      { title: "Coordinate the repair", description: "Order the component or arrange shop inspection and installation if needed." },
+      {
+        title: "Confirm the chassis",
+        description:
+          "Provide the VIN, axle, suspension, and component information available.",
+      },
+      {
+        title: "Match dimensions",
+        description:
+          "Compare part numbers, measurements, mounting, and application.",
+      },
+      {
+        title: "Coordinate the repair",
+        description:
+          "Order the component or arrange shop inspection and installation if needed.",
+      },
     ],
     faqs: [
       {
-        question: "Why are measurements sometimes required for suspension parts?",
+        question:
+          "Why are measurements sometimes required for suspension parts?",
         answer:
           "Wheelbase, axle, suspension package, previous modifications, and component options can vary, so dimensions help confirm the match.",
       },
@@ -1775,7 +2071,11 @@ export const partsDepartmentPages: DepartmentPage[] = [
           "Tire wear can have several causes. A shop inspection may be appropriate before ordering steering or suspension parts.",
       },
     ],
-    relatedSlugs: ["brake-safety-parts", "engine-drivetrain-parts", "filters-fluids-maintenance-parts"],
+    relatedSlugs: [
+      "brake-safety-parts",
+      "engine-drivetrain-parts",
+      "filters-fluids-maintenance-parts",
+    ],
     relatedResources: [
       "how-tire-wear-patterns-help-diagnose-larger-truck-and-trailer-issues",
       "kingpin-and-suspension-wear-clues-that-show-up-during-everyday-driving",
@@ -1819,9 +2119,21 @@ export const partsDepartmentPages: DepartmentPage[] = [
       "Fluid specification and required quantity",
     ],
     process: [
-      { title: "Build the unit list", description: "Record each vehicle or machine and its component details." },
-      { title: "Confirm specifications", description: "Match filters, fluids, belts, hoses, seals, and kits to the application." },
-      { title: "Plan the order", description: "Organize the required items for pickup, supply, or coordinated service work." },
+      {
+        title: "Build the unit list",
+        description:
+          "Record each vehicle or machine and its component details.",
+      },
+      {
+        title: "Confirm specifications",
+        description:
+          "Match filters, fluids, belts, hoses, seals, and kits to the application.",
+      },
+      {
+        title: "Plan the order",
+        description:
+          "Organize the required items for pickup, supply, or coordinated service work.",
+      },
     ],
     faqs: [
       {
@@ -1835,12 +2147,17 @@ export const partsDepartmentPages: DepartmentPage[] = [
           "Different components and operating conditions may require different specifications. Use the applicable manufacturer guidance rather than selecting by viscosity or colour alone.",
       },
       {
-        question: "Can maintenance parts be coordinated with a shop appointment?",
+        question:
+          "Can maintenance parts be coordinated with a shop appointment?",
         answer:
           "Yes. The Parts and Service departments can coordinate required service items when maintenance is being completed at Munden.",
       },
     ],
-    relatedSlugs: ["engine-drivetrain-parts", "electrical-parts-components", "hydraulic-parts-hoses"],
+    relatedSlugs: [
+      "engine-drivetrain-parts",
+      "electrical-parts-components",
+      "hydraulic-parts-hoses",
+    ],
     relatedResources: [
       "parts-ordering-details-that-reduce-repeat-calls-and-wrong-fit-delays",
       "how-to-prepare-a-truck-or-trailer-for-a-productive-shop-visit",

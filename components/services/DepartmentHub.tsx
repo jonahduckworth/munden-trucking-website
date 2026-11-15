@@ -103,7 +103,7 @@ export function DepartmentHub({ kind }: DepartmentHubProps) {
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Button size="lg" asChild>
-                <a href="tel:+12508282268">
+                <a href="tel:+12508282268" className="whitespace-nowrap">
                   <Phone className="mr-2 h-4 w-4" />
                   Call 250-828-2268
                 </a>
@@ -145,10 +145,7 @@ export function DepartmentHub({ kind }: DepartmentHubProps) {
                       <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                         <Icon className="h-5 w-5" aria-hidden="true" />
                       </span>
-                      <h2
-                        id={sectionId}
-                        className="text-2xl font-semibold"
-                      >
+                      <h2 id={sectionId} className="text-2xl font-semibold">
                         {group.name}
                       </h2>
                     </div>
