@@ -139,7 +139,7 @@ export function DepartmentDetailPage({ page }: DepartmentDetailPageProps) {
             </div>
 
             {page.image && (
-              <figure className="relative mt-10 aspect-[16/7] min-h-64 overflow-hidden rounded-2xl border bg-muted shadow-sm">
+              <figure className="relative mt-10 aspect-[4/3] overflow-hidden rounded-2xl border bg-muted shadow-sm sm:aspect-[16/7]">
                 <Image
                   src={page.image.src}
                   alt={page.image.alt}

@@ -180,6 +180,16 @@ test("mobile service categories and new landing pages match the approved structu
     await expect(
       page.getByText("Industry partners", { exact: true }),
     ).toBeVisible();
+    await page.locator("figure img").evaluate((image: HTMLImageElement) => {
+      if (image.complete && image.naturalWidth > 0) {
+        return true;
+      }
+
+      return new Promise((resolve, reject) => {
+        image.addEventListener("load", () => resolve(true), { once: true });
+        image.addEventListener("error", reject, { once: true });
+      });
+    });
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
