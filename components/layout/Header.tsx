@@ -237,24 +237,10 @@ export default function Header({
               >
                 View all shop services
               </MobileHubLink>
-              {serviceGroups.map((group) => (
-                <div key={group.name} className="mt-4">
-                  <p className="px-3 text-xs font-semibold uppercase tracking-wider text-white/60">
-                    {group.name}
-                  </p>
-                  <div className="mt-1 space-y-1">
-                    {group.pages.map((page) => (
-                      <MobileLink
-                        key={page.href}
-                        href={page.href}
-                        onNavigate={closeMobileMenu}
-                      >
-                        {page.title}
-                      </MobileLink>
-                    ))}
-                  </div>
-                </div>
-              ))}
+              <MobileNavigationGroups
+                groups={serviceGroups}
+                onNavigate={closeMobileMenu}
+              />
             </MobileDisclosure>
 
             <MobileDisclosure
@@ -269,24 +255,10 @@ export default function Header({
               >
                 View all mobile services
               </MobileHubLink>
-              {mobileGroups.map((group) => (
-                <div key={group.name} className="mt-4">
-                  <p className="px-3 text-xs font-semibold uppercase tracking-wider text-white/60">
-                    {group.name}
-                  </p>
-                  <div className="mt-1 space-y-1">
-                    {group.pages.map((page) => (
-                      <MobileLink
-                        key={page.href}
-                        href={page.href}
-                        onNavigate={closeMobileMenu}
-                      >
-                        {page.title}
-                      </MobileLink>
-                    ))}
-                  </div>
-                </div>
-              ))}
+              <MobileNavigationGroups
+                groups={mobileGroups}
+                onNavigate={closeMobileMenu}
+              />
             </MobileDisclosure>
 
             <MobileDisclosure
@@ -301,24 +273,10 @@ export default function Header({
               >
                 View all parts categories
               </MobileHubLink>
-              {partsGroups.map((group) => (
-                <div key={group.name} className="mt-4">
-                  <p className="px-3 text-xs font-semibold uppercase tracking-wider text-white/60">
-                    {group.name}
-                  </p>
-                  <div className="mt-1 space-y-1">
-                    {group.pages.map((page) => (
-                      <MobileLink
-                        key={page.href}
-                        href={page.href}
-                        onNavigate={closeMobileMenu}
-                      >
-                        {page.title}
-                      </MobileLink>
-                    ))}
-                  </div>
-                </div>
-              ))}
+              <MobileNavigationGroups
+                groups={partsGroups}
+                onNavigate={closeMobileMenu}
+              />
             </MobileDisclosure>
 
             <MobileDisclosure
@@ -560,19 +518,60 @@ function MobileLink({
   href,
   onNavigate,
   children,
+  className,
 }: {
   href: string;
   onNavigate: () => void;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
     <Link
       href={href}
-      className="flex min-h-11 items-center rounded-md px-3 py-2 text-sm text-white/90 outline-none hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-white dark:text-foreground"
+      className={cn(
+        "flex min-h-11 items-center rounded-md px-3 py-2 text-sm text-white/90 outline-none hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-white dark:text-foreground",
+        className,
+      )}
       onClick={onNavigate}
     >
       {children}
     </Link>
+  );
+}
+
+function MobileNavigationGroups({
+  groups,
+  onNavigate,
+}: {
+  groups: HeaderNavigationGroup[];
+  onNavigate: () => void;
+}) {
+  return (
+    <div className="mt-4 space-y-3">
+      {groups.map((group) => (
+        <section
+          key={group.name}
+          aria-label={group.name}
+          className="overflow-hidden rounded-lg border border-white/20 bg-black/10"
+        >
+          <div className="border-b border-white/15 bg-white/10 px-3 py-2.5 text-sm font-bold uppercase tracking-wider text-white">
+            {group.name}
+          </div>
+          <div className="divide-y divide-white/10">
+            {group.pages.map((page) => (
+              <MobileLink
+                key={page.href}
+                href={page.href}
+                onNavigate={onNavigate}
+                className="rounded-none"
+              >
+                {page.title}
+              </MobileLink>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
   );
 }
 
