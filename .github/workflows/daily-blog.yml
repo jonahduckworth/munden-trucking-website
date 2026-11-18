@@ -2,7 +2,8 @@ name: Weekly AI Blog
 
 on:
   schedule:
-    - cron: "30 12 * * 1"
+    # Thursday 09:30 Kamloops time (British Columbia Pacific time, UTC-7).
+    - cron: "30 16 * * 4"
   workflow_dispatch:
     inputs:
       dry_run:
