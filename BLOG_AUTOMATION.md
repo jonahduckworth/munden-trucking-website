@@ -28,7 +28,7 @@ Do not commit API keys to the repo. For local testing, add the key to `.env.loca
 
 ## Weekly Workflow
 
-The workflow in `.github/workflows/daily-blog.yml` runs every Monday at `12:30 UTC`, which is early morning in Alberta depending on daylight savings time. Its filename is retained to preserve the existing workflow path and history.
+The workflow in `.github/workflows/daily-blog.yml` runs every Thursday at `17:00 UTC` (`0 17 * * 4`), which is 10:00 a.m. in Kamloops, British Columbia (permanent UTC−07:00). Its filename is retained to preserve the existing workflow path and history.
 
 Each run:
 
@@ -42,6 +42,10 @@ Each run:
 8. Validates the post for safety, duplicate topics, required sources, internal links, and markdown-only content.
 9. Builds the site.
 10. Commits the new markdown file and generated image back to the repository.
+
+## No-publication workflow check
+
+Use `workflow_dispatch` with `dry_run=true` and leave `date`, `backfill_from`, and `backfill_to` empty. This generates and validates one current-date draft using the existing GitHub Actions secrets and makes billed API calls, but returns before writing the article or creating an image. The workflow skips its commit/push step, so the draft is not published. It still validates the existing library, lints, and builds. A dry run does not replace or suppress the normal Thursday publishing recurrence, and does not perform a catch-up backfill.
 
 ## Local Commands
 

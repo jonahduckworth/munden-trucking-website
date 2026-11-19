@@ -31,9 +31,9 @@ const blogWorkflowSource = fs.readFileSync(
   "utf8",
 );
 
-test("the scheduled workflow publishes one post each week", () => {
+test("the scheduled workflow publishes one post on Thursdays at 10:00 Kamloops time", () => {
   assert.match(blogWorkflowSource, /name: Weekly AI Blog/);
-  assert.match(blogWorkflowSource, /cron: "30 12 \* \* 1"/);
+  assert.match(blogWorkflowSource, /cron: "0 17 \* \* 4"/);
   assert.match(blogWorkflowSource, /else\n\s+npm run blog:generate\n\s+fi/);
 });
 
